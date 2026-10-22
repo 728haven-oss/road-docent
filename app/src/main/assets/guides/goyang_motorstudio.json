@@ -303,11 +303,63 @@
       }
     }
   ],
-  "creatorCourses": [],
+  "creatorCourses": [
+    {
+      "creator": "박준형의 CARTUREMAN 칼쳐맨",
+      "platform": "youtube",
+      "title": {
+        "ko": "현대 모터스튜디오 고양 : 차쟁이들의 놀이동산",
+        "en": "Hyundai Motorstudio Goyang: a car lover's theme park"
+      },
+      "stops": [
+        "motorstudio_goyang"
+      ],
+      "quote": {
+        "ko": "'자동차 마니아부터 아이 동반 가족까지 환장할 대규모 모빌리티 복합 공간' — 1층 쉐어마켓 → 쇼케이스 → Into the Car → 4D 라이드 → 포니 시승",
+        "en": "Share market → showcase → Into the Car → 4D ride → Pony heritage drive"
+      },
+      "url": "https://www.youtube.com/watch?v=0E-bHrYbNvA"
+    },
+    {
+      "creator": "너도 가봤으면 해",
+      "platform": "youtube",
+      "title": {
+        "ko": "일산맛집·일산호수공원 알고 가면 후회 없음 · 서울근교여행",
+        "en": "Ilsan Lake Park and food, Seoul day trip"
+      },
+      "stops": [
+        "ilsan_lake",
+        "onemount"
+      ],
+      "quote": {
+        "ko": "호수공원 효율 동선 → 원마운트 맛집 → 일산가로수길 카페 → 웨스턴돔 → 라페스타",
+        "en": "Lake park route → One Mount → Ilsan cafe street → Western Dom → La Festa"
+      },
+      "url": "https://www.youtube.com/watch?v=3_sBemTm4Z8"
+    },
+    {
+      "creator": "경기관광 (경기관광공사)",
+      "platform": "youtube",
+      "title": {
+        "ko": "[런트립 EP.04] 서울역에서 20분, 고양 일산호수공원 러닝",
+        "en": "Run trip: Ilsan Lake Park"
+      },
+      "stops": [
+        "kintex",
+        "ilsan_lake"
+      ],
+      "quote": {
+        "ko": "'서울역에서 20분이면 도착하는 킨텍스역 근처' — 넓고 평탄해 달리기 최고의 코스",
+        "en": "'20 minutes from Seoul Station to KINTEX' — wide, flat, a great running course"
+      },
+      "url": "https://www.youtube.com/watch?v=PvFkbtVtr-U"
+    }
+  ],
   "dataSources": [
     "현대자동차그룹 공식 연혁·뉴스룸",
     "현대모터스튜디오 고양 안내",
     "고양시 관광 정보",
-    "한강하구 습지보호지역(환경부)"
+    "한강하구 습지보호지역(환경부)",
+    "유튜브 크리에이터 코스(칼쳐맨·너도 가봤으면 해·경기관광) — 2026.10 확인"
   ]
 }

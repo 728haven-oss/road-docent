@@ -153,6 +153,21 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
         }
 
         if (audience == Audience.KIDS && phase is DocentPhase.Guiding) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
+        val courses = engine.guide?.creatorCourses.orEmpty()
+        if (courses.isNotEmpty() && (phase is DocentPhase.Briefing || phase is DocentPhase.WhereNext)) {
+            Spacer(Modifier.height(12.dp))
+            Panel(Modifier.fillMaxWidth()) {
+                Text(if (lang == Lang.KO) "🎬 크리에이터 코스 따라가기" else "🎬 Follow a creator's course", color = Ink, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                    courses.take(3).forEach { c ->
+                        Column(Modifier.weight(1f)) {
+                            Text("${c.creator} · ${c.platform}", color = Quiet, fontSize = 12.sp, maxLines = 1)
+                            Text(c.title[lang.tag] ?: c.title.values.first(), color = Ink, fontSize = 14.sp, maxLines = 2)
+                        }
+                    }
+                }
+            }
+        }
 
         Spacer(Modifier.height(12.dp))
         DemoBar(vm, lang, audience)

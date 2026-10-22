@@ -365,6 +365,77 @@
     "한국관광공사 TourAPI",
     "한국도로공사 휴게소 정보",
     "평창군 / 2018 평창동계올림픽",
-    "강릉시 오죽헌 자료"
+    "강릉시 오죽헌 자료",
+    "유튜브 크리에이터 코스(히제이·유일랜드·할명수·한국관광공사TV) — 2026.10 확인"
+  ],
+  "creatorCourses": [
+    {
+      "creator": "히제이 HEEJ",
+      "platform": "youtube",
+      "title": {
+        "ko": "강릉 여행 핫플 30곳 · 지도로 보는 2026 강릉여행 총정리",
+        "en": "30 Gangneung spots by zone (2025)"
+      },
+      "stops": [
+        "anmok",
+        "gyeongpo_pine",
+        "ojukheon"
+      ],
+      "quote": {
+        "ko": "오죽헌은 '검은 대나무가 품은 어머니와 아들의 시간', 중앙시장은 '삶의 온기가 오가는 골목'",
+        "en": "Ojukheon: 'the time of a mother and son held by black bamboo'"
+      },
+      "url": "https://www.youtube.com/watch?v=jcsvv9nrivA"
+    },
+    {
+      "creator": "유일랜드 Uiland",
+      "platform": "youtube",
+      "title": {
+        "ko": "강릉 뚜벅이 당일치기 여행코스 Best 10",
+        "en": "Gangneung day trip, 10 stops"
+      },
+      "stops": [
+        "gyeongpo_pine",
+        "ojukheon",
+        "anmok"
+      ],
+      "quote": {
+        "ko": "경포해변 → 경포대 → 오죽헌 → 안목해변 순서로 하루에 다 돈다",
+        "en": "Gyeongpo beach → Gyeongpodae → Ojukheon → Anmok in one day"
+      },
+      "url": "https://www.youtube.com/watch?v=pQwnc-50uMg"
+    },
+    {
+      "creator": "할명수 (박명수)",
+      "platform": "youtube",
+      "title": {
+        "ko": "강릉 반일치기 오픈런 맛집 · 할명수 ep.271",
+        "en": "Half-day Gangneung food run"
+      },
+      "stops": [
+        "anmok"
+      ],
+      "quote": {
+        "ko": "안목해변 카페거리와 중앙시장 감자빵, 금학칼국수까지 반나절 먹방 코스",
+        "en": "Anmok coffee street, market potato bread, kalguksu in half a day"
+      },
+      "url": "https://www.youtube.com/watch?v=L0dF26iHv8Q"
+    },
+    {
+      "creator": "한국관광공사TV",
+      "platform": "youtube",
+      "title": {
+        "ko": "강릉 핫플 다 모았다! 1박 2일 강릉여행 & 사진스팟 & 맛집",
+        "en": "Gangneung 2-day hot spots (KTO official)"
+      },
+      "stops": [
+        "gyeongpo_pine"
+      ],
+      "quote": {
+        "ko": "경포생태저류지 메타세콰이어길 — '여기 이탈리아 토스카나인가요?'",
+        "en": "Gyeongpo wetland metasequoia road: 'is this Tuscany?'"
+      },
+      "url": "https://www.youtube.com/watch?v=oMGhScc-jL4"
+    }
   ]
 }

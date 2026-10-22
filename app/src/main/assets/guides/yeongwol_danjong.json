@@ -340,6 +340,77 @@
         "en": "This is the river the king crossed by raft in the film"
       },
       "url": ""
+    },
+    {
+      "creator": "걸어서토요일",
+      "platform": "youtube",
+      "title": {
+        "ko": "영화 '왕과 사는 남자' 영월 촬영지 당일치기 코스 (청령포·장릉·선돌)",
+        "en": "Film-location day trip: Cheongnyeongpo, Jangneung, Seondol"
+      },
+      "stops": [
+        "cheongnyeongpo",
+        "jangneung"
+      ],
+      "quote": {
+        "ko": "청령포는 배 이동 시간이 있어 여유 있게, 장릉은 조용히 산책, 선돌은 일몰 풍경 추천",
+        "en": "Allow time for the boat at Cheongnyeongpo; Jangneung for a quiet walk; Seondol at sunset"
+      },
+      "url": "https://www.youtube.com/watch?v=FT99PEPlfMM"
+    },
+    {
+      "creator": "동네형",
+      "platform": "youtube",
+      "title": {
+        "ko": "소나무가 한 방향으로 절하는 이유… 영월 여행 TOP 5",
+        "en": "Why the pines bow one way: Yeongwol top 5"
+      },
+      "stops": [
+        "cheongnyeongpo",
+        "jangneung",
+        "gwanpungheon"
+      ],
+      "quote": {
+        "ko": "청령포의 소나무 수천 그루가 단종의 거처를 향해 절하듯 굽어 있다",
+        "en": "Thousands of pines at Cheongnyeongpo bend toward the king's residence as if bowing"
+      },
+      "url": "https://www.youtube.com/watch?v=TBf5oW9mgg0"
+    },
+    {
+      "creator": "가빈 gabin",
+      "platform": "youtube",
+      "title": {
+        "ko": "왕사남 보고 떠나 펭수도 만난 영월 당일치기 · 단종 코스",
+        "en": "Danjong course with Yeongwol food stops"
+      },
+      "stops": [
+        "cheongnyeongpo",
+        "gwanpungheon",
+        "jangneung"
+      ],
+      "quote": {
+        "ko": "청령포 → 순두부 → 소금빵 → 서부시장 닭강정 → 관풍헌 → 장릉 → 엄흥도 기념관 → 선돌",
+        "en": "Cheongnyeongpo → tofu → salt bread → market chicken → Gwanpungheon → Jangneung → Seondol"
+      },
+      "url": "https://www.youtube.com/watch?v=MWNzpDrVQ3A"
+    },
+    {
+      "creator": "강쥐G",
+      "platform": "youtube",
+      "title": {
+        "ko": "왕사남 보고 백성 된 자, 나혼자 영월 여행 vlog · 단종코스",
+        "en": "Solo Yeongwol vlog after the film"
+      },
+      "stops": [
+        "cheongnyeongpo",
+        "jangneung",
+        "gwanpungheon"
+      ],
+      "quote": {
+        "ko": "청령포 → 장릉 → 장릉보리밥집 → 세심다원 → 관풍헌 → 일미닭강정, 이튿날 다슬기해장국과 선돌",
+        "en": "Day 1 Cheongnyeongpo → Jangneung → barley rice → tea house → Gwanpungheon; day 2 snail soup and Seondol"
+      },
+      "url": "https://www.youtube.com/watch?v=7Rqs5qFNUPw"
     }
   ],
   "dataSources": [
@@ -347,6 +418,7 @@
     "영월군 관광·장릉 안내",
     "한국관광공사 TourAPI",
     "경향신문 2026.3.14 영월 여행 기사",
-    "헤럴드경제 2026.3.8 (경북 촬영지)"
+    "헤럴드경제 2026.3.8 (경북 촬영지)",
+    "유튜브 크리에이터 코스(걸어서토요일·동네형·가빈·강쥐G) — 2026.10 확인"
   ]
 }

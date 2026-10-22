@@ -460,24 +460,6 @@
   ],
   "creatorCourses": [
     {
-      "creator": "여행 크리에이터 코스 (예시)",
-      "platform": "youtube",
-      "title": {
-        "ko": "한복 입고 경복궁 → 북촌 → 통인시장 반나절",
-        "en": "Half day in hanbok: palace → Bukchon → Tongin Market"
-      },
-      "stops": [
-        "gyeongbokgung",
-        "bukchon",
-        "tongin"
-      ],
-      "quote": {
-        "ko": "경회루는 연못 건너편에서 찍어야 해요",
-        "en": "Shoot Gyeonghoeru from across the pond"
-      },
-      "url": ""
-    },
-    {
       "creator": "넷플릭스 '흑백요리사'",
       "platform": "tv",
       "title": {
@@ -495,6 +477,89 @@
         "en": "Eat the dishes you saw on the show. Most need reservations, so the arrival briefing checks booking first"
       },
       "url": "https://www.netflix.com/title/81728365"
+    },
+    {
+      "creator": "GAMJA IN SEOUL (영어 공인 가이드)",
+      "platform": "youtube",
+      "title": {
+        "ko": "Licensed Tour Guide Reveals: The Dark History & Secrets of Gyeongbokgung",
+        "en": "경복궁의 역사와 비밀 — 공인 가이드 영어 투어"
+      },
+      "stops": [
+        "gyeongbokgung",
+        "bukchon"
+      ],
+      "quote": {
+        "ko": "'서울에 오후 하나뿐이라면 내 답은 언제나 경복궁' · 화요일 휴무, 한복 무료, 북촌 통행 시간 10~17시",
+        "en": "'If you only have one afternoon in Seoul, my answer is always Gyeongbokgung.' Closed Tuesdays, free in hanbok, Bukchon 10:00–17:00"
+      },
+      "url": "https://www.youtube.com/watch?v=Zh0nkue4bxA"
+    },
+    {
+      "creator": "GAMJA IN SEOUL",
+      "platform": "youtube",
+      "title": {
+        "ko": "Bukchon Hanok Village COMPLETE Walking Tour · 8 Scenic Views",
+        "en": "북촌 8경 완전 도보 투어"
+      },
+      "stops": [
+        "bukchon"
+      ],
+      "quote": {
+        "ko": "'대부분 관광객은 북촌에서 20분 머물고 사진 두 장 찍고 떠난다' — 안국역에서 시작",
+        "en": "'Most tourists spend 20 minutes in Bukchon and leave with a photo or two.' Start at Anguk station"
+      },
+      "url": "https://www.youtube.com/watch?v=SekBNDkFpDE"
+    },
+    {
+      "creator": "livewithshannon",
+      "platform": "youtube",
+      "title": {
+        "ko": "A Day Wandering Through Seoul · Bukchon, Gwanghwamun & Namdaemun",
+        "en": "북촌·광화문·남대문 하루"
+      },
+      "stops": [
+        "bukchon",
+        "namdaemun_market"
+      ],
+      "quote": {
+        "ko": "북촌 골목, 광화문광장, 남대문시장 먹거리 — 완전히 다른 분위기 세 곳을 하루에",
+        "en": "Bukchon alleys, Gwanghwamun Square and Namdaemun food stalls in one day"
+      },
+      "url": "https://www.youtube.com/watch?v=MqwyrvtGxfc"
+    },
+    {
+      "creator": "너도 가봤으면 해",
+      "platform": "youtube",
+      "title": {
+        "ko": "서촌·경복궁·청계천 맛집 놀거리 꿀팁 · 종로 2박3일 Day1",
+        "en": "Seochon, palace photo spots, Pimatgol"
+      },
+      "stops": [
+        "tongin",
+        "gyeongbokgung"
+      ],
+      "quote": {
+        "ko": "서촌 골목 → 세종대왕 탄생 마을 → 경복궁 포토존 5곳 → 근처 무료 관람 3곳 → 피맛골 맛집",
+        "en": "Seochon alleys → King Sejong's birthplace → 5 palace photo spots → 3 free sites → Pimatgol"
+      },
+      "url": "https://www.youtube.com/watch?v=bazZuNZ8jCw"
+    },
+    {
+      "creator": "Wanderlust Wellman",
+      "platform": "youtube",
+      "title": {
+        "ko": "Gyeongbokgung Tour & Guide · hanbok rental",
+        "en": "한복 입고 경복궁"
+      },
+      "stops": [
+        "gyeongbokgung"
+      ],
+      "quote": {
+        "ko": "한복 대여는 '한국 문화를 경험하는 마법 같은 방법'",
+        "en": "Renting hanbok 'was a magical way to experience Korean culture'"
+      },
+      "url": "https://www.youtube.com/watch?v=qKMv15mYJkY"
     }
   ],
   "dataSources": [
@@ -502,6 +567,7 @@
     "한국관광공사 TourAPI (다국어)",
     "서울시 관광 정보",
     "도로교통공단 외국인 운전 안내",
-    "넷플릭스 흑백요리사 출연 셰프 식당(상호·주소는 제출 전 최신 확인)"
+    "넷플릭스 흑백요리사 출연 셰프 식당(상호·주소는 제출 전 최신 확인)",
+    "유튜브 크리에이터 코스(GAMJA IN SEOUL·livewithshannon·너도 가봤으면 해·Wanderlust Wellman) — 2026.10 확인"
   ]
 }

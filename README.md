@@ -78,6 +78,11 @@ app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키�
 - API 키는 APK에 넣지 않습니다. `DocentViewModel`의 `VoiceCloneClient(apiKey = ...)`에 설정 화면/BuildConfig로 주입하세요. (ElevenLabs 기준 엔드포인트, Typecast·Azure Personal Voice로 교체 가능)
 - 안전장치: 첫 문장은 본인 동의 낭독(도용 방지), 14세 미만은 보호자 동의 체크 필수, 모델 생성 후 원본 녹음 삭제, 복제 음성은 가이드 대본에만 사용, 언제든 삭제
 
+## 크리에이터 코스 (실제 영상 기준)
+각 가이드 JSON의 `creatorCourses`에는 실제로 공개된 여행 영상의 코스가 들어 있습니다 (2026-10-22 기준 YouTube에서 제목·업로드일·설명의 방문 순서를 확인한 것만 수록).
+강릉: 히제이, 유일랜드, 할명수, 한국관광공사TV · 영월: 걸어서토요일, 동네형, 가빈, 강쥐G · 경복궁: GAMJA IN SEOUL, livewithshannon, 너도 가봤으면 해, Wanderlust Wellman · 고양: 칼쳐맨(박준형), 너도 가봤으면 해, 경기관광.
+앱은 도착 전 브리핑과 재탑승 화면에서 이 코스를 보여 주고, 각 장소에서 해당 크리에이터의 한마디를 인용합니다. 상용 서비스에서는 크리에이터 등록·제휴로 확장합니다.
+
 ## 콘텐츠 출처
 가이드 JSON의 각 에피소드에 `source` 가 있고, 가이드 끝에 `dataSources` 목록이 있습니다.
 문화체육관광부·국가유산청, 한국관광공사 TourAPI, 지자체 관광 정보, 현대자동차그룹 공식 연혁, 영화·TV 촬영지 공개 자료, 크리에이터 코스.
