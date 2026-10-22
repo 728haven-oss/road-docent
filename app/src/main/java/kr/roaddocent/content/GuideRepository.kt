@@ -45,5 +45,10 @@ class GuideRepository(private val context: Context) {
     }
     fun all(): List<Guide> = available().sorted().map { load(it) }
 
+    // Overlay guides (assets/overlays/<id>.json) layer on top of any destination guide, e.g. new-car onboarding.
+    fun loadOverlay(id: String): Guide? = runCatching {
+        context.assets.open("overlays/$id.json").bufferedReader().use { json.decodeFromString(Guide.serializer(), it.readText()) }
+    }.getOrNull()
+
     fun available(): List<String> = context.assets.list("guides")?.map { it.removeSuffix(".json") } ?: emptyList()
 }

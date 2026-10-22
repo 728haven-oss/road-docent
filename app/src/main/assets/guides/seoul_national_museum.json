@@ -1,0 +1,522 @@
+{
+  "id": "seoul_national_museum",
+  "destination": {
+    "id": "national_museum",
+    "name": {
+      "ko": "국립중앙박물관",
+      "en": "National Museum of Korea"
+    },
+    "point": {
+      "lat": 37.524,
+      "lon": 126.9803
+    },
+    "address": "서울 용산구 서빙고로 137",
+    "phone": "02-2077-9000",
+    "category": "museum",
+    "typicalStayMin": 150,
+    "note": {
+      "ko": "상설전시 무료 · 사유의 방 · 어린이박물관은 온라인 예약 · 2시간 반",
+      "en": "Permanent galleries free · Room of Quiet Contemplation · Children's Museum needs online booking · 2.5 h"
+    },
+    "onArrival": {
+      "ko": [
+        "주차: 박물관 지하 주차장(서빙고로 입구). 주말 11시 이후 만차가 잦으니 이촌역 쪽 공영주차장을 대안으로",
+        "입장: 상설전시·사유의 방은 무료, 매표 없이 바로. 특별전만 유료. 1월 1일·설·추석 당일 휴관, 수·토는 밤 9시까지",
+        "순서(2시간 반): 1층 으뜸홀의 경천사 십층석탑을 올려다보고 → 2층 '사유의 방' 반가사유상 두 점 → 1층 선사·고대관의 신라 금관 → 3층 불교조각·도자기 → 야외 석조물 정원",
+        "사유의 방은 조용한 방이라 아이에게 미리 '속삭이기' 약속. 입구에서 신발 소리를 줄이고 5분만 가만히 보기",
+        "어린이박물관(별관)은 회차제 온라인 예약. 당일 현장 잔여분도 있지만 주말엔 거의 없음. 지금 예약 페이지를 열어 드릴까요?",
+        "꼭 볼 것: 경천사 십층석탑(1층, 13.5미터), 반가사유상(2층), 황남대총 금관(1층), 달항아리(3층), 야외 보신각 옛 종",
+        "뮤지엄숍: 반가사유상 미니어처는 품절이 잦음. 2층 숍에서 먼저 재고 확인",
+        "점심: 박물관 안 식당·카페(거울못 옆 '미르'), 또는 차로 5분 이촌동 일식·한식 골목",
+        "머무는 시간: 보통 2시간 반. 어린이박물관까지 보면 4시간"
+      ],
+      "en": [
+        "Parking: underground lot via Seobinggo-ro. Often full after 11 on weekends; the public lot near Ichon station is plan B",
+        "Entry: permanent galleries and the Room of Quiet Contemplation are free, no ticket needed. Only special exhibitions charge. Closed Jan 1, Lunar New Year and Chuseok day; open until 9 pm Wed and Sat",
+        "Order (2.5 h): look up at the ten-storey Gyeongcheonsa pagoda in the main hall → 2F Room of Quiet Contemplation, two pensive bodhisattvas → 1F Silla gold crown → 3F Buddhist sculpture and ceramics → outdoor stone garden",
+        "The Room of Quiet Contemplation is a silent room: agree a 'whisper only' rule with kids, soften your steps, and give it five quiet minutes",
+        "Children's Museum (separate wing) runs timed sessions booked online; same-day walk-ins are rare on weekends. Want me to open the booking page?",
+        "Must-see: Gyeongcheonsa pagoda (1F, 13.5 m), pensive bodhisattvas (2F), Hwangnam gold crown (1F), moon jar (3F), the old Bosingak bell outside",
+        "Museum shop: the miniature pensive bodhisattva sells out often; check stock at the 2F shop first",
+        "Lunch: museum restaurant and cafe by the mirror pond, or Ichon-dong's Japanese and Korean places 5 min by car",
+        "Stay: usually 2.5 hours; 4 with the Children's Museum"
+      ]
+    }
+  },
+  "startName": {
+    "ko": "경복궁",
+    "en": "Gyeongbokgung Palace"
+  },
+  "intro": {
+    "ko": "경복궁에서 본 궁궐의 '집'을 봤다면, 박물관은 그 집에 있던 '물건'을 보는 곳이에요. 왕관, 탑, 그리고 1400년 된 미소까지.",
+    "en": "At the palace you saw the king's house; at the museum you see what was in it: a crown, a pagoda, and a 1,400-year-old smile."
+  },
+  "route": [
+    {
+      "lat": 37.5796,
+      "lon": 126.977
+    },
+    {
+      "lat": 37.572,
+      "lon": 126.9768
+    },
+    {
+      "lat": 37.5665,
+      "lon": 126.978
+    },
+    {
+      "lat": 37.56,
+      "lon": 126.9753
+    },
+    {
+      "lat": 37.5547,
+      "lon": 126.9707
+    },
+    {
+      "lat": 37.542,
+      "lon": 126.972
+    },
+    {
+      "lat": 37.532,
+      "lon": 126.969
+    },
+    {
+      "lat": 37.5262,
+      "lon": 126.9735
+    },
+    {
+      "lat": 37.524,
+      "lon": 126.9803
+    }
+  ],
+  "driveMin": 25,
+  "episodes": [
+    {
+      "id": "start",
+      "title": {
+        "ko": "궁에서 박물관으로 · 왕의 물건들은 어디로 갔을까",
+        "en": "From palace to museum: where did the king's things go?"
+      },
+      "text": {
+        "ko": "국립중앙박물관까지 25분이에요. 방금 보신 경복궁은 건물은 남았지만 안에 있던 물건은 거의 없었죠? 그 물건들이 지금 가는 곳에 있어요. 재밌는 건 이 박물관이 원래 경복궁 안에 있었다는 거예요. 1945년 광복 직후 문을 열고 경복궁 안에서만 세 번 이사를 다니다가, 2005년에 용산의 지금 자리로 옮겼어요. 그러니까 우리는 지금 박물관이 70년 동안 걸어온 길을 25분 만에 따라가는 셈이에요.",
+        "en": "The National Museum is 25 minutes away. At the palace the buildings survived, but almost nothing inside did, right? Those things are where we're going. The fun part: this museum used to be inside Gyeongbokgung. It opened right after liberation in 1945, moved three times within the palace grounds, and in 2005 settled at its current home in Yongsan. So we're retracing the museum's own seventy-year journey in twenty-five minutes."
+      },
+      "kidsText": {
+        "ko": "다음은 박물관이야! 아까 궁궐에 왕의 물건이 하나도 없었지? 왕관이랑 보물이 다 어디 갔게? 바로 지금 가는 박물관에 있어. 가면서 퀴즈 세 개 낼 거야, 준비됐지?",
+        "en": "Next stop, the museum! Did you notice the palace had none of the king's things? Where did the crown and treasures go? To the museum we're driving to! I'll ask three quizzes on the way, ready?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 0
+      },
+      "durationSec": 45,
+      "source": "국립중앙박물관 연혁",
+      "priority": 9,
+      "kind": "story"
+    },
+    {
+      "id": "museum_size",
+      "title": {
+        "ko": "알고 보면 · 세계에서 손꼽히는 큰 박물관",
+        "en": "Did you know: one of the world's biggest museums"
+      },
+      "text": {
+        "ko": "지금 가는 박물관은 바닥 면적이 13만 7천 제곱미터, 축구장 열아홉 개를 붙여 놓은 크기예요. 전시품은 1만 점 넘게 걸려 있고 창고엔 그 수십 배가 더 있어요. 다 보려면 하루 종일로도 모자라니 오늘은 세 가지만 노려요. 13미터짜리 돌탑 하나, 금관 하나, 그리고 '사유의 방'이라는 깜깜하고 조용한 방 하나. 이 셋만 보고 나와도 충분해요.",
+        "en": "The museum's floor area is 137,000 square metres, nineteen football pitches side by side. Over ten thousand objects are on display and the storerooms hold many times more. You can't see it all, so today we aim for three things: a thirteen-metre stone pagoda, a gold crown, and a dark, silent room called the Room of Quiet Contemplation. See those three and you've done it right."
+      },
+      "kidsText": {
+        "ko": "박물관이 얼마나 크냐면, 축구장 열아홉 개! 다 보면 다리가 아파서 못 걸어. 그래서 오늘은 딱 세 개만 찾는 보물찾기야. 커다란 돌탑, 반짝이는 금관, 그리고 생각하는 부처님. 찾으면 '찾았다!' 외치기, 단 속삭이면서!",
+        "en": "How big is the museum? Nineteen football pitches! See it all and your legs give up. So today is a treasure hunt for just three things: a huge stone tower, a shiny gold crown, and a thinking Buddha. When you find one, shout 'found it!'... in a whisper!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 1
+      },
+      "durationSec": 40,
+      "source": "국립중앙박물관 시설 현황",
+      "priority": 6,
+      "kind": "fact"
+    },
+    {
+      "id": "seoul_station",
+      "title": {
+        "ko": "서울역 · 100년 된 기차역과 돔 지붕",
+        "en": "Seoul Station: a hundred-year-old terminal under a dome"
+      },
+      "text": {
+        "ko": "오른쪽, 붉은 벽돌에 초록 돔을 얹은 건물이 옛 서울역이에요. 1925년에 '경성역'으로 지었고, 당시 동양에서 도쿄역 다음으로 큰 역이었어요. 지금은 기차가 서지 않고 '문화역서울284'라는 전시장으로 쓰여요. 그 뒤 유리 건물이 지금의 서울역이고, 부산까지 KTX로 2시간 반이에요. 바로 앞을 지나는 고가도로는 '서울로 7017', 1970년에 지은 찻길을 2017년에 걷는 공원으로 바꾼 거예요. 숫자가 그 두 해를 뜻해요.",
+        "en": "On your right, the red-brick building with the green dome is old Seoul Station. Built in 1925 as Gyeongseong Station, it was the largest terminal in the East after Tokyo's. Trains no longer stop there; it's now an exhibition hall called Culture Station Seoul 284. The glass building behind it is today's station, two and a half hours to Busan by KTX. The overpass just ahead is Seoullo 7017: a 1970 road turned into a walking park in 2017. The number is those two years."
+      },
+      "kidsText": {
+        "ko": "오른쪽에 빨간 벽돌 건물에 초록 모자 쓴 거 보여? 옛날 기차역이야, 100살이 넘었어! 그 앞에 하늘에 떠 있는 길은 원래 자동차 길이었는데 지금은 사람이 걷는 공원이야. 이름이 '서울로 7017'인데 왜 7017일까? 정답은 잠시 뒤에!",
+        "en": "See the red-brick building wearing a green hat on the right? It's an old train station, over 100 years old! The road floating in the sky in front was for cars, now it's a walking park. It's called Seoullo 7017. Why 7017? Answer in a moment!"
+      },
+      "quiz": {
+        "question": {
+          "ko": "퀴즈. 서울로 7017의 숫자 7017은 무슨 뜻일까요?",
+          "en": "Quiz: what do the numbers in Seoullo 7017 stand for?"
+        },
+        "answer": {
+          "ko": "1970년에 지은 찻길을 2017년에 사람 길로 바꿨다는 뜻이에요. 70 더하기 17.",
+          "en": "A road built in 1970, reborn as a walkway in 2017. Seventy plus seventeen."
+        },
+        "revealAfterSec": 8
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.5547,
+          "lon": 126.9707
+        },
+        "radiusM": 600
+      },
+      "durationSec": 55,
+      "source": "서울시 문화역서울284 / 서울로 7017",
+      "priority": 8,
+      "kind": "quiz"
+    },
+    {
+      "id": "yongsan",
+      "title": {
+        "ko": "용산 · 군대의 땅에서 공원의 땅으로",
+        "en": "Yongsan: from army ground to park ground"
+      },
+      "text": {
+        "ko": "왼쪽으로 긴 담장이 이어지면 용산이에요. 이 넓은 땅은 100년 넘게 군대 땅이었어요. 조선 말 청나라 군대, 일제강점기 일본군, 그리고 1945년부터 미군 기지가 있었죠. 2018년 미군이 평택으로 옮기면서 뉴욕 센트럴파크만 한 '용산공원'으로 바뀌고 있어요. 국립중앙박물관도 원래 그 기지 안 골프장 자리에 지은 거예요. 그러니까 박물관 잔디밭은 옛날 미군 골프장이었던 셈이죠.",
+        "en": "When a long wall runs along your left, that's Yongsan. This land was military ground for over a century: Qing troops in the late Joseon era, the Japanese army under colonial rule, then a US base from 1945. Since the US garrison moved to Pyeongtaek in 2018 it's being turned into Yongsan Park, about the size of New York's Central Park. The museum itself was built on what used to be the base's golf course, so its lawns were once American fairways."
+      },
+      "kidsText": {
+        "ko": "왼쪽 긴 담장 안은 옛날에 군인 아저씨들이 살던 땅이야. 지금은 커다란 공원으로 바뀌는 중이야. 그리고 박물관 잔디밭은 옛날에 골프장이었대! 박물관 가서 잔디밭에서 뛰면 골프공은 안 나오지만 재밌을 거야.",
+        "en": "Inside the long wall on the left, soldiers used to live. Now it's turning into a giant park. And the museum's lawn used to be a golf course! No golf balls now, but a great place to run."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.538,
+          "lon": 126.971
+        },
+        "radiusM": 900
+      },
+      "durationSec": 45,
+      "source": "용산공원조성추진기획단 / 국립중앙박물관",
+      "priority": 7,
+      "kind": "story"
+    },
+    {
+      "id": "pensive_quiz",
+      "title": {
+        "ko": "1400년 된 미소 · 반가사유상",
+        "en": "A 1,400-year-old smile: the pensive bodhisattva"
+      },
+      "text": {
+        "ko": "오늘의 주인공 이야기를 할게요. 박물관 2층 '사유의 방'에는 금동 불상 두 점이 깜깜한 방에 나란히 앉아 있어요. 한쪽 다리를 다른 다리 위에 올리고, 손가락을 뺨에 살짝 댄 채 웃는 듯 마는 듯. 1400년 전 삼국시대에 만든 거예요. 방 이름이 '사유의 방'인 이유는 이 자세가 '생각하는 자세'라서예요. 방에 들어가면 설명문도 없고 소리도 없어요. 그냥 서서 보는 거예요. 참, 방탄소년단 RM이 이 불상 미니어처를 사 간 뒤로 기념품이 품절 행진이에요.",
+        "en": "Here's today's star. In the Room of Quiet Contemplation on the second floor, two gilt-bronze statues sit side by side in a dark room. One leg crossed over the other, a fingertip touching the cheek, a smile that is almost there. They were made about 1,400 years ago in the Three Kingdoms period. The room is named for the pose, which is a thinking pose. Inside there are no labels and no sound: you simply stand and look. Since BTS's RM bought the miniature, the souvenir has been selling out nonstop."
+      },
+      "kidsText": {
+        "ko": "박물관에서 제일 유명한 건 '생각하는 부처님'이야. 1400살이야! 한쪽 다리를 올리고 손가락을 볼에 대고 생각하고 있어. 지금 뒷자리에서 따라 해 볼래? 손가락을 볼에 대고, 살짝 웃고. 그 자세로 생각하는 거야. 뭘 생각하고 있을까?",
+        "en": "The most famous thing at the museum is the Thinking Buddha. He's 1,400 years old! One leg up, finger on his cheek, thinking. Can you copy him in the back seat? Finger on cheek, tiny smile. What do you think he's thinking about?"
+      },
+      "quiz": {
+        "question": {
+          "ko": "퀴즈. 반가사유상이 손가락을 대고 있는 곳은 이마일까요, 뺨일까요, 턱일까요?",
+          "en": "Quiz: does the pensive bodhisattva touch his forehead, his cheek, or his chin?"
+        },
+        "answer": {
+          "ko": "뺨이에요. 손가락 끝을 오른쪽 뺨에 살짝 대고 있어요. 박물관에서 직접 확인해 보세요.",
+          "en": "His cheek. The fingertips rest lightly on the right cheek. Check for yourself at the museum."
+        },
+        "revealAfterSec": 8
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 2
+      },
+      "durationSec": 70,
+      "source": "국립중앙박물관 사유의 방",
+      "priority": 8,
+      "kind": "quiz"
+    },
+    {
+      "id": "congestion_pagoda",
+      "title": {
+        "ko": "정체 구간 · 일본에 끌려갔다 돌아온 탑",
+        "en": "Stuck in traffic: the pagoda that was taken to Japan and came back"
+      },
+      "text": {
+        "ko": "차가 막히니 긴 이야기 하나 할게요. 박물관 1층 로비에 들어서면 13.5미터짜리 하얀 대리석 탑이 서 있어요. 경천사 십층석탑, 1348년 고려 때 세운 거예요. 그런데 1907년, 일본 궁내대신 다나카 미쓰아키가 이 탑을 통째로 해체해서 일본으로 실어 갔어요. 영국 기자 베델과 미국 기자 헐버트가 신문에 폭로하고 국제 여론이 들끓자 1918년에 돌려보냈죠. 돌아온 탑은 상자에 담긴 채 경복궁 뜰에 40년을 누워 있다가 1960년에 세워졌고, 산성비에 삭자 2005년 박물관 실내로 들어왔어요. 로비에서 이 탑을 올려다볼 때, 이 탑이 바다를 두 번 건넜다는 걸 기억하세요.",
+        "en": "Since we're crawling, a long story. Step into the museum lobby and a 13.5-metre white marble pagoda stands before you: the ten-storey pagoda of Gyeongcheonsa temple, built in 1348 in the Goryeo era. In 1907 a Japanese court minister, Tanaka Mitsuaki, had it dismantled and shipped to Japan. A British journalist, Bethell, and an American, Hulbert, exposed it in the press, and under international pressure it was returned in 1918. Back home, it lay in crates in the palace grounds for forty years, was rebuilt in 1960, then moved indoors in 2005 to escape acid rain. When you look up at it in the lobby, remember it crossed the sea twice."
+      },
+      "kidsText": {
+        "ko": "차가 막히네. 그럼 탑 이야기 해 줄게. 박물관에 들어가면 아파트 5층만 한 하얀 돌탑이 있어. 옛날에 어떤 나쁜 사람이 이 탑을 조각조각 뜯어서 배에 싣고 다른 나라로 가져갔어. 그런데 신문 기자들이 '돌려줘!' 하고 온 세상에 알려서, 11년 만에 돌아왔어. 그래서 이 탑은 배를 두 번 탄 탑이야.",
+        "en": "Traffic! Then a tower story. Inside the museum there's a white stone tower as tall as a five-storey building. Long ago a bad man took it apart piece by piece, put it on a ship and carried it to another country. But newspaper reporters told the whole world 'give it back!', and after eleven years it came home. So it's the tower that rode a ship twice."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 85,
+      "source": "국립중앙박물관 경천사지 십층석탑 해설 / 국가유산청",
+      "priority": 8,
+      "kind": "story"
+    },
+    {
+      "id": "gold_crown",
+      "title": {
+        "ko": "알고 보면 · 신라 금관은 왜 나뭇가지 모양일까",
+        "en": "Did you know: why the Silla crown looks like branches"
+      },
+      "text": {
+        "ko": "1층에서 만날 황남대총 금관은 1500년 전 신라 것이에요. 금판을 오려 만든 가지가 세 갈래로 솟아 있는데, 한자 '날 출(出)' 자 모양이라고도 하고 나무와 사슴뿔을 본떴다고도 해요. 나무는 하늘과 땅을 잇는 사다리, 사슴뿔은 시베리아 샤먼의 상징이죠. 무게가 1킬로그램이 넘고 얇아서 실제로 쓰고 걷기는 어려웠을 거예요. 그래서 학자들은 장례 때 얼굴을 덮듯 씌운 관이었을 거라고 봐요. 보면서 '이걸 쓰고 걸을 수 있을까'를 상상해 보세요.",
+        "en": "On the first floor you'll meet the Hwangnam gold crown, 1,500 years old from the Silla kingdom. Cut from sheet gold, three branch-like uprights rise from the band; some say they're the Chinese character for 'to go out', others say trees and antlers. Trees link heaven and earth, antlers are a Siberian shaman's emblem. It weighs over a kilo and the gold is thin, so walking in it would have been hard. That's why scholars think it was placed over the face at burial. As you look, imagine trying to walk with it on."
+      },
+      "kidsText": {
+        "ko": "박물관에 진짜 금으로 만든 왕관이 있어! 나뭇가지 모양이고 사슴뿔 모양도 달려 있어. 그런데 너무 무겁고 흔들거려서 쓰고 걸으면 떨어졌대. 퀴즈! 이 왕관은 걸을 때 썼을까, 누워 있을 때 썼을까?",
+        "en": "There's a crown made of real gold at the museum! Shaped like tree branches, with deer antlers too. But it was so heavy and wobbly it fell off if you walked. Quiz! Was it worn standing up, or lying down?"
+      },
+      "quiz": {
+        "question": {
+          "ko": "퀴즈. 신라 금관은 걸어 다닐 때 쓰던 걸까요, 누워 있을 때 씌우던 걸까요?",
+          "en": "Quiz: was the Silla gold crown worn while walking, or placed on someone lying down?"
+        },
+        "answer": {
+          "ko": "누워 있을 때, 즉 장례 때 씌운 것으로 봐요. 너무 얇고 무거워서 쓰고 걷기엔 불안정했거든요.",
+          "en": "Lying down: at burial. It's too thin and heavy to sit steady on a walking head."
+        },
+        "revealAfterSec": 8
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.532,
+          "lon": 126.969
+        },
+        "radiusM": 800
+      },
+      "durationSec": 60,
+      "source": "국립중앙박물관 황남대총 북분 금관 해설",
+      "priority": 7,
+      "kind": "quiz"
+    },
+    {
+      "id": "phrase_museum",
+      "title": {
+        "ko": "한국어 한마디 · 박물관에서",
+        "en": "Korean phrase: at the museum"
+      },
+      "text": {
+        "ko": "박물관에서 쓸 말 두 개만 연습해요. '사유의 방 어디예요?' 사유의 방, 어디예요. 그리고 아이가 있다면 '어린이박물관 예약했어요.' 어린이박물관, 예약했어요. 안내 데스크에 가서 이렇게 말하면 바로 알려줘요.",
+        "en": "Two phrases for the museum. 'Sa-yu-ui bang eo-di-ye-yo?' means 'Where is the Room of Quiet Contemplation?' And with kids: 'Eo-rin-i bang-mul-gwan ye-yak-haess-eo-yo' means 'We booked the Children's Museum.' Say either at the information desk and they'll point you right there."
+      },
+      "kidsText": {
+        "ko": "한국말 하나 배우자. '어디예요?'는 '어디에 있어요?'라는 뜻이야. 따라 해 봐. 어-디-예-요? 박물관에서 화장실 찾을 때 '화장실 어디예요?' 하면 돼!",
+        "en": "Let's learn one Korean word. 'Eo-di-ye-yo?' means 'Where is it?' Say it with me: eo-di-ye-yo? At the museum, 'hwa-jang-sil eo-di-ye-yo?' means 'Where's the bathroom?'"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 3
+      },
+      "durationSec": 30,
+      "source": "Road Docent",
+      "priority": 5,
+      "kind": "phrase"
+    },
+    {
+      "id": "arrival_brief",
+      "title": {
+        "ko": "도착 전 브리핑 · 주차와 예약",
+        "en": "Arrival briefing: parking and booking"
+      },
+      "text": {
+        "ko": "10분 뒤 도착해요. 지하 주차장은 서빙고로 쪽 입구로 들어가요. 상설전시는 무료라 표를 살 필요가 없고, 어린이박물관만 회차제 예약이에요. 오늘 오후 회차에 자리가 있는지 확인해 드릴까요? 들어가면 1층 로비의 돌탑을 먼저 올려다보고, 2층 사유의 방으로 바로 가세요. 사람이 적은 오전이 제일 좋아요.",
+        "en": "Ten minutes to arrival. Take the underground lot via the Seobinggo-ro entrance. Permanent galleries are free, no ticket; only the Children's Museum needs a timed booking. Shall I check this afternoon's sessions? Once inside, look up at the pagoda in the lobby first, then go straight to the Room of Quiet Contemplation on the second floor. It's best before the crowds."
+      },
+      "kidsText": {
+        "ko": "10분 뒤 도착! 보물찾기 순서 기억하지? 1번 커다란 돌탑, 2번 생각하는 부처님, 3번 금관. 그리고 사유의 방은 속삭이는 방이야. 약속!",
+        "en": "Ten minutes to go! Remember the treasure-hunt order? One, the huge stone tower. Two, the Thinking Buddha. Three, the gold crown. And the quiet room is a whispering room. Promise!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
+        "minutes": 10
+      },
+      "durationSec": 40,
+      "source": "국립중앙박물관 관람 안내",
+      "priority": 9,
+      "kind": "tip"
+    },
+    {
+      "id": "reboard",
+      "title": {
+        "ko": "다음은 어디로 갈까요?",
+        "en": "Where next?"
+      },
+      "text": {
+        "ko": "다시 출발하시네요. 걸어서 5분 전쟁기념관은 무료고 야외에 비행기·탱크가 있어 아이들이 좋아해요. 차로 10분 리움미술관은 삼성이 세운 현대미술관, 차로 10분 노들섬은 한강 한가운데 섬이라 해 질 녘이 예뻐요. 거기로 가자, 라고 말씀하세요.",
+        "en": "Setting off again. The War Memorial, five minutes on foot, is free and has planes and tanks outside that kids love; Leeum Museum of Art, ten minutes by car, is Samsung's contemporary art museum; Nodeul Island, ten minutes, sits in the middle of the Han River and is lovely at sunset. Say let's go there."
+      },
+      "kidsText": {
+        "ko": "다시 출발! 진짜 비행기랑 탱크를 만질 수 있는 곳에 갈까, 아니면 강 한가운데 섬에 갈까? 어디 갈래?",
+        "en": "Off we go! Shall we go where you can touch real planes and tanks, or to an island in the middle of the river? Which one?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Reboard"
+      },
+      "durationSec": 25,
+      "source": "Road Docent 체류 데이터",
+      "priority": 10,
+      "kind": "tip"
+    }
+  ],
+  "restAreas": [],
+  "nearby": [
+    {
+      "id": "war_memorial",
+      "name": {
+        "ko": "전쟁기념관",
+        "en": "War Memorial of Korea"
+      },
+      "point": {
+        "lat": 37.5369,
+        "lon": 126.977
+      },
+      "address": "서울 용산구 이태원로 29",
+      "phone": "02-709-3139",
+      "category": "museum",
+      "typicalStayMin": 90,
+      "note": {
+        "ko": "무료 · 야외 전시장의 비행기·탱크 · 걸어서 15분",
+        "en": "Free · planes and tanks outdoors · 15 min walk"
+      }
+    },
+    {
+      "id": "leeum",
+      "name": {
+        "ko": "리움미술관",
+        "en": "Leeum Museum of Art"
+      },
+      "point": {
+        "lat": 37.5384,
+        "lon": 126.9993
+      },
+      "address": "서울 용산구 이태원로55길 60-16",
+      "phone": "02-2014-6901",
+      "category": "museum",
+      "typicalStayMin": 90,
+      "note": {
+        "ko": "고미술+현대미술 · 상설 무료(예약) · 차로 10분",
+        "en": "Old masters and contemporary art · permanent free with booking · 10 min by car"
+      }
+    },
+    {
+      "id": "nodeul",
+      "name": {
+        "ko": "노들섬",
+        "en": "Nodeul Island"
+      },
+      "point": {
+        "lat": 37.5173,
+        "lon": 126.9586
+      },
+      "address": "서울 용산구 양녕로 445",
+      "category": "park",
+      "typicalStayMin": 60,
+      "note": {
+        "ko": "한강 한가운데 섬 · 해 질 녘 · 잔디밭 피크닉",
+        "en": "An island in the Han River · sunset · picnic lawn"
+      }
+    },
+    {
+      "id": "itaewon",
+      "name": {
+        "ko": "이태원",
+        "en": "Itaewon"
+      },
+      "point": {
+        "lat": 37.5345,
+        "lon": 126.9946
+      },
+      "address": "서울 용산구 이태원로",
+      "category": "food",
+      "typicalStayMin": 90,
+      "note": {
+        "ko": "세계 음식 거리 · 저녁 식사 · 차로 10분",
+        "en": "World food street · dinner · 10 min by car"
+      }
+    },
+    {
+      "id": "museum_cafe",
+      "name": {
+        "ko": "박물관 거울못 카페",
+        "en": "Museum mirror-pond cafe"
+      },
+      "point": {
+        "lat": 37.5232,
+        "lon": 126.9797
+      },
+      "address": "국립중앙박물관 내",
+      "category": "cafe",
+      "typicalStayMin": 30,
+      "note": {
+        "ko": "거울못과 청자정이 보이는 자리 · 도착 후 한숨 돌리기",
+        "en": "Seats facing the mirror pond and pavilion · a breather on arrival"
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "ko": "사유의 방 어디예요?",
+      "romanized": "sa-yu-ui bang eo-di-ye-yo?",
+      "meaning": {
+        "en": "Where is the Room of Quiet Contemplation?"
+      }
+    },
+    {
+      "ko": "어린이박물관 예약했어요",
+      "romanized": "eo-rin-i bang-mul-gwan ye-yak-haess-eo-yo",
+      "meaning": {
+        "en": "We have a Children's Museum booking"
+      }
+    },
+    {
+      "ko": "사진 찍어도 돼요?",
+      "romanized": "sa-jin jji-geo-do dwae-yo?",
+      "meaning": {
+        "en": "May I take photos?"
+      }
+    },
+    {
+      "ko": "조용히 해 주세요",
+      "romanized": "jo-yong-hi hae ju-se-yo",
+      "meaning": {
+        "en": "Please be quiet"
+      }
+    }
+  ],
+  "creatorCourses": [
+    {
+      "creator": "국립중앙박물관 (공식)",
+      "platform": "web",
+      "title": {
+        "ko": "전시 안내 · 사유의 방",
+        "en": "Exhibitions · Room of Quiet Contemplation"
+      },
+      "stops": [
+        "national_museum"
+      ],
+      "quote": {
+        "ko": "두 반가사유상을 한 방에 나란히 — 설명문 없이 '사유' 그 자체로",
+        "en": "Two pensive bodhisattvas side by side, no labels, just contemplation"
+      },
+      "url": "https://www.museum.go.kr/"
+    }
+  ],
+  "dataSources": [
+    "국립중앙박물관 공식 안내(관람시간·휴관·어린이박물관 예약) — 제출 전 최신 확인",
+    "국가유산청 국가유산포털 (경천사지 십층석탑, 반가사유상, 황남대총 금관)",
+    "서울시 문화역서울284 / 서울로 7017",
+    "용산공원조성추진기획단"
+  ],
+  "themes": [
+    "art",
+    "history",
+    "family"
+  ]
+}

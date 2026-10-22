@@ -74,6 +74,17 @@ fun SettingsScreen(
                     Choice(if (ko) "11~13 토론형" else "11–13 discussion", prefs.childAge >= 11) { onChange(prefs.copy(childAge = 12)) }
                 }
             }
+            Label(if (ko) "여행 테마 (추천 우선순위)" else "Travel theme (ranks suggestions)")
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Choice(if (ko) "전체" else "All", prefs.theme.isBlank()) { onChange(prefs.copy(theme = "")) }
+                listOf("history", "art", "nature", "thrill", "food").forEach { t -> Choice(kr.roaddocent.core.Themes.label(t, prefs.lang), prefs.theme == t) { onChange(prefs.copy(theme = t)) } }
+            }
+            Label(if (ko) "새 차 알아가기" else "Getting to know a new car")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Choice(if (ko) "켬 · 센서 작동 순간마다 설명" else "On · explain each sensor as it works", prefs.newCarMode) { onChange(prefs.copy(newCarMode = true)) }
+                Choice(if (ko) "끔" else "Off", !prefs.newCarMode) { onChange(prefs.copy(newCarMode = false)) }
+            }
+            Body(if (ko) "첫 출발·뒷좌석 착좌·60/100km/h·5/15km 주행·정체·주차 때 센서 역할과 교체 주기를 들려줘요. 실차에서는 누적 1,000km까지 자동." else "First drive, rear seat, 60/100 km/h, 5/15 km, traffic and parking each explain a sensor and its service interval. In a real car it runs for the first 1,000 km.", size = 12)
             Label(if (ko) "안전" else "Safety")
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(80, 100, 110).forEach { v -> Choice(if (ko) "${v}km/h 이상 멈춤" else "pause over $v km/h", prefs.safetyPauseKmh == v) { onChange(prefs.copy(safetyPauseKmh = v)) } }

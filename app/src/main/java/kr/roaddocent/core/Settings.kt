@@ -14,7 +14,11 @@ data class Prefs(
     val voiceProvider: String = "elevenlabs",
     val keepTravelLog: Boolean = true,     // off = nothing persisted after the trip
     val safetyPauseKmh: Int = 100,
-    val localVoiceCommands: Boolean = true // on-device recognizer when Gleo is absent
+    val localVoiceCommands: Boolean = true, // on-device recognizer when Gleo is absent
+    /** New-car onboarding overlay: sensors explained as they work, maintenance intervals. Auto-off after 1,000 km in production. */
+    val newCarMode: Boolean = false,
+    /** Preferred travel theme for the picker and "where next?" ranking: history, art, nature, thrill, food, family, car; "" = all. */
+    val theme: String = ""
 )
 
 class SettingsStore(context: Context) {
@@ -30,7 +34,9 @@ class SettingsStore(context: Context) {
         voiceProvider = sp.getString("voiceProvider", "elevenlabs") ?: "elevenlabs",
         keepTravelLog = sp.getBoolean("keepTravelLog", true),
         safetyPauseKmh = sp.getInt("safetyPauseKmh", 100),
-        localVoiceCommands = sp.getBoolean("localVoiceCommands", true)
+        localVoiceCommands = sp.getBoolean("localVoiceCommands", true),
+        newCarMode = sp.getBoolean("newCarMode", false),
+        theme = sp.getString("theme", "") ?: ""
     )
 
     fun update(block: (Prefs) -> Prefs) {
@@ -39,7 +45,8 @@ class SettingsStore(context: Context) {
             .putString("lang", p.lang.tag).putString("audience", p.audience.name).putInt("childAge", p.childAge)
             .putString("voiceApiKey", p.voiceApiKey).putString("voiceProvider", p.voiceProvider)
             .putBoolean("keepTravelLog", p.keepTravelLog).putInt("safetyPauseKmh", p.safetyPauseKmh)
-            .putBoolean("localVoiceCommands", p.localVoiceCommands).apply()
+            .putBoolean("localVoiceCommands", p.localVoiceCommands)
+            .putBoolean("newCarMode", p.newCarMode).putString("theme", p.theme).apply()
         _prefs.value = p
     }
 }

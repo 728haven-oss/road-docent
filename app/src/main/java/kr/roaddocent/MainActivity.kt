@@ -110,6 +110,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val toast by engine.toast.collectAsState()
     val nav by engine.navState.collectAsState()
     val speaking by engine.speaking.collectAsState()
+    val quiz by engine.quiz.collectAsState()
 
     val voiceSetup by vm.voiceSetup.collectAsState()
     val voiceProfile by vm.voiceProfile.collectAsState()
@@ -159,7 +160,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                 is DocentPhase.Guiding -> Column {
                     PlayingScreen(
                         ep = p.episode, all = engine.guide?.episodes?.filter { it.trigger !is kr.roaddocent.core.Trigger.Reboard } ?: emptyList(),
-                        played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking,
+                        played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
                         onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet
                     )
                 }
@@ -167,7 +168,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                     onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdSkip() })
                 is DocentPhase.Parked -> ParkedScreen(p.place, lang) { vm.openVoiceSetup(true) }
                 is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
-                is DocentPhase.TravelLog -> TravelLogScreen(log, lang) { engine.cmdShowLog() }
+                is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days()) { engine.cmdShowLog() }
             }
         }
 
@@ -200,12 +201,23 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(10.dp))
         Body(if (lang == Lang.KO) "Pleos 연결 시 차량 내비에서 목적지를 설정하세요. 데모에서는 아래 버튼으로 서울→강릉 경로를 시작합니다." else "With Pleos, set a destination in the built-in navigation. In the demo, start the Seoul → Gangneung route below.", size = 16)
         Spacer(Modifier.height(20.dp))
-        Text(if (lang == Lang.KO) "데모 목적지" else "Demo destinations", color = Quiet, fontSize = 14.sp)
+        val prefs by vm.settings.prefs.collectAsState()
+        Text(if (lang == Lang.KO) "테마로 고르기" else "Pick by theme", color = Quiet, fontSize = 14.sp)
+        Spacer(Modifier.height(6.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Pill(if (lang == Lang.KO) "전체" else "All", Modifier.clickable { vm.setTheme("") }, selected = prefs.theme.isBlank())
+            kr.roaddocent.core.Themes.order.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, lang), Modifier.clickable { vm.setTheme(t) }, selected = prefs.theme == t) }
+        }
+        Spacer(Modifier.height(12.dp))
+        Text(if (lang == Lang.KO) "데모 목적지 (Pleos에서는 내비 목적지로 자동 시작)" else "Demo destinations (on Pleos, the navi destination starts it)", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(8.dp))
+        val list = vm.guides().filter { prefs.theme.isBlank() || prefs.theme in it.themes || (prefs.theme == "car" && prefs.newCarMode) }
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            vm.guides().forEach { g ->
-                ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id), primary = g.id == "seoul_gangneung") { vm.demoStartTrip(g.id) }
+            list.forEach { g ->
+                val th = g.themes.joinToString(" ") { kr.roaddocent.core.Themes.label(it, lang).take(2) }
+                ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id) + "   " + th, primary = g.id == "seoul_gyeongbokgung") { vm.demoStartTrip(g.id) }
             }
+            if (prefs.theme == "car") ActionButton(if (lang == Lang.KO) "🚗 새 차 알아가기 켜고 아무 목적지나 출발" else "🚗 Turn on new-car mode and start any trip", primary = true) { vm.setNewCarMode(true); vm.setTheme("") }
         }
     }
 }
@@ -251,6 +263,8 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
             Small("🏁 도착·P") { sim.park() }
             Small("▶ D (재출발)") { sim.shiftToDrive() }
             Small("🧒 뒷좌석") { sim.setRearSeat(true) }
+            val nc by vm.settings.prefs.collectAsState()
+            Small(if (nc.newCarMode) "🚗 새 차 ON" else "🚗 새 차") { vm.setNewCarMode(!nc.newCarMode) }
         }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
         Small("⚙ 설정") { vm.openSettings(true) }

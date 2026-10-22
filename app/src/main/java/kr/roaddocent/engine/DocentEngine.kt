@@ -70,6 +70,12 @@ class DocentEngine(
     val paused: StateFlow<Boolean> = _paused.asStateFlow()
     private val _toast = MutableStateFlow<String?>(null)
     val toast: StateFlow<String?> = _toast.asStateFlow()
+    /** Quiz on screen: question, and the answer once revealed. */
+    data class QuizView(val question: String, val answer: String?)
+    private val _quiz = MutableStateFlow<QuizView?>(null)
+    val quiz: StateFlow<QuizView?> = _quiz.asStateFlow()
+    private var quizJob: Job? = null
+    @Volatile private var quizPending = false
 
     /** Speed above which speech pauses at a sentence boundary (settings). */
     var safetyPauseKmh: Int = 100
@@ -77,6 +83,13 @@ class DocentEngine(
     val speaking: StateFlow<Boolean> get() = speaker.speaking
 
     var guide: Guide? = null; private set
+    /** Optional overlay (new-car onboarding): its VehicleEvent/Congestion episodes fire on top of the destination guide. */
+    var overlay: Guide? = null
+        set(v) { field = v; overlayPlayed.clear(); firedEvents.clear() }
+    private val overlayPlayed = linkedSetOf<String>()
+    private val firedEvents = linkedSetOf<String>()
+    /** Theme preference used to rank "where next?" suggestions ("" = none). */
+    var theme: String = ""
     private val played = linkedSetOf<String>()
     private var slowSinceMs: Long? = null
     private var congestion = false
@@ -104,7 +117,7 @@ class DocentEngine(
         advancer = scope.launch {
             var wasSpeaking = false
             speaker.speaking.collect { speaking ->
-                if (wasSpeaking && !speaking && !_paused.value && _phase.value is DocentPhase.Guiding) {
+                if (wasSpeaking && !speaking && !_paused.value && !quizPending && _phase.value is DocentPhase.Guiding) {
                     delay(2_500)
                     if (!speaker.speaking.value && _queue.value.any { it.id !in played }) playNext()
                 }
@@ -132,16 +145,36 @@ class DocentEngine(
     }
 
     /** "다른 데 없어?" at any time: suggest from the guide's nearby list. */
+    private fun rank(places: List<Place>): List<Place> {
+        if (theme.isBlank()) return places
+        val pref = when (theme) { "art" -> setOf("museum", "gallery"); "nature" -> setOf("beach", "park", "mountain", "village"); "thrill" -> setOf("observatory", "activity", "park"); "food" -> setOf("restaurant", "market", "food", "cafe"); "history" -> setOf("palace", "museum", "village", "temple"); "family" -> setOf("museum", "park", "beach"); else -> emptySet() }
+        return places.sortedByDescending { if (it.category in pref) 1 else 0 }
+    }
+
     fun cmdWhereNext() {
         val g = guide ?: return
-        val sugg = g.nearby.filter { it.category != "cafe" }.take(3)
+        val sugg = rank(g.nearby.filter { it.category != "cafe" }).take(3)
         lastSuggestions = sugg
         _phase.value = DocentPhase.WhereNext(0, sugg, false)
         speaker.speak(if (_lang.value == Lang.KO) "차로 10분 안에 " + sugg.joinToString(", ") { it.name["ko"] ?: "" } + "이 있어요. 거기로 가자, 라고 말씀하세요."
             else "Within ten minutes: " + sugg.joinToString(", ") { it.name["en"] ?: "" } + ". Say let's go there.", _lang.value)
     }
 
-    fun stop() { watcher?.cancel(); advancer?.cancel(); commands?.cancel(); speaker.stop(); nav.stop(); veh.stop() }
+    fun stop() { watcher?.cancel(); advancer?.cancel(); commands?.cancel(); quizJob?.cancel(); speaker.stop(); nav.stop(); veh.stop() }
+
+    /** Hand over to another guide without stopping: the docent keeps talking on the next leg. */
+    private fun chainTo(g: Guide) {
+        quizJob?.cancel(); quizPending = false; _quiz.value = null
+        guide = g
+        played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null
+        nav.planLeg(g.route, g.driveMin)
+        nav.setDestination(g.destination)
+        val starts = g.episodes.filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
+        _queue.value = starts
+        _phase.value = DocentPhase.Guiding(starts.first(), emptyList(), false)
+        _toast.value = (if (_lang.value == Lang.KO) "가이드 이어서: " else "Guide continues: ") + (g.destination.name[_lang.value.tag] ?: g.id)
+        playNext()
+    }
 
     /** Driver chose a destination in the car's navigation (or the demo picked one). */
     fun onRouteSet(destinationName: String) {
@@ -169,6 +202,18 @@ class DocentEngine(
         // kids mode offer when rear seat occupied
         if (v.rearSeatOccupied && _audience.value == Audience.ADULT) { _audience.value = Audience.KIDS; _toast.value = if (_lang.value == Lang.KO) "뒷좌석 탑승 감지 · 키즈 모드로 전환" else "Rear passenger detected · Kids mode on" }
 
+        // new-car overlay: vehicle events, each once per trip
+        overlay?.let { ov ->
+            fun ev(name: String, cond: Boolean) { if (cond && name !in firedEvents) { firedEvents += name; fireOverlay(ov, name) } }
+            ev("first_drive", !v.gearPark && n.active)
+            ev("rear_seat", v.rearSeatOccupied)
+            ev("speed_60", v.speedKmh >= 60f)
+            ev("speed_100", v.speedKmh >= 100f)
+            ev("trip_5km", v.tripDistanceKm >= 5f)
+            ev("trip_15km", v.tripDistanceKm >= 15f)
+            ev("park", n.arrived && v.gearPark)
+        }
+
         // safety gate: fast or winding -> pause at sentence boundary
         val unsafe = v.speedKmh > safetyPauseKmh
         if (unsafe && !_paused.value) { _paused.value = true; speaker.pause() }
@@ -177,7 +222,11 @@ class DocentEngine(
         // congestion detection
         if (n.active && v.speedKmh < 20f && !v.gearPark) { if (slowSinceMs == null) slowSinceMs = now } else slowSinceMs = null
         val nowCongested = slowSinceMs?.let { now - it > 60_000 } == true
-        if (nowCongested && !congestion) { congestion = true; fire(g.episodes.firstOrNull { it.trigger is Trigger.Congestion }) }
+        if (nowCongested && !congestion) {
+            congestion = true
+            val main = g.episodes.firstOrNull { it.trigger is Trigger.Congestion && it.id !in played }
+            if (main != null) fire(main) else overlay?.episodes?.firstOrNull { it.trigger is Trigger.Congestion && it.id !in overlayPlayed }?.let { overlayPlayed += it.id; fire(it, force = true) }
+        }
         if (!nowCongested && congestion) { congestion = false }
 
         // geo triggers
@@ -222,7 +271,7 @@ class DocentEngine(
             val stayMin = ((now - arrivedAtMs!!) / 60_000).toInt()
             currentVisit?.leftMs = now
             val disappointed = stayMin < 30
-            val sugg = g.nearby.filter { it.category != "cafe" }.take(3)
+            val sugg = rank(g.nearby.filter { it.category != "cafe" }).take(3)
             lastSuggestions = sugg
             _phase.value = DocentPhase.WhereNext(stayMin, sugg, disappointed)
             arrivedAtMs = null
@@ -231,15 +280,47 @@ class DocentEngine(
         wasPark = v.gearPark
     }
 
-    private fun fire(ep: Episode?, prefix: String = "") {
+    /** Overlay episode for a vehicle event; waits for the current sentence queue only if nothing is mid-story. */
+    private fun fireOverlay(ov: Guide, event: String) {
+        val ep = ov.episodes.firstOrNull { (it.trigger as? Trigger.VehicleEvent)?.event == event && it.id !in overlayPlayed } ?: return
+        overlayPlayed += ep.id
+        fire(ep, prefix = if (_lang.value == Lang.KO) "잠깐, 내 차 이야기. " else "A quick word about the car. ", force = true)
+    }
+
+    private fun fire(ep: Episode?, prefix: String = "", force: Boolean = false) {
         ep ?: return
-        if (ep.id in played && ep.trigger !is Trigger.Reboard) return
-        played += ep.id
+        if (!force && ep.id in played && ep.trigger !is Trigger.Reboard) return
+        if (!force) played += ep.id
         _nowPlaying.value = ep
         _log.update { it.copy(episodesHeard = it.episodesHeard + 1) }
         if (_phase.value is DocentPhase.Guiding || _phase.value is DocentPhase.Idle) _phase.value = DocentPhase.Guiding(ep, played.toList(), congestion)
-        speaker.speak(prefix + ep.textFor(_lang.value, _audience.value), _lang.value)
-        if (ep.trigger is Trigger.Reboard && _audience.value == Audience.KIDS) _log.update { it.copy(quizzesRight = it.quizzesRight + 1) }
+        val q = ep.quiz
+        quizJob?.cancel(); quizPending = false; _quiz.value = null
+        if (q == null) {
+            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value), _lang.value)
+        } else {
+            // Story, then the question; the answer follows after a pause so the car can guess.
+            quizPending = true
+            _quiz.value = QuizView(q.questionFor(_lang.value), null)
+            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value) + " " + q.questionFor(_lang.value), _lang.value)
+            quizJob = scope.launch {
+                delay(1_500)
+                while (speaker.speaking.value) delay(300)
+                delay(q.revealAfterSec * 1000L)
+                revealQuiz()
+            }
+        }
+    }
+
+    /** Speak the pending quiz answer now (timer, or "tell me more"). */
+    fun revealQuiz() {
+        val ep = _nowPlaying.value ?: return
+        val q = ep.quiz ?: return
+        if (!quizPending) return
+        quizPending = false
+        _quiz.value = QuizView(q.questionFor(_lang.value), q.answerFor(_lang.value))
+        _log.update { it.copy(quizzesRight = it.quizzesRight + 1) }
+        speaker.speak((if (_lang.value == Lang.KO) "정답은, " else "The answer: ") + q.answerFor(_lang.value), _lang.value)
     }
 
     /** Play the next queued AtStart episode (after current finishes or on "skip"). */
@@ -251,11 +332,16 @@ class DocentEngine(
     }
 
     // ---- voice commands (Gleo Interface in production; buttons in demo) ----
-    fun cmdSkip() { speaker.stop(); playNext() }
-    fun cmdMore() { val ep = _nowPlaying.value ?: return; speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
+    fun cmdSkip() { quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); playNext() }
+    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
     fun cmdQuiet() { speaker.stop() }
     fun cmdSave() { _toast.value = if (_lang.value == Lang.KO) "여행 기록에 저장했어요" else "Saved to your travel log"; _log.update { it.copy(phrasesLearned = it.phrasesLearned + 1) } }
     fun cmdGoThere(p: Place) {
+        val chained = p.guideId?.let { id -> runCatching { guides.load(id) }.getOrNull() }
+        if (chained != null) {
+            speaker.speak(if (_lang.value == Lang.KO) "${p.name["ko"]}로 갈게요. 가는 길에도 제가 계속 이야기할게요." else "Heading to ${p.name["en"]}. I'll keep the stories going on the way.", _lang.value)
+            chainTo(chained); return
+        }
         nav.setDestination(p)
         arrivedAtMs = null; wasPark = false
         played.removeAll { id -> guide?.episodes?.firstOrNull { it.id == id }?.trigger is Trigger.RemainUnderMin }

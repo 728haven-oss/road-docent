@@ -51,8 +51,8 @@ fun Tag(text: String, modifier: Modifier = Modifier) =
     Text(text, modifier.background(Chip, RoundedCornerShape(8.dp)).padding(horizontal = 10.dp, vertical = 4.dp), color = ChipInk, fontSize = 13.sp)
 
 @Composable
-fun Pill(text: String, modifier: Modifier = Modifier) =
-    Text(text, modifier.background(Chip, RoundedCornerShape(999.dp)).padding(horizontal = 14.dp, vertical = 6.dp), color = ChipInk, fontSize = 14.sp)
+fun Pill(text: String, modifier: Modifier = Modifier, selected: Boolean = false) =
+    Text(text, modifier.background(if (selected) Accent else Chip, RoundedCornerShape(999.dp)).padding(horizontal = 14.dp, vertical = 6.dp), color = if (selected) AccentInk else ChipInk, fontSize = 14.sp)
 
 @Composable
 fun Headline(text: String, size: Int = 32) = Text(text, color = Ink, fontSize = size.sp, fontWeight = FontWeight.Bold, lineHeight = (size * 1.25).sp)

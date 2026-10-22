@@ -53,6 +53,8 @@ class SimulatedTrip : NavSignals, VehicleSignals {
     /** Route polyline and length for the main leg; set by the ViewModel from the chosen guide. */
     var mainRoute: List<GeoPoint> = route
     var mainMinutes: Int = totalMin
+    private var nextLeg: Pair<List<GeoPoint>, Int>? = null
+    override fun planLeg(route: List<GeoPoint>, minutes: Int) { if (route.size >= 2) nextLeg = route to minutes }
 
     /** Begin the drive to [place] from the current position (or Seoul on first call). */
     override fun setDestination(place: Place) {
@@ -60,8 +62,9 @@ class SimulatedTrip : NavSignals, VehicleSignals {
         val from = _nav.value.location ?: route.first()
         val isMainLeg = !legPlanned
         legPlanned = true
-        val path = if (isMainLeg) mainRoute else listOf(from, place.point)
-        val minutes = if (isMainLeg) mainMinutes else 12
+        val planned = nextLeg; nextLeg = null
+        val path = when { isMainLeg -> mainRoute; planned != null -> listOf(from) + planned.first.drop(1); else -> listOf(from, place.point) }
+        val minutes = when { isMainLeg -> mainMinutes; planned != null -> planned.second; else -> 12 }
         val name = place.name["ko"] ?: place.name.values.first()
         _nav.update { NavState(active = true, destinationName = name, destination = place.point, location = from, remainTimeSec = minutes * 60, remainDistanceM = if (isMainLeg) 212_000 else 6_000) }
         _veh.update { it.copy(gearPark = false, speedKmh = 60f) }

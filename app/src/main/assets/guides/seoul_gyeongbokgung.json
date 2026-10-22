@@ -128,6 +128,40 @@
       "priority": 6
     },
     {
+      "id": "name_quiz",
+      "title": {
+        "ko": "알고 보면 · '경복'은 무슨 뜻일까",
+        "en": "Did you know: what 'Gyeongbok' means"
+      },
+      "text": {
+        "ko": "경복궁이라는 이름은 1395년 정도전이 지었어요. 3천 년 된 중국 시집 '시경'의 한 구절, '큰 복을 누리리라'에서 '경복' 두 글자를 땄죠. 그런데 이 궁은 이름과 달리 불타고 헐리고 참 고생이 많았어요. 그래서 조선 왕들은 이 궁보다 옆의 창덕궁에서 더 오래 살았답니다. 재밌죠, 가장 큰 궁에서 왕이 제일 적게 산 거예요.",
+        "en": "The name was chosen in 1395 by the scholar Jeong Do-jeon, from a line in the three-thousand-year-old Chinese Book of Odes: 'may you enjoy great blessings'. Ironically the palace burned and was torn down more than any other, so Joseon kings actually spent more years living in Changdeokgung next door. The biggest palace is the one kings lived in least."
+      },
+      "kidsText": {
+        "ko": "경복궁의 '경복'은 '커다란 복'이라는 뜻이야. 그런데 이 궁은 불도 나고 부서지기도 하고 복이 좀 없었대. 그래서 왕들은 옆에 있는 다른 궁에서 더 많이 살았어. 퀴즈! 경복궁은 몇 번 지어졌을까? 한 번? 두 번? 세 번?",
+        "en": "'Gyeongbok' means 'great blessings'. But this palace burned down and got broken a lot, not so lucky! So the kings lived more in the palace next door. Quiz! How many times was Gyeongbokgung built? Once, twice, or three times?"
+      },
+      "quiz": {
+        "question": {
+          "ko": "퀴즈. 경복궁은 역사상 몇 번 지어졌을까요? 한 번, 두 번, 세 번?",
+          "en": "Quiz: how many times has Gyeongbokgung been built? Once, twice, or three times?"
+        },
+        "answer": {
+          "ko": "세 번이에요. 1395년, 1867년, 그리고 1990년대부터 지금까지 이어지는 복원이에요.",
+          "en": "Three: 1395, 1867, and the restoration running from the 1990s to today."
+        },
+        "revealAfterSec": 8
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 2
+      },
+      "durationSec": 50,
+      "source": "국가유산청 궁능유적본부",
+      "priority": 6,
+      "kind": "quiz"
+    },
+    {
       "id": "hangang_pass",
       "title": {
         "ko": "한강 · 서울의 가운데",
@@ -206,6 +240,44 @@
       "priority": 8
     },
     {
+      "id": "haetae",
+      "title": {
+        "ko": "광화문 앞 해태 · 불을 막는 상상의 동물",
+        "en": "The haetae at Gwanghwamun: a beast that stops fire"
+      },
+      "text": {
+        "ko": "광화문 양옆에 앉아 있는 돌짐승은 해태예요. 사자 같지만 뿔이 있고 비늘이 있는 상상의 동물이죠. 옳고 그름을 가리는 동물이라 법을 상징하고, 물의 기운이 있어서 불을 막는다고 믿었어요. 남쪽 관악산이 불의 산이라 경복궁에 자꾸 불이 난다고 생각해서 세운 거예요. 서울시 마스코트 '해치'가 바로 이 해태고, 국회의사당 앞에도 있어요. 사진 찍을 때 해태 코를 만지면 복이 온다는 말이 있는데, 지금은 만지면 안 돼요.",
+        "en": "The two stone beasts flanking Gwanghwamun are haetae. Lion-like but horned and scaled, they're imaginary creatures that tell right from wrong, so they stand for justice, and they carry the energy of water, so they were believed to ward off fire. Gwanaksan to the south was thought to be a fire mountain that kept setting the palace ablaze, hence the guardians. Seoul's mascot 'Haechi' is this same beast, and a pair guards the National Assembly too."
+      },
+      "kidsText": {
+        "ko": "광화문 옆에 돌로 만든 동물 두 마리 보여? 해태야. 사자 같은데 뿔이 있어. 불을 끄는 힘이 있어서 궁궐을 지켜 줘. 서울시 캐릭터 해치가 얘야! 퀴즈! 해태는 불을 막을까, 물을 막을까?",
+        "en": "See the two stone animals beside the gate? They're haetae. Like lions but with horns. They have the power to stop fire and protect the palace. Seoul's mascot Haechi is this guy! Quiz: does the haetae stop fire, or stop water?"
+      },
+      "quiz": {
+        "question": {
+          "ko": "퀴즈. 해태가 막아 준다고 믿은 것은 불일까요, 물일까요?",
+          "en": "Quiz: did people believe the haetae stops fire, or stops water?"
+        },
+        "answer": {
+          "ko": "불이에요. 물의 기운을 가진 동물이라 불을 막는다고 믿었어요.",
+          "en": "Fire. As a creature of water, it was believed to hold fire back."
+        },
+        "revealAfterSec": 8
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.5759,
+          "lon": 126.9769
+        },
+        "radiusM": 400
+      },
+      "durationSec": 55,
+      "source": "국가유산청 / 서울시",
+      "priority": 7,
+      "kind": "quiz"
+    },
+    {
       "id": "congestion_deep",
       "title": {
         "ko": "정체 구간 · 경복궁이 세 번 지어진 이야기",
@@ -255,12 +327,12 @@
         "en": "Where next?"
       },
       "text": {
-        "ko": "다시 출발하시네요. 걸어서 10분 북촌한옥마을은 한옥 골목 사진 찍기 좋고, 차로 10분 남대문시장은 쇼핑, 차로 15분 명동은 K-뷰티 매장이 많아요. 거기로 가자, 라고 말씀하세요.",
-        "en": "Setting off again. Bukchon Hanok Village, ten minutes on foot, is the place for hanok-alley photos; Namdaemun Market, ten minutes by car, for shopping; Myeongdong, fifteen minutes, for K-beauty stores. Say let's go there."
+        "ko": "다시 출발하시네요. 궁궐의 '집'을 보셨으니 이번엔 그 안에 있던 '물건'을 보러 가는 건 어때요? 차로 25분, 국립중앙박물관이에요. 1400년 된 반가사유상의 미소와 13미터 돌탑이 있고, 가는 길 내내 제가 이어서 이야기할게요. 아니면 걸어서 10분 북촌한옥마을, 차로 15분 명동 K-뷰티 거리도 있어요. 첫 번째로 가자, 라고 말씀하세요.",
+        "en": "Setting off again. You've seen the king's house; how about the things that were inside it? The National Museum of Korea is 25 minutes by car, with a 1,400-year-old smiling bodhisattva and a thirteen-metre pagoda, and I'll keep the stories going all the way. Or Bukchon Hanok Village, ten minutes on foot, or Myeongdong's K-beauty street, fifteen minutes. Say: let's go to the first one."
       },
       "kidsText": {
-        "ko": "다시 출발! 옛날 집이 모여 있는 북촌에 갈까, 아니면 시장에서 맛있는 거 먹을까? 어디 갈래?",
-        "en": "Off we go! Shall we see the old houses in Bukchon, or eat something yummy at the market? Which one?"
+        "ko": "다시 출발! 아까 왕의 집은 봤는데 왕관이랑 보물은 못 봤지? 그게 다 있는 박물관에 갈까? 생각하는 부처님도 있어. 아니면 옛날 집 골목 북촌? 어디 갈래?",
+        "en": "Off we go! We saw the king's house but not his crown and treasures, right? Shall we go to the museum where they all are? There's a Thinking Buddha too. Or the old-house alleys of Bukchon? Which one?"
       },
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Reboard"
@@ -272,6 +344,26 @@
   ],
   "restAreas": [],
   "nearby": [
+    {
+      "id": "national_museum",
+      "name": {
+        "ko": "국립중앙박물관",
+        "en": "National Museum of Korea"
+      },
+      "point": {
+        "lat": 37.524,
+        "lon": 126.9803
+      },
+      "address": "서울 용산구 서빙고로 137",
+      "phone": "02-2077-9000",
+      "category": "museum",
+      "typicalStayMin": 150,
+      "note": {
+        "ko": "궁에서 본 '집' 다음은 그 안의 '물건' · 상설 무료 · 차로 25분 · 가이드가 이어집니다",
+        "en": "After the king's house, the things inside it · free · 25 min by car · the guide continues"
+      },
+      "guideId": "seoul_national_museum"
+    },
     {
       "id": "bukchon",
       "name": {
@@ -569,5 +661,10 @@
     "도로교통공단 외국인 운전 안내",
     "넷플릭스 흑백요리사 출연 셰프 식당(상호·주소는 제출 전 최신 확인)",
     "유튜브 크리에이터 코스(GAMJA IN SEOUL·livewithshannon·너도 가봤으면 해·Wanderlust Wellman) — 2026.10 확인"
+  ],
+  "themes": [
+    "history",
+    "food",
+    "family"
   ]
 }

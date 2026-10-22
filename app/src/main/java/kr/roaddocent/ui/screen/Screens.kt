@@ -71,6 +71,7 @@ fun EpisodeRow(index: Int, ep: Episode, lang: Lang, state: String, now: Boolean)
 /** 1. Playing */
 @Composable
 fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: Lang, audience: Audience, congestion: Boolean, paused: Boolean, speaking: Boolean,
+                  quiz: kr.roaddocent.engine.DocentEngine.QuizView? = null,
                   onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit) {
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
         Panel(Modifier.weight(1.3f).fillMaxHeight()) {
@@ -78,6 +79,7 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 Tag(if (congestion) (if (lang == Lang.KO) "정체 구간 · 심층 해설" else "Traffic · long story") else (if (lang == Lang.KO) "지금 지나는 곳" else "Passing now"))
                 if (audience == Audience.KIDS) Tag(if (lang == Lang.KO) "키즈 모드" else "Kids mode")
                 if (paused) Tag(if (lang == Lang.KO) "고속 구간 · 잠시 멈춤" else "High speed · paused")
+                kindLabel(ep.kind, lang)?.let { Tag(it) }
             }
             Spacer(Modifier.height(14.dp))
             Headline(ep.titleFor(lang), 30)
@@ -85,6 +87,17 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
             Wave(active = speaking && !paused)
             Spacer(Modifier.height(12.dp))
             Body(ep.textFor(lang, audience), size = 15)
+            if (quiz != null) {
+                Spacer(Modifier.height(12.dp))
+                Column(Modifier.fillMaxWidth().background(Chip, RoundedCornerShape(14.dp)).padding(14.dp)) {
+                    Text(if (lang == Lang.KO) "❓ 퀴즈" else "❓ Quiz", color = Accent, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                    Spacer(Modifier.height(4.dp))
+                    Text(quiz.question, color = Ink, fontSize = 16.sp)
+                    Spacer(Modifier.height(6.dp))
+                    Text(quiz.answer ?: (if (lang == Lang.KO) "생각해 보세요… 잠시 뒤 정답 (\"더 자세히\"로 바로 듣기)" else "Think… answer in a moment (say \"tell me more\" to hear it now)"),
+                        color = if (quiz.answer == null) Quiet else Ink, fontSize = 15.sp)
+                }
+            }
             Spacer(Modifier.weight(1f))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 ActionButton(if (lang == Lang.KO) "\"넘겨\"" else "\"Skip\"", onClick = onSkip)
@@ -102,6 +115,15 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
             }
         }
     }
+}
+
+fun kindLabel(kind: String, lang: Lang): String? = when (kind) {
+    "quiz" -> if (lang == Lang.KO) "❓ 퀴즈" else "❓ Quiz"
+    "fact" -> if (lang == Lang.KO) "💡 알고 보면" else "💡 Did you know"
+    "food" -> if (lang == Lang.KO) "🍜 맛" else "🍜 Food"
+    "phrase" -> if (lang == Lang.KO) "🗣 한국어 한마디" else "🗣 Korean phrase"
+    "tip" -> if (lang == Lang.KO) "✅ 팁" else "✅ Tip"
+    else -> null
 }
 
 @Composable
@@ -190,7 +212,7 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
 
 /** 4. Travel log */
 @Composable
-fun TravelLogScreen(log: TripLog, lang: Lang, onBack: () -> Unit) {
+fun TravelLogScreen(log: TripLog, lang: Lang, history: List<kr.roaddocent.log.DayRecord> = emptyList(), onBack: () -> Unit) {
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
         Panel(Modifier.weight(1.2f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "오늘의 여행 일지" else "Today's travel log", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
@@ -210,8 +232,14 @@ fun TravelLogScreen(log: TripLog, lang: Lang, onBack: () -> Unit) {
                 }
             }
             Panel(Modifier.fillMaxWidth()) {
-                Text(if (lang == Lang.KO) "내일은 오죽헌 → 테라로사 → 정동진 순서가 30분 덜 돌아요" else "Tomorrow: Ojukheon → Terarosa → Jeongdongjin saves 30 minutes", color = Ink, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-                Body(if (lang == Lang.KO) "맞힌 퀴즈 ${log.quizzesRight}개 · 배운 인사말 ${log.phrasesLearned}개는 부모 폰으로 보냈어요" else "${log.quizzesRight} quizzes and ${log.phrasesLearned} phrases were sent to the parent's phone", size = 14)
+                val days = history.size; val km = history.sumOf { it.distanceKm.toDouble() }; val stops = history.sumOf { it.visits.size }
+                Text(if (lang == Lang.KO) (if (days > 1) "지금까지 ${days}일 · %.0f km · 들른 곳 ${stops}곳".format(km) else "첫 기록이에요. 쌓일수록 체류 시간을 배워 더 잘 추천해요")
+                     else (if (days > 1) "So far: $days days · %.0f km · $stops stops".format(km) else "First entry. As it grows, I learn your dwell times and suggest better"), color = Ink, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                Body(if (lang == Lang.KO) "맞힌 퀴즈 ${log.quizzesRight}개 · 배운 인사말 ${log.phrasesLearned}개 · 이 기기에만 저장(설정에서 끌 수 있어요)" else "${log.quizzesRight} quizzes · ${log.phrasesLearned} phrases · stored on this device only (switch off in settings)", size = 14)
+                if (history.size > 1) {
+                    Spacer(Modifier.height(8.dp))
+                    history.takeLast(4).reversed().forEach { d -> Body("${d.date} · %.0f km · ".format(d.distanceKm) + d.visits.joinToString(" → ") { "${it.name} ${it.stayMin}m" }, size = 13) }
+                }
             }
             ActionButton(if (lang == Lang.KO) "닫기" else "Close", onClick = onBack)
         }

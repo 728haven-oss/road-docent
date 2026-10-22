@@ -53,10 +53,20 @@ app/src/main/java/kr/roaddocent
 ├─ speech/      Speaker.kt         — TTS 추상화 (Android TTS, Pleos TTS 교체 지점)
 ├─ content/     GuideRepository    — assets/guides/*.json 로드, 목적지명으로 가이드 선택
 ├─ engine/      DocentEngine       — 언제·무엇을 말할지 결정하는 상태 머신
-├─ log/         TripLog            — 여행 일지(경로·체류·총계)
-└─ ui/          Compose 화면 5종 + 데모 컨트롤
-app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키즈, 출처 포함)
+├─ log/         TripLog, TripHistory — 오늘의 일지(경로·체류·총계) + 기기 내 다일 누적(체류 시간 데이터)
+└─ ui/          Compose 화면 5종 + 설정 + Voice Family + 데모 컨트롤
+app/src/main/assets/guides/        — 목적지별 가이드 JSON 5종 (한/영/키즈, 퀴즈, 출처, 테마 태그)
+app/src/main/assets/overlays/      — 오버레이 가이드: car_onboarding.json (새 차 알아가기)
+app/src/test/                      — 콘텐츠 검증 테스트 (JSON 파싱·id 중복·연결 가이드·퀴즈 이중언어) `./gradlew testReleaseUnitTest`
 ```
+
+## 가이드 콘텐츠: "운전 시간이 배우는 시간이 되도록"
+에피소드마다 `kind`가 있습니다 — `story`(이야기) · `fact`(알고 보면) · `quiz`(퀴즈: 질문 → 8초 → 정답, "더 자세히"로 즉시 정답) · `phrase`(한국어 한마디) · `food` · `tip`. 퀴즈는 화면 카드로도 보이고 여행 일지에 집계됩니다.
+가이드 5종: 서울→강릉 · 현대모터스튜디오 고양(현대차 역사) · 영월 '왕과 사는 남자' 단종 코스 · 인천공항→경복궁(광화문·남대문·흑백요리사 맛집) · **경복궁→국립중앙박물관(용산)** — 경복궁에서 재탑승하면 첫 추천이 박물관이고, "거기로 가자"에 가이드가 끊기지 않고 이어집니다(`Place.guideId` 연결).
+테마 태그(`themes`: history · art · nature · thrill · food · family · car)로 첫 화면에서 골라 보고, "다음은 어디?" 추천도 테마를 우선합니다.
+
+## 새 차 알아가기 (오버레이)
+설정 또는 데모 바 **🚗 새 차**를 켜면 어떤 목적지든 센서가 실제로 작동하는 순간에 하나씩 설명합니다 — 첫 출발(센서 지도) · 뒷좌석 착좌(착좌 센서·후석 승객 알림) · 60km/h(전방 카메라·차로 유지) · 100km/h(레이더·스마트 크루즈) · 5km(TPMS·타이어 관리) · 15km(정비 주기: 엔진오일/감속기 오일, 에어컨 필터, 와이퍼, 브레이크 패드, 12V 배터리, 냉각수) · 정체(회생제동) · 주차(초음파 센서·하차 체크). `Trigger.VehicleEvent`, Vehicle SDK의 GearSelection·SeatOccupancy·Odometer로 구동. 실차에서는 누적 1,000km까지 자동.
 
 ## 엔진 규칙 (DocentEngine)
 | 신호 | 행동 |
@@ -70,6 +80,9 @@ app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키�
 | 기어 P → D | “다음은 어디?” 제안 (30분 미만 체류면 “기대와 달랐나요?”) |
 | 속도 100km/h 초과 | 문장 경계에서 발화 일시정지, 안전해지면 재개 |
 | 2열 좌석 점유 | 키즈 모드 전환 (역사 이야기·창밖 퀴즈·인사 연습) |
+| 재탑승 추천에 `guideId`가 있는 곳으로 "거기로 가자" | 다음 가이드로 교체해 즉시 출발 에피소드 시작 (가이드 연속성) |
+| 퀴즈 에피소드 | 이야기 + 질문 → 8초 대기(자동 진행 멈춤) → 정답 낭독, 일지에 집계 |
+| `VehicleEvent` (새 차 오버레이) | first_drive · rear_seat · speed_60 · speed_100 · trip_5km · trip_15km · park 각 1회 |
 
 ## 음성 명령 (Gleo Interface + 기기 음성인식)
 - `voice/VoiceCommands.kt`: 명령 8종 (`SKIP_EPISODE`, `TELL_MORE`, `SAVE_PLACE`, `QUIET`, `WHERE_NEXT`, `GO_THERE`, `RESERVE`, `SHOW_TRAVEL_LOG`)을 하나의 `CommandBus`로 모읍니다.
@@ -78,18 +91,18 @@ app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키�
 - 에피소드가 끝나면 2.5초 뒤 다음 이야기가 자동으로 이어집니다(안전 일시정지 중엔 대기).
 
 ## 설정 (⚙)
-언어 · 탑승자(일반/아이/외국인) · 아이 나이(난이도) · 안전 일시정지 속도(80/100/110) · 여행 일지 저장 여부 · 음성 복제 제공자와 API 키(기기에만 저장) · 음성 명령 소스(Gleo/기기).
+언어 · 탑승자(일반/아이/외국인) · 아이 나이(난이도) · 여행 테마 · 새 차 알아가기 켜기/끄기 · 안전 일시정지 속도(80/100/110) · 여행 일지 저장 여부(다일 누적, 기기에만) · 음성 복제 제공자와 API 키(기기에만 저장) · 음성 명령 소스(Gleo/기기).
 
 ## 가족 목소리 가이드 (Voice Family)
 엄마·아빠·아이가 앱에서 샘플 문장 15개(약 2분)를 녹음하면, 음성 복제 TTS가 그 목소리로 모든 에피소드를 읽어줍니다.
-- 화면: 첫 화면 또는 주차 화면의 **🎙 가족 목소리 녹음** → 누가 녹음하는지 선택 → 동의 → 15문장 녹음 → 목소리 만들기
+- 화면: ⚙ 설정 → 가족 목소리 (또는 주차 화면의 **🎙 가족 목소리 녹음**) → 누가 녹음하는지 선택 → 동의 → 15문장 녹음 → 목소리 만들기
 - 코드: `speech/VoiceFamily.kt` — `VoiceRecorder`(녹음), `VoiceCloneClient`(복제 API, 제공자 교체 가능), `CloudVoiceSpeaker`(복제 음성 재생, 키가 없으면 기기 TTS로 자동 폴백)
 - API 키는 APK에 넣지 않습니다. `DocentViewModel`의 `VoiceCloneClient(apiKey = ...)`에 설정 화면/BuildConfig로 주입하세요. (ElevenLabs 기준 엔드포인트, Typecast·Azure Personal Voice로 교체 가능)
 - 안전장치: 첫 문장은 본인 동의 낭독(도용 방지), 14세 미만은 보호자 동의 체크 필수, 모델 생성 후 원본 녹음 삭제, 복제 음성은 가이드 대본에만 사용, 언제든 삭제
 
 ## 크리에이터 코스 (실제 영상 기준)
 각 가이드 JSON의 `creatorCourses`에는 실제로 공개된 여행 영상의 코스가 들어 있습니다 (2026-10-22 기준 YouTube에서 제목·업로드일·설명의 방문 순서를 확인한 것만 수록).
-강릉: 히제이, 유일랜드, 할명수, 한국관광공사TV · 영월: 걸어서토요일, 동네형, 가빈, 강쥐G · 경복궁: GAMJA IN SEOUL, livewithshannon, 너도 가봤으면 해, Wanderlust Wellman · 고양: 칼쳐맨(박준형), 너도 가봤으면 해, 경기관광.
+강릉: 히제이, 유일랜드, 할명수, 한국관광공사TV · 영월: 걸어서토요일, 동네형, 가빈, 강쥐G · 경복궁: GAMJA IN SEOUL, livewithshannon, 너도 가봤으면 해, Wanderlust Wellman · 고양: 칼쳐맨(박준형), 너도 가봤으면 해, 경기관광 · 국립중앙박물관: 공식 전시 안내.
 앱은 도착 전 브리핑과 재탑승 화면에서 이 코스를 보여 주고, 각 장소에서 해당 크리에이터의 한마디를 인용합니다. 상용 서비스에서는 크리에이터 등록·제휴로 확장합니다.
 
 ## 콘텐츠 출처

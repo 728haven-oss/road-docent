@@ -14,6 +14,8 @@ interface NavSignals {
     val nav: StateFlow<NavState>
     /** Ask the built-in navigation to route to [place] (used after "let's go there"). */
     fun setDestination(place: Place)
+    /** Optional hint for simulators: the polyline and minutes of the next leg. Real navigation ignores it. */
+    fun planLeg(route: List<kr.roaddocent.core.GeoPoint>, minutes: Int) {}
     fun start()
     fun stop()
 }

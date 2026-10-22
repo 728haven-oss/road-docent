@@ -25,8 +25,17 @@ data class Place(
     val note: Map<String, String> = emptyMap(), // lang -> one-line reason ("sunset at 17:40")
     /** What to do once you're there, in order: tickets, route inside, must-try, etiquette. Spoken on parking, listed on screen. */
     val onArrival: Map<String, List<String>> = emptyMap(),
-    val poiId: String = "", val poiSubId: String = "0"
+    val poiId: String = "", val poiSubId: String = "0",
+    /** If set, "go there" hands over to this guide so the docent keeps talking on the next leg (경복궁 → 국립중앙박물관). */
+    val guideId: String? = null
 )
+
+/** A question asked on the road; the answer is revealed after a pause (or on "tell me more"). */
+@Serializable
+data class Quiz(val question: Map<String, String>, val answer: Map<String, String>, val revealAfterSec: Int = 8) {
+    fun questionFor(lang: Lang) = question[lang.tag] ?: question.values.first()
+    fun answerFor(lang: Lang) = answer[lang.tag] ?: answer.values.first()
+}
 
 /** When an episode should play. */
 @Serializable
@@ -43,6 +52,8 @@ sealed class Trigger {
     @Serializable data class RestAreaAhead(val placeId: String, val kmBefore: Int = 5) : Trigger()
     /** Vehicle parked at destination then shifted back to D: "where next?" */
     @Serializable object Reboard : Trigger()
+    /** A vehicle signal event (new-car onboarding): first_drive, speed_60, speed_100, rear_seat, trip_5km, trip_15km, park. */
+    @Serializable data class VehicleEvent(val event: String) : Trigger()
 }
 
 /** One spoken episode. Text per language; kids variant optional. */
@@ -55,7 +66,10 @@ data class Episode(
     val trigger: Trigger,
     val durationSec: Int = 60,
     val source: String = "",                // provenance, read back on request
-    val priority: Int = 5                   // higher wins when triggers coincide
+    val priority: Int = 5,                  // higher wins when triggers coincide
+    /** story (default) · fact · quiz · phrase · food · tip — shown as a badge, drives tone. */
+    val kind: String = "story",
+    val quiz: Quiz? = null
 ) {
     fun titleFor(lang: Lang) = title[lang.tag] ?: title.values.first()
     fun textFor(lang: Lang, audience: Audience): String {
@@ -78,8 +92,25 @@ data class Guide(
     val driveMin: Int = 60,                  // demo drive length
     val startName: Map<String, String> = emptyMap(),
     val creatorCourses: List<CreatorCourse> = emptyList(),
-    val dataSources: List<String> = emptyList() // where the facts came from
+    val dataSources: List<String> = emptyList(), // where the facts came from
+    /** Travel themes this guide serves: art, history, nature, thrill, food, family, car. */
+    val themes: List<String> = emptyList()
 )
+
+/** Theme labels for the picker and "where next?" ranking. */
+object Themes {
+    val order = listOf("history", "art", "nature", "thrill", "food", "family", "car")
+    fun label(t: String, lang: Lang) = when (t) {
+        "history" -> if (lang == Lang.KO) "🏯 역사" else "🏯 History"
+        "art" -> if (lang == Lang.KO) "🎨 예술" else "🎨 Art"
+        "nature" -> if (lang == Lang.KO) "🌊 자연" else "🌊 Nature"
+        "thrill" -> if (lang == Lang.KO) "🎢 스릴" else "🎢 Thrill"
+        "food" -> if (lang == Lang.KO) "🍜 미식" else "🍜 Food"
+        "family" -> if (lang == Lang.KO) "👨‍👩‍👧 가족" else "👨‍👩‍👧 Family"
+        "car" -> if (lang == Lang.KO) "🚗 내 차" else "🚗 My car"
+        else -> t
+    }
+}
 
 /** A course published by a travel creator (YouTube / Instagram / blog), followed stop by stop. */
 @Serializable

@@ -30,6 +30,9 @@ enum class Source { PLEOS, SIMULATOR }
 
 class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val settings = SettingsStore(app)
+    /** Multi-day history (kept only when "keep travel log" is on). */
+    val history = kr.roaddocent.log.TripHistory(app)
+    private var historyJob: kotlinx.coroutines.Job? = null
     val localVoice = LocalVoiceCommands(app)
     private val _settingsOpen = MutableStateFlow(false)
     val settingsOpen: StateFlow<Boolean> = _settingsOpen.asStateFlow()
@@ -74,8 +77,13 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s }
         else { nav = PleosNavSignals(getApplication()); veh = PleosVehicleSignals(getApplication()) }
         engine = DocentEngine(nav, veh, speaker, guides, viewModelScope)
+        historyJob?.cancel()
+        historyJob = viewModelScope.launch {
+            engine.log.collect { l -> if (settings.prefs.value.keepTravelLog && (l.visits.isNotEmpty() || l.distanceKm > 0f)) history.save(java.time.LocalDate.now().toString(), l) }
+        }
         val p = settings.prefs.value
         engine.setLang(p.lang); engine.setAudience(p.audience); engine.safetyPauseKmh = p.safetyPauseKmh; localVoice.lang = p.lang
+        engine.theme = p.theme; engine.overlay = if (p.newCarMode) guides.loadOverlay("car_onboarding") else null
         engine.start()
         _source.value = src
     }
@@ -87,6 +95,8 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         engine.onRouteSet(g.destination.name["ko"]!!)
     }
     fun guides() = guides.all()
+    fun setTheme(t: String) { settings.update { it.copy(theme = t) }; engine.theme = t }
+    fun setNewCarMode(on: Boolean) = applyPrefs(settings.prefs.value.copy(newCarMode = on))
 
     fun setLang(l: Lang) { engine.setLang(l); localVoice.lang = l; settings.update { it.copy(lang = l) } }
     fun setAudience(a: Audience) { engine.setAudience(a); settings.update { it.copy(audience = a) } }
@@ -94,7 +104,10 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         settings.update { p }
         voiceClient.apiKey = p.voiceApiKey.ifBlank { null }
         voiceClient.baseUrl = if (p.voiceProvider == "typecast") "https://typecast.ai/api" else "https://api.elevenlabs.io/v1"
-        if (::engine.isInitialized) { engine.setLang(p.lang); engine.setAudience(p.audience); engine.safetyPauseKmh = p.safetyPauseKmh }
+        if (::engine.isInitialized) {
+            engine.setLang(p.lang); engine.setAudience(p.audience); engine.safetyPauseKmh = p.safetyPauseKmh; engine.theme = p.theme
+            val want = p.newCarMode; if (want != (engine.overlay != null)) engine.overlay = if (want) guides.loadOverlay("car_onboarding") else null
+        }
         localVoice.lang = p.lang
     }
     fun listen() = localVoice.listenOnce()
