@@ -1,0 +1,358 @@
+{
+  "id": "seoul_gangneung",
+  "destination": {
+    "id": "anmok",
+    "name": {
+      "ko": "강릉 안목해변 카페거리",
+      "en": "Anmok Beach Coffee Street, Gangneung"
+    },
+    "point": {
+      "lat": 37.772,
+      "lon": 128.947
+    },
+    "address": "강원 강릉시 창해로14번길 20-1",
+    "category": "cafe_street",
+    "typicalStayMin": 50,
+    "poiId": "",
+    "poiSubId": "0",
+    "onArrival": {
+      "ko": [
+        "주차: 건물 뒤 공영주차장(30분 무료, 이후 10분당 300원). 주말엔 11시 전 도착 권장",
+        "순서: 보헤미안 로스터스 → 해변 산책로 → 커피 자판기 포토존 → 강릉중앙시장(차로 9분)",
+        "꼭 해볼 것: 창가 자리에서 핸드드립 한 잔, 해변 '커피 자판기' 앞 사진, 시장 닭강정 포장",
+        "아이와 함께: 모래사장 조개 줍기 10분, 카페 안에서는 뛰지 않기 약속",
+        "외국인: 카페 주문은 카운터에서, 팁 없음. '이거 주세요'로 충분",
+        "머무는 시간: 가족은 보통 50분, 커플은 70분. 노을은 안목보다 경포가 좋아요"
+      ],
+      "en": [
+        "Parking: public lot behind the building (30 min free, then ₩300/10 min). Arrive before 11 on weekends",
+        "Order: Bohemian Roasters → beach promenade → coffee-vending-machine photo spot → Central Market (9 min by car)",
+        "Must-do: a hand-drip at a window seat, a photo at the beach coffee machines, take-out fried chicken from the market",
+        "With kids: 10 minutes of shell hunting on the sand; no running inside the cafe",
+        "Visitors: order at the counter, no tipping. 'i-geo ju-se-yo' is all you need",
+        "Stay: families about 50 min, couples 70. For sunset, Gyeongpo beats Anmok"
+      ]
+    }
+  },
+  "intro": {
+    "ko": "강릉은 커피 향과 겨울 파도의 도시예요. 바다를 보며 커피를 마시는 일이 이 도시에선 일상이에요.",
+    "en": "Gangneung smells of coffee and winter waves. Here, drinking coffee while watching the sea is just everyday life."
+  },
+  "episodes": [
+    {
+      "id": "start",
+      "title": {
+        "ko": "오늘의 가이드 인사",
+        "en": "Your guide for today"
+      },
+      "text": {
+        "ko": "안녕하세요, 오늘 강릉 가이드를 맡은 로드 도슨트입니다. 안목해변까지 약 2시간 40분, 가는 길에 횡성과 평창, 대관령을 지나요. 강릉이 왜 커피의 도시가 됐는지, 대관령에는 왜 풍력발전기가 많은지, 도착하기 전에 다 들려드릴게요. 넘기고 싶으면 넘겨, 더 듣고 싶으면 더 자세히, 라고 말씀하세요.",
+        "en": "Hello, I'm Road Docent, your guide to Gangneung today. It's about 2 hours 40 minutes to Anmok Beach, passing Hoengseong, Pyeongchang and the Daegwallyeong pass. Before we arrive you'll know why Gangneung became Korea's coffee city and why the pass is lined with wind turbines. Say skip to skip, or tell me more to go deeper."
+      },
+      "kidsText": {
+        "ko": "안녕! 나는 오늘 강릉까지 같이 가는 로드 도슨트야. 가는 길에 퀴즈도 내고 옛날이야기도 들려줄게. 창밖을 잘 봐야 퀴즈를 맞힐 수 있어!",
+        "en": "Hi! I'm Road Docent and I'm riding with you to Gangneung. I'll tell stories and ask quizzes on the way. Keep your eyes on the window to win!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 0
+      },
+      "durationSec": 40,
+      "source": "Road Docent",
+      "priority": 9
+    },
+    {
+      "id": "coffee_city",
+      "title": {
+        "ko": "강릉은 왜 커피의 도시가 됐을까",
+        "en": "Why Gangneung became the coffee city"
+      },
+      "text": {
+        "ko": "1990년대 말, 바리스타 1세대로 불리는 사람들이 서울을 떠나 강릉 바닷가에 로스터리를 열었어요. 안목해변에는 원래 커피 자판기가 줄지어 서 있었고, 바다 보며 자판기 커피 마시는 게 강릉 사람들 데이트 코스였죠. 그 자리에 카페가 하나둘 들어서면서 지금의 카페거리가 됐어요. 2009년부터는 매년 10월 강릉커피축제가 열려요.",
+        "en": "In the late 1990s, Korea's first generation of baristas left Seoul and opened roasteries by the Gangneung shore. Anmok Beach used to be lined with coffee vending machines, and sipping vending-machine coffee by the sea was the local date. Cafes replaced the machines one by one and became today's coffee street. Since 2009 the Gangneung Coffee Festival runs every October."
+      },
+      "kidsText": {
+        "ko": "강릉 바닷가에는 옛날에 커피 자판기가 아주 많았대. 사람들이 바다를 보면서 자판기 커피를 마시는 걸 좋아했거든. 그래서 지금은 바다 앞에 카페가 쭉 생겼어. 우리가 가는 곳이 바로 거기야!",
+        "en": "Long ago the Gangneung beach was full of coffee vending machines. People loved drinking coffee while watching the sea. Now there's a whole street of cafes there, and that's exactly where we're going!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 1
+      },
+      "durationSec": 70,
+      "source": "강릉시 관광 안내 / 강릉커피축제",
+      "priority": 6
+    },
+    {
+      "id": "hoengseong_rest",
+      "title": {
+        "ko": "횡성휴게소 · 한우국밥",
+        "en": "Hoengseong rest area: hanwoo beef soup"
+      },
+      "text": {
+        "ko": "5킬로미터 앞에 횡성휴게소가 있어요. 횡성은 한우로 유명한 고장이라 여기 한우국밥을 꼭 드셔보세요. 화장실은 건물 왼쪽, 주차는 오른쪽 끝이 가까워요. 들를까요?",
+        "en": "Hoengseong rest area is 5 km ahead. Hoengseong is famous for hanwoo beef, so try the hanwoo beef soup here. Restrooms are on the left of the building, parking is closest at the right end. Shall we stop?"
+      },
+      "kidsText": {
+        "ko": "조금만 가면 횡성휴게소야. 횡성은 소가 아주 유명한 곳이야. 여기 소떡소떡도 맛있대. 쉬었다 갈까?",
+        "en": "Hoengseong rest area is coming up. Hoengseong is famous for its cows! The sausage-and-rice-cake skewers here are great too. Want to stop?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RestAreaAhead",
+        "placeId": "hoengseong_rest",
+        "kmBefore": 5
+      },
+      "durationSec": 25,
+      "source": "한국도로공사 휴게소 정보",
+      "priority": 8
+    },
+    {
+      "id": "pyeongchang",
+      "title": {
+        "ko": "평창 · 2018년 세계가 찾아온 이유",
+        "en": "Pyeongchang: why the world came in 2018"
+      },
+      "text": {
+        "ko": "지금 지나는 평창은 2018년 동계올림픽이 열린 곳이에요. 세 번 도전해서 세 번째에 유치했죠. 해발 700미터라서 사람 살기 가장 좋은 높이라는 뜻으로 해피 세븐 헌드레드라고 불러요. 올림픽 때 지은 KTX 덕분에 서울에서 강릉까지 두 시간이 됐어요.",
+        "en": "We're passing Pyeongchang, host of the 2018 Winter Olympics. It bid three times and won on the third. At 700 metres above sea level it calls itself Happy 700, said to be the most comfortable altitude for people. The KTX line built for the Games cut Seoul to Gangneung down to two hours."
+      },
+      "kidsText": {
+        "ko": "지금 지나는 곳은 평창이야. 2018년에 여기서 겨울올림픽이 열렸어. 스키랑 스케이트 선수들이 전 세계에서 왔지. 퀴즈! 올림픽 마스코트 흰 호랑이 이름이 뭐였을까? 정답은 수호랑!",
+        "en": "We're in Pyeongchang now. The 2018 Winter Olympics happened right here, with skiers and skaters from all over the world. Quiz! What was the white tiger mascot's name? The answer: Soohorang!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.549,
+          "lon": 128.395
+        },
+        "radiusM": 12000
+      },
+      "durationSec": 60,
+      "source": "평창군 / 2018 평창동계올림픽 조직위",
+      "priority": 7
+    },
+    {
+      "id": "congestion_deep",
+      "title": {
+        "ko": "정체 구간 · 영동고속도로 이야기",
+        "en": "Stuck in traffic: the Yeongdong Expressway story"
+      },
+      "text": {
+        "ko": "앞으로 한동안 막히네요. 이럴 때 긴 이야기 하나 할게요. 지금 달리는 영동고속도로는 1975년에 개통됐어요. 그 전에는 서울에서 강릉까지 대관령 굽잇길을 넘어 꼬박 하루가 걸렸죠. 대관령 옛길에는 아흔아홉 굽이가 있다고 했고, 신사임당이 어린 율곡을 데리고 이 고개를 넘으며 친정 강릉을 돌아본 시가 지금도 전해져요. 지금 막히는 이 길이, 백 년 전에는 걸어서 넘던 고개였어요.",
+        "en": "Looks like we'll be slow for a while, so here's a longer story. The Yeongdong Expressway opened in 1975. Before that, Seoul to Gangneung took a full day over the winding Daegwallyeong pass, said to have ninety-nine bends. Shin Saimdang, the painter on Korea's 50,000-won note, crossed it with her young son and wrote a poem looking back at her hometown Gangneung. This road we're stuck on was, a century ago, a pass people walked."
+      },
+      "kidsText": {
+        "ko": "차가 좀 막히네. 그럼 긴 이야기 하나! 옛날에는 서울에서 강릉까지 하루 종일 걸렸대. 고속도로가 없어서 산을 걸어서 넘었거든. 그 산 고개에 굽이가 아흔아홉 개나 있었대. 우리는 차 안에서 편하게 가니까 다행이지?",
+        "en": "We're in a bit of traffic, so here's a long story! Long ago it took a whole day from Seoul to Gangneung. There was no highway, so people walked over the mountains, on a pass with ninety-nine bends. Aren't we lucky to be sitting in a car?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 90,
+      "source": "한국도로공사 / 강릉시 오죽헌 자료",
+      "priority": 8
+    },
+    {
+      "id": "daegwallyeong",
+      "title": {
+        "ko": "대관령 · 바람과 풍력발전기",
+        "en": "Daegwallyeong: wind and turbines"
+      },
+      "text": {
+        "ko": "대관령 구간이에요. 커브가 많으니 짧게만 말할게요. 오른쪽 능선의 풍력발전기들은 바람이 세서 세운 거예요. 이 바람이 강릉 쪽으로 내려가면 뜨겁고 건조해져서 봄에 산불이 잦아요.",
+        "en": "This is the Daegwallyeong pass. Lots of curves, so I'll keep it short. The turbines on the ridge to your right are there because the wind is strong. When that wind drops toward Gangneung it turns hot and dry, which is why spring wildfires are common."
+      },
+      "kidsText": {
+        "ko": "창밖 오른쪽을 봐! 커다란 바람개비가 보이지? 저건 풍력발전기야. 바람으로 전기를 만들어. 몇 개인지 세어볼래?",
+        "en": "Look out the right window! See the giant pinwheels? Those are wind turbines, making electricity from wind. Can you count them?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.641,
+          "lon": 128.63
+        },
+        "radiusM": 10000
+      },
+      "durationSec": 30,
+      "source": "강원도 에너지 / 산림청",
+      "priority": 7
+    },
+    {
+      "id": "arrival_brief",
+      "title": {
+        "ko": "도착 전 브리핑 · 카페와 주차",
+        "en": "Arrival briefing: cafes and parking"
+      },
+      "text": {
+        "ko": "20분 뒤 안목해변에 도착해요. 지금 시간엔 창가에서 바다가 보이는 보헤미안 로스터스가 좋아요. 주차는 건물 뒤 공영주차장이 가장 가까워요. 걸어서 5분 거리 강릉중앙시장에는 닭강정이 유명하고요. 4명, 도착 시간으로 예약할까요?",
+        "en": "We arrive at Anmok Beach in 20 minutes. At this hour, Bohemian Roasters with its sea-view window seats is a good pick. The closest parking is the public lot behind the building. Gangneung Central Market, 5 minutes on foot, is known for sweet-and-spicy fried chicken. Shall I call and reserve for four at our arrival time?"
+      },
+      "kidsText": {
+        "ko": "20분 뒤면 바다에 도착해! 카페에 가면 어른들은 커피, 너는 뭐 마실래? 카페에 들어가면 뭐라고 인사하지? 안녕하세요! 한 번 연습해보자.",
+        "en": "We reach the sea in 20 minutes! Grown-ups get coffee at the cafe. What will you drink? And what do we say when we walk in? Annyeong-haseyo! Let's practice once."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
+        "minutes": 20
+      },
+      "durationSec": 35,
+      "source": "한국관광공사 TourAPI / 강릉시",
+      "priority": 9
+    },
+    {
+      "id": "reboard",
+      "title": {
+        "ko": "다음은 어디로 갈까요?",
+        "en": "Where next?"
+      },
+      "text": {
+        "ko": "다시 출발하시네요. 차로 10분 안에 가볼 만한 곳이 두 군데 있어요. 경포 솔숲은 지금 가면 노을 시간에 딱 맞고, 강문해변은 조용히 걷기 좋아요. 거기로 가자, 라고 말씀하시면 안내할게요.",
+        "en": "Setting off again. Two places are within ten minutes by car. Gyeongpo pine forest lines up with sunset if we go now, and Gangmun Beach is good for a quiet walk. Say let's go there and I'll route you."
+      },
+      "kidsText": {
+        "ko": "다시 출발! 이번엔 소나무 숲에 갈까? 솔숲에서 솔방울 찾기 할 수 있어. 아니면 오죽헌에 가서 신사임당 이야기 듣기? 어디 갈래?",
+        "en": "Off we go again! How about a pine forest next? We can hunt for pine cones there. Or Ojukheon, to hear the story of Shin Saimdang? Which one?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Reboard"
+      },
+      "durationSec": 25,
+      "source": "Road Docent 체류 데이터",
+      "priority": 10
+    }
+  ],
+  "restAreas": [
+    {
+      "id": "hoengseong_rest",
+      "name": {
+        "ko": "횡성휴게소",
+        "en": "Hoengseong Rest Area"
+      },
+      "point": {
+        "lat": 37.489,
+        "lon": 127.989
+      },
+      "category": "rest_area",
+      "typicalStayMin": 20,
+      "note": {
+        "ko": "한우국밥",
+        "en": "Hanwoo beef soup"
+      }
+    }
+  ],
+  "nearby": [
+    {
+      "id": "gyeongpo_pine",
+      "name": {
+        "ko": "경포 솔숲",
+        "en": "Gyeongpo Pine Forest"
+      },
+      "point": {
+        "lat": 37.7955,
+        "lon": 128.9075
+      },
+      "address": "강원 강릉시 운정동",
+      "category": "park",
+      "typicalStayMin": 40,
+      "note": {
+        "ko": "지금 가면 노을 시간(17:40)에 맞아요 · 가족은 보통 40분",
+        "en": "Lines up with sunset at 17:40 · families stay about 40 min"
+      }
+    },
+    {
+      "id": "gangmun",
+      "name": {
+        "ko": "강문해변",
+        "en": "Gangmun Beach"
+      },
+      "point": {
+        "lat": 37.7925,
+        "lon": 128.9145
+      },
+      "address": "강원 강릉시 강문동",
+      "category": "beach",
+      "typicalStayMin": 30,
+      "note": {
+        "ko": "조용한 산책 · 차로 7분",
+        "en": "Quiet walk · 7 min by car"
+      }
+    },
+    {
+      "id": "ojukheon",
+      "name": {
+        "ko": "오죽헌",
+        "en": "Ojukheon House"
+      },
+      "point": {
+        "lat": 37.7793,
+        "lon": 128.8783
+      },
+      "address": "강원 강릉시 율곡로3139번길 24",
+      "phone": "033-660-3301",
+      "category": "museum",
+      "typicalStayMin": 50,
+      "note": {
+        "ko": "신사임당 이야기 · 아이와 함께 50분",
+        "en": "Shin Saimdang's home · 50 min with kids"
+      }
+    },
+    {
+      "id": "bohemian",
+      "name": {
+        "ko": "보헤미안 로스터스 안목점",
+        "en": "Bohemian Roasters Anmok"
+      },
+      "point": {
+        "lat": 37.7716,
+        "lon": 128.9476
+      },
+      "address": "강원 강릉시 창해로14번길 20-1",
+      "phone": "033-662-5365",
+      "category": "cafe",
+      "typicalStayMin": 45,
+      "note": {
+        "ko": "강릉 커피의 시작점 · 창가 바다뷰",
+        "en": "Where Gangneung coffee began · sea-view window"
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "ko": "이거 주세요",
+      "romanized": "i-geo ju-se-yo",
+      "meaning": {
+        "en": "This one, please"
+      }
+    },
+    {
+      "ko": "덜 맵게 해주세요",
+      "romanized": "deol maep-ge hae-ju-se-yo",
+      "meaning": {
+        "en": "Less spicy, please"
+      }
+    },
+    {
+      "ko": "얼마예요?",
+      "romanized": "eol-ma-ye-yo?",
+      "meaning": {
+        "en": "How much is it?"
+      }
+    },
+    {
+      "ko": "계산해 주세요",
+      "romanized": "gye-san-hae ju-se-yo",
+      "meaning": {
+        "en": "The bill, please"
+      }
+    },
+    {
+      "ko": "감사합니다",
+      "romanized": "gam-sa-ham-ni-da",
+      "meaning": {
+        "en": "Thank you"
+      }
+    }
+  ]
+}

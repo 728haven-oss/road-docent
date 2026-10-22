@@ -1,0 +1,352 @@
+{
+  "id": "yeongwol_danjong",
+  "destination": {
+    "id": "cheongnyeongpo",
+    "name": {
+      "ko": "영월 청령포",
+      "en": "Cheongnyeongpo, Yeongwol"
+    },
+    "point": {
+      "lat": 37.1658,
+      "lon": 128.4425
+    },
+    "address": "강원 영월군 남면 광천리 산67-1",
+    "category": "heritage",
+    "typicalStayMin": 60,
+    "note": {
+      "ko": "영화 '왕과 사는 남자'의 단종 유배지 · 배로 1분 · 60분",
+      "en": "King Danjong's exile site from the film · 1-min boat ride · 60 min"
+    },
+    "onArrival": {
+      "ko": [
+        "입장: 매표 후 배 탑승(왕복 포함, 1분). 마지막 배는 해 지기 전, 겨울엔 17시 무렵",
+        "순서: 선착장 → 단종어소(복원 가옥) → 관음송(600년 소나무) → 망향탑 → 노산대(절벽 전망) → 선착장. 약 60분",
+        "꼭 볼 것: 관음송 아래에서 강 쪽 보기(단종이 앉았다는 자리), 망향탑 돌 하나하나는 단종이 쌓은 것",
+        "아이와 함께: 배에서는 손 밖으로 내밀지 않기, 절벽 쪽 난간 넘지 않기. 소나무 나이 맞히기 퀴즈",
+        "예절: 어소 안에서는 조용히, 신발은 신은 채로. 유적지라 음식물 반입 금지",
+        "다음 코스: 장릉(차 10분, 50분) → 관풍헌(읍내, 25분). 영화 순서 그대로",
+        "머무는 시간: 보통 60분. 영화 본 뒤 오신 분들은 90분"
+      ],
+      "en": [
+        "Entry: buy a ticket, then the boat (return included, 1 min). Last boat before sunset, around 17:00 in winter",
+        "Order: pier → king's residence (rebuilt) → Gwaneum pine (600 yrs) → longing tower → Nosandae cliff view → pier. About 60 min",
+        "Must-see: look toward the river from under the pine (where the king sat); each stone of the tower was stacked by him",
+        "With kids: hands inside the boat, stay behind the cliff railing. Quiz: how old is the pine?",
+        "Etiquette: keep quiet inside the residence, shoes stay on. No food on the site",
+        "Next: Jangneung (10 min by car, 50 min) → Gwanpungheon (town, 25 min), the film's order",
+        "Stay: usually 60 min; 90 if you've seen the film"
+      ]
+    }
+  },
+  "startName": {
+    "ko": "서울 강남",
+    "en": "Gangnam, Seoul"
+  },
+  "intro": {
+    "ko": "영월은 열일곱 살 왕이 마지막 해를 보낸 곳이에요. 천만 관객이 본 영화 '왕과 사는 남자'의 그 길을 오늘 그대로 따라갑니다.",
+    "en": "Yeongwol is where a seventeen-year-old king spent his last year. Today we follow the exact path of the ten-million-viewer film 'The King and the Man Who Lives With Him'."
+  },
+  "route": [
+    {
+      "lat": 37.4979,
+      "lon": 127.0276
+    },
+    {
+      "lat": 37.4432,
+      "lon": 127.348
+    },
+    {
+      "lat": 37.4818,
+      "lon": 127.556
+    },
+    {
+      "lat": 37.42,
+      "lon": 127.83
+    },
+    {
+      "lat": 37.34,
+      "lon": 128.05
+    },
+    {
+      "lat": 37.24,
+      "lon": 128.25
+    },
+    {
+      "lat": 37.183,
+      "lon": 128.43
+    },
+    {
+      "lat": 37.1658,
+      "lon": 128.4425
+    }
+  ],
+  "driveMin": 150,
+  "episodes": [
+    {
+      "id": "start",
+      "title": {
+        "ko": "오늘의 가이드 인사",
+        "en": "Your guide for today"
+      },
+      "text": {
+        "ko": "안녕하세요, 로드 도슨트입니다. 영월 청령포까지 약 2시간 30분이에요. 오늘은 영화 '왕과 사는 남자'를 따라가는 코스예요. 영화 속 왕은 문종의 아들 단종, 1457년 열일곱 살에 영월로 유배됐죠. 가는 길에 영화가 어디서 찍혔는지, 실제 역사는 어땠는지 들려드리고, 도착하면 청령포, 장릉, 관풍헌 순서로 안내할게요.",
+        "en": "Hello, I'm Road Docent. Cheongnyeongpo in Yeongwol is about two and a half hours away. Today we follow the film 'The King and the Man Who Lives With Him'. Its king is Danjong, son of King Munjong, exiled here in 1457 at seventeen. On the way I'll tell you where the film was shot and what really happened, and on arrival guide you through Cheongnyeongpo, Jangneung and Gwanpungheon in order."
+      },
+      "kidsText": {
+        "ko": "안녕! 오늘은 아주 어린 왕 이야기를 하러 가. 열일곱 살에 왕이었던 단종이야. 영화로도 나왔어. 가는 길에 옛날이야기 들려줄게!",
+        "en": "Hi! Today we're going to hear about a very young king, Danjong, who was king at seventeen. There's even a movie about him. Stories on the way!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 0
+      },
+      "durationSec": 40,
+      "source": "Road Docent",
+      "priority": 9
+    },
+    {
+      "id": "danjong_story",
+      "title": {
+        "ko": "열두 살 왕, 열일곱 살 유배",
+        "en": "King at twelve, exiled at seventeen"
+      },
+      "text": {
+        "ko": "단종은 1452년 열두 살에 왕이 됐어요. 아버지 문종이 즉위 2년 만에 세상을 떠났거든요. 어린 왕 곁에는 숙부 수양대군이 있었고, 1453년 계유정난으로 권력을 잡은 뒤 1455년 왕위를 넘겨받아 세조가 됐어요. 단종은 상왕이 됐다가 복위 시도가 드러나자 노산군으로 강등돼 1457년 영월 청령포로 보내졌죠. 삼면이 강이고 한 면은 절벽, 배가 아니면 나갈 수 없는 곳이에요.",
+        "en": "Danjong became king in 1452 at twelve, after his father Munjong died just two years into his reign. His uncle Prince Suyang seized power in the 1453 coup, took the throne in 1455 as King Sejo, and when a plot to restore Danjong surfaced, the boy was demoted and sent to Cheongnyeongpo in 1457. Water on three sides, a cliff on the fourth: no way out except by boat."
+      },
+      "kidsText": {
+        "ko": "단종은 열두 살에 왕이 됐어. 너보다 조금 큰 나이야. 그런데 삼촌이 왕 자리를 빼앗고 단종을 멀리 영월로 보냈어. 강으로 둘러싸인 섬 같은 곳이야. 퀴즈! 단종이 왕이 됐을 때 몇 살이었을까?",
+        "en": "Danjong became king at twelve, just a bit older than you. But his uncle took the throne and sent him far away to Yeongwol, to a place like an island surrounded by river. Quiz! How old was Danjong when he became king?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 1
+      },
+      "durationSec": 70,
+      "source": "조선왕조실록 / 영월군 장릉 안내",
+      "priority": 6
+    },
+    {
+      "id": "film_locations",
+      "title": {
+        "ko": "영화는 어디서 찍었나",
+        "en": "Where the film was shot"
+      },
+      "text": {
+        "ko": "영화의 산골 마을 장면은 경북 문경새재 오픈세트장에서, 관아 장면은 고령 김면 장군 유적지에서, 수묵화 같은 이동 장면은 문경 쌍용계곡에서 찍었어요. 그러니까 영화 속 영월은 대부분 경북에서 찍은 거예요. 오늘 가는 영월은 영화의 배경이 된 진짜 장소예요. 영화를 보고 오신 분들이 많아서 주말엔 청령포 배 타는 줄이 길어요.",
+        "en": "The mountain-village scenes were filmed at the Mungyeong Saejae open set in Gyeongbuk, the government-office scenes at the General Kim Myeon site in Goryeong, and the ink-painting-like travel scenes in Mungyeong's Ssangyong Valley. So most of the film's Yeongwol was shot in Gyeongbuk. Today's Yeongwol is the real place behind the story, and since the film, the weekend boat queue at Cheongnyeongpo is long."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 2
+      },
+      "durationSec": 50,
+      "source": "헤럴드경제 2026.3.8 / 경북도 영상위원회",
+      "priority": 6
+    },
+    {
+      "id": "congestion_deep",
+      "title": {
+        "ko": "정체 구간 · 엄흥도 이야기",
+        "en": "Stuck in traffic: the story of Eom Heung-do"
+      },
+      "text": {
+        "ko": "막히는 김에 영화가 알린 사람 이야기를 할게요. 1457년 단종이 열일곱 살로 세상을 떠났을 때, 세조는 시신을 거두는 자를 삼족을 멸하겠다고 했어요. 아무도 나서지 못했죠. 영월의 하급 관리 엄흥도가 밤에 몰래 시신을 지게에 지고 산으로 올라가 묻었어요. 그 자리가 지금의 장릉이에요. 엄흥도는 그 뒤 숨어 살았고, 240년이 지난 1698년에야 단종이 복위되면서 그의 이름도 되살아났어요.",
+        "en": "Since we're slow, here's the man the film made famous. When Danjong died in 1457 at seventeen, King Sejo threatened to wipe out three generations of anyone who buried the body. No one dared. Eom Heung-do, a low-ranking Yeongwol clerk, carried the body up the mountain on his back at night and buried it. That spot is today's Jangneung tomb. Eom lived in hiding, and only in 1698, 240 years later, when Danjong was restored, was his name honoured."
+      },
+      "kidsText": {
+        "ko": "차가 막히네. 그럼 용감한 아저씨 이야기! 단종이 죽었을 때 아무도 무서워서 묻어주지 못했어. 그런데 엄흥도라는 아저씨가 밤에 몰래 산에 묻어줬어. 벌 받을까 봐 숨어 살았지만, 나중에 모두가 고마워했대.",
+        "en": "Traffic! So, a story about a brave man. When Danjong died everyone was too scared to bury him. But a man named Eom Heung-do secretly buried him on the mountain at night. He had to hide, but much later everyone thanked him."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 80,
+      "source": "영월군 장릉 / 경향신문 2026.3.14",
+      "priority": 8
+    },
+    {
+      "id": "jecheon_pass",
+      "title": {
+        "ko": "제천 · 의림지",
+        "en": "Jecheon: Uirimji reservoir"
+      },
+      "text": {
+        "ko": "지금 지나는 제천에는 의림지가 있어요. 삼국시대에 만든 저수지로 지금도 농업용수로 쓰여요. 천 년 넘게 쓰는 저수지는 세계적으로도 드물어요. 영월로 가는 길에 들르면 30분이면 충분해요.",
+        "en": "We're passing Jecheon, home of Uirimji, a reservoir built in the Three Kingdoms era and still used for irrigation. A reservoir in use for over a thousand years is rare anywhere. Thirty minutes is enough if you stop on the way."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.155,
+          "lon": 128.21
+        },
+        "radiusM": 12000
+      },
+      "durationSec": 25,
+      "source": "제천시 / 문화재청",
+      "priority": 7
+    },
+    {
+      "id": "arrival_brief",
+      "title": {
+        "ko": "도착 전 브리핑 · 청령포 순서",
+        "en": "Arrival briefing: how to see Cheongnyeongpo"
+      },
+      "text": {
+        "ko": "20분 뒤 청령포 선착장에 도착해요. 배는 1분이면 건너고, 건너면 단종어소, 600년 된 관음송, 단종이 한양을 그리며 쌓은 망향탑, 노산대 순서로 돌면 한 시간이에요. 주차장 옆 식당은 곤드레밥이 유명해요. 청령포 다음엔 차로 10분 거리 장릉, 그다음 읍내 관풍헌이 영화 순서예요.",
+        "en": "In 20 minutes we reach the Cheongnyeongpo pier. The boat takes a minute; across, walk the king's residence, the 600-year-old Gwaneum pine, the stone tower he built longing for Seoul, and Nosandae, about an hour. The restaurant by the car park is known for gondeure rice. After here, Jangneung is 10 minutes by car, then Gwanpungheon in town, the film's order."
+      },
+      "kidsText": {
+        "ko": "20분 뒤면 도착! 배를 타고 강을 건너야 해. 건너면 600살 된 소나무가 있어. 단종이 그 나무에 앉아서 울었대. 배에서는 손 밖으로 내밀지 않기, 약속!",
+        "en": "Twenty minutes to go! We cross the river by boat. On the other side there's a 600-year-old pine tree where Danjong sat and cried. On the boat, hands inside, promise!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
+        "minutes": 20
+      },
+      "durationSec": 45,
+      "source": "영월군 관광 / 한국관광공사 TourAPI",
+      "priority": 9
+    },
+    {
+      "id": "reboard",
+      "title": {
+        "ko": "다음은 어디로 갈까요?",
+        "en": "Where next?"
+      },
+      "text": {
+        "ko": "다시 출발하시네요. 영화 순서대로라면 다음은 장릉이에요, 차로 10분. 단종의 무덤이고 엄흥도를 기리는 사당도 있어요. 읍내 관풍헌은 단종이 마지막을 맞은 곳이고요. 거기로 가자, 라고 말씀하세요.",
+        "en": "Setting off again. Following the film, next is Jangneung, ten minutes by car: Danjong's tomb, with a shrine to Eom Heung-do. Gwanpungheon in town is where the king died. Say let's go there."
+      },
+      "kidsText": {
+        "ko": "다시 출발! 다음은 단종의 무덤 장릉에 갈까? 용감한 엄흥도 아저씨 사당도 있어. 아니면 별마로천문대에서 별 보기? 어디 갈래?",
+        "en": "Off we go! Next, Danjong's tomb at Jangneung, with a shrine to brave Eom Heung-do? Or stargazing at the Byeolmaro observatory? Which one?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Reboard"
+      },
+      "durationSec": 25,
+      "source": "Road Docent 체류 데이터",
+      "priority": 10
+    }
+  ],
+  "restAreas": [],
+  "nearby": [
+    {
+      "id": "jangneung",
+      "name": {
+        "ko": "장릉",
+        "en": "Jangneung Royal Tomb"
+      },
+      "point": {
+        "lat": 37.1915,
+        "lon": 128.453
+      },
+      "address": "강원 영월군 영월읍 단종로 190",
+      "category": "heritage",
+      "typicalStayMin": 50,
+      "note": {
+        "ko": "단종의 능 · 엄흥도 사당 · 영화 순서 2번째",
+        "en": "Danjong's tomb · shrine to Eom Heung-do · film stop 2"
+      }
+    },
+    {
+      "id": "gwanpungheon",
+      "name": {
+        "ko": "관풍헌",
+        "en": "Gwanpungheon"
+      },
+      "point": {
+        "lat": 37.184,
+        "lon": 128.466
+      },
+      "address": "강원 영월군 영월읍 중앙로 61",
+      "category": "heritage",
+      "typicalStayMin": 25,
+      "note": {
+        "ko": "단종이 마지막을 맞은 곳 · 자규루 · 영화 순서 3번째",
+        "en": "Where the king died · Jagyuru pavilion · film stop 3"
+      }
+    },
+    {
+      "id": "byeolmaro",
+      "name": {
+        "ko": "별마로천문대",
+        "en": "Byeolmaro Observatory"
+      },
+      "point": {
+        "lat": 37.173,
+        "lon": 128.487
+      },
+      "address": "강원 영월군 영월읍 천문대길 397",
+      "category": "observatory",
+      "typicalStayMin": 60,
+      "note": {
+        "ko": "해 진 뒤 별 관측 · 아이와 60분",
+        "en": "Stargazing after dark · 60 min with kids"
+      }
+    },
+    {
+      "id": "cheongnok",
+      "name": {
+        "ko": "청록다방",
+        "en": "Cheongnok Tearoom"
+      },
+      "point": {
+        "lat": 37.1835,
+        "lon": 128.464
+      },
+      "address": "강원 영월군 영월읍",
+      "category": "cafe",
+      "typicalStayMin": 30,
+      "note": {
+        "ko": "영화 '라디오스타' 촬영지 · 아직 영업 중",
+        "en": "From the film Radio Star · still open"
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "ko": "배 언제 출발해요?",
+      "romanized": "bae eon-je chul-bal-hae-yo?",
+      "meaning": {
+        "en": "When does the boat leave?"
+      }
+    },
+    {
+      "ko": "곤드레밥 주세요",
+      "romanized": "gon-deu-re-bap ju-se-yo",
+      "meaning": {
+        "en": "Gondeure rice, please"
+      }
+    }
+  ],
+  "creatorCourses": [
+    {
+      "creator": "영화 '왕과 사는 남자'",
+      "platform": "film",
+      "title": {
+        "ko": "영화 순서로 보는 단종의 영월",
+        "en": "Danjong's Yeongwol in the film's order"
+      },
+      "stops": [
+        "cheongnyeongpo",
+        "jangneung",
+        "gwanpungheon"
+      ],
+      "quote": {
+        "ko": "영화 속 왕이 뗏목으로 건넌 그 강이에요",
+        "en": "This is the river the king crossed by raft in the film"
+      },
+      "url": ""
+    }
+  ],
+  "dataSources": [
+    "조선왕조실록(국사편찬위원회)",
+    "영월군 관광·장릉 안내",
+    "한국관광공사 TourAPI",
+    "경향신문 2026.3.14 영월 여행 기사",
+    "헤럴드경제 2026.3.8 (경북 촬영지)"
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "id": "goyang_motorstudio",
+  "destination": {
+    "id": "motorstudio_goyang",
+    "name": {
+      "ko": "현대 모터스튜디오 고양",
+      "en": "Hyundai Motorstudio Goyang"
+    },
+    "point": {
+      "lat": 37.6665,
+      "lon": 126.7432
+    },
+    "address": "경기 고양시 일산서구 킨텍스로 217-6",
+    "phone": "1899-6611",
+    "category": "museum",
+    "typicalStayMin": 90,
+    "note": {
+      "ko": "자동차가 만들어지는 과정을 직접 보는 체험형 전시관 · 가족 90분",
+      "en": "Hands-on museum of how a car is made · families stay 90 min"
+    },
+    "onArrival": {
+      "ko": [
+        "입장: 전시 투어는 예약제(홈페이지·전화 1899-6611). 현장 대기도 가능하지만 주말은 예약 권장",
+        "순서: 1층 커넥트 월(현재 라인업) → 인투 더 카(차체·용접·도장·조립) → 2층 N 브랜드 존 → 수소연료전지 전시 → S-링크 체험",
+        "꼭 볼 것: 로봇 용접 시연, 충돌 안전 전시, 레이싱카 실물. 도슨트 투어는 약 60분",
+        "아이와 함께: 키즈 프로그램은 시간대별 운영, 입구에서 시간 확인. 전시물은 만지기 전에 안내 표시 확인",
+        "식사: 건물 내 카페·레스토랑, 또는 차로 5분 일산 라페스타 거리",
+        "머무는 시간: 가족은 보통 90분, 자동차 마니아는 2시간 이상"
+      ],
+      "en": [
+        "Entry: exhibition tours are by reservation (website or 1899-6611). Walk-ins possible, but book on weekends",
+        "Order: Connect Wall (floor 1) → Into the Car (body, welding, paint, assembly) → N zone (floor 2) → fuel-cell exhibit → S-link ride",
+        "Must-see: robot welding demo, crash-safety exhibit, real racing cars. Docent tour about 60 min",
+        "With kids: kids programmes run at set times, check at the entrance. Look for 'please touch' signs before touching",
+        "Food: cafe and restaurant inside, or La Festa street 5 min by car",
+        "Stay: families about 90 min, car enthusiasts 2 hours or more"
+      ]
+    }
+  },
+  "startName": {
+    "ko": "서울 강남",
+    "en": "Gangnam, Seoul"
+  },
+  "intro": {
+    "ko": "자동차의 목적지는 예술작품이 되어 갑니다. 오늘은 그 자동차가 어떻게 태어나는지를 보러 가요.",
+    "en": "A car's destination is becoming a work of art. Today we go to see how that car is born."
+  },
+  "route": [
+    {
+      "lat": 37.4979,
+      "lon": 127.0276
+    },
+    {
+      "lat": 37.523,
+      "lon": 126.974
+    },
+    {
+      "lat": 37.551,
+      "lon": 126.913
+    },
+    {
+      "lat": 37.579,
+      "lon": 126.881
+    },
+    {
+      "lat": 37.613,
+      "lon": 126.833
+    },
+    {
+      "lat": 37.648,
+      "lon": 126.78
+    },
+    {
+      "lat": 37.6665,
+      "lon": 126.7432
+    }
+  ],
+  "driveMin": 55,
+  "episodes": [
+    {
+      "id": "start",
+      "title": {
+        "ko": "오늘의 가이드 인사",
+        "en": "Your guide for today"
+      },
+      "text": {
+        "ko": "안녕하세요, 로드 도슨트입니다. 현대 모터스튜디오 고양까지 약 55분이에요. 가는 길에 지금 타고 계신 이 차를 만든 회사가 어떻게 시작됐는지, 포니에서 아이오닉까지의 이야기를 들려드리고, 도착하면 전시관에서 뭘 먼저 봐야 하는지 알려드릴게요.",
+        "en": "Hello, I'm Road Docent. Hyundai Motorstudio Goyang is about 55 minutes away. On the way I'll tell you how the company that built this very car began, from the Pony to the Ioniq, and when we arrive I'll tell you what to see first."
+      },
+      "kidsText": {
+        "ko": "안녕! 오늘은 자동차가 태어나는 곳에 가는 거야. 우리가 타고 있는 이 차도 거기서 보여주는 것처럼 만들어졌어. 가는 길에 자동차 퀴즈 낼게!",
+        "en": "Hi! Today we're going to where cars are born. This car we're sitting in was made just like what they show there. Car quizzes on the way!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 0
+      },
+      "durationSec": 35,
+      "source": "Road Docent",
+      "priority": 9
+    },
+    {
+      "id": "history_1967",
+      "title": {
+        "ko": "1967년, 자동차를 만들겠다는 결심",
+        "en": "1967: the decision to build cars"
+      },
+      "text": {
+        "ko": "현대자동차는 1967년 12월에 세워졌어요. 처음엔 포드의 코티나를 조립하는 회사였죠. 그런데 창업자 정주영은 남의 차를 조립하는 걸로 만족하지 않았어요. 1974년 이탈리아 디자이너 조르제토 주지아로에게 디자인을 맡기고, 1975년 한국 최초의 고유 모델 포니를 만들었어요. 다음 해부터 에콰도르로 수출을 시작했죠. 지금 타고 계신 차의 시작이에요.",
+        "en": "Hyundai Motor was founded in December 1967, at first assembling Ford Cortinas. But founder Chung Ju-yung wasn't satisfied building other people's cars. In 1974 he commissioned Italian designer Giorgetto Giugiaro, and in 1975 Korea's first original model, the Pony, was born. Exports to Ecuador began the next year. That's where the car you're sitting in started."
+      },
+      "kidsText": {
+        "ko": "옛날 옛날, 1967년에 현대자동차가 생겼어. 처음엔 다른 나라 자동차를 조립만 했대. 그런데 '우리 차를 만들자!' 해서 1975년에 포니라는 차를 만들었어. 한국에서 처음으로 만든 자동차야. 퀴즈! 포니는 무슨 뜻일까? 정답은 조랑말!",
+        "en": "Long ago, in 1967, Hyundai Motor was born. At first they only put together other countries' cars. Then they said 'let's build our own!' and in 1975 made the Pony, Korea's very first car. Quiz! What does Pony mean? A little horse!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 1
+      },
+      "durationSec": 60,
+      "source": "현대자동차그룹 공식 연혁 / 현대모터스튜디오 헤리티지",
+      "priority": 6
+    },
+    {
+      "id": "history_engine",
+      "title": {
+        "ko": "1991년, 처음 만든 심장",
+        "en": "1991: the first heart of their own"
+      },
+      "text": {
+        "ko": "1986년 엑셀로 미국에 진출했을 때, 엔진은 아직 미쓰비시 것이었어요. 1991년 현대는 독자 개발한 알파 엔진을 완성했고, 그때부터 진짜 자기 차를 만들게 됐죠. 1998년에는 기아자동차를 인수해 지금의 현대자동차그룹이 됐어요. 2021년 아이오닉 5는 전기차 전용 플랫폼으로 만든 첫 차고, 지금 이 차에 들어 있는 플레오스는 차를 소프트웨어로 움직이는 다음 단계예요.",
+        "en": "When the Excel entered the US in 1986, the engine was still Mitsubishi's. In 1991 Hyundai finished its own Alpha engine, and from then on it built truly its own cars. In 1998 it acquired Kia, forming today's Hyundai Motor Group. The 2021 Ioniq 5 was the first car on a dedicated EV platform, and Pleos, running in this very car, is the next step: a car driven by software."
+      },
+      "kidsText": {
+        "ko": "자동차의 심장은 엔진이야. 현대는 1991년에 처음으로 자기 엔진을 만들었어. 그리고 지금 우리가 탄 차는 전기로 가는 차일 수도 있어. 퀴즈! 전기차는 주유소에 갈까, 충전소에 갈까?",
+        "en": "A car's heart is its engine. Hyundai built its very own engine in 1991. And the car we're in might run on electricity. Quiz! Does an electric car go to a gas station or a charging station?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 2
+      },
+      "durationSec": 60,
+      "source": "현대자동차그룹 공식 연혁",
+      "priority": 6
+    },
+    {
+      "id": "congestion_deep",
+      "title": {
+        "ko": "정체 구간 · 자유로와 한강 이야기",
+        "en": "Stuck in traffic: the Jayu-ro and the Han River"
+      },
+      "text": {
+        "ko": "막히는 김에 긴 이야기 하나 할게요. 지금 달리는 자유로는 1992년에 열렸어요. 오른쪽으로 한강이 흐르고 그 너머가 북한이에요. 강 건너 보이는 산이 북한 땅이라는 걸 모르고 지나는 분이 많죠. 자유로라는 이름은 통일을 바라며 붙였어요. 철책 너머 습지는 사람이 못 들어가서 오히려 재두루미 같은 철새의 낙원이 됐어요.",
+        "en": "Since we're slow, here's a longer story. The Jayu-ro, 'Freedom Road', opened in 1992. The Han River runs on your right and beyond it is North Korea; many people drive past without realising the hills across the water are the North. The name expresses hope for reunification. The wetlands behind the fence, closed to people, became a haven for migratory birds like white-naped cranes."
+      },
+      "kidsText": {
+        "ko": "차가 막히네. 오른쪽에 강 보이지? 한강이야. 강 건너편은 북한이야. 사람이 못 들어가는 곳이라서 새들이 아주 많이 살아. 큰 두루미를 찾아볼래?",
+        "en": "Traffic! See the river on the right? That's the Han River, and across it is North Korea. People can't go there, so lots of birds live there instead. Can you spot a big crane?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 80,
+      "source": "고양시 / 한강하구 습지보호지역 자료",
+      "priority": 8
+    },
+    {
+      "id": "kintex_pass",
+      "title": {
+        "ko": "킨텍스 · 한국 최대 전시장",
+        "en": "KINTEX: Korea's largest exhibition centre"
+      },
+      "text": {
+        "ko": "왼쪽에 보이는 큰 건물이 킨텍스예요. 2005년에 문을 연 한국 최대 전시장이고, 서울모빌리티쇼가 여기서 열려요. 현대 모터스튜디오 고양은 바로 그 옆이에요.",
+        "en": "The big building on your left is KINTEX, Korea's largest exhibition centre, opened in 2005 and home to the Seoul Mobility Show. Hyundai Motorstudio Goyang is right next door."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.668,
+          "lon": 126.746
+        },
+        "radiusM": 2500
+      },
+      "durationSec": 20,
+      "source": "킨텍스",
+      "priority": 7
+    },
+    {
+      "id": "arrival_brief",
+      "title": {
+        "ko": "도착 전 브리핑 · 뭘 먼저 볼까",
+        "en": "Arrival briefing: what to see first"
+      },
+      "text": {
+        "ko": "곧 도착해요. 현대 모터스튜디오 고양은 2017년 4월에 문을 연 체험형 전시관이에요. 1층 커넥트 월에서 현재 라인업을 보고, '인투 더 카'에서 차체 제작, 용접, 도장, 조립 순서로 차가 만들어지는 과정을 따라가세요. 2층 N 브랜드 존에는 레이싱카가 있고, 수소연료전지 전시에서는 수소차가 어떻게 움직이는지 모형으로 보여줘요. 가족은 보통 90분쯤 머물러요. 주차는 지하, 입장은 전시 투어 예약제이니 지금 예약 전화를 걸까요?",
+        "en": "Almost there. Hyundai Motorstudio Goyang opened in April 2017 as a hands-on exhibition. Start at the Connect Wall on floor one for the current lineup, then follow 'Into the Car' through body shop, welding, paint and assembly. Floor two has the N performance zone with racing cars, and a fuel-cell exhibit shows how a hydrogen car works. Families stay about 90 minutes. Parking is underground and tours are by reservation. Shall I call to book?"
+      },
+      "kidsText": {
+        "ko": "거의 다 왔어! 안에 들어가면 로봇이 자동차를 만드는 걸 볼 수 있어. 용접할 때 불꽃이 튀는 것도! 들어가면 안내해 주는 선생님께 뭐라고 인사하지? 안녕하세요! 한 번 해보자.",
+        "en": "Almost there! Inside you can watch robots build a car, with sparks flying when they weld! When we go in, what do we say to the guide? Annyeong-haseyo! Let's try."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
+        "minutes": 15
+      },
+      "durationSec": 45,
+      "source": "현대자동차그룹 뉴스룸 / 현대모터스튜디오",
+      "priority": 9
+    },
+    {
+      "id": "reboard",
+      "title": {
+        "ko": "다음은 어디로 갈까요?",
+        "en": "Where next?"
+      },
+      "text": {
+        "ko": "다시 출발하시네요. 근처에 가볼 만한 곳이 있어요. 일산호수공원은 차로 10분이고 산책하기 좋아요. 원마운트는 아이와 놀기 좋고요. 거기로 가자, 라고 말씀하시면 안내할게요.",
+        "en": "Setting off again. There are places nearby. Ilsan Lake Park is ten minutes by car and good for a walk; One Mount is good with kids. Say let's go there and I'll route you."
+      },
+      "kidsText": {
+        "ko": "다시 출발! 호수공원에 가서 오리 보러 갈까, 아니면 원마운트에서 놀까? 어디 갈래?",
+        "en": "Off we go! Shall we see ducks at the lake park, or play at One Mount? Which one?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Reboard"
+      },
+      "durationSec": 25,
+      "source": "Road Docent 체류 데이터",
+      "priority": 10
+    }
+  ],
+  "restAreas": [],
+  "nearby": [
+    {
+      "id": "ilsan_lake",
+      "name": {
+        "ko": "일산호수공원",
+        "en": "Ilsan Lake Park"
+      },
+      "point": {
+        "lat": 37.658,
+        "lon": 126.768
+      },
+      "address": "경기 고양시 일산동구 호수로 595",
+      "category": "park",
+      "typicalStayMin": 45,
+      "note": {
+        "ko": "국내 최대 인공호수 · 산책 45분",
+        "en": "Korea's largest man-made lake · 45-min walk"
+      }
+    },
+    {
+      "id": "onemount",
+      "name": {
+        "ko": "원마운트",
+        "en": "One Mount"
+      },
+      "point": {
+        "lat": 37.662,
+        "lon": 126.758
+      },
+      "address": "경기 고양시 일산서구 한류월드로 300",
+      "category": "play",
+      "typicalStayMin": 120,
+      "note": {
+        "ko": "아이와 놀기 · 보통 2시간",
+        "en": "Play with kids · usually 2 hours"
+      }
+    },
+    {
+      "id": "kintex",
+      "name": {
+        "ko": "킨텍스",
+        "en": "KINTEX"
+      },
+      "point": {
+        "lat": 37.669,
+        "lon": 126.746
+      },
+      "address": "경기 고양시 일산서구 킨텍스로 217-60",
+      "category": "venue",
+      "typicalStayMin": 90,
+      "note": {
+        "ko": "전시 일정 확인 후 방문",
+        "en": "Check what's on first"
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "ko": "예약했어요",
+      "romanized": "ye-yak-hae-sseo-yo",
+      "meaning": {
+        "en": "I have a reservation"
+      }
+    },
+    {
+      "ko": "사진 찍어도 돼요?",
+      "romanized": "sa-jin jji-geo-do dwae-yo?",
+      "meaning": {
+        "en": "May I take a photo?"
+      }
+    }
+  ],
+  "creatorCourses": [],
+  "dataSources": [
+    "현대자동차그룹 공식 연혁·뉴스룸",
+    "현대모터스튜디오 고양 안내",
+    "고양시 관광 정보",
+    "한강하구 습지보호지역(환경부)"
+  ]
+}

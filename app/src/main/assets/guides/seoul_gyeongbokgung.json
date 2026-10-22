@@ -1,0 +1,507 @@
+{
+  "id": "seoul_gyeongbokgung",
+  "destination": {
+    "id": "gyeongbokgung",
+    "name": {
+      "ko": "경복궁",
+      "en": "Gyeongbokgung Palace"
+    },
+    "point": {
+      "lat": 37.5796,
+      "lon": 126.977
+    },
+    "address": "서울 종로구 사직로 161",
+    "phone": "02-3700-3900",
+    "category": "palace",
+    "typicalStayMin": 120,
+    "note": {
+      "ko": "조선 제1의 법궁 · 한복 입으면 무료 · 가족 2시간",
+      "en": "Joseon's principal palace · free entry in hanbok · families 2 hours"
+    },
+    "onArrival": {
+      "ko": [
+        "주차: 경복궁 주차장(흥례문 옆, 2시간 3,000원대). 주말 오전엔 금방 차니 10시 전 도착 권장",
+        "입장: 광화문으로 들어가 흥례문에서 매표. 한복을 입으면 무료, 화요일 휴무",
+        "순서: 광화문 → 흥례문 → 근정전(왕이 즉위하던 곳) → 사정전 → 경회루(연못 위 누각) → 향원정 → 국립민속박물관. 약 2시간",
+        "시간 맞추기: 수문장 교대식은 광화문 앞 10시·14시, 각 20분. 사진은 교대식 끝난 뒤 수문장과 함께",
+        "꼭 볼 것: 근정전 앞마당의 품계석, 경회루를 연못 건너편에서, 향원정의 다리",
+        "아이와 함께: 근정전 돌바닥이 왜 울퉁불퉁한지 맞히기(미끄럼 방지·햇빛 반사 방지), 품계석 숫자 세기",
+        "예절: 전각 안으로는 들어가지 않기, 문턱 밟지 않기, 큰 소리 내지 않기. 드론 금지",
+        "점심: 궁 나와서 서촌(통인시장 기름떡볶이, 도시락 카페) 또는 삼청동 수제비. 걸어서 10분",
+        "머무는 시간: 보통 2시간. 민속박물관까지 보면 3시간"
+      ],
+      "en": [
+        "Parking: palace lot next to Heungnyemun (about ₩3,000 for 2 h). Fills fast on weekend mornings, arrive before 10",
+        "Entry: through Gwanghwamun gate, tickets at Heungnyemun. Free if you wear hanbok. Closed Tuesdays",
+        "Order: Gwanghwamun → Heungnyemun → Geunjeongjeon (throne hall) → Sajeongjeon → Gyeonghoeru pavilion on the pond → Hyangwonjeong → National Folk Museum. About 2 hours",
+        "Timing: the Royal Guard changing ceremony is at 10:00 and 14:00 in front of Gwanghwamun, 20 min each. Photos with the guards afterwards",
+        "Must-see: the rank stones in the throne-hall courtyard, Gyeonghoeru from across the pond, the bridge to Hyangwonjeong",
+        "With kids: guess why the throne-hall paving is bumpy (anti-slip and anti-glare), count the rank stones",
+        "Etiquette: don't enter the halls, don't step on thresholds, keep voices down. No drones",
+        "Lunch: Seochon (Tongin Market, 10 min walk) or Samcheong-dong. Order at the counter, no tipping",
+        "Stay: usually 2 hours; 3 with the Folk Museum"
+      ]
+    }
+  },
+  "startName": {
+    "ko": "인천공항",
+    "en": "Incheon Airport"
+  },
+  "intro": {
+    "ko": "서울은 600년 된 궁궐 담장 옆으로 지하철이 지나는 도시예요. 경복궁은 그 600년의 시작점이에요.",
+    "en": "Seoul is a city where the subway runs past 600-year-old palace walls. Gyeongbokgung is where those 600 years began."
+  },
+  "route": [
+    {
+      "lat": 37.4602,
+      "lon": 126.4407
+    },
+    {
+      "lat": 37.49,
+      "lon": 126.55
+    },
+    {
+      "lat": 37.53,
+      "lon": 126.68
+    },
+    {
+      "lat": 37.55,
+      "lon": 126.8
+    },
+    {
+      "lat": 37.556,
+      "lon": 126.91
+    },
+    {
+      "lat": 37.558,
+      "lon": 126.972
+    },
+    {
+      "lat": 37.5665,
+      "lon": 126.978
+    },
+    {
+      "lat": 37.5796,
+      "lon": 126.977
+    }
+  ],
+  "driveMin": 70,
+  "episodes": [
+    {
+      "id": "start",
+      "title": {
+        "ko": "한국에 오신 걸 환영합니다",
+        "en": "Welcome to Korea"
+      },
+      "text": {
+        "ko": "안녕하세요, 로드 도슨트입니다. 경복궁까지 약 70분이에요. 한국 운전은 우측통행이고, 빨간불에도 우회전은 일단 멈춘 뒤 가능해요. 어린이보호구역은 시속 30킬로, 과속 카메라가 많으니 내비 경고를 따르세요. 가는 길에 한국이 어떤 나라인지, 서울이 어떤 도시인지, 그리고 경복궁에서 뭘 봐야 하는지 들려드릴게요.",
+        "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
+      },
+      "kidsText": {
+        "ko": "안녕! 한국에 온 걸 환영해. 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 한국말 인사 세 개를 배워보자. 안녕하세요!",
+        "en": "Hi! Welcome to Korea. Today we're going to Gyeongbokgung, the huge house where kings once lived. On the way let's learn three Korean greetings. Annyeong-haseyo!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 0
+      },
+      "durationSec": 45,
+      "source": "Road Docent / 도로교통공단",
+      "priority": 9
+    },
+    {
+      "id": "korea_brief",
+      "title": {
+        "ko": "한국 10분 브리핑",
+        "en": "Korea in ten minutes"
+      },
+      "text": {
+        "ko": "한국은 인구 5천만, 서울 수도권에 그 절반이 살아요. 1392년 조선이 세워지면서 서울이 수도가 됐고, 지금 가는 경복궁이 그때 지은 첫 궁궐이에요. 20세기엔 식민지와 전쟁을 겪고 1960년대부터 세계에서 가장 빠른 경제 성장을 했죠. 지금 타고 계신 이 차를 만든 현대자동차도 그 시기에 태어났어요. 문화적으론 식당에서 물과 반찬이 공짜고, 팁은 없고, 나이에 따라 말투가 달라요. 신발을 벗고 들어가는 곳이 있으니 입구에 신발이 놓여 있으면 벗으세요.",
+        "en": "Korea has 50 million people, half of them in greater Seoul. Seoul became the capital in 1392 when the Joseon dynasty was founded, and the palace we're heading to was the first one they built. The 20th century brought colonisation and war, then from the 1960s the fastest economic growth in the world; Hyundai Motor, which built this car, was born in that era. Culturally: water and side dishes are free at restaurants, there's no tipping, and speech changes with age. Some places are shoes-off; if you see shoes at the entrance, take yours off."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 1
+      },
+      "durationSec": 75,
+      "source": "통계청 / 한국관광공사 VisitKorea",
+      "priority": 6
+    },
+    {
+      "id": "hangang_pass",
+      "title": {
+        "ko": "한강 · 서울의 가운데",
+        "en": "The Han River: Seoul's centre line"
+      },
+      "text": {
+        "ko": "오른쪽에 한강이 보여요. 폭이 1킬로미터가 넘어서 처음 보는 분들은 강이 아니라 바다 같다고 해요. 서울에는 한강 다리가 서른 개 넘게 있고, 강 북쪽이 옛 서울, 강 남쪽이 1970년대 이후 개발된 신도시예요. 경복궁은 강북, 옛 서울 한가운데 있어요.",
+        "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
+      },
+      "kidsText": {
+        "ko": "오른쪽에 큰 강이 보여? 한강이야. 다리가 서른 개도 넘어! 지금 보이는 다리 몇 개인지 세어볼래?",
+        "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.556,
+          "lon": 126.91
+        },
+        "radiusM": 4000
+      },
+      "durationSec": 35,
+      "source": "서울시",
+      "priority": 7
+    },
+    {
+      "id": "namdaemun",
+      "title": {
+        "ko": "남대문 · 600년 된 성문이 도로 한가운데",
+        "en": "Namdaemun: a 600-year-old gate in the middle of traffic"
+      },
+      "text": {
+        "ko": "왼쪽 로터리 가운데 서 있는 문이 남대문, 정식 이름은 숭례문이에요. 1398년 조선이 서울을 둘러싼 성곽의 남쪽 대문으로 지었고, 국보 1호였죠. 2008년 방화로 2층 누각이 불탔고 5년에 걸쳐 전통 방식으로 다시 지었어요. 바로 옆 남대문시장은 한국에서 가장 큰 전통시장이에요. 경복궁 다녀온 뒤 들르면 김, 인삼, 주방용품이 싸요.",
+        "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
+      },
+      "kidsText": {
+        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문이야. 옛날엔 밤이 되면 이 문을 닫아서 아무도 못 들어왔대!",
+        "en": "See the old gate standing right in the middle of the road on the left? That's Namdaemun. It guarded Seoul 600 years ago. At night they closed it and nobody could come in!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.56,
+          "lon": 126.9753
+        },
+        "radiusM": 900
+      },
+      "durationSec": 45,
+      "source": "문화재청 국가유산포털 / 서울시",
+      "priority": 8
+    },
+    {
+      "id": "gwanghwamun",
+      "title": {
+        "ko": "광화문 · 세종대왕과 이순신",
+        "en": "Gwanghwamun: King Sejong and Admiral Yi"
+      },
+      "text": {
+        "ko": "앞에 넓은 광장이 광화문광장이에요. 가운데 앉아 계신 금색 동상이 세종대왕, 한글을 만든 왕이에요. 그 앞 칼을 든 동상은 이순신 장군, 임진왜란 때 거북선으로 바다를 지켰죠. 광장 끝 큰 문이 광화문, 경복궁의 정문이에요. 일제강점기에 헐려 옮겨졌다가 2010년에 원래 자리에 다시 세웠어요. 그 뒤로 보이는 산이 북악산이고, 경복궁은 그 산을 등지고 남쪽을 보게 지었어요.",
+        "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
+      },
+      "kidsText": {
+        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한국 글자 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
+        "en": "See the golden statue ahead? That's King Sejong, who invented Korea's alphabet. The man with the sword in front is Admiral Yi, who fought with turtle-shaped ships! Quiz: why were they shaped like turtles?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.572,
+          "lon": 126.9768
+        },
+        "radiusM": 700
+      },
+      "durationSec": 50,
+      "source": "문화재청 / 서울시 광화문광장",
+      "priority": 8
+    },
+    {
+      "id": "congestion_deep",
+      "title": {
+        "ko": "정체 구간 · 경복궁이 세 번 지어진 이야기",
+        "en": "Stuck in traffic: a palace built three times"
+      },
+      "text": {
+        "ko": "막히는 김에 긴 이야기 하나. 경복궁은 1395년에 지어졌어요. 1592년 임진왜란 때 불타고 270년 동안 폐허로 있다가 1867년 흥선대원군이 다시 지었죠. 그런데 1910년 일본이 한국을 식민지로 만들면서 건물 대부분을 헐고 정문 앞에 총독부 청사를 세웠어요. 1995년 그 건물을 철거하고 지금까지 30년째 복원 중이에요. 오늘 보시는 근정전과 경회루는 1867년 것이고, 광화문은 2010년에 돌아온 거예요. 한 궁궐에 한국 600년이 다 들어 있어요.",
+        "en": "Since we're slow, a long story. Gyeongbokgung was built in 1395. It burned in the 1592 Japanese invasion and lay in ruins for 270 years until the regent Heungseon Daewongun rebuilt it in 1867. Then in 1910 Japan colonised Korea, tore down most of the buildings and put its Government-General headquarters right in front of the gate. That building was demolished in 1995 and restoration has run for thirty years since. The throne hall and pavilion you'll see date from 1867; Gwanghwamun came home in 2010. Six hundred years of Korea in one palace."
+      },
+      "kidsText": {
+        "ko": "차가 막히네. 경복궁은 세 번이나 지어졌어. 불에 타고, 또 부서지고, 그래도 사람들이 포기하지 않고 다시 지었어. 지금도 고치는 중이야. 가면 공사하는 곳도 보일 거야!",
+        "en": "Traffic! Gyeongbokgung was built three times. It burned, it was torn down, but people never gave up and built it again. They're still fixing it today, so you might see builders at work!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 85,
+      "source": "문화재청 경복궁관리소 / 국립고궁박물관",
+      "priority": 8
+    },
+    {
+      "id": "arrival_brief",
+      "title": {
+        "ko": "도착 전 브리핑 · 주차와 한복",
+        "en": "Arrival briefing: parking and hanbok"
+      },
+      "text": {
+        "ko": "15분 뒤 도착해요. 주차는 흥례문 옆 경복궁 주차장이고, 주말엔 금방 차요. 한복을 입으면 입장이 무료인데, 광화문 주변 한복 대여점이 2시간 2만 원 정도예요. 수문장 교대식이 10시와 2시에 있으니 시간을 맞추면 좋아요. 한복 대여점에 전화해서 자리 잡아둘까요? 도착 10분 전엔 궁에서 쓸 한국어 두 마디를 연습할게요.",
+        "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
+      },
+      "kidsText": {
+        "ko": "15분 뒤 도착! 한복이라는 한국 옛날 옷을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
+        "en": "Fifteen minutes to go! If you wear hanbok, Korea's old clothes, you get in free. Prince and princess outfits! Want to try? Inside the palace: no running and no stepping on the door sills, promise!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
+        "minutes": 15
+      },
+      "durationSec": 45,
+      "source": "경복궁관리소 / 종로구 한복 대여",
+      "priority": 9
+    },
+    {
+      "id": "reboard",
+      "title": {
+        "ko": "다음은 어디로 갈까요?",
+        "en": "Where next?"
+      },
+      "text": {
+        "ko": "다시 출발하시네요. 걸어서 10분 북촌한옥마을은 한옥 골목 사진 찍기 좋고, 차로 10분 남대문시장은 쇼핑, 차로 15분 명동은 K-뷰티 매장이 많아요. 거기로 가자, 라고 말씀하세요.",
+        "en": "Setting off again. Bukchon Hanok Village, ten minutes on foot, is the place for hanok-alley photos; Namdaemun Market, ten minutes by car, for shopping; Myeongdong, fifteen minutes, for K-beauty stores. Say let's go there."
+      },
+      "kidsText": {
+        "ko": "다시 출발! 옛날 집이 모여 있는 북촌에 갈까, 아니면 시장에서 맛있는 거 먹을까? 어디 갈래?",
+        "en": "Off we go! Shall we see the old houses in Bukchon, or eat something yummy at the market? Which one?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Reboard"
+      },
+      "durationSec": 25,
+      "source": "Road Docent 체류 데이터",
+      "priority": 10
+    }
+  ],
+  "restAreas": [],
+  "nearby": [
+    {
+      "id": "bukchon",
+      "name": {
+        "ko": "북촌한옥마을",
+        "en": "Bukchon Hanok Village"
+      },
+      "point": {
+        "lat": 37.5826,
+        "lon": 126.9831
+      },
+      "address": "서울 종로구 계동길 37",
+      "category": "village",
+      "typicalStayMin": 60,
+      "note": {
+        "ko": "한옥 골목 사진 · 주민 거주지라 조용히 · 60분",
+        "en": "Hanok alleys for photos · residents live here, keep quiet · 60 min"
+      }
+    },
+    {
+      "id": "namdaemun_market",
+      "name": {
+        "ko": "남대문시장",
+        "en": "Namdaemun Market"
+      },
+      "point": {
+        "lat": 37.5593,
+        "lon": 126.9775
+      },
+      "address": "서울 중구 남대문시장4길 21",
+      "category": "market",
+      "typicalStayMin": 60,
+      "note": {
+        "ko": "한국 최대 전통시장 · 김·인삼·주방용품 · 흥정 가능",
+        "en": "Korea's largest traditional market · seaweed, ginseng, kitchenware · haggling OK"
+      }
+    },
+    {
+      "id": "myeongdong",
+      "name": {
+        "ko": "명동",
+        "en": "Myeongdong"
+      },
+      "point": {
+        "lat": 37.5636,
+        "lon": 126.985
+      },
+      "address": "서울 중구 명동길",
+      "category": "shopping",
+      "typicalStayMin": 90,
+      "note": {
+        "ko": "K-뷰티 매장 밀집 · 올리브영 · 사후면세",
+        "en": "K-beauty stores · Olive Young · tax refund"
+      }
+    },
+    {
+      "id": "tongin",
+      "name": {
+        "ko": "통인시장",
+        "en": "Tongin Market"
+      },
+      "point": {
+        "lat": 37.5805,
+        "lon": 126.9697
+      },
+      "address": "서울 종로구 자하문로15길 18",
+      "category": "market",
+      "typicalStayMin": 45,
+      "note": {
+        "ko": "엽전 도시락 · 기름떡볶이 · 걸어서 10분",
+        "en": "Coin lunchbox · pan-fried tteokbokki · 10 min walk"
+      }
+    },
+    {
+      "id": "choidot",
+      "name": {
+        "ko": "쵸이닷 (최현석)",
+        "en": "Choi.Dot by Choi Hyun-seok"
+      },
+      "point": {
+        "lat": 37.5248,
+        "lon": 127.042
+      },
+      "address": "서울 강남구 청담동",
+      "phone": null,
+      "category": "restaurant",
+      "typicalStayMin": 120,
+      "note": {
+        "ko": "흑백요리사 심사위원 최현석 셰프의 파인다이닝 · 예약 필수 · 차로 30분",
+        "en": "Fine dining by Culinary Class Wars judge Choi Hyun-seok · reservation required · 30 min by car"
+      }
+    },
+    {
+      "id": "mosu",
+      "name": {
+        "ko": "모수 서울 (안성재)",
+        "en": "Mosu Seoul by Anh Sung-jae"
+      },
+      "point": {
+        "lat": 37.5335,
+        "lon": 127.003
+      },
+      "address": "서울 용산구 한남동",
+      "phone": null,
+      "category": "restaurant",
+      "typicalStayMin": 150,
+      "note": {
+        "ko": "흑백요리사 심사위원 안성재 셰프 · 미쉐린 3스타 · 예약 매우 어려움",
+        "en": "By judge Anh Sung-jae · Michelin 3 stars · very hard to book"
+      }
+    },
+    {
+      "id": "tianmimi",
+      "name": {
+        "ko": "티엔미미 (정지선)",
+        "en": "Tian Mi Mi by Jung Ji-sun"
+      },
+      "point": {
+        "lat": 37.525,
+        "lon": 126.925
+      },
+      "address": "서울 영등포구 여의도 IFC몰",
+      "phone": null,
+      "category": "restaurant",
+      "typicalStayMin": 70,
+      "note": {
+        "ko": "흑백요리사 출연 정지선 셰프의 중식 · 딤섬 · 차로 20분",
+        "en": "Chinese by Culinary Class Wars chef Jung Ji-sun · dim sum · 20 min by car"
+      }
+    },
+    {
+      "id": "viatoledo",
+      "name": {
+        "ko": "비아 톨레도 파스타바 (나폴리맛피아)",
+        "en": "Via Toledo Pasta Bar (Napoli Matfia)"
+      },
+      "point": {
+        "lat": 37.544,
+        "lon": 127.056
+      },
+      "address": "서울 성동구 성수동",
+      "phone": null,
+      "category": "restaurant",
+      "typicalStayMin": 80,
+      "note": {
+        "ko": "흑백요리사 우승 권성준 셰프 · 캐치테이블 예약 · 차로 25분",
+        "en": "By season-1 winner Kwon Seong-jun · book on CatchTable · 25 min by car"
+      }
+    }
+  ],
+  "phrases": [
+    {
+      "ko": "안녕하세요",
+      "romanized": "an-nyeong-ha-se-yo",
+      "meaning": {
+        "en": "Hello"
+      }
+    },
+    {
+      "ko": "감사합니다",
+      "romanized": "gam-sa-ham-ni-da",
+      "meaning": {
+        "en": "Thank you"
+      }
+    },
+    {
+      "ko": "사진 찍어 주세요",
+      "romanized": "sa-jin jji-geo ju-se-yo",
+      "meaning": {
+        "en": "Please take a photo of us"
+      }
+    },
+    {
+      "ko": "한복 빌려 주세요",
+      "romanized": "han-bok bil-lyeo ju-se-yo",
+      "meaning": {
+        "en": "I'd like to rent a hanbok"
+      }
+    },
+    {
+      "ko": "화장실 어디예요?",
+      "romanized": "hwa-jang-sil eo-di-ye-yo?",
+      "meaning": {
+        "en": "Where is the restroom?"
+      }
+    }
+  ],
+  "creatorCourses": [
+    {
+      "creator": "여행 크리에이터 코스 (예시)",
+      "platform": "youtube",
+      "title": {
+        "ko": "한복 입고 경복궁 → 북촌 → 통인시장 반나절",
+        "en": "Half day in hanbok: palace → Bukchon → Tongin Market"
+      },
+      "stops": [
+        "gyeongbokgung",
+        "bukchon",
+        "tongin"
+      ],
+      "quote": {
+        "ko": "경회루는 연못 건너편에서 찍어야 해요",
+        "en": "Shoot Gyeonghoeru from across the pond"
+      },
+      "url": ""
+    },
+    {
+      "creator": "넷플릭스 '흑백요리사'",
+      "platform": "tv",
+      "title": {
+        "ko": "흑백요리사 셰프 식당 코스 (서울)",
+        "en": "Culinary Class Wars chef restaurants, Seoul"
+      },
+      "stops": [
+        "viatoledo",
+        "tianmimi",
+        "choidot",
+        "mosu"
+      ],
+      "quote": {
+        "ko": "TV에서 본 그 셰프의 요리를 실제로 먹는 코스예요. 대부분 예약제라 도착 전 브리핑에서 예약 여부를 먼저 확인해요",
+        "en": "Eat the dishes you saw on the show. Most need reservations, so the arrival briefing checks booking first"
+      },
+      "url": "https://www.netflix.com/title/81728365"
+    }
+  ],
+  "dataSources": [
+    "문화체육관광부 / 국가유산청 궁능유적본부",
+    "한국관광공사 TourAPI (다국어)",
+    "서울시 관광 정보",
+    "도로교통공단 외국인 운전 안내",
+    "넷플릭스 흑백요리사 출연 셰프 식당(상호·주소는 제출 전 최신 확인)"
+  ]
+}
