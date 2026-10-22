@@ -25,6 +25,8 @@ import kr.roaddocent.log.Visit
 import kr.roaddocent.speech.Speaker
 import kr.roaddocent.vehicle.NavSignals
 import kr.roaddocent.vehicle.VehicleSignals
+import kr.roaddocent.voice.Command
+import kr.roaddocent.voice.CommandBus
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -69,6 +71,8 @@ class DocentEngine(
     private val _toast = MutableStateFlow<String?>(null)
     val toast: StateFlow<String?> = _toast.asStateFlow()
 
+    /** Speed above which speech pauses at a sentence boundary (settings). */
+    var safetyPauseKmh: Int = 100
     val navState: StateFlow<NavState> get() = nav.nav
     val speaking: StateFlow<Boolean> get() = speaker.speaking
 
@@ -86,14 +90,58 @@ class DocentEngine(
     fun setLang(l: Lang) { _lang.value = l }
     fun setAudience(a: Audience) { _audience.value = a }
 
+    private var advancer: Job? = null
+    private var commands: Job? = null
+    /** Pending "go there" choices, 1-based, for voice "두 번째로 가자". */
+    private var lastSuggestions: List<Place> = emptyList()
+
     fun start() {
         nav.start(); veh.start()
         watcher = scope.launch {
             combine(nav.nav, veh.vehicle) { n, v -> n to v }.collect { (n, v) -> onTick(n, v) }
         }
+        // Auto-advance: when an episode ends and nothing else fired, the next queued story follows after a breath.
+        advancer = scope.launch {
+            var wasSpeaking = false
+            speaker.speaking.collect { speaking ->
+                if (wasSpeaking && !speaking && !_paused.value && _phase.value is DocentPhase.Guiding) {
+                    delay(2_500)
+                    if (!speaker.speaking.value && _queue.value.any { it.id !in played }) playNext()
+                }
+                wasSpeaking = speaking
+            }
+        }
+        // Voice commands from Gleo / on-device recognizer / buttons all land here.
+        commands = scope.launch {
+            CommandBus.events.collect { e ->
+                e ?: return@collect
+                CommandBus.consume()
+                when (e.command) {
+                    Command.SKIP -> cmdSkip()
+                    Command.TELL_MORE -> cmdMore()
+                    Command.SAVE -> cmdSave()
+                    Command.QUIET -> cmdQuiet()
+                    Command.WHERE_NEXT -> cmdWhereNext()
+                    Command.GO_THERE -> { val i = e.param?.toIntOrNull()?.minus(1) ?: 0; lastSuggestions.getOrNull(i)?.let { cmdGoThere(it) } }
+                    Command.RESERVE -> cmdReserve()
+                    Command.SHOW_LOG -> cmdShowLog()
+                }
+                _toast.value = (if (_lang.value == Lang.KO) "음성 명령: " else "Voice: ") + e.command.name.lowercase().replace('_', ' ')
+            }
+        }
     }
 
-    fun stop() { watcher?.cancel(); speaker.stop(); nav.stop(); veh.stop() }
+    /** "다른 데 없어?" at any time: suggest from the guide's nearby list. */
+    fun cmdWhereNext() {
+        val g = guide ?: return
+        val sugg = g.nearby.filter { it.category != "cafe" }.take(3)
+        lastSuggestions = sugg
+        _phase.value = DocentPhase.WhereNext(0, sugg, false)
+        speaker.speak(if (_lang.value == Lang.KO) "차로 10분 안에 " + sugg.joinToString(", ") { it.name["ko"] ?: "" } + "이 있어요. 거기로 가자, 라고 말씀하세요."
+            else "Within ten minutes: " + sugg.joinToString(", ") { it.name["en"] ?: "" } + ". Say let's go there.", _lang.value)
+    }
+
+    fun stop() { watcher?.cancel(); advancer?.cancel(); commands?.cancel(); speaker.stop(); nav.stop(); veh.stop() }
 
     /** Driver chose a destination in the car's navigation (or the demo picked one). */
     fun onRouteSet(destinationName: String) {
@@ -122,7 +170,7 @@ class DocentEngine(
         if (v.rearSeatOccupied && _audience.value == Audience.ADULT) { _audience.value = Audience.KIDS; _toast.value = if (_lang.value == Lang.KO) "뒷좌석 탑승 감지 · 키즈 모드로 전환" else "Rear passenger detected · Kids mode on" }
 
         // safety gate: fast or winding -> pause at sentence boundary
-        val unsafe = v.speedKmh > 100f
+        val unsafe = v.speedKmh > safetyPauseKmh
         if (unsafe && !_paused.value) { _paused.value = true; speaker.pause() }
         if (!unsafe && _paused.value) { _paused.value = false; speaker.resume() }
 
@@ -152,7 +200,9 @@ class DocentEngine(
                 if (n.remainTimeSec <= (ep.trigger as Trigger.RemainUnderMin).minutes * 60) {
                     fire(ep)
                     val cafe = g.nearby.firstOrNull { it.category == "cafe" } ?: g.destination
-                    _phase.value = DocentPhase.Briefing(cafe, g.nearby.filter { it.id != cafe.id }.take(3))
+                    val alts = g.nearby.filter { it.id != cafe.id }.take(3)
+                    lastSuggestions = listOf(cafe) + alts
+                    _phase.value = DocentPhase.Briefing(cafe, alts)
                 }
             }
         }
@@ -173,6 +223,7 @@ class DocentEngine(
             currentVisit?.leftMs = now
             val disappointed = stayMin < 30
             val sugg = g.nearby.filter { it.category != "cafe" }.take(3)
+            lastSuggestions = sugg
             _phase.value = DocentPhase.WhereNext(stayMin, sugg, disappointed)
             arrivedAtMs = null
             fire(g.episodes.firstOrNull { it.trigger is Trigger.Reboard }, prefix = if (disappointed) (if (_lang.value == Lang.KO) "기대와 달랐나요? " else "Not what you hoped? ") else "")

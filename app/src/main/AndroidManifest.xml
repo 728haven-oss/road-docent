@@ -37,5 +37,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Gleo Interface: Gleo AI sends one broadcast per function in assets/gleo-schema.json -->
+        <receiver android:name=".voice.GleoReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="SKIP_EPISODE" />
+                <action android:name="TELL_MORE" />
+                <action android:name="SAVE_PLACE" />
+                <action android:name="QUIET" />
+                <action android:name="WHERE_NEXT" />
+                <action android:name="GO_THERE" />
+                <action android:name="RESERVE" />
+                <action android:name="SHOW_TRAVEL_LOG" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

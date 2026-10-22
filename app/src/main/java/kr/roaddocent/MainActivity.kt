@@ -42,9 +42,12 @@ import kr.roaddocent.ui.screen.ActionButton
 import kr.roaddocent.ui.screen.BriefingScreen
 import kr.roaddocent.ui.screen.KidsPanel
 import kr.roaddocent.ui.screen.PlayingScreen
+import kr.roaddocent.ui.screen.SettingsScreen
 import kr.roaddocent.ui.screen.TravelLogScreen
 import kr.roaddocent.ui.screen.VoiceFamilyScreen
 import kr.roaddocent.ui.screen.WhereNextScreen
+import androidx.compose.ui.graphics.Color
+import kr.roaddocent.ui.theme.Accent
 import kr.roaddocent.ui.theme.Bg
 import kr.roaddocent.ui.theme.Body
 import kr.roaddocent.ui.theme.Chip
@@ -113,6 +116,17 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val recording by vm.recorder.recording.collectAsState()
     LaunchedEffect(toast) { if (toast != null) { delay(3000); engine.clearToast() } }
 
+    val settingsOpen by vm.settingsOpen.collectAsState()
+    val prefs by vm.settings.prefs.collectAsState()
+    val listening by vm.localVoice.listening.collectAsState()
+    val heard by vm.localVoice.heard.collectAsState()
+    if (settingsOpen) {
+        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
+            SettingsScreen(prefs, voiceProfile, vm.localVoice.available, onChange = vm::applyPrefs,
+                onVoiceSetup = { vm.openSettings(false); vm.openVoiceSetup(true) }, onDeleteVoice = vm::deleteVoice, onClose = { vm.openSettings(false) })
+        }
+        return
+    }
     if (voiceSetup) {
         Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
             VoiceFamilyScreen(lang, recording, vm.cloudAvailable, onStart = vm::startSample, onStop = vm::stopSample, onBuild = vm::buildVoice, onClose = { vm.openVoiceSetup(false) })
@@ -127,6 +141,11 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
             if (nav.active) Text("  · ${nav.destinationName}${if (lang == Lang.KO) "까지 " else " in "}${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 16.sp)
             Spacer(Modifier.weight(1f))
             toast?.let { Pill(it); Spacer(Modifier.width(8.dp)) }
+            if (heard.isNotBlank()) { Pill("“$heard”"); Spacer(Modifier.width(8.dp)) }
+            if (prefs.localVoiceCommands && vm.localVoice.available) {
+                Text(if (listening) "🎤 …" else "🎤", Modifier.background(if (listening) Accent else Chip, RoundedCornerShape(999.dp)).clickable { vm.listen() }.padding(horizontal = 14.dp, vertical = 6.dp), color = if (listening) Color(0xFF06111F) else Ink, fontSize = 14.sp)
+                Spacer(Modifier.width(8.dp))
+            }
             voiceProfile?.let { Pill(if (lang == Lang.KO) "🎙 ${it.name} 목소리" else "🎙 ${it.name}'s voice"); Spacer(Modifier.width(8.dp)) }
             Pill(if (lang == Lang.KO) "🎧 가이드" else "🎧 Guide")
             Spacer(Modifier.width(8.dp))
@@ -234,7 +253,7 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
             Small("🧒 뒷좌석") { sim.setRearSeat(true) }
         }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
-        Small("🎙 목소리") { vm.openVoiceSetup(true) }
+        Small("⚙ 설정") { vm.openSettings(true) }
     }
 }
 

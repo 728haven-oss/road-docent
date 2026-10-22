@@ -10,6 +10,9 @@ import kr.roaddocent.content.GuideRepository
 import kr.roaddocent.core.Audience
 import kr.roaddocent.core.Lang
 import kr.roaddocent.core.Place
+import kr.roaddocent.core.Prefs
+import kr.roaddocent.core.SettingsStore
+import kr.roaddocent.voice.LocalVoiceCommands
 import kr.roaddocent.engine.DocentEngine
 import kotlinx.coroutines.launch
 import kr.roaddocent.speech.AndroidSpeaker
@@ -26,8 +29,14 @@ import kr.roaddocent.vehicle.VehicleSignals
 enum class Source { PLEOS, SIMULATOR }
 
 class DocentViewModel(app: Application) : AndroidViewModel(app) {
+    val settings = SettingsStore(app)
+    val localVoice = LocalVoiceCommands(app)
+    private val _settingsOpen = MutableStateFlow(false)
+    val settingsOpen: StateFlow<Boolean> = _settingsOpen.asStateFlow()
+    fun openSettings(open: Boolean) { _settingsOpen.value = open }
+
     // Voice Family: cloned voice when a profile is active, on-device TTS otherwise.
-    private val voiceClient = VoiceCloneClient(apiKey = null) // set from settings / BuildConfig, never hard-coded
+    private val voiceClient = VoiceCloneClient(apiKey = settings.prefs.value.voiceApiKey.ifBlank { null })
     private val speaker = CloudVoiceSpeaker(app, voiceClient, AndroidSpeaker(app))
     private val guides = GuideRepository(app)
     val recorder = VoiceRecorder(app)
@@ -65,6 +74,8 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s }
         else { nav = PleosNavSignals(getApplication()); veh = PleosVehicleSignals(getApplication()) }
         engine = DocentEngine(nav, veh, speaker, guides, viewModelScope)
+        val p = settings.prefs.value
+        engine.setLang(p.lang); engine.setAudience(p.audience); engine.safetyPauseKmh = p.safetyPauseKmh; localVoice.lang = p.lang
         engine.start()
         _source.value = src
     }
@@ -77,9 +88,17 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     }
     fun guides() = guides.all()
 
-    fun setLang(l: Lang) = engine.setLang(l)
-    fun setAudience(a: Audience) = engine.setAudience(a)
+    fun setLang(l: Lang) { engine.setLang(l); localVoice.lang = l; settings.update { it.copy(lang = l) } }
+    fun setAudience(a: Audience) { engine.setAudience(a); settings.update { it.copy(audience = a) } }
+    fun applyPrefs(p: Prefs) {
+        settings.update { p }
+        voiceClient.apiKey = p.voiceApiKey.ifBlank { null }
+        voiceClient.baseUrl = if (p.voiceProvider == "typecast") "https://typecast.ai/api" else "https://api.elevenlabs.io/v1"
+        if (::engine.isInitialized) { engine.setLang(p.lang); engine.setAudience(p.audience); engine.safetyPauseKmh = p.safetyPauseKmh }
+        localVoice.lang = p.lang
+    }
+    fun listen() = localVoice.listenOnce()
     fun goThere(p: Place) = engine.cmdGoThere(p)
 
-    override fun onCleared() { if (::engine.isInitialized) engine.stop(); speaker.shutdown() }
+    override fun onCleared() { if (::engine.isInitialized) engine.stop(); speaker.shutdown(); localVoice.release() }
 }

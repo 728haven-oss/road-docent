@@ -71,6 +71,15 @@ app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키�
 | 속도 100km/h 초과 | 문장 경계에서 발화 일시정지, 안전해지면 재개 |
 | 2열 좌석 점유 | 키즈 모드 전환 (역사 이야기·창밖 퀴즈·인사 연습) |
 
+## 음성 명령 (Gleo Interface + 기기 음성인식)
+- `voice/VoiceCommands.kt`: 명령 8종 (`SKIP_EPISODE`, `TELL_MORE`, `SAVE_PLACE`, `QUIET`, `WHERE_NEXT`, `GO_THERE`, `RESERVE`, `SHOW_TRAVEL_LOG`)을 하나의 `CommandBus`로 모읍니다.
+- **Gleo (Pleos Connect)**: `assets/gleo-schema.json`을 Playground에 등록하면 Gleo AI가 발화를 함수로 해석해 브로드캐스트 인텐트로 보냅니다. `GleoReceiver`가 받아 실행하고 `APP_ACTION_RESPONSE`로 응답합니다. (스키마 필드는 제출 전 App Schema Writing Guide로 재확인)
+- **일반 기기**: 상단 🎤 버튼 → Android 음성인식 → 키워드 매칭("넘겨", "더 자세히", "거기로 가자", "두 번째로 가자", "다른 데 없어?", "예약해", "일지 보여줘" / 영어 동일).
+- 에피소드가 끝나면 2.5초 뒤 다음 이야기가 자동으로 이어집니다(안전 일시정지 중엔 대기).
+
+## 설정 (⚙)
+언어 · 탑승자(일반/아이/외국인) · 아이 나이(난이도) · 안전 일시정지 속도(80/100/110) · 여행 일지 저장 여부 · 음성 복제 제공자와 API 키(기기에만 저장) · 음성 명령 소스(Gleo/기기).
+
 ## 가족 목소리 가이드 (Voice Family)
 엄마·아빠·아이가 앱에서 샘플 문장 15개(약 2분)를 녹음하면, 음성 복제 TTS가 그 목소리로 모든 에피소드를 읽어줍니다.
 - 화면: 첫 화면 또는 주차 화면의 **🎙 가족 목소리 녹음** → 누가 녹음하는지 선택 → 동의 → 15문장 녹음 → 목소리 만들기
