@@ -92,7 +92,10 @@ class VoiceRecorder(private val context: Context) {
 
     fun stop() { runCatching { rec?.stop(); rec?.release() }; rec = null; _recording.value = false }
 
-    fun samples(profileId: String): List<File> = dir(profileId).listFiles { f -> f.name.startsWith("sample_") }?.sorted() ?: emptyList()
+    fun samples(profileId: String): List<File> = dir(profileId).listFiles { f -> f.name.startsWith("sample_") || f.extension.lowercase() in setOf("m4a", "mp3", "wav", "aac") }?.sorted() ?: emptyList()
+
+    /** Pre-recorded voice files (recorded elsewhere) copied into the profile folder: adb push or a file picker. */
+    fun import(profileId: String, files: List<File>) { files.forEach { it.copyTo(File(dir(profileId), it.name), overwrite = true) } }
 
     /** Raw recordings are deleted once the cloud model exists. */
     fun purge(profileId: String) { samples(profileId).forEach { it.delete() } }

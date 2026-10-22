@@ -166,8 +166,6 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(10.dp))
         Body(if (lang == Lang.KO) "Pleos 연결 시 차량 내비에서 목적지를 설정하세요. 데모에서는 아래 버튼으로 서울→강릉 경로를 시작합니다." else "With Pleos, set a destination in the built-in navigation. In the demo, start the Seoul → Gangneung route below.", size = 16)
         Spacer(Modifier.height(20.dp))
-        ActionButton(if (lang == Lang.KO) "🎙 가족 목소리 녹음 (엄마·아빠·아이)" else "🎙 Record a family voice") { vm.openVoiceSetup(true) }
-        Spacer(Modifier.height(16.dp))
         Text(if (lang == Lang.KO) "데모 목적지" else "Demo destinations", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(8.dp))
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -221,6 +219,7 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
             Small("🧒 뒷좌석") { sim.setRearSeat(true) }
         }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
+        Small("🎙 목소리") { vm.openVoiceSetup(true) }
     }
 }
 
