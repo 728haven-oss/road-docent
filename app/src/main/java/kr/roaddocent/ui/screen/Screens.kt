@@ -52,7 +52,7 @@ fun ActionButton(text: String, primary: Boolean = false, onClick: () -> Unit) {
             .background(if (primary) Accent else Chip, RoundedCornerShape(14.dp))
             .clickable(onClick = onClick)
             .padding(horizontal = 22.dp, vertical = 12.dp),
-        color = if (primary) AccentInk else Color(0xFFCFE3FF), fontSize = 18.sp, fontWeight = FontWeight.SemiBold
+        color = if (primary) AccentInk else Color(0xFFCFE3FF), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false
     )
 }
 

@@ -151,7 +151,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(20.dp))
         Text(if (lang == Lang.KO) "데모 목적지" else "Demo destinations", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(8.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             vm.guides().forEach { g ->
                 ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id), primary = g.id == "seoul_gangneung") { vm.demoStartTrip(g.id) }
             }

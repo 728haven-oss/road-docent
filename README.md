@@ -33,6 +33,11 @@ Pleos Connect 위에서 동작하는 차량용 오디오 가이드 앱입니다.
   Pleos TextToSpeech SDK가 "Request Required" 상태가 되면 `speech/Speaker.kt` 구현만 교체합니다.
 - 음성 명령: Gleo Interface 연동 전까지 화면 버튼(“넘겨”, “더 자세히”, “저장해”, “거기로 가자”)으로 동일 명령을 실행합니다.
 
+## 시연 자료
+- 시연 영상: `docs/로드도슨트_시연영상.mp4` (1분 42초, 전체 흐름 + 실제 APK 실행 화면)
+- 실제 APK 실행 화면: `docs/실행화면_*.png` (Android 14 x86_64 에뮬레이터, Automotive 1024p)
+- 화면 시안: `docs/로드도슨트_화면시안.pdf`
+
 ## APK
 - 경로: `apk/RoadDocent_로드도슨트_release.apk` (release 서명, 데모용 키스토어 `keystore/`)
 - 빌드: `./gradlew :app:assembleRelease`
