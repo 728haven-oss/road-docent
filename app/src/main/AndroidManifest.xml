@@ -9,6 +9,9 @@
     <uses-permission android:name="pleos.car.permission.CAR_INFO" />
     <uses-permission android:name="pleos.car.permission.CAR_MILEAGE" />
     <uses-permission android:name="pleos.car.permission.CAR_SEATS" />
+    <!-- Voice Family: record parent/child voice samples -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Reservation call -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 

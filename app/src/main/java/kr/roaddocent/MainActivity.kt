@@ -1,6 +1,8 @@
 package kr.roaddocent
 
+import android.Manifest
 import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -41,6 +43,7 @@ import kr.roaddocent.ui.screen.BriefingScreen
 import kr.roaddocent.ui.screen.KidsPanel
 import kr.roaddocent.ui.screen.PlayingScreen
 import kr.roaddocent.ui.screen.TravelLogScreen
+import kr.roaddocent.ui.screen.VoiceFamilyScreen
 import kr.roaddocent.ui.screen.WhereNextScreen
 import kr.roaddocent.ui.theme.Bg
 import kr.roaddocent.ui.theme.Body
@@ -55,8 +58,11 @@ import kr.roaddocent.ui.theme.RoadDocentTheme
 class MainActivity : ComponentActivity() {
     private val vm: DocentViewModel by viewModels()
 
+    private val mic = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mic.launch(Manifest.permission.RECORD_AUDIO)
         setContent { RoadDocentTheme { Root(vm) { number -> dial(number) } } }
     }
 
@@ -102,7 +108,17 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val nav by engine.navState.collectAsState()
     val speaking by engine.speaking.collectAsState()
 
+    val voiceSetup by vm.voiceSetup.collectAsState()
+    val voiceProfile by vm.voiceProfile.collectAsState()
+    val recording by vm.recorder.recording.collectAsState()
     LaunchedEffect(toast) { if (toast != null) { delay(3000); engine.clearToast() } }
+
+    if (voiceSetup) {
+        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
+            VoiceFamilyScreen(lang, recording, vm.cloudAvailable, onStart = vm::startSample, onStop = vm::stopSample, onBuild = vm::buildVoice, onClose = { vm.openVoiceSetup(false) })
+        }
+        return
+    }
 
     Column(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
         // top bar
@@ -111,6 +127,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
             if (nav.active) Text("  · ${nav.destinationName}${if (lang == Lang.KO) "까지 " else " in "}${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 16.sp)
             Spacer(Modifier.weight(1f))
             toast?.let { Pill(it); Spacer(Modifier.width(8.dp)) }
+            voiceProfile?.let { Pill(if (lang == Lang.KO) "🎙 ${it.name} 목소리" else "🎙 ${it.name}'s voice"); Spacer(Modifier.width(8.dp)) }
             Pill(if (lang == Lang.KO) "🎧 가이드" else "🎧 Guide")
             Spacer(Modifier.width(8.dp))
             Pill(if (audience == Audience.KIDS) (if (lang == Lang.KO) "👨‍👩‍👧 키즈 모드" else "👨‍👩‍👧 Kids") else if (lang == Lang.KO) "👤 일반" else "👤 Adult", Modifier)
@@ -129,7 +146,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                 }
                 is DocentPhase.Briefing -> BriefingScreen(p.place, p.alternatives, lang, nav.remainTimeSec / 60,
                     onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdSkip() })
-                is DocentPhase.Parked -> ParkedScreen(p.place, lang)
+                is DocentPhase.Parked -> ParkedScreen(p.place, lang) { vm.openVoiceSetup(true) }
                 is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
                 is DocentPhase.TravelLog -> TravelLogScreen(log, lang) { engine.cmdShowLog() }
             }
@@ -149,6 +166,8 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(10.dp))
         Body(if (lang == Lang.KO) "Pleos 연결 시 차량 내비에서 목적지를 설정하세요. 데모에서는 아래 버튼으로 서울→강릉 경로를 시작합니다." else "With Pleos, set a destination in the built-in navigation. In the demo, start the Seoul → Gangneung route below.", size = 16)
         Spacer(Modifier.height(20.dp))
+        ActionButton(if (lang == Lang.KO) "🎙 가족 목소리 녹음 (엄마·아빠·아이)" else "🎙 Record a family voice") { vm.openVoiceSetup(true) }
+        Spacer(Modifier.height(16.dp))
         Text(if (lang == Lang.KO) "데모 목적지" else "Demo destinations", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(8.dp))
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -160,7 +179,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
 }
 
 @Composable
-fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang) {
+fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, onVoice: () -> Unit = {}) {
     val name = place.name[lang.tag] ?: ""
     val steps = place.onArrival[lang.tag].orEmpty()
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -170,6 +189,8 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang) {
             Body(place.note[lang.tag] ?: "", size = 16)
             Spacer(Modifier.height(10.dp))
             Body(if (lang == Lang.KO) "다시 출발하시면(기어 D) 다음 행선지를 제안해 드릴게요." else "When you set off again (gear D) I'll suggest where next.", size = 14)
+            Spacer(Modifier.height(14.dp))
+            ActionButton(if (lang == Lang.KO) "🎙 가족 목소리 녹음" else "🎙 Record family voice") { onVoice() }
         }
         Panel(Modifier.weight(1.4f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "여기서 할 일" else "What to do here", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)

@@ -71,6 +71,13 @@ app/src/main/assets/guides/        — 목적지별 가이드 JSON (한/영/키�
 | 속도 100km/h 초과 | 문장 경계에서 발화 일시정지, 안전해지면 재개 |
 | 2열 좌석 점유 | 키즈 모드 전환 (역사 이야기·창밖 퀴즈·인사 연습) |
 
+## 가족 목소리 가이드 (Voice Family)
+엄마·아빠·아이가 앱에서 샘플 문장 15개(약 2분)를 녹음하면, 음성 복제 TTS가 그 목소리로 모든 에피소드를 읽어줍니다.
+- 화면: 첫 화면 또는 주차 화면의 **🎙 가족 목소리 녹음** → 누가 녹음하는지 선택 → 동의 → 15문장 녹음 → 목소리 만들기
+- 코드: `speech/VoiceFamily.kt` — `VoiceRecorder`(녹음), `VoiceCloneClient`(복제 API, 제공자 교체 가능), `CloudVoiceSpeaker`(복제 음성 재생, 키가 없으면 기기 TTS로 자동 폴백)
+- API 키는 APK에 넣지 않습니다. `DocentViewModel`의 `VoiceCloneClient(apiKey = ...)`에 설정 화면/BuildConfig로 주입하세요. (ElevenLabs 기준 엔드포인트, Typecast·Azure Personal Voice로 교체 가능)
+- 안전장치: 첫 문장은 본인 동의 낭독(도용 방지), 14세 미만은 보호자 동의 체크 필수, 모델 생성 후 원본 녹음 삭제, 복제 음성은 가이드 대본에만 사용, 언제든 삭제
+
 ## 콘텐츠 출처
 가이드 JSON의 각 에피소드에 `source` 가 있고, 가이드 끝에 `dataSources` 목록이 있습니다.
 문화체육관광부·국가유산청, 한국관광공사 TourAPI, 지자체 관광 정보, 현대자동차그룹 공식 연혁, 영화·TV 촬영지 공개 자료, 크리에이터 코스.
