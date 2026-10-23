@@ -57,5 +57,8 @@ fun Pill(text: String, modifier: Modifier = Modifier, selected: Boolean = false)
 @Composable
 fun Headline(text: String, size: Int = 32) = Text(text, color = Ink, fontSize = size.sp, fontWeight = FontWeight.Bold, lineHeight = (size * 1.25).sp)
 
+/** Car-distance type: everything body-like is at least 22sp; `TypeScale.factor` is the user's 설정 글자 크기. */
+object TypeScale { var factor = 1.0f }
+fun carSp(size: Int) = (maxOf(size, 22) * TypeScale.factor).sp
 @Composable
-fun Body(text: String, color: Color = Quiet, size: Int = 16) = Text(text, color = color, fontSize = size.sp, lineHeight = (size * 1.45).sp)
+fun Body(text: String, color: Color = Quiet, size: Int = 16, maxLines: Int = Int.MAX_VALUE) = Text(text, color = color, fontSize = carSp(size), lineHeight = (maxOf(size, 22) * TypeScale.factor * 1.4).sp, maxLines = maxLines, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)

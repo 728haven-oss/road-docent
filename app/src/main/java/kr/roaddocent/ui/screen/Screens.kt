@@ -2,6 +2,7 @@ package kr.roaddocent.ui.screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -33,6 +35,7 @@ import kr.roaddocent.core.Lang
 import kr.roaddocent.core.Place
 import kr.roaddocent.log.TripLog
 import kr.roaddocent.ui.theme.Accent
+import kr.roaddocent.ui.theme.carSp
 import kr.roaddocent.ui.theme.AccentInk
 import kr.roaddocent.ui.theme.Body
 import kr.roaddocent.ui.theme.Chip
@@ -71,10 +74,36 @@ fun EpisodeRow(index: Int, ep: Episode, lang: Lang, state: String, now: Boolean)
 /** 1. Playing */
 @Composable
 fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: Lang, audience: Audience, congestion: Boolean, paused: Boolean, speaking: Boolean,
-                  quiz: kr.roaddocent.engine.DocentEngine.QuizView? = null,
+                  quiz: kr.roaddocent.engine.DocentEngine.QuizView? = null, driving: Boolean = false,
                   onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit) {
+    // Speaking glow: the panel border brightens for a second when the guide starts talking, so passengers notice without reading.
+    val glow by androidx.compose.animation.core.animateFloatAsState(if (speaking && !paused) 1f else 0f, androidx.compose.animation.core.tween(600), label = "glow")
+    if (driving) {
+        // Driving view: title, waveform and progress dots only. Full text opens in P.
+        val idx = all.indexOfFirst { it.id == ep.id }.coerceAtLeast(0)
+        Column(Modifier.fillMaxSize().border(3.dp, Accent.copy(alpha = 0.15f + 0.85f * glow), RoundedCornerShape(24.dp)).padding(28.dp), verticalArrangement = Arrangement.Center) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Tag(if (congestion) (if (lang == Lang.KO) "정체 · 심층 해설" else "Traffic · long story") else (if (lang == Lang.KO) "지금 지나는 곳" else "Passing now"))
+                if (audience == Audience.KIDS) Tag(if (lang == Lang.KO) "키즈" else "Kids")
+                if (paused) Tag(if (lang == Lang.KO) "고속 · 잠시 멈춤" else "High speed · paused")
+                kindLabel(ep.kind, lang)?.let { Tag(it) }
+            }
+            Spacer(Modifier.height(18.dp))
+            Headline(ep.titleFor(lang), 40)
+            Spacer(Modifier.height(18.dp))
+            Wave(active = speaking && !paused)
+            if (quiz != null) { Spacer(Modifier.height(14.dp)); Text("❓ " + quiz.question, color = Ink, fontSize = carSp(24), maxLines = 2); quiz.answer?.let { Text("→ $it", color = Accent, fontSize = carSp(22), maxLines = 2) } }
+            Spacer(Modifier.weight(1f))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                all.forEachIndexed { i, e -> Box(Modifier.width(if (i == idx) 28.dp else 10.dp).height(10.dp).background(if (i == idx) Accent else if (e.id in played) ChipInk else Chip, RoundedCornerShape(5.dp))) }
+                Spacer(Modifier.weight(1f))
+                VoiceHint(lang, if (quiz != null && quiz.answer == null) "quiz" else "playing")
+            }
+        }
+        return
+    }
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
-        Panel(Modifier.weight(1.3f).fillMaxHeight()) {
+        Panel(Modifier.weight(1.3f).fillMaxHeight().border(2.dp, Accent.copy(alpha = 0.9f * glow), RoundedCornerShape(24.dp))) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Tag(if (congestion) (if (lang == Lang.KO) "정체 구간 · 심층 해설" else "Traffic · long story") else (if (lang == Lang.KO) "지금 지나는 곳" else "Passing now"))
                 if (audience == Audience.KIDS) Tag(if (lang == Lang.KO) "키즈 모드" else "Kids mode")
@@ -115,6 +144,19 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
             }
         }
     }
+}
+
+/** One or two voice phrases that make sense right now, instead of a permanent row of buttons. */
+@Composable
+fun VoiceHint(lang: Lang, context: String) {
+    val hint = when (context) {
+        "quiz" -> if (lang == Lang.KO) "🎤 “정답 알려줘”" else "🎤 “tell me the answer”"
+        "briefing" -> if (lang == Lang.KO) "🎤 “예약해” · “다른 데 없어?”" else "🎤 “reserve” · “where else?”"
+        "wherenext" -> if (lang == Lang.KO) "🎤 “첫 번째로 가자”" else "🎤 “let's go to the first one”"
+        "parked" -> if (lang == Lang.KO) "🎤 “일지 보여줘”" else "🎤 “show the log”"
+        else -> if (lang == Lang.KO) "🎤 “넘겨” · “더 자세히”" else "🎤 “skip” · “tell me more”"
+    }
+    Text(hint, color = Quiet, fontSize = carSp(20), maxLines = 1)
 }
 
 fun kindLabel(kind: String, lang: Lang): String? = when (kind) {
@@ -212,7 +254,7 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
 
 /** 4. Travel log */
 @Composable
-fun TravelLogScreen(log: TripLog, lang: Lang, history: List<kr.roaddocent.log.DayRecord> = emptyList(), onBack: () -> Unit) {
+fun TravelLogScreen(log: TripLog, lang: Lang, history: List<kr.roaddocent.log.DayRecord> = emptyList(), onShare: () -> Unit = {}, onBack: () -> Unit) {
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
         Panel(Modifier.weight(1.2f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "오늘의 여행 일지" else "Today's travel log", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
@@ -241,7 +283,11 @@ fun TravelLogScreen(log: TripLog, lang: Lang, history: List<kr.roaddocent.log.Da
                     history.takeLast(4).reversed().forEach { d -> Body("${d.date} · %.0f km · ".format(d.distanceKm) + d.visits.joinToString(" → ") { "${it.name} ${it.stayMin}m" }, size = 13) }
                 }
             }
-            ActionButton(if (lang == Lang.KO) "닫기" else "Close", onClick = onBack)
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                ActionButton(if (lang == Lang.KO) "📤 오늘의 여행 공유" else "📤 Share today", primary = true, onClick = onShare)
+                if (log.stickers > 0) Tag("⭐ " + (if (lang == Lang.KO) "스티커 ${log.stickers}개" else "${log.stickers} stickers"))
+                ActionButton(if (lang == Lang.KO) "닫기" else "Close", onClick = onBack)
+            }
         }
     }
 }

@@ -97,6 +97,25 @@ class SimulatedTrip : NavSignals, VehicleSignals {
     fun park() { job?.cancel(); job = null; _veh.update { it.copy(gearPark = true, speedKmh = 0f) }; _nav.update { it.copy(active = false, arrived = true) } }
     fun shiftToDrive() { _veh.update { it.copy(gearPark = false) } }
     fun setRearSeat(occupied: Boolean) { _veh.update { it.copy(rearSeatOccupied = occupied) } }
+    /** EV demo: plug in at a rest area / destination (gear P). */
+    fun plugIn(on: Boolean = true) { _veh.update { it.copy(charging = on, batteryPct = if (on) 38 else 80, gearPark = true, speedKmh = 0f) } }
+
+    /** "지금 창밖" mode: no destination, a slow loop through the old city so NearPoint stories fire by themselves. */
+    fun freeRide(loop: List<GeoPoint>, minutesPerLap: Int = 40) {
+        job?.cancel(); legPlanned = true
+        _nav.update { NavState(active = true, destinationName = "", destination = null, location = loop.first(), remainTimeSec = 0, remainDistanceM = 0) }
+        _veh.update { it.copy(gearPark = false, speedKmh = 35f) }
+        job = scope.launch {
+            var simMin = 0
+            while (true) {
+                delay((secondsPerSimMinute * 1000).toLong()); simMin++
+                val t = (simMin % minutesPerLap).toFloat() / minutesPerLap
+                val congested = simMin < congestionUntilMin
+                _nav.update { it.copy(location = interpolate(loop + loop.first(), t)) }
+                _veh.update { it.copy(speedKmh = if (congested) 10f else 35f, tripDistanceKm = it.tripDistanceKm + 0.5f, tripTimeMin = it.tripTimeMin + 1) }
+            }
+        }
+    }
     fun setLocation(p: GeoPoint) { _nav.update { it.copy(location = p) } }
 
     private fun currentSimMinute(): Int {

@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -112,6 +113,9 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val nav by engine.navState.collectAsState()
     val speaking by engine.speaking.collectAsState()
     val quiz by engine.quiz.collectAsState()
+    val vehicle by engine.vehicleState.collectAsState()
+    val companionUrl by vm.companionUrl.collectAsState()
+    var companionOpen by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
 
     val voiceSetup by vm.voiceSetup.collectAsState()
     val voiceProfile by vm.voiceProfile.collectAsState()
@@ -122,6 +126,15 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val prefs by vm.settings.prefs.collectAsState()
     val listening by vm.localVoice.listening.collectAsState()
     val heard by vm.localVoice.heard.collectAsState()
+    kr.roaddocent.ui.theme.TypeScale.factor = prefs.fontScale
+    if (!prefs.onboarded) {
+        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) { OnboardingScreen(prefs, onDone = { vm.applyPrefs(it.copy(onboarded = true)) }) }
+        return
+    }
+    if (companionOpen) {
+        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) { CompanionPanel(vm, lang, companionUrl) { companionOpen = false } }
+        return
+    }
     if (settingsOpen) {
         Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
             SettingsScreen(prefs, voiceProfile, vm.localVoice.available, onChange = vm::applyPrefs,
@@ -162,6 +175,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                     PlayingScreen(
                         ep = p.episode, all = engine.guide?.episodes?.filter { it.trigger !is kr.roaddocent.core.Trigger.Reboard } ?: emptyList(),
                         played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
+                        driving = !vehicle.gearPark && vehicle.speedKmh > 5f && !prefs.alwaysFull,
                         onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet
                     )
                 }
@@ -169,11 +183,13 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                     onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdSkip() })
                 is DocentPhase.Parked -> ParkedScreen(p.place, lang, engine.guide?.handoff, onOpen = onDial) { vm.openVoiceSetup(true) }
                 is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
-                is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days()) { engine.cmdShowLog() }
+                is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days(), onShare = { vm.shareToday() }) { engine.cmdShowLog() }
             }
         }
 
-        if (audience == Audience.KIDS && phase is DocentPhase.Guiding) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
+        val hintCtx = when (phase) { is DocentPhase.Briefing -> "briefing"; is DocentPhase.WhereNext -> "wherenext"; is DocentPhase.Parked -> "parked"; else -> null }
+        if (hintCtx != null) { Spacer(Modifier.height(8.dp)); kr.roaddocent.ui.screen.VoiceHint(lang, hintCtx) }
+        if (audience == Audience.KIDS && phase is DocentPhase.Guiding && vehicle.gearPark) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
         val courses = engine.guide?.creatorCourses.orEmpty()
         if (courses.isNotEmpty() && (phase is DocentPhase.Briefing || phase is DocentPhase.WhereNext)) {
             Spacer(Modifier.height(12.dp))
@@ -191,7 +207,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
         }
 
         Spacer(Modifier.height(12.dp))
-        DemoBar(vm, lang, audience)
+        DemoBar(vm, lang, audience, onCompanion = { vm.startCompanion(); companionOpen = true })
     }
 }
 
@@ -274,7 +290,7 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddo
 
 /** Demo controls: stand in for real signals. Hidden in production builds via BuildConfig. */
 @Composable
-fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
+fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience, onCompanion: () -> Unit = {}) {
     val sim = vm.sim
     Row(Modifier.fillMaxWidth().background(Chip.copy(alpha = 0.5f), RoundedCornerShape(14.dp)).padding(10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(if (sim != null) "DEMO" else "PLEOS", color = Quiet, fontSize = 12.sp)
@@ -288,8 +304,11 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
             Small("🧒 뒷좌석") { sim.setRearSeat(true) }
             val nc by vm.settings.prefs.collectAsState()
             Small(if (nc.newCarMode) "🚗 새 차 ON" else "🚗 새 차") { vm.setNewCarMode(!nc.newCarMode) }
+            Small("🔌 충전") { sim.plugIn(true) }
+            Small("🪟 창밖") { vm.demoFreeRide() }
         }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
+        Small("📱 동승자") { onCompanion() }
         Small("⚙ 설정") { vm.openSettings(true) }
     }
 }
@@ -297,4 +316,60 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience) {
 @Composable
 private fun Small(t: String, onClick: () -> Unit) {
     Text(t, Modifier.background(Chip, RoundedCornerShape(10.dp)).clickable(onClick = onClick).padding(horizontal = 12.dp, vertical = 8.dp), color = Ink, fontSize = 13.sp)
+}
+
+
+/** First run: three taps — language, who's riding, theme. Everything else lives in ⚙. */
+@Composable
+fun OnboardingScreen(prefs: kr.roaddocent.core.Prefs, onDone: (kr.roaddocent.core.Prefs) -> Unit) {
+    var p by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(prefs) }
+    val ko = p.lang == Lang.KO
+    Panel(Modifier.fillMaxSize()) {
+        Headline(if (ko) "30초면 끝나요" else "Thirty seconds to set up", 34)
+        Spacer(Modifier.height(18.dp))
+        Text(if (ko) "1. 언어" else "1. Language", color = Quiet, fontSize = 18.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            ActionButton("한국어", primary = p.lang == Lang.KO) { p = p.copy(lang = Lang.KO) }
+            ActionButton("English", primary = p.lang == Lang.EN) { p = p.copy(lang = Lang.EN) }
+        }
+        Spacer(Modifier.height(14.dp))
+        Text(if (ko) "2. 누가 타나요?" else "2. Who's riding?", color = Quiet, fontSize = 18.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            ActionButton(if (ko) "어른만" else "Adults", primary = p.audience == Audience.ADULT) { p = p.copy(audience = Audience.ADULT) }
+            ActionButton(if (ko) "아이와 함께" else "With kids", primary = p.audience == Audience.KIDS) { p = p.copy(audience = Audience.KIDS) }
+            ActionButton(if (ko) "한국 방문객 (렌터카)" else "Visiting Korea (rental)", primary = p.audience == Audience.FOREIGN) { p = p.copy(audience = Audience.FOREIGN, lang = Lang.EN) }
+        }
+        Spacer(Modifier.height(14.dp))
+        Text(if (ko) "3. 오늘은 어떤 여행?" else "3. What kind of trip?", color = Quiet, fontSize = 18.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.core.Themes.order.filter { it != "car" }.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, p.lang), Modifier.clickable { p = p.copy(theme = t) }, selected = p.theme == t) }
+            Pill(if (ko) "새 차 받았어요" else "New car", Modifier.clickable { p = p.copy(newCarMode = true) }, selected = p.newCarMode)
+        }
+        Spacer(Modifier.weight(1f))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            ActionButton(if (ko) "시작" else "Start", primary = true) { onDone(p) }
+            Small(if (ko) "글자 크게" else "Larger text") { p = p.copy(fontScale = if (p.fontScale > 1.1f) 1.0f else 1.2f) }
+        }
+    }
+}
+
+/** QR for the rear-seat phone: scan once, the phone follows the story, quiz and stickers. */
+@Composable
+fun CompanionPanel(vm: DocentViewModel, lang: Lang, url: String?, onClose: () -> Unit) {
+    val qr = androidx.compose.runtime.remember(url) { vm.companion.qr(520) }
+    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+        Panel(Modifier.weight(1f).fillMaxHeight()) {
+            Headline(if (lang == Lang.KO) "동승자 화면" else "Passenger screen", 30)
+            Spacer(Modifier.height(10.dp))
+            Body(if (lang == Lang.KO) "뒷좌석 폰으로 QR을 한 번 찍으면 지금 이야기·퀴즈 카드·스티커·오늘의 한국어가 폰에 따라옵니다. 차 화면은 운전자용으로 최소만 남깁니다. (차 핫스팟 또는 같은 Wi-Fi)" else "Scan once from a rear-seat phone and it follows the story, quiz card, stickers and today's Korean phrases. The car screen stays minimal for the driver. (Car hotspot or same Wi-Fi)", size = 16)
+            Spacer(Modifier.height(10.dp))
+            Text(url ?: (if (lang == Lang.KO) "네트워크 없음 — 핫스팟을 켜 주세요" else "No network — turn on the hotspot"), color = Accent, fontSize = 18.sp)
+            Spacer(Modifier.weight(1f))
+            ActionButton(if (lang == Lang.KO) "닫기" else "Close", primary = true, onClick = onClose)
+        }
+        Panel(Modifier.weight(1f).fillMaxHeight()) {
+            if (qr != null) androidx.compose.foundation.Image(qr.asImageBitmap(), contentDescription = "QR", modifier = Modifier.fillMaxWidth())
+            else Body(if (lang == Lang.KO) "QR을 만들 수 없어요" else "Could not build the QR", size = 16)
+        }
+    }
 }

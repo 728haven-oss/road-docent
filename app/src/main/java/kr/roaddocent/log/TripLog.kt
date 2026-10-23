@@ -18,7 +18,9 @@ data class TripLog(
     val drivingMin: Int = 0,
     val episodesHeard: Int = 0,
     val quizzesRight: Int = 0,
-    val phrasesLearned: Int = 0
+    val phrasesLearned: Int = 0,
+    /** Kids mode: one sticker per quiz answered; shown on the travel log. */
+    val stickers: Int = 0
 ) {
     val stayMin: Int get() = visits.sumOf { it.stayMin }
     val longest: Visit? get() = visits.maxByOrNull { it.stayMin }

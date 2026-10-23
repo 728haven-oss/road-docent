@@ -156,7 +156,10 @@ data class VehicleState(
     val gearPark: Boolean = true,
     val rearSeatOccupied: Boolean = false,
     val tripDistanceKm: Float = 0f,
-    val tripTimeMin: Int = 0
+    val tripTimeMin: Int = 0,
+    /** EV: plugged in and charging; long stories fit the 20–30 min wait. */
+    val charging: Boolean = false,
+    val batteryPct: Int = -1
 )
 
 /** What the engine is doing right now (drives the UI). */

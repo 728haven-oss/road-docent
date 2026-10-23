@@ -85,6 +85,12 @@ fun SettingsScreen(
                 Choice(if (ko) "끔" else "Off", !prefs.newCarMode) { onChange(prefs.copy(newCarMode = false)) }
             }
             Body(if (ko) "첫 출발·뒷좌석 착좌·60/100km/h·5/15km 주행·정체·주차 때 센서 역할과 교체 주기를 들려줘요. 실차에서는 누적 1,000km까지 자동." else "First drive, rear seat, 60/100 km/h, 5/15 km, traffic and parking each explain a sensor and its service interval. In a real car it runs for the first 1,000 km.", size = 12)
+            Label(if (ko) "주행 중 화면" else "Screen while driving")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Choice(if (ko) "제목·파형만 (권장)" else "Title + wave only (recommended)", !prefs.alwaysFull) { onChange(prefs.copy(alwaysFull = false)) }
+                Choice(if (ko) "본문도 표시" else "Show full text", prefs.alwaysFull) { onChange(prefs.copy(alwaysFull = true)) }
+                Choice(if (ko) "글자 크게" else "Large text", prefs.fontScale > 1.1f) { onChange(prefs.copy(fontScale = if (prefs.fontScale > 1.1f) 1.0f else 1.2f)) }
+            }
             Label(if (ko) "안전" else "Safety")
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(80, 100, 110).forEach { v -> Choice(if (ko) "${v}km/h 이상 멈춤" else "pause over $v km/h", prefs.safetyPauseKmh == v) { onChange(prefs.copy(safetyPauseKmh = v)) } }

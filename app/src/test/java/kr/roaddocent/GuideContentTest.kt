@@ -58,6 +58,19 @@ class GuideContentTest {
         assertTrue(events.containsAll(listOf("first_drive", "rear_seat", "speed_60", "speed_100", "trip_5km", "trip_15km", "park")))
     }
 
+    @Test fun storyBankParsesAndMatches() {
+        val txt = File(assets, "storybank/kto_storytelling.json").readText()
+        val root = Json.parseToJsonElement(txt) as kotlinx.serialization.json.JsonObject
+        val arr = root["items"] as kotlinx.serialization.json.JsonArray
+        assertTrue(arr.size > 1500)
+        assertTrue(arr.any { (it as kotlinx.serialization.json.JsonObject)["spot"].toString().contains("광화문") })
+    }
+
+    @Test fun overlayHasChargingEpisode() {
+        val ov = overlays().first { it.id == "car_onboarding" }
+        assertTrue(ov.episodes.any { (it.trigger as? Trigger.VehicleEvent)?.event == "charging" })
+    }
+
     @Test fun kidsTextFallsBackToAdult() {
         val g = guides().first().second
         val e = g.episodes.first { it.kidsText.isEmpty() }

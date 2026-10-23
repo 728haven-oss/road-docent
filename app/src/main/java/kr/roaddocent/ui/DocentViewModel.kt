@@ -32,6 +32,23 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val settings = SettingsStore(app)
     /** Multi-day history (kept only when "keep travel log" is on). */
     val history = kr.roaddocent.log.TripHistory(app)
+    val storyBank = kr.roaddocent.content.StoryBank(app)
+    /** Rear-seat companion page served from the car; QR on the "동승자" panel. */
+    val companion = kr.roaddocent.share.CompanionServer()
+    private val _companionUrl = MutableStateFlow<String?>(null)
+    val companionUrl: StateFlow<String?> = _companionUrl.asStateFlow()
+    private val tone by lazy { runCatching { android.media.ToneGenerator(android.media.AudioManager.STREAM_MUSIC, 70) }.getOrNull() }
+    private var companionJob: kotlinx.coroutines.Job? = null
+
+    fun startCompanion() { if (companion.start()) _companionUrl.value = companion.url() }
+    fun shareToday() = kr.roaddocent.share.ShareCard.share(getApplication(), engine.log.value, engine.lang.value, java.time.LocalDate.now().toString())
+    fun demoFreeRide() {
+        val loop = listOf(kr.roaddocent.core.GeoPoint(37.5796, 126.977), kr.roaddocent.core.GeoPoint(37.572, 126.9768), kr.roaddocent.core.GeoPoint(37.56, 126.9753),
+            kr.roaddocent.core.GeoPoint(37.5547, 126.9707), kr.roaddocent.core.GeoPoint(37.538, 126.971), kr.roaddocent.core.GeoPoint(37.524, 126.9803),
+            kr.roaddocent.core.GeoPoint(37.5335, 127.003), kr.roaddocent.core.GeoPoint(37.556, 126.99), kr.roaddocent.core.GeoPoint(37.5759, 126.9769))
+        sim?.freeRide(loop)
+        engine.startFreeRide(guides.all())
+    }
     private var historyJob: kotlinx.coroutines.Job? = null
     val localVoice = LocalVoiceCommands(app)
     private val _settingsOpen = MutableStateFlow(false)
@@ -77,6 +94,14 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s }
         else { nav = PleosNavSignals(getApplication()); veh = PleosVehicleSignals(getApplication()) }
         engine = DocentEngine(nav, veh, speaker, guides, viewModelScope)
+        engine.storyBank = storyBank
+        engine.onQuizRevealed = { tone?.startTone(android.media.ToneGenerator.TONE_PROP_ACK, 180) }
+        companionJob?.cancel()
+        companionJob = viewModelScope.launch {
+            kotlinx.coroutines.flow.combine(engine.nowPlaying, engine.quiz, engine.log, engine.lang) { ep, q, l, lang -> kr.roaddocent.share.CompanionServer.State(
+                title = ep?.titleFor(lang) ?: "", text = ep?.textFor(lang, engine.audience.value) ?: "", quiz = q?.question, answer = q?.answer, stickers = l.stickers, lang = lang.tag,
+                phrases = engine.guide?.phrases.orEmpty().take(5).map { it.ko to (it.meaning["en"] ?: it.romanized) }) }.collect { companion.update(it) }
+        }
         historyJob?.cancel()
         historyJob = viewModelScope.launch {
             engine.log.collect { l -> if (settings.prefs.value.keepTravelLog && (l.visits.isNotEmpty() || l.distanceKm > 0f)) history.save(java.time.LocalDate.now().toString(), l) }
@@ -113,5 +138,5 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     fun listen() = localVoice.listenOnce()
     fun goThere(p: Place) = engine.cmdGoThere(p)
 
-    override fun onCleared() { if (::engine.isInitialized) engine.stop(); speaker.shutdown(); localVoice.release() }
+    override fun onCleared() { if (::engine.isInitialized) engine.stop(); speaker.shutdown(); localVoice.release(); companion.stop(); tone?.release() }
 }

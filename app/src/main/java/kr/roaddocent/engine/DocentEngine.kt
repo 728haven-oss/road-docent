@@ -80,6 +80,7 @@ class DocentEngine(
     /** Speed above which speech pauses at a sentence boundary (settings). */
     var safetyPauseKmh: Int = 100
     val navState: StateFlow<NavState> get() = nav.nav
+    val vehicleState: StateFlow<VehicleState> get() = veh.vehicle
     val speaking: StateFlow<Boolean> get() = speaker.speaking
 
     var guide: Guide? = null; private set
@@ -90,6 +91,8 @@ class DocentEngine(
     private val firedEvents = linkedSetOf<String>()
     /** Theme preference used to rank "where next?" suggestions ("" = none). */
     var theme: String = ""
+    /** Optional public storytelling bank for the "tell me more" fallback layer. */
+    var storyBank: kr.roaddocent.content.StoryBank? = null
     private val played = linkedSetOf<String>()
     private var slowSinceMs: Long? = null
     private var congestion = false
@@ -98,6 +101,7 @@ class DocentEngine(
     private var lastLoc: GeoPoint? = null
     private var lastLocMs = 0L
     private var lastSpeechEndMs = 0L
+    private var chargingStory = false
     private var watcher: Job? = null
     private var currentVisit: Visit? = null
 
@@ -164,6 +168,28 @@ class DocentEngine(
 
     fun stop() { watcher?.cancel(); advancer?.cancel(); commands?.cancel(); quizJob?.cancel(); speaker.stop(); nav.stop(); veh.stop() }
 
+    /** Called when a quiz answer is revealed (UI plays a short chime / sticker animation). */
+    var onQuizRevealed: (() -> Unit)? = null
+
+    /**
+     * "지금 창밖" (free-ride) mode: no destination set. Every NearPoint story from every guide becomes live, so a drive
+     * around town triggers whatever is nearby; silence fillers keep it going. Nothing arrival-related fires.
+     */
+    fun startFreeRide(all: List<Guide>) {
+        quizJob?.cancel(); quizPending = false; _quiz.value = null
+        val eps = all.flatMap { g -> g.episodes.filter { it.trigger is Trigger.NearPoint || it.trigger is Trigger.AfterSilence }.map { it.copy(id = g.id + ":" + it.id) } }
+        val intro = Episode("freeride_intro", mapOf("ko" to "지금 창밖", "en" to "Out the window"),
+            mapOf("ko" to "목적지 없이 달리시네요. 지나는 곳마다 그 자리 이야기를 하나씩 들려드릴게요. 조용하면 제가 먼저 말할게요.",
+                  "en" to "No destination today. As we pass places, I'll tell their stories one by one, and if it goes quiet I'll start."),
+            trigger = Trigger.AtStart(0), durationSec = 15, source = "Road Docent", kind = "tip")
+        val g = Guide(id = "freeride", destination = Place("freeride", mapOf("ko" to "지금 창밖", "en" to "Out the window"), GeoPoint(0.0, 0.0), category = "freeride"),
+            intro = mapOf("ko" to "", "en" to ""), episodes = listOf(intro) + eps, themes = listOf("history", "art", "nature"))
+        guide = g; played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null
+        _queue.value = listOf(intro)
+        _phase.value = DocentPhase.Guiding(intro, emptyList(), false)
+        playNext()
+    }
+
     /** Hand over to another guide without stopping: the docent keeps talking on the next leg. */
     private fun chainTo(g: Guide) {
         quizJob?.cancel(); quizPending = false; _quiz.value = null
@@ -214,7 +240,15 @@ class DocentEngine(
             ev("trip_5km", v.tripDistanceKm >= 5f)
             ev("trip_15km", v.tripDistanceKm >= 15f)
             ev("park", n.arrived && v.gearPark)
+            ev("charging", v.charging)
         }
+        // EV charging: the 20–30 minute wait is the best slot for the longest story left
+        if (v.charging && !chargingStory) {
+            chargingStory = true
+            val longStory = g.episodes.filter { it.id !in played && it.trigger !is Trigger.Reboard && it.trigger !is Trigger.RemainUnderMin }.maxByOrNull { it.durationSec }
+            if (longStory != null) fire(longStory, prefix = if (_lang.value == Lang.KO) "충전하는 동안 긴 이야기 하나 할게요. " else "While we charge, here's a longer story. ")
+        }
+        if (!v.charging) chargingStory = false
 
         // never quiet for long: filler after N minutes of silence while driving
         if (n.active && !v.gearPark && !speaker.speaking.value && !quizPending && lastSpeechEndMs > 0) {
@@ -327,8 +361,9 @@ class DocentEngine(
         if (!quizPending) return
         quizPending = false
         _quiz.value = QuizView(q.questionFor(_lang.value), q.answerFor(_lang.value))
-        _log.update { it.copy(quizzesRight = it.quizzesRight + 1) }
-        speaker.speak((if (_lang.value == Lang.KO) "정답은, " else "The answer: ") + q.answerFor(_lang.value), _lang.value)
+        _log.update { it.copy(quizzesRight = it.quizzesRight + 1, stickers = if (_audience.value == Audience.KIDS) it.stickers + 1 else it.stickers) }
+        onQuizRevealed?.invoke()
+        speaker.speak((if (_lang.value == Lang.KO) "정답은, " else "The answer: ") + q.answerFor(_lang.value) + (if (_audience.value == Audience.KIDS) (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!") else ""), _lang.value)
     }
 
     /** Play the next queued AtStart episode (after current finishes or on "skip"). */
@@ -341,7 +376,9 @@ class DocentEngine(
 
     // ---- voice commands (Gleo Interface in production; buttons in demo) ----
     fun cmdSkip() { quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); playNext() }
-    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> speaker.speak(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }; speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
+    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> speaker.speak(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }
+        if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> speaker.speak("한국관광공사 해설로 더 자세히. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
+        speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
     fun cmdQuiet() { speaker.stop() }
     fun cmdSave() { _toast.value = if (_lang.value == Lang.KO) "여행 기록에 저장했어요" else "Saved to your travel log"; _log.update { it.copy(phrasesLearned = it.phrasesLearned + 1) } }
     fun cmdGoThere(p: Place) {

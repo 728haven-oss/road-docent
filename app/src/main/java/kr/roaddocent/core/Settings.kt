@@ -18,7 +18,13 @@ data class Prefs(
     /** New-car onboarding overlay: sensors explained as they work, maintenance intervals. Auto-off after 1,000 km in production. */
     val newCarMode: Boolean = false,
     /** Preferred travel theme for the picker and "where next?" ranking: history, art, nature, thrill, food, family, car; "" = all. */
-    val theme: String = ""
+    val theme: String = "",
+    /** First-run 3-tap onboarding done. */
+    val onboarded: Boolean = false,
+    /** Driving text size: 1.0 = car default (24sp body), 1.2 = large. */
+    val fontScale: Float = 1.0f,
+    /** Show the full text panel even while driving (passenger-operated screens). */
+    val alwaysFull: Boolean = false
 )
 
 class SettingsStore(context: Context) {
@@ -36,7 +42,10 @@ class SettingsStore(context: Context) {
         safetyPauseKmh = sp.getInt("safetyPauseKmh", 100),
         localVoiceCommands = sp.getBoolean("localVoiceCommands", true),
         newCarMode = sp.getBoolean("newCarMode", false),
-        theme = sp.getString("theme", "") ?: ""
+        theme = sp.getString("theme", "") ?: "",
+        onboarded = sp.getBoolean("onboarded", false),
+        fontScale = sp.getFloat("fontScale", 1.0f),
+        alwaysFull = sp.getBoolean("alwaysFull", false)
     )
 
     fun update(block: (Prefs) -> Prefs) {
@@ -46,7 +55,8 @@ class SettingsStore(context: Context) {
             .putString("voiceApiKey", p.voiceApiKey).putString("voiceProvider", p.voiceProvider)
             .putBoolean("keepTravelLog", p.keepTravelLog).putInt("safetyPauseKmh", p.safetyPauseKmh)
             .putBoolean("localVoiceCommands", p.localVoiceCommands)
-            .putBoolean("newCarMode", p.newCarMode).putString("theme", p.theme).apply()
+            .putBoolean("newCarMode", p.newCarMode).putString("theme", p.theme)
+            .putBoolean("onboarded", p.onboarded).putFloat("fontScale", p.fontScale).putBoolean("alwaysFull", p.alwaysFull).apply()
         _prefs.value = p
     }
 }

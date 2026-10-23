@@ -2,98 +2,217 @@
   "id": "car_onboarding",
   "destination": {
     "id": "my_car",
-    "name": { "ko": "내 차 알아가기", "en": "Getting to know my car" },
-    "point": { "lat": 0.0, "lon": 0.0 },
+    "name": {
+      "ko": "내 차 알아가기",
+      "en": "Getting to know my car"
+    },
+    "point": {
+      "lat": 0.0,
+      "lon": 0.0
+    },
     "category": "car",
-    "note": { "ko": "새 차를 받은 첫 1,000km 동안, 센서가 실제로 작동하는 순간에 하나씩 설명합니다", "en": "For the first 1,000 km of a new car, each sensor is explained the moment it actually works" }
+    "note": {
+      "ko": "새 차를 받은 첫 1,000km 동안, 센서가 실제로 작동하는 순간에 하나씩 설명합니다",
+      "en": "For the first 1,000 km of a new car, each sensor is explained the moment it actually works"
+    }
   },
-  "intro": { "ko": "새 차는 센서가 수십 개예요. 설명서를 읽는 대신, 센서가 켜지는 순간에 제가 알려드릴게요.", "en": "A new car has dozens of sensors. Instead of reading the manual, I'll explain each one the moment it switches on." },
-  "themes": ["car"],
+  "intro": {
+    "ko": "새 차는 센서가 수십 개예요. 설명서를 읽는 대신, 센서가 켜지는 순간에 제가 알려드릴게요.",
+    "en": "A new car has dozens of sensors. Instead of reading the manual, I'll explain each one the moment it switches on."
+  },
+  "themes": [
+    "car"
+  ],
   "episodes": [
     {
       "id": "first_drive",
-      "title": { "ko": "첫 출발 · 이 차의 센서 지도", "en": "First drive: your car's sensor map" },
+      "title": {
+        "ko": "첫 출발 · 이 차의 센서 지도",
+        "en": "First drive: your car's sensor map"
+      },
       "text": {
         "ko": "새 차 첫 주행이네요, 축하해요. 출발하기 전에 한 가지만. 이 차에는 센서가 서른 개 넘게 있어요. 앞 범퍼 안에 레이더, 앞 유리 위에 카메라, 범퍼 둘레에 초음파 센서 열두 개, 양쪽 뒤 범퍼에 후측방 레이더, 바퀴마다 공기압 센서, 그리고 좌석 아래 착좌 센서까지요. 오늘 운전하면서 이 센서들이 하나씩 켜질 때마다 제가 '지금 이게 작동했어요' 하고 알려드릴게요. 설명서를 읽는 대신 몸으로 배우는 거예요.",
         "en": "Your first drive in a new car, congratulations. One thing before we go: this car has more than thirty sensors. A radar in the front bumper, a camera at the top of the windscreen, twelve ultrasonic sensors around the bumpers, blind-spot radars at the rear corners, a pressure sensor in every wheel, and seat sensors under the cushions. As each one switches on today I'll say 'that just worked', so you learn the car by driving it instead of reading the manual."
       },
-      "kidsText": { "ko": "새 차야! 이 차에는 눈이 서른 개도 넘게 달려 있어. 앞을 보는 눈, 옆을 보는 눈, 뒤를 보는 눈. 오늘 운전하면서 눈이 하나씩 떠질 때마다 알려줄게!", "en": "A new car! It has more than thirty eyes: eyes that look ahead, to the side and behind. As each eye opens today, I'll tell you!" },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "first_drive" },
-      "durationSec": 45, "source": "차량 취급설명서 · 현대차 ADAS 안내", "priority": 9, "kind": "fact"
+      "kidsText": {
+        "ko": "새 차야! 이 차에는 눈이 서른 개도 넘게 달려 있어. 앞을 보는 눈, 옆을 보는 눈, 뒤를 보는 눈. 오늘 운전하면서 눈이 하나씩 떠질 때마다 알려줄게!",
+        "en": "A new car! It has more than thirty eyes: eyes that look ahead, to the side and behind. As each eye opens today, I'll tell you!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "first_drive"
+      },
+      "durationSec": 45,
+      "source": "차량 취급설명서 · 현대차 ADAS 안내",
+      "priority": 9,
+      "kind": "fact"
     },
     {
       "id": "seat_sensor",
-      "title": { "ko": "착좌 센서 · 방금 뒷좌석을 알아챘어요", "en": "Seat sensor: the car just noticed the back seat" },
+      "title": {
+        "ko": "착좌 센서 · 방금 뒷좌석을 알아챘어요",
+        "en": "Seat sensor: the car just noticed the back seat"
+      },
       "text": {
         "ko": "방금 뒷좌석에 누가 앉은 걸 차가 알아챘어요. 좌석 쿠션 아래 압력 센서가 무게를 감지해서, 안전벨트 미착용 경고와 에어백 작동 여부를 정해요. 그리고 내릴 때 뒷좌석에 아이나 반려동물이 남아 있으면 경고하는 '후석 승객 알림'도 이 센서가 해요. 아이 카시트는 무게가 가벼워서 벨트 경고가 안 뜰 수 있으니, 카시트 벨트는 직접 확인하세요.",
         "en": "The car just noticed someone sat down in the back. A pressure sensor under the seat cushion detects weight; it drives the seat-belt warning and decides whether the airbag arms. The same sensor powers the rear-occupant alert that warns you if a child or pet is left behind when you get out. A child seat can be too light to trigger the belt warning, so always check that one yourself."
       },
-      "kidsText": { "ko": "네가 앉으니까 차가 알았어! 의자 밑에 무게를 재는 센서가 있거든. 그래서 안전벨트 안 매면 삐삐 소리가 나는 거야. 벨트 맸지?", "en": "The car knew when you sat down! There's a weighing sensor under the seat. That's why it beeps if your seat belt isn't on. Belt on?" },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "rear_seat" },
-      "durationSec": 40, "source": "Vehicle SDK SeatOccupancy · 취급설명서", "priority": 8, "kind": "fact"
+      "kidsText": {
+        "ko": "네가 앉으니까 차가 알았어! 의자 밑에 무게를 재는 센서가 있거든. 그래서 안전벨트 안 매면 삐삐 소리가 나는 거야. 벨트 맸지?",
+        "en": "The car knew when you sat down! There's a weighing sensor under the seat. That's why it beeps if your seat belt isn't on. Belt on?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "rear_seat"
+      },
+      "durationSec": 40,
+      "source": "Vehicle SDK SeatOccupancy · 취급설명서",
+      "priority": 8,
+      "kind": "fact"
     },
     {
       "id": "adas_camera",
-      "title": { "ko": "시속 60 · 앞 유리 카메라가 차선을 읽기 시작", "en": "60 km/h: the windscreen camera starts reading lanes" },
+      "title": {
+        "ko": "시속 60 · 앞 유리 카메라가 차선을 읽기 시작",
+        "en": "60 km/h: the windscreen camera starts reading lanes"
+      },
       "text": {
         "ko": "시속 60을 넘었어요. 지금부터 앞 유리 위 카메라가 차선과 표지판을 읽어요. 차선을 벗어나려 하면 핸들을 살짝 되돌리는 게 '차로 이탈 방지', 차선 가운데를 유지해 주는 게 '차로 유지 보조'예요. 핸들에서 손을 떼면 15초 안에 경고가 뜨는데, 손을 올려두라는 뜻이지 자율주행이 아니에요. 카메라 앞 유리에 스티커나 성에가 있으면 이 기능이 꺼지니 겨울엔 그 부분부터 닦으세요.",
         "en": "We're over 60 km/h. From here the camera at the top of the windscreen reads lane lines and road signs. Nudging the wheel back when you drift is Lane Keeping Assist; holding the centre is Lane Following Assist. Take your hands off and a warning appears within fifteen seconds: it wants your hands on, it isn't self-driving. A sticker or frost in front of the camera switches it off, so in winter clear that patch first."
       },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "speed_60" },
-      "durationSec": 45, "source": "현대차 ADAS 취급설명서", "priority": 7, "kind": "fact"
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "speed_60"
+      },
+      "durationSec": 45,
+      "source": "현대차 ADAS 취급설명서",
+      "priority": 7,
+      "kind": "fact"
     },
     {
       "id": "radar_scc",
-      "title": { "ko": "시속 100 · 범퍼 속 레이더와 스마트 크루즈", "en": "100 km/h: the bumper radar and smart cruise" },
+      "title": {
+        "ko": "시속 100 · 범퍼 속 레이더와 스마트 크루즈",
+        "en": "100 km/h: the bumper radar and smart cruise"
+      },
       "text": {
         "ko": "고속도로 속도네요. 앞 범퍼 안 레이더가 앞차까지 거리를 초당 수십 번 재고 있어요. 핸들의 크루즈 버튼을 누르면 이 레이더로 앞차와 간격을 유지하며 속도를 맞추는 '스마트 크루즈'가 켜져요. 막히면 멈췄다 다시 출발까지 해요. 레이더는 비와 어둠엔 강하지만 진흙이나 눈이 범퍼에 붙으면 못 봐요. 세차할 때 앞 범퍼 가운데 엠블럼 주변을 신경 써 주세요. 거기가 레이더 자리예요.",
         "en": "Motorway speed. The radar inside the front bumper is measuring the gap to the car ahead dozens of times a second. Press the cruise button on the wheel and Smart Cruise Control uses it to hold your gap and match speed, stopping and restarting in traffic. Radar copes with rain and darkness, but mud or snow stuck on the bumper blinds it, so when you wash the car, pay attention around the front emblem. That's where the radar lives."
       },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "speed_100" },
-      "durationSec": 45, "source": "현대차 SCC 취급설명서", "priority": 7, "kind": "fact"
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "speed_100"
+      },
+      "durationSec": 45,
+      "source": "현대차 SCC 취급설명서",
+      "priority": 7,
+      "kind": "fact"
     },
     {
       "id": "tpms_tires",
-      "title": { "ko": "주행 5km · 타이어 공기압 센서와 타이어 관리", "en": "5 km in: tyre-pressure sensors and tyre care" },
+      "title": {
+        "ko": "주행 5km · 타이어 공기압 센서와 타이어 관리",
+        "en": "5 km in: tyre-pressure sensors and tyre care"
+      },
       "text": {
         "ko": "5킬로미터를 달렸으니 바퀴 네 개의 공기압 센서가 모두 깨어났어요. 계기판에 공기압이 바퀴별로 보일 거예요. 적정 공기압은 운전석 문 안쪽 스티커에 있고, 보통 35 psi 안팎이에요. 공기압은 한 달에 한 번, 기온이 10도 떨어지면 약 1 psi씩 빠지니 가을·겨울에 특히 확인하세요. 타이어는 1만 킬로마다 앞뒤를 바꿔 끼우고, 홈 깊이가 1.6밀리, 동전을 꽂아 이순신 장군 모자가 다 보이면 교체 시기예요. 보통 4만에서 6만 킬로예요.",
         "en": "Five kilometres in, all four tyre-pressure sensors are awake and the cluster shows pressure per wheel. The correct pressure is on the sticker inside the driver's door, usually around 35 psi. Check it monthly; every 10 °C drop costs about 1 psi, so autumn and winter matter most. Rotate tyres front to back every 10,000 km, and replace them when the tread reaches 1.6 mm, typically at 40,000 to 60,000 km."
       },
-      "kidsText": { "ko": "바퀴 안에도 센서가 있어! 바퀴에 공기가 얼마나 들어 있는지 재는 거야. 풍선처럼 공기가 빠지면 차가 알려줘. 퀴즈! 바퀴는 몇 개게? 센서도 그만큼 있어!", "en": "There are sensors inside the wheels too! They measure how much air is in the tyre. If air leaks like a balloon, the car tells you. Quiz! How many wheels? That's how many sensors!" },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "trip_5km" },
-      "durationSec": 50, "source": "취급설명서 TPMS · 한국타이어 관리 가이드", "priority": 6, "kind": "tip"
+      "kidsText": {
+        "ko": "바퀴 안에도 센서가 있어! 바퀴에 공기가 얼마나 들어 있는지 재는 거야. 풍선처럼 공기가 빠지면 차가 알려줘. 퀴즈! 바퀴는 몇 개게? 센서도 그만큼 있어!",
+        "en": "There are sensors inside the wheels too! They measure how much air is in the tyre. If air leaks like a balloon, the car tells you. Quiz! How many wheels? That's how many sensors!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "trip_5km"
+      },
+      "durationSec": 50,
+      "source": "취급설명서 TPMS · 한국타이어 관리 가이드",
+      "priority": 6,
+      "kind": "tip"
     },
     {
       "id": "maintenance",
-      "title": { "ko": "주행 15km · 언제 뭘 갈아야 하나", "en": "15 km in: what to replace, and when" },
+      "title": {
+        "ko": "주행 15km · 언제 뭘 갈아야 하나",
+        "en": "15 km in: what to replace, and when"
+      },
       "text": {
         "ko": "차가 익숙해질 때쯤이니 정비 주기를 한 번에 정리할게요. 엔진오일은 1만 킬로 또는 1년마다, 전기차라면 엔진오일 대신 감속기 오일을 6만 킬로에 점검해요. 에어컨 필터는 1만 5천 킬로 또는 6개월, 미세먼지 철엔 더 자주. 와이퍼는 1년, 줄이 생기면 바로. 브레이크 패드는 3만에서 5만 킬로, 밟을 때 쇳소리가 나면 그 전에요. 12볼트 배터리는 3년에서 4년, 전기차도 이 배터리가 방전되면 시동이 안 걸려요. 냉각수는 첫 교체 4만 킬로 후 2년마다. 이 주기는 제조사 설명서 기준이고, 제가 주행거리를 세고 있다가 때가 되면 먼저 말씀드릴게요.",
         "en": "You're settling in, so here's the service schedule in one go. Engine oil every 10,000 km or a year; on an EV there's no engine oil, but the reduction-gear oil is checked at 60,000 km. Cabin air filter every 15,000 km or six months, more often in dust season. Wipers yearly, sooner if they streak. Brake pads at 30,000 to 50,000 km, earlier if they squeal. The 12-volt battery every three to four years; even an EV won't start if it's flat. Coolant first at 40,000 km, then every two years. These follow the manufacturer's manual, and since I'm counting your mileage, I'll speak up before each one is due."
       },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "trip_15km" },
-      "durationSec": 70, "source": "현대차 정비 주기표 · 취급설명서", "priority": 6, "kind": "tip"
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "trip_15km"
+      },
+      "durationSec": 70,
+      "source": "현대차 정비 주기표 · 취급설명서",
+      "priority": 6,
+      "kind": "tip"
     },
     {
       "id": "congestion_regen",
-      "title": { "ko": "정체 구간 · 가다 서다 할 때 차가 하는 일", "en": "Stuck in traffic: what the car does in stop-and-go" },
+      "title": {
+        "ko": "정체 구간 · 가다 서다 할 때 차가 하는 일",
+        "en": "Stuck in traffic: what the car does in stop-and-go"
+      },
       "text": {
         "ko": "막히는 동안 차 이야기 하나. 가다 서다 할 때 전기차와 하이브리드는 브레이크를 밟을 때마다 모터를 발전기로 돌려 배터리를 채워요. 회생 제동이에요. 그래서 정체 구간에서는 오히려 연비가 좋아져요. 핸들 뒤 패들로 회생 강도를 올리면 가속 페달만으로 멈출 수 있어서 발이 덜 피곤해요. 내연기관이라면 정차 때 엔진이 꺼지는 게 고장이 아니라 공회전 정지 기능이에요. 그리고 지금처럼 막힐 때 앞 범퍼 레이더가 가장 바쁘게 일하고 있어요.",
         "en": "While we crawl, a car story. In stop-and-go, EVs and hybrids turn the motor into a generator every time you brake, charging the battery: regenerative braking. That's why traffic jams actually improve efficiency. Raise the regen level with the paddles behind the wheel and you can stop with the accelerator alone, which saves your foot. On a petrol car, the engine switching off at a standstill isn't a fault, it's idle stop. And right now, in traffic, the front radar is working harder than ever."
       },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.Congestion" },
-      "durationSec": 50, "source": "현대차 회생제동 안내", "priority": 5, "kind": "fact"
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.Congestion"
+      },
+      "durationSec": 50,
+      "source": "현대차 회생제동 안내",
+      "priority": 5,
+      "kind": "fact"
     },
     {
       "id": "park_sensors",
-      "title": { "ko": "주차 · 초음파 센서 열두 개와 내릴 때 체크", "en": "Parking: twelve ultrasonic sensors, and a check before you get out" },
+      "title": {
+        "ko": "주차 · 초음파 센서 열두 개와 내릴 때 체크",
+        "en": "Parking: twelve ultrasonic sensors, and a check before you get out"
+      },
       "text": {
         "ko": "주차했어요. 방금 범퍼 둘레의 초음파 센서 열두 개가 박쥐처럼 소리를 쏘고 돌아오는 시간으로 거리를 쟀어요. 삐 소리가 빨라질수록 30센티 안이에요. 후방 카메라는 번호판 위에 있어서 비 오면 흐려지니 손으로 한 번 닦으면 돼요. 내리기 전 체크 셋. 뒷좌석에 아이나 짐이 남았는지, 창문이 다 닫혔는지, 그리고 전기차라면 충전 케이블을 꽂을 건지. 오늘 센서 다섯 가지를 몸으로 배우셨어요. 다음 주행에선 나머지를 이어서 설명할게요.",
         "en": "Parked. The twelve ultrasonic sensors around the bumpers just measured distance like a bat, by timing the echo of a sound pulse; the faster the beep, the closer than 30 cm you are. The rear camera sits above the number plate and blurs in rain, so a quick wipe fixes it. Three checks before you get out: anything left on the back seat, all windows closed, and on an EV whether to plug in. You've learned five sensors by driving today; I'll carry on with the rest next time."
       },
-      "kidsText": { "ko": "주차 끝! 차가 삐삐 소리 낸 거 들었어? 박쥐처럼 소리를 쏴서 벽이 얼마나 가까운지 재는 거야. 내리기 전에 네 물건 다 챙겼는지 확인!", "en": "Parked! Did you hear the car beeping? It shoots sounds like a bat to measure how close the wall is. Before you get out, check you've got all your things!" },
-      "trigger": { "type": "kr.roaddocent.core.Trigger.VehicleEvent", "event": "park" },
-      "durationSec": 55, "source": "취급설명서 주차 보조", "priority": 7, "kind": "tip"
+      "kidsText": {
+        "ko": "주차 끝! 차가 삐삐 소리 낸 거 들었어? 박쥐처럼 소리를 쏴서 벽이 얼마나 가까운지 재는 거야. 내리기 전에 네 물건 다 챙겼는지 확인!",
+        "en": "Parked! Did you hear the car beeping? It shoots sounds like a bat to measure how close the wall is. Before you get out, check you've got all your things!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "park"
+      },
+      "durationSec": 55,
+      "source": "취급설명서 주차 보조",
+      "priority": 7,
+      "kind": "tip"
+    },
+    {
+      "id": "charging",
+      "title": {
+        "ko": "충전 중 · 커넥터와 80% 규칙",
+        "en": "Charging: the connector and the 80% rule"
+      },
+      "text": {
+        "ko": "충전을 시작했네요. 커넥터를 꽂으면 차와 충전기가 먼저 통신으로 인사를 나누고 나서야 전기가 흘러요. 그래서 몇 초 뒤에 계기판 불이 들어와요. 급속 충전은 배터리가 80퍼센트를 넘으면 배터리를 보호하려고 속도가 확 느려지니, 급할 땐 80에서 빼는 게 시간 대비 이득이에요. 겨울엔 배터리가 차가우면 더 느려서, 출발 전 미리 예열을 켜두면 좋아요. 충전 케이블은 밟히지 않게 차 쪽으로 돌려 두고, 충전 완료 후 자리를 오래 비우면 점유 요금이 붙는 곳이 많아요. 기다리는 동안 긴 이야기 하나 이어서 들려드릴게요.",
+        "en": "Charging has started. When you plug in, the car and the charger first negotiate over a data line, and only then does current flow, which is why the cluster lights up a few seconds later. Fast charging slows sharply above 80 percent to protect the battery, so if you're in a hurry, unplug at 80. In winter a cold pack charges slower, so pre-conditioning before you arrive helps. Keep the cable tucked toward the car, and note that many stations add idle fees if you linger after charging ends. While we wait, I'll carry on with a longer story."
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.VehicleEvent",
+        "event": "charging"
+      },
+      "durationSec": 55,
+      "source": "현대차 EV 충전 안내 · 환경부 충전요금 안내",
+      "priority": 7,
+      "kind": "tip"
     }
   ],
-  "dataSources": [ "현대자동차 취급설명서(ADAS·TPMS·정비 주기) — 차종별 수치는 설명서 기준으로 교체", "Pleos Vehicle SDK: SeatOccupancy, GearSelection, Odometer" ]
+  "dataSources": [
+    "현대자동차 취급설명서(ADAS·TPMS·정비 주기) — 차종별 수치는 설명서 기준으로 교체",
+    "Pleos Vehicle SDK: SeatOccupancy, GearSelection, Odometer"
+  ]
 }
