@@ -425,5 +425,23 @@
     "history",
     "nature",
     "thrill"
-  ]
+  ],
+  "knowBeforeYouGo": {
+    "ko": [
+      "운영: 청령포 09:00~18:00(동절기 17:00), 배로 1분 도강 · 장릉 09:00~18:00 · 비·강풍 시 도선 중단",
+      "요금: 청령포 성인 3,000원(도선료 포함), 장릉 2,000원 · 영월 관광지 통합권 확인",
+      "주차: 청령포·장릉 모두 무료 주차장 · 성수기 주말 오전 혼잡",
+      "추천 순서: 청령포(1시간) → 점심 곤드레밥 → 장릉(1시간) → 관풍헌(20분) → 별마로천문대 야경",
+      "챙길 것: 걷기 편한 신발(청령포 솔숲·망향탑 오르막), 모기 기피제(여름), 아이용 간식",
+      "예산: 1인 입장 5,000원 + 점심 1~1.5만 원 + 천문대 성인 7,000원 안팎(예약)"
+    ],
+    "en": [
+      "Hours: Cheongnyeongpo 09:00–18:00 (17:00 in winter), 1-minute ferry · Jangneung 09:00–18:00 · ferry stops in rain or high wind",
+      "Fees: Cheongnyeongpo adults ₩3,000 incl. ferry, Jangneung ₩2,000 · check the Yeongwol combined ticket",
+      "Parking: free at both · busy on peak-season weekend mornings",
+      "Suggested order: Cheongnyeongpo (1 h) → gondre-rice lunch → Jangneung (1 h) → Gwanpungheon (20 min) → Byeolmaro Observatory at night",
+      "Bring: walking shoes (pine woods and the uphill to the longing tower), insect repellent in summer, snacks for kids",
+      "Budget: ₩5,000 entry per person + ₩10–15k lunch + about ₩7,000 observatory (book ahead)"
+    ]
+  }
 }

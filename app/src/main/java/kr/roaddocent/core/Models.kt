@@ -54,6 +54,8 @@ sealed class Trigger {
     @Serializable object Reboard : Trigger()
     /** A vehicle signal event (new-car onboarding): first_drive, speed_60, speed_100, rear_seat, trip_5km, trip_15km, park. */
     @Serializable data class VehicleEvent(val event: String) : Trigger()
+    /** Nothing has been said for N minutes while driving: a short filler so the car never goes quiet for long. */
+    @Serializable data class AfterSilence(val minutes: Int = 6) : Trigger()
 }
 
 /** One spoken episode. Text per language; kids variant optional. */
@@ -67,9 +69,13 @@ data class Episode(
     val durationSec: Int = 60,
     val source: String = "",                // provenance, read back on request
     val priority: Int = 5,                  // higher wins when triggers coincide
-    /** story (default) · fact · quiz · phrase · food · tip — shown as a badge, drives tone. */
+    /** story (default) · fact · quiz · phrase · food · tip · dialogue — shown as a badge, drives tone. */
     val kind: String = "story",
-    val quiz: Quiz? = null
+    val quiz: Quiz? = null,
+    /** Layered content: what "tell me more" reads instead of repeating the story (museum-guide practice). */
+    val deep: Map<String, String> = emptyMap(),
+    /** One teaser sentence spoken at the end, pointing at the next stop (cliffhanger). */
+    val teaser: Map<String, String> = emptyMap()
 ) {
     fun titleFor(lang: Lang) = title[lang.tag] ?: title.values.first()
     fun textFor(lang: Lang, audience: Audience): String {
@@ -94,8 +100,15 @@ data class Guide(
     val creatorCourses: List<CreatorCourse> = emptyList(),
     val dataSources: List<String> = emptyList(), // where the facts came from
     /** Travel themes this guide serves: art, history, nature, thrill, food, family, car. */
-    val themes: List<String> = emptyList()
+    val themes: List<String> = emptyList(),
+    /** "Know before you go": hours, fees, parking, best start time, what to bring — per language. Shown before departure. */
+    val knowBeforeYouGo: Map<String, List<String>> = emptyMap(),
+    /** Optional handoff when parked: the venue's own app or page (e.g. the museum's indoor guide). */
+    val handoff: Handoff? = null
 )
+
+@Serializable
+data class Handoff(val label: Map<String, String>, val url: String, val note: Map<String, String> = emptyMap())
 
 /** Theme labels for the picker and "where next?" ranking. */
 object Themes {

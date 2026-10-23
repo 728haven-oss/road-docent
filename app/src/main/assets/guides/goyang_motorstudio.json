@@ -366,5 +366,23 @@
     "car",
     "art",
     "family"
-  ]
+  ],
+  "knowBeforeYouGo": {
+    "ko": [
+      "운영: 1층 차량 전시 09:00~20:00 무료 · 유료 체험전시 10:00~19:00(화~일) · 월요일·1월 1일·설·추석 당일과 다음날 휴관(방문 전 공식 사이트 확인)",
+      "요금: 체험전시 성인 10,000원, 청소년 7,000원, 어린이·경로 5,000원, 36개월 미만 무료",
+      "아이 프로그램(예약): EBS 어린이 자동차 여행(8~10세, 화~일 11:10·15:10, 15,000원), 아이오닉6 LFA 워크숍(11~13세, 주말 15:00, 32,000원)",
+      "주차: 상설 전시 관람 시 3시간 무료, 시승 시 2시간 무료 · 시승은 당일 예약 불가",
+      "챙길 것: 유모차(대여 없음), 온라인 예매 확인증(현장에서 손목밴드 교환)",
+      "예산: 가족 4인 체험전시 3만 원대 + 식사 내부 레스토랑·카페"
+    ],
+    "en": [
+      "Hours: 1F car exhibit 09:00–20:00 free · paid experience exhibit 10:00–19:00 (Tue–Sun) · closed Mondays, Jan 1, Lunar New Year and Chuseok day plus the next day (check the official site)",
+      "Fees: experience exhibit adults ₩10,000, teens ₩7,000, children/seniors ₩5,000, under 36 months free",
+      "Kids programs (book ahead): EBS Children's Car Trip (ages 8–10, Tue–Sun 11:10/15:10, ₩15,000), IONIQ 6 LFA workshop (ages 11–13, weekends 15:00, ₩32,000)",
+      "Parking: 3 h free with an exhibit visit, 2 h with a test drive · test drives cannot be booked same-day",
+      "Bring: your own stroller (no rental), online booking confirmation (exchanged for a wristband)",
+      "Budget: about ₩30k for a family of four at the experience exhibit, plus the in-house restaurant or cafe"
+    ]
+  }
 }

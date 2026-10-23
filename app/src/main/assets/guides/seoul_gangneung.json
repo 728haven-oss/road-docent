@@ -442,5 +442,21 @@
     "nature",
     "food",
     "family"
-  ]
+  ],
+  "knowBeforeYouGo": {
+    "ko": [
+      "운영: 안목해변·커피거리 상시 · 오죽헌 09:00~18:00 · 정동진 일출 시각은 계절별 05:10~07:40",
+      "요금: 해변 무료 · 오죽헌 성인 3,000원 · 주차 안목 공영주차장 유료(1시간 1,000원대)",
+      "추천 출발: 서울 07시 출발 → 대관령 휴게소 09시 → 안목 10시 반 · 주말 10시 이후 영동고속도로 정체",
+      "챙길 것: 해변 바람막이(바닷바람), 아이 모래놀이, 커피거리 테이크아웃 컵",
+      "예산: 커피 1잔 6~8천 원 · 초당순두부 1인 1~1.3만 원 · 숙박 성수기 주말 15~25만 원"
+    ],
+    "en": [
+      "Hours: Anmok beach and coffee street always open · Ojukheon 09:00–18:00 · Jeongdongjin sunrise 05:10–07:40 by season",
+      "Fees: beach free · Ojukheon adults ₩3,000 · Anmok public parking about ₩1,000 per hour",
+      "Best start: leave Seoul 07:00 → Daegwallyeong rest area 09:00 → Anmok 10:30 · Yeongdong Expressway jams after 10 on weekends",
+      "Bring: windbreaker (sea wind), sand toys for kids, a takeaway cup for coffee street",
+      "Budget: coffee ₩6–8k · Chodang tofu ₩10–13k per person · peak weekend stays ₩150–250k"
+    ]
+  }
 }

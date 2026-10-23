@@ -97,6 +97,7 @@ class DocentEngine(
     private var wasPark = true
     private var lastLoc: GeoPoint? = null
     private var lastLocMs = 0L
+    private var lastSpeechEndMs = 0L
     private var watcher: Job? = null
     private var currentVisit: Visit? = null
 
@@ -117,6 +118,7 @@ class DocentEngine(
         advancer = scope.launch {
             var wasSpeaking = false
             speaker.speaking.collect { speaking ->
+                if (wasSpeaking && !speaking) lastSpeechEndMs = System.currentTimeMillis()
                 if (wasSpeaking && !speaking && !_paused.value && !quizPending && _phase.value is DocentPhase.Guiding) {
                     delay(2_500)
                     if (!speaker.speaking.value && _queue.value.any { it.id !in played }) playNext()
@@ -214,6 +216,11 @@ class DocentEngine(
             ev("park", n.arrived && v.gearPark)
         }
 
+        // never quiet for long: filler after N minutes of silence while driving
+        if (n.active && !v.gearPark && !speaker.speaking.value && !quizPending && lastSpeechEndMs > 0) {
+            g.episodes.filter { it.trigger is Trigger.AfterSilence && it.id !in played }.firstOrNull { now - lastSpeechEndMs > (it.trigger as Trigger.AfterSilence).minutes * 60_000L }?.let { fire(it) }
+        }
+
         // safety gate: fast or winding -> pause at sentence boundary
         val unsafe = v.speedKmh > safetyPauseKmh
         if (unsafe && !_paused.value) { _paused.value = true; speaker.pause() }
@@ -296,8 +303,9 @@ class DocentEngine(
         if (_phase.value is DocentPhase.Guiding || _phase.value is DocentPhase.Idle) _phase.value = DocentPhase.Guiding(ep, played.toList(), congestion)
         val q = ep.quiz
         quizJob?.cancel(); quizPending = false; _quiz.value = null
+        val teaser = ep.teaser[_lang.value.tag]?.let { " $it" } ?: ""
         if (q == null) {
-            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value), _lang.value)
+            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value) + teaser, _lang.value)
         } else {
             // Story, then the question; the answer follows after a pause so the car can guess.
             quizPending = true
@@ -333,7 +341,7 @@ class DocentEngine(
 
     // ---- voice commands (Gleo Interface in production; buttons in demo) ----
     fun cmdSkip() { quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); playNext() }
-    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
+    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> speaker.speak(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }; speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
     fun cmdQuiet() { speaker.stop() }
     fun cmdSave() { _toast.value = if (_lang.value == Lang.KO) "여행 기록에 저장했어요" else "Saved to your travel log"; _log.update { it.copy(phrasesLearned = it.phrasesLearned + 1) } }
     fun cmdGoThere(p: Place) {

@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
 
     private fun dial(number: String) {
         // Bluetooth-connected phone picks this up on Pleos Connect; ACTION_DIAL needs no runtime permission.
-        runCatching { startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))) }
+        runCatching { startActivity(if (number.startsWith("http")) Intent(Intent.ACTION_VIEW, Uri.parse(number)) else Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))) }
     }
 }
 
@@ -166,7 +167,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                 }
                 is DocentPhase.Briefing -> BriefingScreen(p.place, p.alternatives, lang, nav.remainTimeSec / 60,
                     onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdSkip() })
-                is DocentPhase.Parked -> ParkedScreen(p.place, lang) { vm.openVoiceSetup(true) }
+                is DocentPhase.Parked -> ParkedScreen(p.place, lang, engine.guide?.handoff, onOpen = onDial) { vm.openVoiceSetup(true) }
                 is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
                 is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days()) { engine.cmdShowLog() }
             }
@@ -196,7 +197,9 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
 
 @Composable
 fun IdleScreen(lang: Lang, vm: DocentViewModel) {
-    Panel(Modifier.fillMaxSize()) {
+  var preview by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<kr.roaddocent.core.Guide?>(null) }
+  Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    Panel(Modifier.weight(1.3f).fillMaxHeight()) {
         Headline(if (lang == Lang.KO) "목적지를 설정하면 가이드가 탑승합니다" else "Set a destination and your guide boards", 28)
         Spacer(Modifier.height(10.dp))
         Body(if (lang == Lang.KO) "Pleos 연결 시 차량 내비에서 목적지를 설정하세요. 데모에서는 아래 버튼으로 서울→강릉 경로를 시작합니다." else "With Pleos, set a destination in the built-in navigation. In the demo, start the Seoul → Gangneung route below.", size = 16)
@@ -215,15 +218,29 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             list.forEach { g ->
                 val th = g.themes.joinToString(" ") { kr.roaddocent.core.Themes.label(it, lang).take(2) }
-                ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id) + "   " + th, primary = g.id == "seoul_gyeongbokgung") { vm.demoStartTrip(g.id) }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id) + "   " + th, primary = g.id == "seoul_gyeongbokgung") { vm.demoStartTrip(g.id) }
+                    if (g.knowBeforeYouGo.isNotEmpty()) Small(if (lang == Lang.KO) "ℹ 알아두기" else "ℹ Before you go") { preview = g }
+                }
             }
             if (prefs.theme == "car") ActionButton(if (lang == Lang.KO) "🚗 새 차 알아가기 켜고 아무 목적지나 출발" else "🚗 Turn on new-car mode and start any trip", primary = true) { vm.setNewCarMode(true); vm.setTheme("") }
         }
     }
+    Panel(Modifier.weight(1f).fillMaxHeight()) {
+        val g = preview ?: vm.guides().firstOrNull { it.id == "seoul_gyeongbokgung" }
+        Text(if (lang == Lang.KO) "출발 전 알아두기 · " + (g?.destination?.name?.get(lang.tag) ?: "") else "Know before you go · " + (g?.destination?.name?.get(lang.tag) ?: ""), color = Ink, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(8.dp))
+        g?.knowBeforeYouGo?.get(lang.tag).orEmpty().forEach { line ->
+            Row(Modifier.padding(vertical = 4.dp)) { Text("•", color = Quiet, fontSize = 14.sp, modifier = Modifier.width(16.dp)); Text(line, color = Ink, fontSize = 13.sp, lineHeight = 18.sp) }
+        }
+        Spacer(Modifier.weight(1f))
+        Body(if (lang == Lang.KO) "운영시간·요금·주차는 출발 당일 공식 안내로 한 번 더 확인하세요." else "Re-check hours, fees and parking with the venue on the day.", size = 12)
+    }
+  }
 }
 
 @Composable
-fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, onVoice: () -> Unit = {}) {
+fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddocent.core.Handoff? = null, onOpen: (String) -> Unit = {}, onVoice: () -> Unit = {}) {
     val name = place.name[lang.tag] ?: ""
     val steps = place.onArrival[lang.tag].orEmpty()
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
@@ -233,6 +250,12 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, onVoice: () -> Uni
             Body(place.note[lang.tag] ?: "", size = 16)
             Spacer(Modifier.height(10.dp))
             Body(if (lang == Lang.KO) "다시 출발하시면(기어 D) 다음 행선지를 제안해 드릴게요." else "When you set off again (gear D) I'll suggest where next.", size = 14)
+            if (handoff != null) {
+                Spacer(Modifier.height(14.dp))
+                ActionButton("📱 " + (handoff.label[lang.tag] ?: ""), primary = true) { onOpen(handoff.url) }
+                Spacer(Modifier.height(6.dp))
+                Body(handoff.note[lang.tag] ?: "", size = 12)
+            }
             Spacer(Modifier.height(14.dp))
             ActionButton(if (lang == Lang.KO) "🎙 가족 목소리 녹음" else "🎙 Record family voice") { onVoice() }
         }

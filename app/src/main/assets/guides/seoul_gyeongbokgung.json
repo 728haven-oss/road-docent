@@ -125,7 +125,11 @@
       },
       "durationSec": 75,
       "source": "통계청 / 한국관광공사 VisitKorea",
-      "priority": 6
+      "priority": 6,
+      "teaser": {
+        "ko": "곧 오른쪽에 바다처럼 넓은 강이 나타나요.",
+        "en": "Soon a river as wide as the sea appears on your right."
+      }
     },
     {
       "id": "name_quiz",
@@ -188,6 +192,29 @@
       "priority": 7
     },
     {
+      "id": "dialogue_court",
+      "title": {
+        "ko": "상궁과 내관의 대화 · 궁에서 하루",
+        "en": "A court lady and a eunuch: a day in the palace"
+      },
+      "kind": "dialogue",
+      "text": {
+        "ko": "잠깐 600년 전 궁 안 사람들을 불러볼게요. 상궁: '내관 나리, 오늘 전하께서 근정전에 납시는 날입니다. 품계석 앞에 신하들이 줄을 섰는지 보고 오시지요.' 내관: '정1품부터 종9품까지 돌기둥 24개 앞에 다 섰습니다. 동쪽은 문관, 서쪽은 무관이지요.' 상궁: '그 돌바닥이 왜 울퉁불퉁한지 아시오? 신하들이 미끄러지지 말라고, 그리고 햇빛이 반사돼 전하의 눈이 부시지 않게 한 것이라오.' 내관: '그리고 가죽신이 미끄러지니 신하들이 뛰지도 못하지요.' 이 두 사람이 서 있던 자리가 바로 근정전 앞마당이에요. 도착하면 품계석을 세어 보세요.",
+        "en": "Let's call up two palace people from 600 years ago. Court lady: 'Sir, the king attends the throne hall today. Go see whether the officials are lined up before the rank stones.' Eunuch: 'All in place, from senior first rank to junior ninth, before the twenty-four stone markers. Civil officials to the east, military to the west.' Court lady: 'And do you know why the courtyard stones are so bumpy? So no one slips, and so the sun doesn't glare into the king's eyes.' Eunuch: 'And in leather shoes, nobody can run.' That courtyard is where you'll stand. Count the rank stones when you arrive."
+      },
+      "kidsText": {
+        "ko": "옛날 궁 안 사람들을 불러볼게! 상궁 아줌마: '오늘 왕님이 나오시는 날이야. 신하들이 돌 앞에 줄 섰니?' 내관 아저씨: '네! 스물네 개 돌 앞에 다 섰어요. 바닥이 울퉁불퉁해서 아무도 못 뛰어요!' 왜 바닥을 울퉁불퉁하게 만들었을까? 첫째, 미끄러지지 말라고. 둘째, 햇빛이 반사돼서 왕님 눈이 부시지 않게! 도착하면 돌 스물네 개 세어 보기, 미션!",
+        "en": "Let's call up people from the old palace! Court lady: 'The king comes out today. Are the officials lined up by the stones?' Eunuch: 'Yes! All twenty-four stones, and the floor is so bumpy nobody can run!' Why bumpy? One, so no one slips. Two, so the sun doesn't glare in the king's eyes! Mission: count the twenty-four stones when we arrive!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AtStart",
+        "order": 3
+      },
+      "durationSec": 60,
+      "source": "국가유산청 궁능유적본부 / 한국관광공사 오디 해설 형식 참고",
+      "priority": 6
+    },
+    {
       "id": "namdaemun",
       "title": {
         "ko": "남대문 · 600년 된 성문이 도로 한가운데",
@@ -211,7 +238,15 @@
       },
       "durationSec": 45,
       "source": "문화재청 국가유산포털 / 서울시",
-      "priority": 8
+      "priority": 8,
+      "deep": {
+        "ko": "더 자세히요. 숭례문은 1398년 완공, 현존하는 서울 성문 중 가장 오래됐고 조선 전기 건축의 기준이 되는 건물이에요. 1962년 국보 1호로 지정됐다가 2021년 문화재 번호 체계가 없어지면서 지금은 그냥 국보예요. 2008년 2월 10일 밤 방화로 2층 문루가 무너졌고, 5년 3개월의 복구 끝에 2013년 5월 다시 열었어요. 복구 때 전통 기와 가마와 삼베 옷을 입은 장인들이 동원된 걸로 유명하죠. 문 이름 '숭례'는 예를 숭상한다는 뜻이고, 현판을 세로로 쓴 유일한 성문이에요. 남쪽 관악산의 불기운을 누르려고 불꽃 모양으로 세웠다는 설명이 전해져요.",
+        "en": "More detail: Sungnyemun was completed in 1398, the oldest surviving city gate in Seoul and the benchmark for early-Joseon architecture. It became National Treasure No. 1 in 1962; the numbering was abolished in 2021. On the night of 10 February 2008 arson brought down the upper pavilion, and after five years and three months of restoration it reopened in May 2013, famously rebuilt with traditional kilns and craftsmen in hemp clothes. The name means 'honouring propriety', and it is the only gate whose name board is written vertically, said to resemble a flame that counters the fire energy of Gwanaksan to the south."
+      },
+      "teaser": {
+        "ko": "조금만 더 가면 광장 한가운데 금색으로 앉아 계신 분이 나와요. 누군지 맞혀 보세요.",
+        "en": "A little further on, someone sits in gold in the middle of a square. Guess who."
+      }
     },
     {
       "id": "gwanghwamun",
@@ -237,7 +272,15 @@
       },
       "durationSec": 50,
       "source": "문화재청 / 서울시 광화문광장",
-      "priority": 8
+      "priority": 8,
+      "deep": {
+        "ko": "더 자세히요. 세종대왕 동상은 2009년 한글날에 세웠고 높이 6.2미터, 손에 든 책이 훈민정음이에요. 동상 아래 지하에는 '세종이야기' 전시관이 있어 무료예요. 이순신 장군 동상은 1968년 작품으로 광장에서 가장 오래된 조형물이고, 앞의 분수가 '12·23 분수'인데 12척의 배로 23번 싸워 이긴 걸 뜻해요. 광화문 현판은 2023년에 검은 바탕 금색 글씨로 다시 달렸어요. 고종 때 원래 모습이 사진으로 확인됐거든요.",
+        "en": "More detail: the Sejong statue was unveiled on Hangeul Day 2009, 6.2 m tall, holding the Hunminjeongeum. Beneath it is a free exhibition, 'The Story of King Sejong'. The Yi Sun-sin statue dates from 1968, the oldest monument on the square; the fountain in front is the '12·23 fountain', for his 23 victories with 12 ships. Gwanghwamun's name board was rehung in 2023 in gold on black, after photographs from King Gojong's era showed the original."
+      },
+      "teaser": {
+        "ko": "문 양옆에 돌짐승 두 마리가 있는데, 사자가 아니에요. 그 이야기는 문 앞에서.",
+        "en": "Two stone beasts flank the gate, and they are not lions. That story at the gate."
+      }
     },
     {
       "id": "haetae",
@@ -296,7 +339,11 @@
       },
       "durationSec": 85,
       "source": "문화재청 경복궁관리소 / 국립고궁박물관",
-      "priority": 8
+      "priority": 8,
+      "deep": {
+        "ko": "더 자세히요. 경복궁은 창건 때 390여 칸이었고 고종 때 중건하면서 7,000여 칸, 전각 500여 동으로 커졌어요. 일제강점기를 거치며 10분의 1만 남았고요. 1990년부터 시작된 복원 1차 사업으로 2010년까지 89동이 복원됐고, 2차 사업은 2045년까지 계획돼 있어요. 지금 보시는 흥례문·광화문·건청궁·향원정 다리 취향교(2021)가 모두 복원 결과예요. 복원 기준은 고종 중건 당시 모습이에요.",
+        "en": "More detail: the original palace had about 390 kan (bays); the 1867 rebuilding grew it to some 7,000 bays in 500 buildings, of which a tenth survived the colonial period. The first restoration phase from 1990 rebuilt 89 buildings by 2010; the second phase runs to 2045. Heungnyemun, Gwanghwamun, Geoncheonggung and the Hyangwonjeong bridge (2021) are all restorations, to the 1867 appearance."
+      }
     },
     {
       "id": "arrival_brief",
@@ -340,6 +387,29 @@
       "durationSec": 25,
       "source": "Road Docent 체류 데이터",
       "priority": 10
+    },
+    {
+      "id": "filler_hangeul",
+      "title": {
+        "ko": "조용한 김에 · 한글은 왜 배우기 쉬울까",
+        "en": "While it's quiet: why Hangeul is easy to learn"
+      },
+      "kind": "fact",
+      "text": {
+        "ko": "잠시 조용했네요. 짧은 이야기 하나. 오늘 만날 세종대왕이 1443년에 만든 한글은 자음 모양이 발음 기관을 본뜬 글자예요. ㄱ은 혀뿌리가 목을 막는 모양, ㅁ은 입 모양, ㅇ은 목구멍. 모음은 하늘·땅·사람 세 가지 점과 선으로 조합해요. 그래서 기본 글자 24개만 알면 간판을 읽을 수 있어요. 도착해서 '경복궁' 세 글자를 찾아 읽어 보세요. 경, 복, 궁.",
+        "en": "A quiet stretch, so a short one. Hangeul, created in 1443 by King Sejong whom you'll meet today, shapes its consonants after the speech organs: ㄱ is the tongue root blocking the throat, ㅁ the mouth, ㅇ the throat. Vowels combine three marks for heaven, earth and person. Learn 24 basic letters and you can read signs. Try reading the three syllables of 경복궁 when we arrive: gyeong, bok, gung."
+      },
+      "kidsText": {
+        "ko": "조용하니까 글자 놀이! 한국 글자 ㅁ은 입 모양이야. 입을 네모나게 벌려 봐. ㅇ은 목구멍 모양, 동그랗지? 한글은 입 모양을 보고 만든 글자야. 도착하면 '경복궁' 글자 찾기 미션!",
+        "en": "Quiet time, letter game! The Korean letter ㅁ is a mouth shape, open your mouth like a square. ㅇ is a round throat. Hangeul was made by looking at mouth shapes! Mission: find the sign that says 경복궁 when we arrive!"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.AfterSilence",
+        "minutes": 6
+      },
+      "durationSec": 40,
+      "source": "국립한글박물관",
+      "priority": 3
     }
   ],
   "restAreas": [],
@@ -666,5 +736,34 @@
     "history",
     "food",
     "family"
-  ]
+  ],
+  "knowBeforeYouGo": {
+    "ko": [
+      "운영: 09:00~18:00(3~10월), 17:00(11~2월) · 화요일 휴관 · 야간개장은 봄·가을 별도 예매",
+      "요금: 성인 3,000원, 만 6세 이하·65세 이상 무료, 한복 착용 시 무료 · 4대궁 통합권 10,000원",
+      "주차: 경복궁 주차장 기본 2시간 3,000원대 · 주말 10시 이후 만차 잦음 → 세종문화회관·종로구청 주차장 대안",
+      "추천 출발: 수문장 교대식 10:00 또는 14:00에 맞춰 30분 전 도착",
+      "챙길 것: 걷기 편한 신발(궁 안 돌바닥 2km), 모자·물(여름), 아이 간식 · 유모차 가능, 전각 내부 출입 불가",
+      "식사 예산: 서촌 점심 1인 1~2만 원, 한복 대여 2시간 1.5~2만 원"
+    ],
+    "en": [
+      "Hours: 09:00–18:00 (Mar–Oct), until 17:00 (Nov–Feb) · closed Tuesdays · night openings in spring/autumn by advance ticket",
+      "Fees: adults ₩3,000; under 6 and over 65 free; free in hanbok · 4-palace pass ₩10,000",
+      "Parking: palace lot about ₩3,000 per 2 h · often full after 10 on weekends → Sejong Center or Jongno-gu office lots",
+      "Best start: arrive 30 min before the 10:00 or 14:00 guard-changing ceremony",
+      "Bring: comfortable shoes (2 km of stone paths), hat and water in summer, snacks for kids · strollers OK, halls are not entered",
+      "Budget: lunch in Seochon ₩10–20k per person, hanbok rental ₩15–20k for 2 h"
+    ]
+  },
+  "handoff": {
+    "label": {
+      "ko": "궁궐 안에서는 '오디' 음성 가이드로 이어서",
+      "en": "Inside the palace, continue with the 'Odii' audio guide"
+    },
+    "url": "https://www.odii.kr/smarttour_web/iframe/home",
+    "note": {
+      "ko": "한국관광공사 무료 앱. 광화문·근정전 등 지점마다 상궁과 내관의 대화로 해설해요. 차 안 가이드는 여기서 손을 떼고, 다시 타시면 이어받습니다.",
+      "en": "Free Korea Tourism Organization app with spot-by-spot narration inside. The car guide hands over here and picks up again when you're back."
+    }
+  }
 }

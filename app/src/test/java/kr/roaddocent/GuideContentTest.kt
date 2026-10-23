@@ -19,7 +19,7 @@ class GuideContentTest {
         ignoreUnknownKeys = true; classDiscriminator = "type"
         serializersModule = SerializersModule { polymorphic(Trigger::class) {
             subclass(Trigger.AtStart::class); subclass(Trigger.NearPoint::class); subclass(Trigger.RemainUnderMin::class)
-            subclass(Trigger.Congestion::class); subclass(Trigger.RestAreaAhead::class); subclass(Trigger.Reboard::class); subclass(Trigger.VehicleEvent::class) } }
+            subclass(Trigger.Congestion::class); subclass(Trigger.RestAreaAhead::class); subclass(Trigger.Reboard::class); subclass(Trigger.VehicleEvent::class); subclass(Trigger.AfterSilence::class) } }
     }
     private val assets = File("src/main/assets")
     private fun guides() = File(assets, "guides").listFiles { f -> f.extension == "json" }!!.sorted().map { it.nameWithoutExtension to json.decodeFromString(Guide.serializer(), it.readText()) }
@@ -36,6 +36,8 @@ class GuideContentTest {
             assertEquals("$file duplicate episode ids", g.episodes.size, g.episodes.map { it.id }.toSet().size)
             assertTrue("$file onArrival ko", g.destination.onArrival["ko"].orEmpty().size >= 5)
             assertTrue("$file themes", g.themes.isNotEmpty())
+            assertTrue("$file knowBeforeYouGo ko/en", g.knowBeforeYouGo["ko"].orEmpty().size >= 4 && g.knowBeforeYouGo["en"].orEmpty().size >= 4)
+            g.episodes.filter { it.deep.isNotEmpty() }.forEach { e -> assertTrue("$file/${e.id} deep bilingual", e.deep.keys.containsAll(listOf("ko", "en"))) }
             g.episodes.forEach { e ->
                 assertNotNull("$file/${e.id} ko", e.text["ko"]); assertNotNull("$file/${e.id} en", e.text["en"])
                 e.quiz?.let { q -> assertTrue("$file/${e.id} quiz bilingual", q.question.keys.containsAll(listOf("ko", "en")) && q.answer.keys.containsAll(listOf("ko", "en"))) }
