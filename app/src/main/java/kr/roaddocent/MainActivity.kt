@@ -134,6 +134,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val listening by vm.localVoice.listening.collectAsState()
     val heard by vm.localVoice.heard.collectAsState()
     kr.roaddocent.ui.theme.TypeScale.factor = prefs.fontScale
+    androidx.activity.compose.BackHandler(enabled = true) { if (companionOpen) companionOpen = false else vm.back() }
     if (!prefs.onboarded) {
         Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) { OnboardingScreen(prefs, onDone = { vm.applyPrefs(it.copy(onboarded = true)) }) }
         return
@@ -160,6 +161,8 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     Column(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) {
         // top bar
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("←", Modifier.background(Chip, RoundedCornerShape(999.dp)).clickable { vm.back() }.padding(horizontal = 12.dp, vertical = 4.dp), color = Ink, fontSize = 16.sp)
+            Spacer(Modifier.width(8.dp))
             Text(if (lang == Lang.KO) "로드 도슨트" else "Road Docent", color = Ink, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             if (nav.active) Text("  · ${nav.destinationName}${if (lang == Lang.KO) "까지 " else " in "}${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 16.sp)
             Spacer(Modifier.weight(1f))

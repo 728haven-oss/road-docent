@@ -393,7 +393,27 @@ class DocentEngine(
         _phase.value = DocentPhase.Guiding(_nowPlaying.value ?: guide!!.episodes.first(), played.toList(), false)
         speaker.speak(if (_lang.value == Lang.KO) "${p.name["ko"]}로 안내할게요. ${p.note["ko"] ?: ""}" else "Routing to ${p.name["en"]}. ${p.note["en"] ?: ""}", _lang.value)
     }
-    fun cmdShowLog() { _phase.value = DocentPhase.TravelLog(_log.value); speaker.speak(_log.value.headline(_lang.value), _lang.value) }
+    private var beforeLog: DocentPhase? = null
+    fun cmdShowLog() {
+        if (_phase.value is DocentPhase.TravelLog) { _phase.value = beforeLog ?: DocentPhase.Idle; return }
+        beforeLog = _phase.value; _phase.value = DocentPhase.TravelLog(_log.value); speaker.speak(_log.value.headline(_lang.value), _lang.value)
+    }
+
+    /** Back: log → previous screen; where-next → parked; any trip screen → stop the trip and return to the picker. Returns false when already at the root. */
+    fun goBack(): Boolean = when (val p = _phase.value) {
+        is DocentPhase.TravelLog -> { _phase.value = beforeLog ?: DocentPhase.Idle; true }
+        is DocentPhase.WhereNext -> { val vis = currentVisit; _phase.value = if (vis != null && guide != null) DocentPhase.Parked(guide!!.destination, vis.arrivedMs) else DocentPhase.Idle; true }
+        is DocentPhase.Idle -> false
+        else -> { endTrip(); true }
+    }
+
+    /** Stop talking and drop the current guide; the picker shows again. */
+    fun endTrip() {
+        quizJob?.cancel(); quizPending = false; _quiz.value = null
+        speaker.stop(); guide = null; played.clear(); _queue.value = emptyList(); _nowPlaying.value = null
+        congestion = false; arrivedAtMs = null; wasPark = true
+        _phase.value = DocentPhase.Idle
+    }
     fun cmdReserve(): Place? {
         val b = (_phase.value as? DocentPhase.Briefing)?.place ?: return null
         speaker.speak(if (_lang.value == Lang.KO) "${b.name["ko"]}에 전화를 걸게요. 4명, 도착 시간으로 말씀하시면 돼요." else "Calling ${b.name["en"]}. Say: four people, at our arrival time.", _lang.value)

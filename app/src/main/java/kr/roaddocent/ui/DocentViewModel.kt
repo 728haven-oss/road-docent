@@ -68,6 +68,14 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     private val _settingsOpen = MutableStateFlow(false)
     val settingsOpen: StateFlow<Boolean> = _settingsOpen.asStateFlow()
     fun openSettings(open: Boolean) { _settingsOpen.value = open }
+    /** System back / ← button: close overlays first, then step the engine back, then leave to the connect screen. */
+    fun back(): Boolean = when {
+        _settingsOpen.value -> { _settingsOpen.value = false; true }
+        _voiceSetup.value -> { _voiceSetup.value = false; true }
+        ::engine.isInitialized && engine.goBack() -> true
+        _source.value != null -> { if (::engine.isInitialized) engine.stop(); sim = null; gps = null; _source.value = null; true }
+        else -> false
+    }
 
     // Voice Family: cloned voice when a profile is active, on-device TTS otherwise.
     private val voiceClient = VoiceCloneClient(apiKey = settings.prefs.value.voiceApiKey.ifBlank { null })
