@@ -47,8 +47,9 @@ jobs:
           echo "version=$V" >> "$GITHUB_OUTPUT"
           echo "file=RoadDocent_${V}.apk" >> "$GITHUB_OUTPUT"
 
-      - name: Upload build artifact (every push)
+      - name: Upload build artifact (every push; skipped if the account's artifact storage is full)
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: ${{ steps.apk.outputs.file }}
           path: ${{ steps.apk.outputs.file }}
