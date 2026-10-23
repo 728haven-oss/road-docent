@@ -84,6 +84,37 @@
       "priority": 6
     },
     {
+      "id": "region_gangwon",
+      "title": {
+        "ko": "강원도 진입 · 산이 70퍼센트인 땅",
+        "en": "Entering Gangwon: a province that is 70 percent mountain"
+      },
+      "kind": "fact",
+      "text": {
+        "ko": "방금 경기도를 지나 강원특별자치도에 들어왔어요. 한국에서 가장 넓은 도인데 땅의 7할이 산이라 인구는 150만 명 정도예요. 여기서부터 길이 오르막이 되고 터널이 많아져요. 이 길이 2017년에 뚫린 서울양양고속도로로, 그 전엔 강릉까지 4시간이 걸렸는데 지금은 2시간 반이에요. 강원도는 감자와 옥수수, 그리고 평창올림픽이 열린 곳이에요. 휴게소에 들르면 감자떡을 드셔 보세요.",
+        "en": "We've just crossed from Gyeonggi into Gangwon, Korea's largest province, where seventy percent of the land is mountain and only about 1.5 million people live. From here the road climbs and the tunnels multiply. This is the Seoul–Yangyang Expressway, opened in 2017; before it Gangneung took four hours, now two and a half. Gangwon means potatoes, corn and the 2018 Pyeongchang Olympics. Try the potato rice cake at a rest area."
+      },
+      "kidsText": {
+        "ko": "딩동! 지금 강원도에 들어왔어! 여기는 산이 아주아주 많아. 창밖에 산이 몇 개 보여? 그리고 감자가 유명해. 휴게소에서 감자떡 먹어볼까?",
+        "en": "Ding! We're in Gangwon now! It has lots and lots of mountains. How many can you see? And potatoes are famous here. Potato rice cake at the rest area?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.4818,
+          "lon": 127.556
+        },
+        "radiusM": 9000
+      },
+      "durationSec": 45,
+      "source": "강원특별자치도 / 한국도로공사",
+      "priority": 8,
+      "teaser": {
+        "ko": "곧 횡성휴게소예요. 한우로 유명한 동네죠.",
+        "en": "Hoengseong rest area is coming up, famous for its beef."
+      }
+    },
+    {
       "id": "hoengseong_rest",
       "title": {
         "ko": "횡성휴게소 · 한우국밥",

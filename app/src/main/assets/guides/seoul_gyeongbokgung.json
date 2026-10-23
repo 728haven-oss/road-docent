@@ -166,6 +166,37 @@
       "kind": "quiz"
     },
     {
+      "id": "region_seoul",
+      "title": {
+        "ko": "서울 진입 · 1천만 명의 도시",
+        "en": "Entering Seoul: a city of ten million"
+      },
+      "kind": "fact",
+      "text": {
+        "ko": "인천을 지나 지금 서울에 들어왔어요. 서울은 인구 약 940만, 수도권까지 합치면 2,600만 명으로 한국인 절반이 이 반경 안에 살아요. 면적은 605제곱킬로미터, 런던의 3분의 1 크기에 그만큼이 사는 거예요. 그래서 아파트가 높고 지하철이 촘촘하죠. 오늘 가는 경복궁은 이 도시 한가운데, 600년 전 서울이 처음 수도가 됐을 때 그 자리에 있어요.",
+        "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
+      },
+      "kidsText": {
+        "ko": "딩동! 지금 서울에 들어왔어! 한국에서 제일 큰 도시야. 높은 아파트가 엄청 많지? 서울에는 사람이 거의 천만 명이나 살아. 창밖에 제일 높은 건물 찾아볼래?",
+        "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
+      },
+      "trigger": {
+        "type": "kr.roaddocent.core.Trigger.NearPoint",
+        "point": {
+          "lat": 37.55,
+          "lon": 126.8
+        },
+        "radiusM": 3500
+      },
+      "durationSec": 40,
+      "source": "서울시 통계",
+      "priority": 8,
+      "teaser": {
+        "ko": "조금 뒤 오른쪽에 바다처럼 넓은 강이 나와요.",
+        "en": "In a moment a river as wide as the sea appears on your right."
+      }
+    },
+    {
       "id": "hangang_pass",
       "title": {
         "ko": "한강 · 서울의 가운데",

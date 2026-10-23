@@ -26,7 +26,7 @@ import kr.roaddocent.vehicle.PleosVehicleSignals
 import kr.roaddocent.vehicle.SimulatedTrip
 import kr.roaddocent.vehicle.VehicleSignals
 
-enum class Source { PLEOS, SIMULATOR }
+enum class Source { PLEOS, SIMULATOR, PHONE_GPS }
 
 class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val settings = SettingsStore(app)
@@ -40,6 +40,20 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     private val tone by lazy { runCatching { android.media.ToneGenerator(android.media.AudioManager.STREAM_MUSIC, 70) }.getOrNull() }
     private var companionJob: kotlinx.coroutines.Job? = null
 
+    private val _autoDemo = MutableStateFlow(false)
+    val autoDemo: StateFlow<Boolean> = _autoDemo.asStateFlow()
+    private var autoJob: kotlinx.coroutines.Job? = null
+    /** PT 시연: time runs fast, stops at each place while the docent talks, then runs on. */
+    fun setAutoDemo(on: Boolean) {
+        _autoDemo.value = on
+        val s = sim ?: return
+        autoJob?.cancel()
+        if (on) {
+            s.secondsPerSimMinute = 0.3
+            autoJob = viewModelScope.launch { engine.speaking.collect { sp -> s.holdClock = sp } }
+        } else { s.secondsPerSimMinute = 1.0; s.holdClock = false }
+    }
+
     fun startCompanion() { if (companion.start()) _companionUrl.value = companion.url() }
     fun shareToday() = kr.roaddocent.share.ShareCard.share(getApplication(), engine.log.value, engine.lang.value, java.time.LocalDate.now().toString())
     fun demoFreeRide() {
@@ -47,7 +61,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
             kr.roaddocent.core.GeoPoint(37.5547, 126.9707), kr.roaddocent.core.GeoPoint(37.538, 126.971), kr.roaddocent.core.GeoPoint(37.524, 126.9803),
             kr.roaddocent.core.GeoPoint(37.5335, 127.003), kr.roaddocent.core.GeoPoint(37.556, 126.99), kr.roaddocent.core.GeoPoint(37.5759, 126.9769))
         sim?.freeRide(loop)
-        engine.startFreeRide(guides.all())
+        engine.startFreeRide(guides.all())   // with phone GPS the real position drives it
     }
     private var historyJob: kotlinx.coroutines.Job? = null
     val localVoice = LocalVoiceCommands(app)
@@ -68,7 +82,20 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val cloudAvailable get() = voiceClient.available
 
     fun openVoiceSetup(open: Boolean) { _voiceSetup.value = open }
-    fun startSample(i: Int) { runCatching { recorder.start("family", i) } }
+    private val _voiceError = MutableStateFlow<String?>(null)
+    val voiceError: StateFlow<String?> = _voiceError.asStateFlow()
+    /** Set by the Activity: asks for RECORD_AUDIO when recording is attempted without it. */
+    var requestMic: (() -> Unit)? = null
+    fun startSample(i: Int) {
+        val ctx: android.content.Context = getApplication()
+        if (androidx.core.content.ContextCompat.checkSelfPermission(ctx, android.Manifest.permission.RECORD_AUDIO) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            _voiceError.value = if (settings.prefs.value.lang == Lang.KO) "마이크 권한이 필요해요. 허용한 뒤 다시 눌러 주세요. (거부했다면 설정 → 앱 → 로드 도슨트 → 권한)" else "Microphone permission is needed. Allow it, then tap again."
+            requestMic?.invoke(); return
+        }
+        runCatching { recorder.start("family", i); _voiceError.value = null }
+            .onFailure { e -> _voiceError.value = (if (settings.prefs.value.lang == Lang.KO) "녹음을 시작할 수 없어요: " else "Could not start recording: ") + (e.message ?: e.javaClass.simpleName) }
+    }
+    fun clearVoiceError() { _voiceError.value = null }
     fun stopSample() = recorder.stop()
     fun buildVoice(name: String, isChild: Boolean, guardianConsent: Boolean) {
         viewModelScope.launch {
@@ -87,11 +114,13 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val source: StateFlow<Source?> = _source.asStateFlow()
 
     var sim: SimulatedTrip? = null; private set
+    var gps: kr.roaddocent.vehicle.PhoneGpsSignals? = null; private set
     lateinit var engine: DocentEngine; private set
 
     fun connect(src: Source) {
         val nav: NavSignals; val veh: VehicleSignals
         if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s }
+        else if (src == Source.PHONE_GPS) { val g = kr.roaddocent.vehicle.PhoneGpsSignals(getApplication()); gps = g; nav = g; veh = g }
         else { nav = PleosNavSignals(getApplication()); veh = PleosVehicleSignals(getApplication()) }
         engine = DocentEngine(nav, veh, speaker, guides, viewModelScope)
         engine.storyBank = storyBank
@@ -117,6 +146,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     fun demoStartTrip(guideId: String = "seoul_gangneung") {
         val g = guides.load(guideId)
         sim?.let { s -> if (g.route.isNotEmpty()) { s.mainRoute = g.route; s.mainMinutes = g.driveMin }; s.setDestination(g.destination) }
+        gps?.setDestination(g.destination)
         engine.onRouteSet(g.destination.name["ko"]!!)
     }
     fun guides() = guides.all()

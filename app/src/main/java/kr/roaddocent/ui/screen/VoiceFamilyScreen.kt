@@ -35,6 +35,7 @@ import kr.roaddocent.ui.theme.Chip
 import kr.roaddocent.ui.theme.Headline
 import kr.roaddocent.ui.theme.Ink
 import kr.roaddocent.ui.theme.Panel
+import kr.roaddocent.ui.theme.TwoPane
 import kr.roaddocent.ui.theme.Quiet
 import kr.roaddocent.ui.theme.Tag
 
@@ -47,6 +48,7 @@ fun VoiceFamilyScreen(
     lang: Lang,
     recording: Boolean,
     cloudAvailable: Boolean,
+    error: String? = null,
     onStart: (index: Int) -> Unit,
     onStop: () -> Unit,
     onBuild: (name: String, isChild: Boolean, guardianConsent: Boolean) -> Unit,
@@ -62,7 +64,7 @@ fun VoiceFamilyScreen(
     val isChild = who == "child"
     val name = when (who) { "mom" -> if (ko) "엄마" else "Mum"; "dad" -> if (ko) "아빠" else "Dad"; else -> if (ko) "아이" else "Child" }
 
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Headline(if (ko) "가족 목소리 가이드" else "Voice Family", 26)
             Body(if (ko) "녹음한 목소리로 가이드가 이야기를 읽어줘요. 아빠가 운전해도 엄마 목소리로." else "The guide reads every story in a recorded voice. Dad drives, Mum narrates.", size = 15)
@@ -99,8 +101,10 @@ fun VoiceFamilyScreen(
             Wave(active = recording)
             Spacer(Modifier.weight(1f))
             val canRecord = consent && (!isChild || guardian)
+            var hint by remember { mutableStateOf<String?>(null) }
+            (error ?: hint)?.let { Body(it, color = Accent, size = 14); Spacer(Modifier.height(6.dp)) }
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                if (!recording) ActionButton(if (ko) "🎙 녹음 시작" else "🎙 Record", primary = canRecord) { if (canRecord) onStart(idx) }
+                if (!recording) ActionButton(if (ko) "🎙 녹음 시작" else "🎙 Record", primary = canRecord) { if (canRecord) onStart(idx) else hint = if (ko) "위의 동의 항목에 체크하면 녹음 버튼이 켜져요." else "Tick the consent box above to enable recording." }
                 else ActionButton(if (ko) "■ 녹음 끝" else "■ Stop", primary = true) { onStop(); done = maxOf(done, idx + 1); if (idx < samples.size - 1) idx++ }
                 if (idx > 0 && !recording) ActionButton(if (ko) "이전" else "Back") { idx-- }
                 if (idx < done && idx < samples.size - 1 && !recording) ActionButton(if (ko) "다음" else "Next") { idx++ }

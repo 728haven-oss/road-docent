@@ -34,6 +34,8 @@ class SimulatedTrip : NavSignals, VehicleSignals {
 
     /** Seconds of real time per simulated minute. 1.0 = 60x faster than life. */
     var secondsPerSimMinute = 1.0
+    /** Demo mode: the clock stops while the guide is talking, so each place gets its explanation "in place" before the drive resumes. */
+    @Volatile var holdClock = false
     private var congestionUntilMin = -1
     private var legPlanned = false
 
@@ -72,6 +74,7 @@ class SimulatedTrip : NavSignals, VehicleSignals {
             var simMin = 0
             while (simMin < minutes) {
                 delay((secondsPerSimMinute * 1000).toLong())
+                while (holdClock) { _veh.update { it.copy(speedKmh = if (it.speedKmh > 0f) 30f else 0f) }; delay(250) }
                 simMin++
                 val congested = simMin < congestionUntilMin
                 val speed = when {
@@ -108,7 +111,9 @@ class SimulatedTrip : NavSignals, VehicleSignals {
         job = scope.launch {
             var simMin = 0
             while (true) {
-                delay((secondsPerSimMinute * 1000).toLong()); simMin++
+                delay((secondsPerSimMinute * 1000).toLong())
+                while (holdClock) delay(250)
+                simMin++
                 val t = (simMin % minutesPerLap).toFloat() / minutesPerLap
                 val congested = simMin < congestionUntilMin
                 _nav.update { it.copy(location = interpolate(loop + loop.first(), t)) }

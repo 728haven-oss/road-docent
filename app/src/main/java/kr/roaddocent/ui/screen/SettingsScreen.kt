@@ -36,6 +36,7 @@ import kr.roaddocent.ui.theme.Chip
 import kr.roaddocent.ui.theme.Headline
 import kr.roaddocent.ui.theme.Ink
 import kr.roaddocent.ui.theme.Panel
+import kr.roaddocent.ui.theme.TwoPane
 import kr.roaddocent.ui.theme.Quiet
 
 @Composable
@@ -52,7 +53,7 @@ fun SettingsScreen(
 ) {
     val ko = prefs.lang == Lang.KO
     var key by remember { mutableStateOf(prefs.voiceApiKey) }
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Headline(if (ko) "설정" else "Settings", 26)
             Label(if (ko) "가이드 언어" else "Guide language")
@@ -79,12 +80,6 @@ fun SettingsScreen(
                 Choice(if (ko) "전체" else "All", prefs.theme.isBlank()) { onChange(prefs.copy(theme = "")) }
                 listOf("history", "art", "nature", "thrill", "food").forEach { t -> Choice(kr.roaddocent.core.Themes.label(t, prefs.lang), prefs.theme == t) { onChange(prefs.copy(theme = t)) } }
             }
-            Label(if (ko) "새 차 알아가기" else "Getting to know a new car")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Choice(if (ko) "켬 · 센서 작동 순간마다 설명" else "On · explain each sensor as it works", prefs.newCarMode) { onChange(prefs.copy(newCarMode = true)) }
-                Choice(if (ko) "끔" else "Off", !prefs.newCarMode) { onChange(prefs.copy(newCarMode = false)) }
-            }
-            Body(if (ko) "첫 출발·뒷좌석 착좌·60/100km/h·5/15km 주행·정체·주차 때 센서 역할과 교체 주기를 들려줘요. 실차에서는 누적 1,000km까지 자동." else "First drive, rear seat, 60/100 km/h, 5/15 km, traffic and parking each explain a sensor and its service interval. In a real car it runs for the first 1,000 km.", size = 12)
             Label(if (ko) "주행 중 화면" else "Screen while driving")
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Choice(if (ko) "제목·파형만 (권장)" else "Title + wave only (recommended)", !prefs.alwaysFull) { onChange(prefs.copy(alwaysFull = false)) }
@@ -101,6 +96,12 @@ fun SettingsScreen(
                 Choice(if (ko) "저장 안 함" else "Don't keep", !prefs.keepTravelLog) { onChange(prefs.copy(keepTravelLog = false)) }
             }
             Body(if (ko) "위치 데이터는 가이드 생성에만 쓰고 서버에 영구 저장하지 않아요." else "Location data is used only to build the guide and is never stored permanently.", size = 12)
+            Label(if (ko) "부가 기능 · 내 차 (기본 꺼짐)" else "Extras · my car (off by default)")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Choice(if (ko) "새 차 알아가기 켬" else "New-car onboarding on", prefs.newCarMode) { onChange(prefs.copy(newCarMode = true)) }
+                Choice(if (ko) "끔" else "Off", !prefs.newCarMode) { onChange(prefs.copy(newCarMode = false)) }
+            }
+            Body(if (ko) "여행 가이드와는 별개의 옵션이에요. 켜면 센서가 작동하는 순간과 EV 충전 때 차 이야기가 끼어듭니다." else "Separate from the travel guide. When on, car notes join in as sensors work and while charging.", size = 12)
             Spacer(Modifier.weight(1f))
             ActionButton(if (ko) "닫기" else "Close", primary = true, onClick = onClose)
         }

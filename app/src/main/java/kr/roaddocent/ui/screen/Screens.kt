@@ -43,6 +43,7 @@ import kr.roaddocent.ui.theme.ChipInk
 import kr.roaddocent.ui.theme.Headline
 import kr.roaddocent.ui.theme.Ink
 import kr.roaddocent.ui.theme.Panel
+import kr.roaddocent.ui.theme.TwoPane
 import kr.roaddocent.ui.theme.Quiet
 import kr.roaddocent.ui.theme.Tag
 import kr.roaddocent.ui.theme.Warm
@@ -102,7 +103,7 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
         }
         return
     }
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1.3f).fillMaxHeight().border(2.dp, Accent.copy(alpha = 0.9f * glow), RoundedCornerShape(24.dp))) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Tag(if (congestion) (if (lang == Lang.KO) "정체 구간 · 심층 해설" else "Traffic · long story") else (if (lang == Lang.KO) "지금 지나는 곳" else "Passing now"))
@@ -138,10 +139,14 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "오늘의 이야기" else "Today's stories", color = Ink, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(6.dp))
-            all.forEachIndexed { i, e ->
+            val compact = kr.roaddocent.ui.theme.isCompact()
+            val cur = all.indexOfFirst { it.id == ep.id }.coerceAtLeast(0)
+            val shown = if (compact) all.withIndex().filter { it.index in (cur - 1)..(cur + 2) } else all.withIndex().toList()
+            shown.forEach { (i, e) ->
                 val st = when { e.id == ep.id -> if (lang == Lang.KO) "재생 중" else "playing"; e.id in played -> if (lang == Lang.KO) "들음" else "heard"; else -> "" }
                 EpisodeRow(i + 1, e, lang, st, e.id == ep.id)
             }
+            if (compact && shown.size < all.size) Text(if (lang == Lang.KO) "… 총 ${all.size}편" else "… ${all.size} in total", color = Quiet, fontSize = 13.sp)
         }
     }
 }
@@ -180,7 +185,7 @@ fun Wave(active: Boolean) {
 @Composable
 fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMin: Int, onReserve: () -> Unit, onOther: () -> Unit) {
     val l = lang.tag
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1.3f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "지금 시간엔 여기가 좋아요" else "Good pick for this hour", color = Ink, fontSize = 20.sp)
             Spacer(Modifier.height(6.dp))
@@ -217,7 +222,7 @@ fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMi
 fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: Boolean, lang: Lang, onGo: (Place) -> Unit, onHome: () -> Unit) {
     val l = lang.tag
     val top = suggestions.firstOrNull()
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1.3f).fillMaxHeight()) {
             Text(
                 if (lang == Lang.KO) (if (disappointed) "\"기대와 달랐나요? 차로 10분 안에\n가볼 만한 곳이 있어요.\"" else "\"다시 출발하시네요. 차로 10분 안에\n가볼 만한 곳이 있어요.\"")
@@ -255,7 +260,7 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
 /** 4. Travel log */
 @Composable
 fun TravelLogScreen(log: TripLog, lang: Lang, history: List<kr.roaddocent.log.DayRecord> = emptyList(), onShare: () -> Unit = {}, onBack: () -> Unit) {
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1.2f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "오늘의 여행 일지" else "Today's travel log", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))

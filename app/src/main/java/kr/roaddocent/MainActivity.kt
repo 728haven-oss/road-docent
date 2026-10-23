@@ -9,11 +9,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +58,7 @@ import kr.roaddocent.ui.theme.Chip
 import kr.roaddocent.ui.theme.Headline
 import kr.roaddocent.ui.theme.Ink
 import kr.roaddocent.ui.theme.Panel
+import kr.roaddocent.ui.theme.TwoPane
 import kr.roaddocent.ui.theme.Pill
 import kr.roaddocent.ui.theme.Quiet
 import kr.roaddocent.ui.theme.RoadDocentTheme
@@ -64,10 +67,13 @@ class MainActivity : ComponentActivity() {
     private val vm: DocentViewModel by viewModels()
 
     private val mic = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    private val loc = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        vm.requestMic = { mic.launch(Manifest.permission.RECORD_AUDIO) }
         mic.launch(Manifest.permission.RECORD_AUDIO)
+        loc.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         setContent { RoadDocentTheme { Root(vm) { number -> dial(number) } } }
     }
 
@@ -94,10 +100,11 @@ fun ConnectScreen(onPick: (Source) -> Unit) {
         Spacer(Modifier.height(32.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             ActionButton("Pleos 차량 연결 (NaviHelper · Vehicle SDK)", primary = true) { onPick(Source.PLEOS) }
-            ActionButton("시뮬레이션 · 서울→강릉 데모") { onPick(Source.SIMULATOR) }
+            ActionButton("시뮬레이션 · 데모") { onPick(Source.SIMULATOR) }
+            ActionButton("📍 휴대폰 GPS · 실제 위치") { onPick(Source.PHONE_GPS) }
         }
         Spacer(Modifier.height(18.dp))
-        Body("Pleos 연결은 Pleos Connect AVD 또는 실차에서 동작합니다. 시뮬레이션은 어떤 Android 기기에서도 전체 흐름을 보여줍니다.", size = 13)
+        Body("Pleos 연결은 Pleos Connect AVD 또는 실차에서 동작합니다. 시뮬레이션은 어떤 Android 기기에서도 전체 흐름을 보여줍니다. 휴대폰 GPS는 실제 위치로 길목 해설·도착·재탑승이 일어납니다 (목적지를 고르거나 🪟 창밖으로 그냥 달리기).", size = 13)
     }
 }
 
@@ -128,35 +135,36 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val heard by vm.localVoice.heard.collectAsState()
     kr.roaddocent.ui.theme.TypeScale.factor = prefs.fontScale
     if (!prefs.onboarded) {
-        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) { OnboardingScreen(prefs, onDone = { vm.applyPrefs(it.copy(onboarded = true)) }) }
+        Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) { OnboardingScreen(prefs, onDone = { vm.applyPrefs(it.copy(onboarded = true)) }) }
         return
     }
     if (companionOpen) {
-        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) { CompanionPanel(vm, lang, companionUrl) { companionOpen = false } }
+        Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) { CompanionPanel(vm, lang, companionUrl) { companionOpen = false } }
         return
     }
     if (settingsOpen) {
-        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
+        Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) {
             SettingsScreen(prefs, voiceProfile, vm.localVoice.available, onChange = vm::applyPrefs,
                 onVoiceSetup = { vm.openSettings(false); vm.openVoiceSetup(true) }, onDeleteVoice = vm::deleteVoice, onClose = { vm.openSettings(false) })
         }
         return
     }
     if (voiceSetup) {
-        Box(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
-            VoiceFamilyScreen(lang, recording, vm.cloudAvailable, onStart = vm::startSample, onStop = vm::stopSample, onBuild = vm::buildVoice, onClose = { vm.openVoiceSetup(false) })
+        Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) {
+            val verr by vm.voiceError.collectAsState()
+            VoiceFamilyScreen(lang, recording, vm.cloudAvailable, error = verr, onStart = vm::startSample, onStop = vm::stopSample, onBuild = vm::buildVoice, onClose = { vm.clearVoiceError(); vm.openVoiceSetup(false) })
         }
         return
     }
 
-    Column(Modifier.fillMaxSize().padding(horizontal = 36.dp, vertical = 22.dp)) {
+    Column(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) {
         // top bar
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(if (lang == Lang.KO) "로드 도슨트" else "Road Docent", color = Ink, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             if (nav.active) Text("  · ${nav.destinationName}${if (lang == Lang.KO) "까지 " else " in "}${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 16.sp)
             Spacer(Modifier.weight(1f))
-            toast?.let { Pill(it); Spacer(Modifier.width(8.dp)) }
-            if (heard.isNotBlank()) { Pill("“$heard”"); Spacer(Modifier.width(8.dp)) }
+            toast?.let { Text(it, Modifier.background(Chip, RoundedCornerShape(999.dp)).padding(horizontal = 10.dp, vertical = 4.dp).widthIn(max = 220.dp), color = Ink, fontSize = 13.sp, maxLines = 1); Spacer(Modifier.width(6.dp)) }
+            if (heard.isNotBlank()) { Text("“$heard”", Modifier.background(Chip, RoundedCornerShape(999.dp)).padding(horizontal = 10.dp, vertical = 4.dp).widthIn(max = 160.dp), color = Ink, fontSize = 13.sp, maxLines = 1); Spacer(Modifier.width(6.dp)) }
             if (prefs.localVoiceCommands && vm.localVoice.available) {
                 Text(if (listening) "🎤 …" else "🎤", Modifier.background(if (listening) Accent else Chip, RoundedCornerShape(999.dp)).clickable { vm.listen() }.padding(horizontal = 14.dp, vertical = 6.dp), color = if (listening) Color(0xFF06111F) else Ink, fontSize = 14.sp)
                 Spacer(Modifier.width(8.dp))
@@ -214,7 +222,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
 @Composable
 fun IdleScreen(lang: Lang, vm: DocentViewModel) {
   var preview by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<kr.roaddocent.core.Guide?>(null) }
-  Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+  TwoPane() {
     Panel(Modifier.weight(1.3f).fillMaxHeight()) {
         Headline(if (lang == Lang.KO) "목적지를 설정하면 가이드가 탑승합니다" else "Set a destination and your guide boards", 28)
         Spacer(Modifier.height(10.dp))
@@ -225,12 +233,12 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(6.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Pill(if (lang == Lang.KO) "전체" else "All", Modifier.clickable { vm.setTheme("") }, selected = prefs.theme.isBlank())
-            kr.roaddocent.core.Themes.order.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, lang), Modifier.clickable { vm.setTheme(t) }, selected = prefs.theme == t) }
+            kr.roaddocent.core.Themes.order.filter { it != "car" }.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, lang), Modifier.clickable { vm.setTheme(t) }, selected = prefs.theme == t) }
         }
         Spacer(Modifier.height(12.dp))
         Text(if (lang == Lang.KO) "데모 목적지 (Pleos에서는 내비 목적지로 자동 시작)" else "Demo destinations (on Pleos, the navi destination starts it)", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(8.dp))
-        val list = vm.guides().filter { prefs.theme.isBlank() || prefs.theme in it.themes || (prefs.theme == "car" && prefs.newCarMode) }
+        val list = vm.guides().filter { prefs.theme.isBlank() || prefs.theme in it.themes }
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             list.forEach { g ->
                 val th = g.themes.joinToString(" ") { kr.roaddocent.core.Themes.label(it, lang).take(2) }
@@ -239,16 +247,18 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
                     if (g.knowBeforeYouGo.isNotEmpty()) Small(if (lang == Lang.KO) "ℹ 알아두기" else "ℹ Before you go") { preview = g }
                 }
             }
-            if (prefs.theme == "car") ActionButton(if (lang == Lang.KO) "🚗 새 차 알아가기 켜고 아무 목적지나 출발" else "🚗 Turn on new-car mode and start any trip", primary = true) { vm.setNewCarMode(true); vm.setTheme("") }
         }
     }
     Panel(Modifier.weight(1f).fillMaxHeight()) {
         val g = preview ?: vm.guides().firstOrNull { it.id == "seoul_gyeongbokgung" }
         Text(if (lang == Lang.KO) "출발 전 알아두기 · " + (g?.destination?.name?.get(lang.tag) ?: "") else "Know before you go · " + (g?.destination?.name?.get(lang.tag) ?: ""), color = Ink, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
         Spacer(Modifier.height(8.dp))
-        g?.knowBeforeYouGo?.get(lang.tag).orEmpty().forEach { line ->
+        var more by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+        val lines = g?.knowBeforeYouGo?.get(lang.tag).orEmpty()
+        (if (kr.roaddocent.ui.theme.isCompact() && !more) lines.take(3) else lines).forEach { line ->
             Row(Modifier.padding(vertical = 4.dp)) { Text("•", color = Quiet, fontSize = 14.sp, modifier = Modifier.width(16.dp)); Text(line, color = Ink, fontSize = 13.sp, lineHeight = 18.sp) }
         }
+        if (kr.roaddocent.ui.theme.isCompact() && lines.size > 3) Small(if (more) (if (lang == Lang.KO) "접기" else "Less") else (if (lang == Lang.KO) "더 보기 (${lines.size - 3})" else "More (${lines.size - 3})")) { more = !more }
         Spacer(Modifier.weight(1f))
         Body(if (lang == Lang.KO) "운영시간·요금·주차는 출발 당일 공식 안내로 한 번 더 확인하세요." else "Re-check hours, fees and parking with the venue on the day.", size = 12)
     }
@@ -259,7 +269,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
 fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddocent.core.Handoff? = null, onOpen: (String) -> Unit = {}, onVoice: () -> Unit = {}) {
     val name = place.name[lang.tag] ?: ""
     val steps = place.onArrival[lang.tag].orEmpty()
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Headline(if (lang == Lang.KO) "$name 도착" else "Arrived: $name", 28)
             Spacer(Modifier.height(10.dp))
@@ -292,21 +302,21 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddo
 @Composable
 fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience, onCompanion: () -> Unit = {}) {
     val sim = vm.sim
-    Row(Modifier.fillMaxWidth().background(Chip.copy(alpha = 0.5f), RoundedCornerShape(14.dp)).padding(10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(if (sim != null) "DEMO" else "PLEOS", color = Quiet, fontSize = 12.sp)
+    Row(Modifier.fillMaxWidth().background(Chip.copy(alpha = 0.5f), RoundedCornerShape(14.dp)).padding(8.dp).horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(if (sim != null) "DEMO" else if (vm.gps != null) "GPS" else "PLEOS", color = Quiet, fontSize = 12.sp)
         Small(if (lang == Lang.KO) "EN" else "KO") { vm.setLang(if (lang == Lang.KO) Lang.EN else Lang.KO) }
         Small(if (audience == Audience.KIDS) "일반" else "키즈") { vm.setAudience(if (audience == Audience.KIDS) Audience.ADULT else Audience.KIDS) }
         if (sim != null) {
+            val auto by vm.autoDemo.collectAsState()
+            Small(if (auto) "⏸ 시연 중" else "▶ 시연") { vm.setAutoDemo(!auto) }
             Small("⏩ 빨리감기") { sim.fastForward(30) }
             Small("🚗 정체") { sim.triggerCongestion(15) }
             Small("🏁 도착·P") { sim.park() }
             Small("▶ D (재출발)") { sim.shiftToDrive() }
             Small("🧒 뒷좌석") { sim.setRearSeat(true) }
-            val nc by vm.settings.prefs.collectAsState()
-            Small(if (nc.newCarMode) "🚗 새 차 ON" else "🚗 새 차") { vm.setNewCarMode(!nc.newCarMode) }
-            Small("🔌 충전") { sim.plugIn(true) }
             Small("🪟 창밖") { vm.demoFreeRide() }
         }
+        vm.gps?.let { g -> Small("🧒 뒷좌석") { g.rearSeat = !g.rearSeat }; Small("🪟 창밖") { vm.demoFreeRide() } }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
         Small("📱 동승자") { onCompanion() }
         Small("⚙ 설정") { vm.openSettings(true) }
@@ -343,7 +353,6 @@ fun OnboardingScreen(prefs: kr.roaddocent.core.Prefs, onDone: (kr.roaddocent.cor
         Text(if (ko) "3. 오늘은 어떤 여행?" else "3. What kind of trip?", color = Quiet, fontSize = 18.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             kr.roaddocent.core.Themes.order.filter { it != "car" }.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, p.lang), Modifier.clickable { p = p.copy(theme = t) }, selected = p.theme == t) }
-            Pill(if (ko) "새 차 받았어요" else "New car", Modifier.clickable { p = p.copy(newCarMode = true) }, selected = p.newCarMode)
         }
         Spacer(Modifier.weight(1f))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -357,7 +366,7 @@ fun OnboardingScreen(prefs: kr.roaddocent.core.Prefs, onDone: (kr.roaddocent.cor
 @Composable
 fun CompanionPanel(vm: DocentViewModel, lang: Lang, url: String?, onClose: () -> Unit) {
     val qr = androidx.compose.runtime.remember(url) { vm.companion.qr(520) }
-    Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+    TwoPane() {
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Headline(if (lang == Lang.KO) "동승자 화면" else "Passenger screen", 30)
             Spacer(Modifier.height(10.dp))

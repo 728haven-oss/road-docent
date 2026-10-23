@@ -5,6 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -35,13 +38,18 @@ private val scheme: ColorScheme = darkColorScheme(
 @Composable
 fun RoadDocentTheme(content: @Composable () -> Unit) = MaterialTheme(colorScheme = scheme, content = content)
 
+/** Phone-sized screen (portrait or narrow): tighter paddings, stacked panes, shorter lists. */
+@Composable
+fun isCompact(): Boolean { val c = androidx.compose.ui.platform.LocalConfiguration.current; return c.screenWidthDp < 700 || c.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT }
+
 @Composable
 fun Panel(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+    val compact = isCompact()
     Column(
         modifier
-            .background(Card, RoundedCornerShape(22.dp))
-            .border(1.dp, CardBorder, RoundedCornerShape(22.dp))
-            .padding(horizontal = 24.dp, vertical = 18.dp),
+            .background(Card, RoundedCornerShape(if (compact) 16.dp else 22.dp))
+            .border(1.dp, CardBorder, RoundedCornerShape(if (compact) 16.dp else 22.dp))
+            .padding(horizontal = if (compact) 14.dp else 24.dp, vertical = if (compact) 12.dp else 18.dp),
         content = content
     )
 }
@@ -62,3 +70,28 @@ object TypeScale { var factor = 1.0f }
 fun carSp(size: Int) = (maxOf(size, 22) * TypeScale.factor).sp
 @Composable
 fun Body(text: String, color: Color = Quiet, size: Int = 16, maxLines: Int = Int.MAX_VALUE) = Text(text, color = color, fontSize = carSp(size), lineHeight = (maxOf(size, 22) * TypeScale.factor * 1.4).sp, maxLines = maxLines, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+
+
+/** Two panes side by side in landscape (car), stacked and scrollable in portrait (phone). Children use `Modifier.weight()` either way. */
+@Composable
+fun TwoPane(modifier: Modifier = Modifier, content: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit) {
+    val landscape = androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+    if (landscape) {
+        androidx.compose.foundation.layout.Row(modifier.fillMaxSize(), horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(20.dp), content = content)
+    } else {
+        // Portrait: a vertically scrolling column; the Row scope is emulated so `weight` and `fillMaxHeight` still compile and the panes size by content.
+        val scroll = androidx.compose.foundation.rememberScrollState()
+        androidx.compose.foundation.layout.Column(modifier.fillMaxSize().verticalScroll(scroll), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)) {
+            PortraitRowScope(this).content()
+        }
+    }
+}
+
+/** RowScope shim for portrait: weight() becomes "wrap content, full width"; fillMaxHeight is ignored. */
+private class PortraitRowScope(val col: androidx.compose.foundation.layout.ColumnScope) : androidx.compose.foundation.layout.RowScope {
+    override fun Modifier.weight(weight: Float, fill: Boolean): Modifier = this.then(Modifier.fillMaxWidth())
+    override fun Modifier.align(alignment: androidx.compose.ui.Alignment.Vertical): Modifier = this
+    override fun Modifier.alignBy(alignmentLine: androidx.compose.ui.layout.HorizontalAlignmentLine): Modifier = this
+    override fun Modifier.alignByBaseline(): Modifier = this
+    override fun Modifier.alignBy(alignmentLineBlock: (androidx.compose.ui.layout.Measured) -> Int): Modifier = this
+}
