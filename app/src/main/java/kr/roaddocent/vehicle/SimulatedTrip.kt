@@ -95,7 +95,9 @@ class SimulatedTrip : NavSignals, VehicleSignals {
 
     // ---- demo controls ----
     fun jumpToMinute(min: Int) { /* handled via fastForward for simplicity */ }
-    fun fastForward(simMinutes: Int) { scope.launch { repeat(simMinutes) { delay(1) }; } ; secondsPerSimMinute = 0.05; scope.launch { delay((simMinutes * 50).toLong()); secondsPerSimMinute = 1.0 } }
+    fun fastForward(simMinutes: Int) { val prev = secondsPerSimMinute; if (prev <= 0.05) return; secondsPerSimMinute = 0.05; scope.launch { delay((simMinutes * 50).toLong()); if (secondsPerSimMinute == 0.05) secondsPerSimMinute = prev } }
+    /** Start over for a new demo trip: the next setDestination is a main leg again, from the route's start. */
+    fun reset() { job?.cancel(); job = null; legPlanned = false; congestionUntilMin = -1; holdClock = false; _nav.value = NavState(); _veh.value = VehicleState(gearPark = true) }
     fun triggerCongestion(simMinutes: Int = 15) { congestionUntilMin = currentSimMinute() + simMinutes }
     fun park() { job?.cancel(); job = null; _veh.update { it.copy(gearPark = true, speedKmh = 0f) }; _nav.update { it.copy(active = false, arrived = true) } }
     fun shiftToDrive() { _veh.update { it.copy(gearPark = false) } }

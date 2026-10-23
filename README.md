@@ -38,9 +38,9 @@ Pleos Connect 위에서 동작하는 차량용 오디오 가이드 앱입니다.
 - 실제 APK 실행 화면: `docs/실행화면_*.png` (Android 14 x86_64 에뮬레이터, Automotive 1024p)
 - 화면 시안: `docs/로드도슨트_화면시안.pdf`
 
-## APK
-- 경로: `apk/RoadDocent_로드도슨트_release.apk` (release 서명, 데모용 키스토어 `keystore/`)
-- 빌드: `./gradlew :app:assembleRelease`
+## APK · 릴리즈 배포
+- 저장소 안: `apk/RoadDocent_로드도슨트_release.apk` (release 서명, 데모용 키스토어 `keystore/`) · 빌드: `./gradlew :app:assembleRelease`
+- **GitHub Releases 자동 배포** (`.github/workflows/release.yml`): `main`에 푸시될 때마다 테스트·빌드 후 Actions 아티팩트로 APK를 올리고, `v*` 태그를 푸시하거나 Actions 탭 → "Build & Release APK" → **Run workflow**에 버전(예: `v0.3.0`)을 넣으면 그 버전의 Release가 만들어지고 APK가 첨부됩니다. 폰에서는 Releases 페이지에서 바로 내려받으면 됩니다.
 
 ## 구조
 ```

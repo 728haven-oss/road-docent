@@ -89,7 +89,12 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val voiceProfile: StateFlow<VoiceProfile?> = _voiceProfile.asStateFlow()
     val cloudAvailable get() = voiceClient.available
 
-    fun openVoiceSetup(open: Boolean) { _voiceSetup.value = open }
+    private var voiceFromSettings = false
+    fun openVoiceSetup(open: Boolean, fromSettings: Boolean = false) {
+        if (open) voiceFromSettings = fromSettings
+        _voiceSetup.value = open
+        if (!open && voiceFromSettings) { voiceFromSettings = false; _settingsOpen.value = true }
+    }
     private val _voiceError = MutableStateFlow<String?>(null)
     val voiceError: StateFlow<String?> = _voiceError.asStateFlow()
     /** Set by the Activity: asks for RECORD_AUDIO when recording is attempted without it. */
@@ -153,7 +158,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     /** Demo: set the Seoul -> Gangneung route. With Pleos, the driver sets it in the built-in navi. */
     fun demoStartTrip(guideId: String = "seoul_gangneung") {
         val g = guides.load(guideId)
-        sim?.let { s -> if (g.route.isNotEmpty()) { s.mainRoute = g.route; s.mainMinutes = g.driveMin }; s.setDestination(g.destination) }
+        sim?.let { s -> s.reset(); if (g.route.isNotEmpty()) { s.mainRoute = g.route; s.mainMinutes = g.driveMin }; s.setDestination(g.destination) }
         gps?.setDestination(g.destination)
         engine.onRouteSet(g.destination.name["ko"]!!)
     }

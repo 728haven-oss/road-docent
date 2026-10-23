@@ -100,6 +100,12 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 Spacer(Modifier.weight(1f))
                 VoiceHint(lang, if (quiz != null && quiz.answer == null) "quiz" else "playing")
             }
+            Spacer(Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                ActionButton(if (lang == Lang.KO) "넘겨" else "Skip", onClick = onSkip)
+                ActionButton(if (lang == Lang.KO) "더 자세히" else "More", onClick = onMore)
+                ActionButton(if (lang == Lang.KO) "조용히" else "Quiet", onClick = onQuiet)
+            }
         }
         return
     }
@@ -238,7 +244,7 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
             Spacer(Modifier.weight(1f))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 top?.let { ActionButton(if (lang == Lang.KO) "\"거기로 가자\"" else "\"Let's go there\"", primary = true) { onGo(it) } }
-                ActionButton(if (lang == Lang.KO) "그냥 집으로" else "Head home", onClick = onHome)
+                ActionButton(if (lang == Lang.KO) "🗺 오늘 일지 보기" else "🗺 Today's log", onClick = onHome)
             }
         }
         Panel(Modifier.weight(1f).fillMaxHeight()) {

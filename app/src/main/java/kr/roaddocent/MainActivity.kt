@@ -146,7 +146,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     if (settingsOpen) {
         Box(Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)) {
             SettingsScreen(prefs, voiceProfile, vm.localVoice.available, onChange = vm::applyPrefs,
-                onVoiceSetup = { vm.openSettings(false); vm.openVoiceSetup(true) }, onDeleteVoice = vm::deleteVoice, onClose = { vm.openSettings(false) })
+                onVoiceSetup = { vm.openSettings(false); vm.openVoiceSetup(true, fromSettings = true) }, onDeleteVoice = vm::deleteVoice, onClose = { vm.openSettings(false) })
         }
         return
     }
@@ -186,13 +186,13 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                     PlayingScreen(
                         ep = p.episode, all = engine.guide?.episodes?.filter { it.trigger !is kr.roaddocent.core.Trigger.Reboard } ?: emptyList(),
                         played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
-                        driving = !vehicle.gearPark && vehicle.speedKmh > 5f && !prefs.alwaysFull,
+                        driving = !vehicle.gearPark && vehicle.speedKmh > 5f && !prefs.alwaysFull && !kr.roaddocent.ui.theme.isCompact(),
                         onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet
                     )
                 }
                 is DocentPhase.Briefing -> BriefingScreen(p.place, p.alternatives, lang, nav.remainTimeSec / 60,
-                    onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdSkip() })
-                is DocentPhase.Parked -> ParkedScreen(p.place, lang, engine.guide?.handoff, onOpen = onDial) { vm.openVoiceSetup(true) }
+                    onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdWhereNext() })
+                is DocentPhase.Parked -> ParkedScreen(p.place, lang, engine.guide?.handoff, onOpen = onDial, onNext = { engine.cmdWhereNext() }) { vm.openVoiceSetup(true) }
                 is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
                 is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days(), onShare = { vm.shareToday() }) { engine.cmdShowLog() }
             }
@@ -229,7 +229,11 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
     Panel(Modifier.weight(1.3f).fillMaxHeight()) {
         Headline(if (lang == Lang.KO) "목적지를 설정하면 가이드가 탑승합니다" else "Set a destination and your guide boards", 28)
         Spacer(Modifier.height(10.dp))
-        Body(if (lang == Lang.KO) "Pleos 연결 시 차량 내비에서 목적지를 설정하세요. 데모에서는 아래 버튼으로 서울→강릉 경로를 시작합니다." else "With Pleos, set a destination in the built-in navigation. In the demo, start the Seoul → Gangneung route below.", size = 16)
+        Body(when {
+            vm.sim != null -> if (lang == Lang.KO) "데모: 아래에서 목적지를 고르면 압축된 시간으로 주행이 시작돼요. 데모 바의 ▶ 시연을 켜면 장소를 지날 때마다 멈춰서 설명해요." else "Demo: pick a destination below and the compressed drive starts. Turn on ▶ in the demo bar to pause at each place."
+            vm.gps != null -> if (lang == Lang.KO) "휴대폰 GPS: 목적지를 고르면 실제 위치로 길목 해설·도착·재탑승이 일어나요. 목적지 없이 달리려면 데모 바의 🪟 창밖." else "Phone GPS: pick a destination and the real position drives stories, arrival and re-boarding. No destination? Tap 🪟 in the bar."
+            else -> if (lang == Lang.KO) "Pleos: 차량 내비에서 목적지를 설정하면 자동으로 시작돼요. 아래 목록은 가이드 미리보기예요." else "Pleos: set a destination in the car's navigation and it starts by itself. The list below previews the guides."
+        }, size = 16)
         Spacer(Modifier.height(20.dp))
         val prefs by vm.settings.prefs.collectAsState()
         Text(if (lang == Lang.KO) "테마로 고르기" else "Pick by theme", color = Quiet, fontSize = 14.sp)
@@ -243,6 +247,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(8.dp))
         val list = vm.guides().filter { prefs.theme.isBlank() || prefs.theme in it.themes }
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (list.isEmpty()) Body(if (lang == Lang.KO) "이 테마의 가이드가 아직 없어요. '전체'를 눌러 보세요." else "No guide for this theme yet; try All.", size = 14)
             list.forEach { g ->
                 val th = g.themes.joinToString(" ") { kr.roaddocent.core.Themes.label(it, lang).take(2) }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -269,7 +274,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
 }
 
 @Composable
-fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddocent.core.Handoff? = null, onOpen: (String) -> Unit = {}, onVoice: () -> Unit = {}) {
+fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddocent.core.Handoff? = null, onOpen: (String) -> Unit = {}, onNext: () -> Unit = {}, onVoice: () -> Unit = {}) {
     val name = place.name[lang.tag] ?: ""
     val steps = place.onArrival[lang.tag].orEmpty()
     TwoPane() {
@@ -286,7 +291,10 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddo
                 Body(handoff.note[lang.tag] ?: "", size = 12)
             }
             Spacer(Modifier.height(14.dp))
-            ActionButton(if (lang == Lang.KO) "🎙 가족 목소리 녹음" else "🎙 Record family voice") { onVoice() }
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                ActionButton(if (lang == Lang.KO) "다음은 어디?" else "Where next?", primary = handoff == null) { onNext() }
+                ActionButton(if (lang == Lang.KO) "🎙 가족 목소리" else "🎙 Family voice") { onVoice() }
+            }
         }
         Panel(Modifier.weight(1.4f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "여기서 할 일" else "What to do here", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
@@ -305,6 +313,7 @@ fun ParkedScreen(place: kr.roaddocent.core.Place, lang: Lang, handoff: kr.roaddo
 @Composable
 fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience, onCompanion: () -> Unit = {}) {
     val sim = vm.sim
+    val engine = vm.engine
     Row(Modifier.fillMaxWidth().background(Chip.copy(alpha = 0.5f), RoundedCornerShape(14.dp)).padding(8.dp).horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(if (sim != null) "DEMO" else if (vm.gps != null) "GPS" else "PLEOS", color = Quiet, fontSize = 12.sp)
         Small(if (lang == Lang.KO) "EN" else "KO") { vm.setLang(if (lang == Lang.KO) Lang.EN else Lang.KO) }
@@ -316,7 +325,8 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience, onCompanion: ()
             Small("🚗 정체") { sim.triggerCongestion(15) }
             Small("🏁 도착·P") { sim.park() }
             Small("▶ D (재출발)") { sim.shiftToDrive() }
-            Small("🧒 뒷좌석") { sim.setRearSeat(true) }
+            val rear by engine.vehicleState.collectAsState()
+            Small(if (rear.rearSeatOccupied) "🧒 뒷좌석 ✓" else "🧒 뒷좌석") { sim.setRearSeat(!rear.rearSeatOccupied) }
             Small("🪟 창밖") { vm.demoFreeRide() }
         }
         vm.gps?.let { g -> Small("🧒 뒷좌석") { g.rearSeat = !g.rearSeat }; Small("🪟 창밖") { vm.demoFreeRide() } }

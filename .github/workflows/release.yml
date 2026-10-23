@@ -1,0 +1,67 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '릴리즈 버전 (예: v0.3.0) — 비우면 빌드만 하고 릴리즈는 만들지 않음'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests (guide content)
+        run: ./gradlew testReleaseUnitTest --no-daemon
+
+      - name: Build release APK
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Name the APK
+        id: apk
+        run: |
+          V="${{ github.event.inputs.version }}"
+          if [ -z "$V" ] && [[ "${GITHUB_REF}" == refs/tags/* ]]; then V="${GITHUB_REF#refs/tags/}"; fi
+          [ -z "$V" ] && V="main-$(git rev-parse --short HEAD)"
+          cp app/build/outputs/apk/release/app-release.apk "RoadDocent_${V}.apk"
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "file=RoadDocent_${V}.apk" >> "$GITHUB_OUTPUT"
+
+      - name: Upload build artifact (every push)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.apk.outputs.file }}
+          path: ${{ steps.apk.outputs.file }}
+
+      - name: GitHub Release (tag push or manual version)
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.version != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.apk.outputs.version }}
+          name: 로드 도슨트 ${{ steps.apk.outputs.version }}
+          prerelease: true
+          generate_release_notes: true
+          body: |
+            휴대폰 테스트용 release APK (Android 13+, 데모 키 서명).
+            설치 후 TTS 한국어 음성 데이터를 확인하세요. 사용 순서: docs/휴대폰_테스트_가이드.md
+          files: ${{ steps.apk.outputs.file }}
