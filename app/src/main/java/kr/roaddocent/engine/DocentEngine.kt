@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kr.roaddocent.content.GuideRepository
+import kr.roaddocent.content.GuideSource
 import kr.roaddocent.core.Audience
 import kr.roaddocent.core.DocentPhase
 import kr.roaddocent.core.Episode
@@ -50,9 +50,11 @@ class DocentEngine(
     private val nav: NavSignals,
     private val veh: VehicleSignals,
     private val speaker: Speaker,
-    private val guides: GuideRepository,
+    private val guides: GuideSource,
     private val scope: CoroutineScope
 ) {
+    /** Wall clock; tests inject virtual time. */
+    var clock: () -> Long = { System.currentTimeMillis() }
     private val _phase = MutableStateFlow<DocentPhase>(DocentPhase.Idle)
     val phase: StateFlow<DocentPhase> = _phase.asStateFlow()
 
@@ -125,7 +127,7 @@ class DocentEngine(
         advancer = scope.launch {
             var wasSpeaking = false
             speaker.speaking.collect { speaking ->
-                if (wasSpeaking && !speaking) lastSpeechEndMs = System.currentTimeMillis()
+                if (wasSpeaking && !speaking) lastSpeechEndMs = clock()
                 if (wasSpeaking && !speaking && !_paused.value && !quizPending && !quietUntilTrigger && _phase.value is DocentPhase.Guiding) {
                     delay(2_500)
                     if (!speaker.speaking.value && _queue.value.any { it.id !in played }) playNext()
@@ -220,7 +222,7 @@ class DocentEngine(
 
     private suspend fun onTick(n: NavState, v: VehicleState) {
         val g = guide ?: return
-        val now = System.currentTimeMillis()
+        val now = clock()
 
         // speed from location delta (for SDK adapter that has no speed signal)
         n.location?.let { loc ->

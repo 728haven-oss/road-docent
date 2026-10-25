@@ -13,7 +13,15 @@ import kr.roaddocent.core.Trigger
  * Production: a server builds the same JSON per destination from TourAPI, KMA weather, encyclopedias,
  * creator courses and dwell-time data, and the car downloads it once at route start (offline-safe).
  */
-class GuideRepository(private val context: Context) {
+/** What the engine needs from a guide store; implemented by the asset-backed repository and by test doubles. */
+interface GuideSource {
+    fun load(id: String): Guide
+    fun forDestination(name: String): Guide
+    fun all(): List<Guide>
+    fun loadOverlay(id: String): Guide?
+}
+
+class GuideRepository(private val context: Context) : GuideSource {
     private val json = Json {
         ignoreUnknownKeys = true
         classDiscriminator = "type"
@@ -31,22 +39,22 @@ class GuideRepository(private val context: Context) {
 
     private val cache = mutableMapOf<String, Guide>()
 
-    fun load(id: String): Guide = cache.getOrPut(id) {
+    override fun load(id: String): Guide = cache.getOrPut(id) {
         context.assets.open("guides/$id.json").bufferedReader().use { json.decodeFromString(Guide.serializer(), it.readText()) }
     }
 
     /** Pick the guide whose destination name matches the navigation destination (any language). */
-    fun forDestination(name: String): Guide {
+    override fun forDestination(name: String): Guide {
         val all = available().map { load(it) }
         val n = name.lowercase()
         return all.firstOrNull { g -> g.destination.name.values.any { v -> n.contains(v.lowercase()) || v.lowercase().contains(n) } }
             ?: all.firstOrNull { g -> g.id.split("_").any { k -> k.length > 3 && n.contains(k) } }
             ?: load("seoul_gangneung")
     }
-    fun all(): List<Guide> = available().sorted().map { load(it) }
+    override fun all(): List<Guide> = available().sorted().map { load(it) }
 
     // Overlay guides (assets/overlays/<id>.json) layer on top of any destination guide, e.g. new-car onboarding.
-    fun loadOverlay(id: String): Guide? = runCatching {
+    override fun loadOverlay(id: String): Guide? = runCatching {
         context.assets.open("overlays/$id.json").bufferedReader().use { json.decodeFromString(Guide.serializer(), it.readText()) }
     }.getOrNull()
 
