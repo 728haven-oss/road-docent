@@ -172,10 +172,8 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                 Text(if (listening) "🎤 …" else "🎤", Modifier.background(if (listening) Accent else Chip, RoundedCornerShape(999.dp)).clickable { vm.listen() }.padding(horizontal = 14.dp, vertical = 6.dp), color = if (listening) Color(0xFF06111F) else Ink, fontSize = 14.sp)
                 Spacer(Modifier.width(8.dp))
             }
-            voiceProfile?.let { Pill(if (lang == Lang.KO) "🎙 ${it.name} 목소리" else "🎙 ${it.name}'s voice"); Spacer(Modifier.width(8.dp)) }
-            Pill(if (lang == Lang.KO) "🎧 가이드" else "🎧 Guide")
-            Spacer(Modifier.width(8.dp))
-            Pill(if (audience == Audience.KIDS) (if (lang == Lang.KO) "👨‍👩‍👧 키즈 모드" else "👨‍👩‍👧 Kids") else if (lang == Lang.KO) "👤 일반" else "👤 Adult", Modifier)
+            voiceProfile?.let { Pill("🎙 ${it.name}"); Spacer(Modifier.width(8.dp)) }
+            if (audience == Audience.KIDS) Pill(if (lang == Lang.KO) "🧒 키즈" else "🧒 Kids")
         }
         Spacer(Modifier.height(16.dp))
 
@@ -202,7 +200,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
         if (hintCtx != null) { Spacer(Modifier.height(8.dp)); kr.roaddocent.ui.screen.VoiceHint(lang, hintCtx) }
         if (audience == Audience.KIDS && phase is DocentPhase.Guiding && vehicle.gearPark) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
         val courses = engine.guide?.creatorCourses.orEmpty()
-        if (courses.isNotEmpty() && (phase is DocentPhase.Briefing || phase is DocentPhase.WhereNext)) {
+        if (courses.isNotEmpty() && !kr.roaddocent.ui.theme.isCompact() && (phase is DocentPhase.Briefing || phase is DocentPhase.WhereNext)) {
             Spacer(Modifier.height(12.dp))
             Panel(Modifier.fillMaxWidth()) {
                 Text(if (lang == Lang.KO) "🎬 크리에이터 코스 따라가기" else "🎬 Follow a creator's course", color = Ink, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
@@ -227,7 +225,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
   var preview by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<kr.roaddocent.core.Guide?>(null) }
   TwoPane() {
     Panel(Modifier.weight(1.3f).fillMaxHeight()) {
-        Headline(if (lang == Lang.KO) "목적지를 설정하면 가이드가 탑승합니다" else "Set a destination and your guide boards", 28)
+        Headline(if (lang == Lang.KO) "어디로 갈까요?" else "Where to?", 26)
         Spacer(Modifier.height(10.dp))
         Body(when {
             vm.sim != null -> if (lang == Lang.KO) "데모: 아래에서 목적지를 고르면 압축된 시간으로 주행이 시작돼요. 데모 바의 ▶ 시연을 켜면 장소를 지날 때마다 멈춰서 설명해요." else "Demo: pick a destination below and the compressed drive starts. Turn on ▶ in the demo bar to pause at each place."

@@ -142,6 +142,15 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 ActionButton(if (lang == Lang.KO) "\"조용히\"" else "\"Quiet\"", onClick = onQuiet)
             }
         }
+        if (kr.roaddocent.ui.theme.isCompact()) {
+            val cur = all.indexOfFirst { it.id == ep.id }
+            val next = all.getOrNull(cur + 1)
+            Panel(Modifier.weight(1f)) {
+                Text((if (lang == Lang.KO) "다음 이야기 · " else "Next · ") + (next?.titleFor(lang) ?: (if (lang == Lang.KO) "길목에서 이어집니다" else "continues at the next stop")), color = Quiet, fontSize = carSp(20), maxLines = 2)
+                Text(if (lang == Lang.KO) "${(cur + 1).coerceAtLeast(1)} / ${all.size}편" else "${(cur + 1).coerceAtLeast(1)} / ${all.size}", color = Quiet, fontSize = carSp(18))
+            }
+            return@TwoPane
+        }
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Text(if (lang == Lang.KO) "오늘의 이야기" else "Today's stories", color = Ink, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(6.dp))
