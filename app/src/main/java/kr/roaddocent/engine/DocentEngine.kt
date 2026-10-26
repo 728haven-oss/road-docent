@@ -371,6 +371,26 @@ class DocentEngine(
         }
     }
 
+    /** Autio-style "play a story near me now": nearest unplayed NearPoint story from any guide within [maxKm]. */
+    fun playNearbyNow(all: List<Guide>, maxKm: Double = 5.0): Boolean {
+        val here = nav.nav.value.location ?: run { _toast.value = if (_lang.value == Lang.KO) "아직 위치를 못 잡았어요" else "No location yet"; return false }
+        val cand = all.flatMap { g -> g.episodes.filter { it.trigger is Trigger.NearPoint }.map { g to it } }
+            .map { (g, e) -> Triple(g, e, haversineM(here, (e.trigger as Trigger.NearPoint).point) / 1000.0) }
+            .filter { it.third <= maxKm && (it.first.id + ":" + it.second.id) !in played && it.second.id !in played }
+            .minByOrNull { it.third } ?: run { _toast.value = if (_lang.value == Lang.KO) "${maxKm.toInt()}km 안에 새 이야기가 없어요" else "No new story within ${maxKm.toInt()} km"; return false }
+        val (g, e, km) = cand
+        if (guide == null) { guide = g; _phase.value = DocentPhase.Guiding(e, emptyList(), false) }
+        fire(e.copy(id = g.id + ":" + e.id), prefix = if (_lang.value == Lang.KO) "여기서 ${"%.1f".format(km)}킬로미터, ${g.destination.name["ko"]} 쪽 이야기예요. " else "About ${"%.1f".format(km)} km from here, towards ${g.destination.name["en"]}. ", force = true)
+        return true
+    }
+
+    /** 👍/👎 on the story playing: kept in the log (data for ranking) and read back as a toast. */
+    fun feedback(up: Boolean) {
+        val ep = _nowPlaying.value ?: return
+        _log.update { it.copy(feedback = it.feedback + (ep.id to up)) }
+        _toast.value = if (up) (if (_lang.value == Lang.KO) "👍 좋았어요 · 비슷한 이야기를 더 골라요" else "👍 Noted, more like this") else (if (_lang.value == Lang.KO) "👎 알겠어요 · 이런 이야기는 줄일게요 (오류면 출처 확인)" else "👎 Noted, fewer like this")
+    }
+
     /** Ask the next unasked kids quiz for this guide. Returns false when none is left. */
     fun askKidsQuiz(): Boolean {
         val g = guide ?: return false

@@ -76,7 +76,7 @@ fun EpisodeRow(index: Int, ep: Episode, lang: Lang, state: String, now: Boolean)
 @Composable
 fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: Lang, audience: Audience, congestion: Boolean, paused: Boolean, speaking: Boolean,
                   quiz: kr.roaddocent.engine.DocentEngine.QuizView? = null, driving: Boolean = false,
-                  onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit) {
+                  onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit, onFeedback: (Boolean) -> Unit = {}) {
     // Speaking glow: the panel border brightens for a second when the guide starts talking, so passengers notice without reading.
     val glow by androidx.compose.animation.core.animateFloatAsState(if (speaking && !paused) 1f else 0f, androidx.compose.animation.core.tween(600), label = "glow")
     if (driving) {
@@ -140,6 +140,9 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 ActionButton(if (lang == Lang.KO) "\"더 자세히\"" else "\"Tell me more\"", onClick = onMore)
                 ActionButton(if (lang == Lang.KO) "\"저장해\"" else "\"Save\"", onClick = onSave)
                 ActionButton(if (lang == Lang.KO) "\"조용히\"" else "\"Quiet\"", onClick = onQuiet)
+                Spacer(Modifier.weight(1f))
+                Text("👍", Modifier.background(Chip, RoundedCornerShape(999.dp)).clickable { onFeedback(true) }.padding(horizontal = 12.dp, vertical = 8.dp), fontSize = 18.sp)
+                Text("👎", Modifier.background(Chip, RoundedCornerShape(999.dp)).clickable { onFeedback(false) }.padding(horizontal = 12.dp, vertical = 8.dp), fontSize = 18.sp)
             }
         }
         if (kr.roaddocent.ui.theme.isCompact()) {

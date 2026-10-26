@@ -108,7 +108,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     fun back(): Boolean = when {
         _settingsOpen.value -> { _settingsOpen.value = false; true }
         _voiceSetup.value -> { _voiceSetup.value = false; true }
-        ::engine.isInitialized && engine.goBack() -> true
+        ::engine.isInitialized && engine.goBack() -> { if (engine.phase.value is kr.roaddocent.core.DocentPhase.Idle) clearResume(); true }
         _source.value != null -> { if (::engine.isInitialized) engine.stop(); sim = null; gps = null; _source.value = null; true }
         else -> false
     }
@@ -194,7 +194,15 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Demo: set the Seoul -> Gangneung route. With Pleos, the driver sets it in the built-in navi. */
+    private val resumeSp by lazy { getApplication<Application>().getSharedPreferences("roaddocent_resume", android.content.Context.MODE_PRIVATE) }
+    /** Last trip left unfinished (guide id, minutes ago) for the "이어서 듣기" offer. */
+    fun resumable(): Pair<String, Long>? = resumeSp.getString("guide", null)?.let { it to (System.currentTimeMillis() - resumeSp.getLong("at", 0L)) / 60_000 }
+    fun clearResume() = resumeSp.edit().clear().apply()
+    private fun markResume(guideId: String) = resumeSp.edit().putString("guide", guideId).putLong("at", System.currentTimeMillis()).apply()
+    fun playNearbyNow() = engine.playNearbyNow(guides.all())
+
     fun demoStartTrip(guideId: String = "seoul_gangneung") {
+        markResume(guideId)
         val g = guides.load(guideId)
         sim?.let { s -> s.reset(); if (g.route.isNotEmpty()) { s.mainRoute = g.route; s.mainMinutes = g.driveMin }; s.setDestination(g.destination) }
         gps?.setDestination(g.destination)

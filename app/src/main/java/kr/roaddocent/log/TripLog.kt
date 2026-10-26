@@ -22,7 +22,9 @@ data class TripLog(
     /** Kids mode: one sticker per quiz answered; shown on the travel log. */
     val stickers: Int = 0,
     /** Titles the rider said "save" on. */
-    val saved: List<String> = emptyList()
+    val saved: List<String> = emptyList(),
+    /** Episode id → thumbs up/down. */
+    val feedback: Map<String, Boolean> = emptyMap()
 ) {
     val stayMin: Int get() = visits.sumOf { it.stayMin }
     val longest: Visit? get() = visits.maxByOrNull { it.stayMin }

@@ -203,7 +203,8 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                         ep = p.episode, all = engine.guide?.episodes?.filter { it.trigger !is kr.roaddocent.core.Trigger.Reboard } ?: emptyList(),
                         played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
                         driving = !vehicle.gearPark && vehicle.speedKmh > 5f && !prefs.alwaysFull && !kr.roaddocent.ui.theme.isCompact(),
-                        onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet
+                        onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet,
+                        onFeedback = engine::feedback
                     )
                 }
                 is DocentPhase.Briefing -> BriefingScreen(p.place, p.alternatives, lang, nav.remainTimeSec / 60,
@@ -251,8 +252,22 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
             vm.gps != null -> if (lang == Lang.KO) "휴대폰 GPS: 목적지를 고르면 실제 위치로 길목 해설·도착·재탑승이 일어나요. 목적지 없이 달리려면 데모 바의 🪟 창밖." else "Phone GPS: pick a destination and the real position drives stories, arrival and re-boarding. No destination? Tap 🪟 in the bar."
             else -> if (lang == Lang.KO) "Pleos: 차량 내비에서 목적지를 설정하면 자동으로 시작돼요. 아래 목록은 가이드 미리보기예요." else "Pleos: set a destination in the car's navigation and it starts by itself. The list below previews the guides."
         }, size = 16)
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(14.dp))
         val prefs by vm.settings.prefs.collectAsState()
+        vm.resumable()?.let { (gid, ago) ->
+            val g = vm.guides().firstOrNull { it.id == gid }
+            if (g != null) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    ActionButton((if (lang == Lang.KO) "▶ 이어서 듣기 · " else "▶ Resume · ") + (g.destination.name[lang.tag] ?: g.id) + (if (lang == Lang.KO) " (${ago}분 전)" else " (${ago} min ago)"), primary = true) { vm.demoStartTrip(gid) }
+                    Small("✕") { vm.clearResume() }
+                }
+                Spacer(Modifier.height(10.dp))
+            }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            ActionButton(if (lang == Lang.KO) "📍 지금 주변 이야기 듣기" else "📍 A story near me now") { vm.playNearbyNow() }
+        }
+        Spacer(Modifier.height(12.dp))
         Text(if (lang == Lang.KO) "테마로 고르기" else "Pick by theme", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(6.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

@@ -238,6 +238,16 @@ class EngineFlowTest {
         r.engine.stop()
     }
 
+    @Test fun nearbyStoryNowPicksClosestUnplayed() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.nav.at(GeoPoint(37.5547, 126.9707))   // standing at 서울역, no trip started
+        assertTrue(r.engine.playNearbyNow(r.guides.all()))
+        assertTrue(r.spk.last().contains("서울역"))
+        r.engine.feedback(true)
+        assertEquals(1, r.engine.log.value.feedback.size)
+        r.engine.stop()
+    }
+
     @Test fun newCarOverlayExplainsSensorsAsTheyWork() = runTest(StandardTestDispatcher()) {
         val r = Rig(this)
         r.engine.overlay = r.guides.loadOverlay("car_onboarding")
