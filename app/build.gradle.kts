@@ -13,6 +13,8 @@ android {
         applicationId = "kr.roaddocent"
         minSdk = 33            // Pleos Connect AVD = API 34 (Pleos guide: minSdk >= 28)
         targetSdk = 35
+        // Google Sign-In needs a Web client ID from Google Cloud Console (OAuth 2.0 → Web application). Empty = button explains setup.
+        buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"" + (project.findProperty("GOOGLE_WEB_CLIENT_ID") ?: "") + "\"")
         versionCode = 1
         versionName = "0.1.0"
     }
@@ -38,12 +40,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
 }
 
 dependencies {
     implementation("com.google.zxing:core:3.5.3")
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     implementation(libs.androidx.core.ktx)

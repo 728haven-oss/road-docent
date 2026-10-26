@@ -104,8 +104,17 @@ data class Guide(
     /** "Know before you go": hours, fees, parking, best start time, what to bring — per language. Shown before departure. */
     val knowBeforeYouGo: Map<String, List<String>> = emptyMap(),
     /** Optional handoff when parked: the venue's own app or page (e.g. the museum's indoor guide). */
-    val handoff: Handoff? = null
+    val handoff: Handoff? = null,
+    /** Kids-mode quizzes asked between stories (tap or say the number). */
+    val kidsQuizzes: List<KidsQuiz> = emptyList()
 )
+
+/** Kids-mode window quiz with tappable options; asked between stories when a child is riding. */
+@Serializable
+data class KidsQuiz(val id: String, val question: Map<String, String>, val options: Map<String, List<String>>, val answer: Int, val praise: Map<String, String> = emptyMap()) {
+    fun q(lang: Lang) = question[lang.tag] ?: question.values.first()
+    fun opts(lang: Lang) = options[lang.tag] ?: options.values.first()
+}
 
 @Serializable
 data class Handoff(val label: Map<String, String>, val url: String, val note: Map<String, String> = emptyMap())

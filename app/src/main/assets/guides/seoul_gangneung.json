@@ -489,5 +489,71 @@
       "Bring: windbreaker (sea wind), sand toys for kids, a takeaway cup for coffee street",
       "Budget: coffee ₩6–8k · Chodang tofu ₩10–13k per person · peak weekend stays ₩150–250k"
     ]
-  }
+  },
+  "kidsQuizzes": [
+    {
+      "id": "kq1",
+      "question": {
+        "ko": "강원도에서 유명한 음식은?",
+        "en": "Which food is Gangwon famous for?"
+      },
+      "options": {
+        "ko": [
+          "감자",
+          "바나나",
+          "파인애플"
+        ],
+        "en": [
+          "Potatoes",
+          "Bananas",
+          "Pineapples"
+        ]
+      },
+      "answer": 1
+    },
+    {
+      "id": "kq2",
+      "question": {
+        "ko": "강릉 바다는 어느 쪽 바다일까?",
+        "en": "Which sea is Gangneung on?"
+      },
+      "options": {
+        "ko": [
+          "서해",
+          "남해",
+          "동해"
+        ],
+        "en": [
+          "West Sea",
+          "South Sea",
+          "East Sea"
+        ]
+      },
+      "answer": 3,
+      "praise": {
+        "ko": "정답! 해가 뜨는 바다야.",
+        "en": "Right! Where the sun rises."
+      }
+    },
+    {
+      "id": "kq3",
+      "question": {
+        "ko": "대관령에서 많이 키우는 동물은?",
+        "en": "Which animals are raised on Daegwallyeong?"
+      },
+      "options": {
+        "ko": [
+          "양",
+          "펭귄",
+          "코끼리"
+        ],
+        "en": [
+          "Sheep",
+          "Penguins",
+          "Elephants"
+        ]
+      },
+      "answer": 1
+    }
+  ]
 }

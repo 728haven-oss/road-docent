@@ -384,5 +384,71 @@
       "Bring: your own stroller (no rental), online booking confirmation (exchanged for a wristband)",
       "Budget: about ₩30k for a family of four at the experience exhibit, plus the in-house restaurant or cafe"
     ]
-  }
+  },
+  "kidsQuizzes": [
+    {
+      "id": "kq1",
+      "question": {
+        "ko": "현대자동차가 처음 만든 자기 차 이름은?",
+        "en": "What was Hyundai's first own car called?"
+      },
+      "options": {
+        "ko": [
+          "포니",
+          "펭귄",
+          "피아노"
+        ],
+        "en": [
+          "Pony",
+          "Penguin",
+          "Piano"
+        ]
+      },
+      "answer": 1,
+      "praise": {
+        "ko": "정답! 조랑말이라는 뜻이야.",
+        "en": "Right! It means a small horse."
+      }
+    },
+    {
+      "id": "kq2",
+      "question": {
+        "ko": "전기차는 무엇으로 달릴까?",
+        "en": "What does an electric car run on?"
+      },
+      "options": {
+        "ko": [
+          "물",
+          "전기",
+          "바람"
+        ],
+        "en": [
+          "Water",
+          "Electricity",
+          "Wind"
+        ]
+      },
+      "answer": 2
+    },
+    {
+      "id": "kq3",
+      "question": {
+        "ko": "차에 있는 센서는 몇 개쯤 될까?",
+        "en": "About how many sensors does a car have?"
+      },
+      "options": {
+        "ko": [
+          "세 개",
+          "서른 개 넘게",
+          "딱 하나"
+        ],
+        "en": [
+          "Three",
+          "More than thirty",
+          "Just one"
+        ]
+      },
+      "answer": 2
+    }
+  ]
 }

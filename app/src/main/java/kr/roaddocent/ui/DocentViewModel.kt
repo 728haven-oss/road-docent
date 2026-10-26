@@ -30,6 +30,42 @@ enum class Source { PLEOS, SIMULATOR, PHONE_GPS }
 
 class DocentViewModel(app: Application) : AndroidViewModel(app) {
     val settings = SettingsStore(app)
+    // ---- sign-in -------------------------------------------------------------------------------------
+    val auth = kr.roaddocent.auth.AuthStore(app)
+    private val _user = MutableStateFlow(auth.user)
+    val user: StateFlow<kr.roaddocent.auth.User?> = _user.asStateFlow()
+    private val _authError = MutableStateFlow<String?>(null)
+    val authError: StateFlow<String?> = _authError.asStateFlow()
+    private val _authBusy = MutableStateFlow(false)
+    val authBusy: StateFlow<Boolean> = _authBusy.asStateFlow()
+    val termsNeeded: Boolean get() = auth.termsVersion != kr.roaddocent.auth.AuthStore.TERMS_VERSION
+    val googleReady: Boolean get() = kr.roaddocent.BuildConfig.GOOGLE_WEB_CLIENT_ID.isNotBlank()
+    fun termsText(): String = runCatching { getApplication<Application>().assets.open("terms_ko.md").bufferedReader().readText() }.getOrDefault("약관 파일을 불러올 수 없습니다.")
+
+    fun signInLocal(id: String, pw: String) {
+        if (id.isBlank() || pw.isBlank()) { _authError.value = "아이디와 비밀번호를 입력해 주세요."; return }
+        auth.signInLocal(id, pw).onSuccess { _user.value = it; _authError.value = null }
+            .onFailure { _authError.value = "아이디 또는 비밀번호가 맞지 않아요. (테스트: tester / pleos2026!)" }
+    }
+    /** Google Sign-In via Credential Manager; needs a Web client ID in BuildConfig. Called with the Activity context. */
+    fun signInGoogle(activity: android.content.Context) {
+        if (!googleReady) { _authError.value = "Google 로그인은 웹 클라이언트 ID를 설정하면 켜져요. 지금은 테스트 계정으로 로그인해 주세요."; return }
+        _authBusy.value = true
+        viewModelScope.launch {
+            runCatching {
+                val option = com.google.android.libraries.identity.googleid.GetGoogleIdOption.Builder()
+                    .setFilterByAuthorizedAccounts(false).setServerClientId(kr.roaddocent.BuildConfig.GOOGLE_WEB_CLIENT_ID).build()
+                val req = androidx.credentials.GetCredentialRequest.Builder().addCredentialOption(option).build()
+                val res = androidx.credentials.CredentialManager.create(activity).getCredential(activity, req)
+                val cred = com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.createFrom(res.credential.data)
+                auth.signInGoogle(cred.id, cred.displayName ?: "", cred.idToken.hashCode().toString())
+            }.onSuccess { _user.value = it; _authError.value = null }
+             .onFailure { _authError.value = "Google 로그인 실패: " + (it.message ?: it.javaClass.simpleName) }
+            _authBusy.value = false
+        }
+    }
+    fun acceptTerms() { auth.acceptTerms(kr.roaddocent.auth.AuthStore.TERMS_VERSION); _user.value = auth.user }
+    fun signOut() { auth.signOut(); _user.value = null; if (::engine.isInitialized) runCatching { engine.endTrip() }; _source.value = null }
     /** Multi-day history (kept only when "keep travel log" is on). */
     val history = kr.roaddocent.log.TripHistory(app)
     val storyBank = kr.roaddocent.content.StoryBank(app)
@@ -140,8 +176,10 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         engine.onQuizRevealed = { tone?.startTone(android.media.ToneGenerator.TONE_PROP_ACK, 180) }
         companionJob?.cancel()
         companionJob = viewModelScope.launch {
-            kotlinx.coroutines.flow.combine(engine.nowPlaying, engine.quiz, engine.log, engine.lang) { ep, q, l, lang -> kr.roaddocent.share.CompanionServer.State(
-                title = ep?.titleFor(lang) ?: "", text = ep?.textFor(lang, engine.audience.value) ?: "", quiz = q?.question, answer = q?.answer, stickers = l.stickers, lang = lang.tag,
+            kotlinx.coroutines.flow.combine(engine.nowPlaying, engine.quiz, engine.log, engine.lang, engine.kidsQuiz) { ep, q, l, lang, kq -> kr.roaddocent.share.CompanionServer.State(
+                title = ep?.titleFor(lang) ?: "", text = ep?.textFor(lang, engine.audience.value) ?: "",
+                quiz = kq?.quiz?.let { it.q(lang) + "\n" + it.opts(lang).mapIndexed { i, o -> "${i + 1}. $o" }.joinToString("   ") } ?: q?.question,
+                answer = kq?.let { v -> v.correct?.let { ok -> if (ok) "⭐ 정답!" else "정답은 ${v.quiz.answer}번" } } ?: q?.answer, stickers = l.stickers, lang = lang.tag,
                 phrases = engine.guide?.phrases.orEmpty().take(5).map { it.ko to (it.meaning["en"] ?: it.romanized) }) }.collect { companion.update(it) }
         }
         historyJob?.cancel()

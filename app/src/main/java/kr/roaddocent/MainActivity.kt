@@ -86,25 +86,42 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Root(vm: DocentViewModel, onDial: (String) -> Unit) {
     val source by vm.source.collectAsState()
+    val user by vm.user.collectAsState()
+    val authError by vm.authError.collectAsState()
+    val authBusy by vm.authBusy.collectAsState()
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    var termsOk by androidx.compose.runtime.remember(user) { androidx.compose.runtime.mutableStateOf(!vm.termsNeeded) }
+    val pad = Modifier.fillMaxSize().padding(horizontal = if (kr.roaddocent.ui.theme.isCompact()) 12.dp else 36.dp, vertical = if (kr.roaddocent.ui.theme.isCompact()) 10.dp else 22.dp)
     Box(Modifier.fillMaxSize().background(Bg)) {
-        if (source == null) ConnectScreen(onPick = { vm.connect(it) }) else Shell(vm, onDial)
+        when {
+            user == null -> Box(pad) { kr.roaddocent.ui.screen.LoginScreen(authError, vm.googleReady, authBusy, onLocal = vm::signInLocal, onGoogle = { vm.signInGoogle(ctx) }) }
+            !termsOk -> Box(pad) { kr.roaddocent.ui.screen.TermsScreen(vm.termsText(), onAccept = { vm.acceptTerms(); termsOk = true }, onDecline = { vm.signOut() }) }
+            source == null -> ConnectScreen(user!!.name, onPick = { vm.connect(it) }, onSignOut = { vm.signOut() })
+            else -> Shell(vm, onDial)
+        }
     }
 }
 
 @Composable
-fun ConnectScreen(onPick: (Source) -> Unit) {
-    Column(Modifier.fillMaxSize().padding(44.dp), verticalArrangement = Arrangement.Center) {
+fun ConnectScreen(userName: String, onPick: (Source) -> Unit, onSignOut: () -> Unit) {
+    Column(Modifier.fillMaxSize().padding(if (kr.roaddocent.ui.theme.isCompact()) 20.dp else 44.dp), verticalArrangement = Arrangement.Center) {
         Headline("로드 도슨트 · Road Docent", 36)
         Spacer(Modifier.height(8.dp))
-        Body("목적지를 찍는 순간, 내 차에 그 지역 전문 가이드가 탑승한다.", size = 18)
+        Body("$userName 님, 어떤 차에 연결할까요?", size = 18)
         Spacer(Modifier.height(32.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+        if (kr.roaddocent.ui.theme.isCompact()) Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            ActionButton("시뮬레이션 · 데모", primary = true) { onPick(Source.SIMULATOR) }
+            ActionButton("📍 휴대폰 GPS · 실제 위치") { onPick(Source.PHONE_GPS) }
+            ActionButton("Pleos 차량 연결 (차량·AVD에서만)") { onPick(Source.PLEOS) }
+        } else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             ActionButton("Pleos 차량 연결 (NaviHelper · Vehicle SDK)", primary = true) { onPick(Source.PLEOS) }
             ActionButton("시뮬레이션 · 데모") { onPick(Source.SIMULATOR) }
             ActionButton("📍 휴대폰 GPS · 실제 위치") { onPick(Source.PHONE_GPS) }
         }
         Spacer(Modifier.height(18.dp))
         Body("Pleos 연결은 Pleos Connect AVD 또는 실차에서 동작합니다. 시뮬레이션은 어떤 Android 기기에서도 전체 흐름을 보여줍니다. 휴대폰 GPS는 실제 위치로 길목 해설·도착·재탑승이 일어납니다 (목적지를 고르거나 🪟 창밖으로 그냥 달리기).", size = 13)
+        Spacer(Modifier.height(14.dp))
+        Row { Small("로그아웃") { onSignOut() } }
     }
 }
 
@@ -120,6 +137,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
     val nav by engine.navState.collectAsState()
     val speaking by engine.speaking.collectAsState()
     val quiz by engine.quiz.collectAsState()
+    val kidsQuiz by engine.kidsQuiz.collectAsState()
     val vehicle by engine.vehicleState.collectAsState()
     val companionUrl by vm.companionUrl.collectAsState()
     var companionOpen by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
@@ -198,7 +216,8 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
 
         val hintCtx = when (phase) { is DocentPhase.Briefing -> "briefing"; is DocentPhase.WhereNext -> "wherenext"; is DocentPhase.Parked -> "parked"; else -> null }
         if (hintCtx != null) { Spacer(Modifier.height(8.dp)); kr.roaddocent.ui.screen.VoiceHint(lang, hintCtx) }
-        if (audience == Audience.KIDS && phase is DocentPhase.Guiding && vehicle.gearPark) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
+        kidsQuiz?.let { kq -> Spacer(Modifier.height(10.dp)); kr.roaddocent.ui.screen.KidsQuizCard(kq, lang, onAnswer = engine::answerKidsQuiz) }
+        if (audience == Audience.KIDS && kidsQuiz == null && phase is DocentPhase.Guiding && vehicle.gearPark) { Spacer(Modifier.height(12.dp)); KidsPanel(lang, log.quizzesRight) }
         val courses = engine.guide?.creatorCourses.orEmpty()
         if (courses.isNotEmpty() && !kr.roaddocent.ui.theme.isCompact() && (phase is DocentPhase.Briefing || phase is DocentPhase.WhereNext)) {
             Spacer(Modifier.height(12.dp))
@@ -328,6 +347,7 @@ fun DemoBar(vm: DocentViewModel, lang: Lang, audience: Audience, onCompanion: ()
             Small("🪟 창밖") { vm.demoFreeRide() }
         }
         vm.gps?.let { g -> Small("🧒 뒷좌석") { g.rearSeat = !g.rearSeat }; Small("🪟 창밖") { vm.demoFreeRide() } }
+        if (audience == Audience.KIDS) Small("❓ 퀴즈") { engine.askKidsQuiz() }
         Small("🗺 일지") { vm.engine.cmdShowLog() }
         Small("📱 동승자") { onCompanion() }
         Small("⚙ 설정") { vm.openSettings(true) }

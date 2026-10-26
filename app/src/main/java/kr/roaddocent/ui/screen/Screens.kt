@@ -342,6 +342,27 @@ fun RouteCanvas(log: TripLog, modifier: Modifier) {
 }
 
 /** 5. Kids overlay panel (shown inside Playing when audience == KIDS) */
+/** Kids window quiz card: question + three big option buttons; works on the car screen and on the companion phone. */
+@Composable
+fun KidsQuizCard(v: kr.roaddocent.engine.DocentEngine.KidsQuizView, lang: Lang, onAnswer: (Int) -> Unit) {
+    Panel(Modifier.fillMaxWidth()) {
+        Text(if (lang == Lang.KO) "🪟 창밖 퀴즈" else "🪟 Window quiz", color = Accent, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(4.dp))
+        Text(v.quiz.q(lang), color = Ink, fontSize = carSp(22), lineHeight = (26 * kr.roaddocent.ui.theme.TypeScale.factor).sp)
+        Spacer(Modifier.height(10.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            v.quiz.opts(lang).forEachIndexed { i, o ->
+                val n = i + 1
+                val state = when { v.chosen == null -> 0; n == v.quiz.answer -> 1; n == v.chosen -> 2; else -> 3 }
+                Text("$n. $o", Modifier.weight(1f).background(when (state) { 1 -> Accent; 2 -> Chip; else -> Chip }, RoundedCornerShape(14.dp))
+                    .clickable(enabled = v.chosen == null) { onAnswer(n) }.padding(horizontal = 12.dp, vertical = 14.dp),
+                    color = when (state) { 1 -> AccentInk; 2 -> Quiet; else -> Ink }, fontSize = carSp(20), maxLines = 2)
+            }
+        }
+        v.correct?.let { ok -> Spacer(Modifier.height(6.dp)); Text(if (ok) (if (lang == Lang.KO) "⭐ 정답! 스티커 획득" else "⭐ Correct! Sticker earned") else (if (lang == Lang.KO) "정답은 ${v.quiz.answer}번" else "The answer is ${v.quiz.answer}"), color = if (ok) Accent else Quiet, fontSize = carSp(18)) }
+    }
+}
+
 @Composable
 fun KidsPanel(lang: Lang, quizzes: Int) {
     Panel(Modifier.fillMaxWidth()) {

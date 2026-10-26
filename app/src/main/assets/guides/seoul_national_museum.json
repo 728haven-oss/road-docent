@@ -586,5 +586,71 @@
       "ko": "박물관 공식 앱: 실내 길안내, 5개 국어 유물 해설, 추천 동선, 나만의 전시투어. 차 안 가이드는 주차 후 여기로 넘기고, 다시 타시면 이어받습니다.",
       "en": "The official app has indoor wayfinding, artefact commentary in five languages, recommended routes and custom tours. The car guide hands over on parking and picks up when you return."
     }
-  }
+  },
+  "kidsQuizzes": [
+    {
+      "id": "kq1",
+      "question": {
+        "ko": "생각하는 부처님은 손가락을 어디에 대고 있을까?",
+        "en": "Where does the Thinking Buddha rest his finger?"
+      },
+      "options": {
+        "ko": [
+          "이마",
+          "뺨",
+          "배"
+        ],
+        "en": [
+          "Forehead",
+          "Cheek",
+          "Tummy"
+        ]
+      },
+      "answer": 2
+    },
+    {
+      "id": "kq2",
+      "question": {
+        "ko": "박물관에 있는 하얀 돌탑은 배를 몇 번 탔을까?",
+        "en": "How many times did the white stone pagoda ride a ship?"
+      },
+      "options": {
+        "ko": [
+          "한 번도 안 탔어",
+          "두 번",
+          "열 번"
+        ],
+        "en": [
+          "Never",
+          "Twice",
+          "Ten times"
+        ]
+      },
+      "answer": 2,
+      "praise": {
+        "ko": "맞아, 일본에 갔다가 돌아왔어!",
+        "en": "Yes, it went to Japan and came back!"
+      }
+    },
+    {
+      "id": "kq3",
+      "question": {
+        "ko": "서울로 7017의 숫자는 무슨 뜻일까?",
+        "en": "What do the numbers in Seoullo 7017 mean?"
+      },
+      "options": {
+        "ko": [
+          "버스 번호",
+          "1970년과 2017년",
+          "길이 7,017미터"
+        ],
+        "en": [
+          "A bus number",
+          "1970 and 2017",
+          "7,017 metres long"
+        ]
+      },
+      "answer": 2
+    }
+  ]
 }

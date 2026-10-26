@@ -139,13 +139,18 @@ class EngineFlowTest {
         r.engine.setAudience(Audience.KIDS)
         r.start("경복궁"); tick()
         // play through the queue until a quiz episode is up
-        repeat(6) { if (r.engine.quiz.value == null) { r.spk.finish(); advanceTimeBy(3_000) } }
+        repeat(8) {
+            if (r.engine.quiz.value == null) {
+                r.engine.kidsQuiz.value?.let { kq -> r.engine.answerKidsQuiz(kq.quiz.answer); advanceTimeBy(5_000) }   // kids window quiz may interleave
+                r.spk.finish(); advanceTimeBy(3_000)
+            }
+        }
         assertNotNull("a quiz episode is reached in the start queue", r.engine.quiz.value)
         assertEquals(null, r.engine.quiz.value!!.answer)
         r.spk.finish(); advanceTimeBy(10_000)
         assertNotNull("answer revealed after the pause", r.engine.quiz.value!!.answer)
         assertTrue(r.spk.last().startsWith("정답은"))
-        assertEquals(1, r.engine.log.value.stickers)
+        assertTrue("sticker for the episode quiz (plus any window quiz)", r.engine.log.value.stickers >= 1)
         r.engine.stop()
     }
 
@@ -174,6 +179,23 @@ class EngineFlowTest {
         assertTrue("next leg's route handed to navigation", (r.nav.plannedRoute?.size ?: 0) > 2)
         assertTrue(r.engine.phase.value is DocentPhase.Guiding)
         assertTrue("museum intro starts", r.spk.spoken.takeLast(2).any { it.contains("박물관") })
+        r.engine.stop()
+    }
+
+    @Test fun kidsQuizAfterTwoStoriesAndTapScores() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.engine.setAudience(Audience.KIDS)
+        r.start("강릉"); tick()
+        r.spk.finish(); advanceTimeBy(3_000)          // story 1 done → story 2 plays
+        r.spk.finish(); advanceTimeBy(500)            // story 2 done → quiz asked instead of story 3
+        val kq = r.engine.kidsQuiz.value
+        assertNotNull("kids quiz opened after two stories", kq)
+        assertTrue(r.spk.last().contains("창밖 퀴즈"))
+        r.engine.answerKidsQuiz(kq!!.quiz.answer); tick()
+        assertEquals(true, r.engine.kidsQuiz.value?.correct)
+        assertEquals(1, r.engine.log.value.stickers)
+        advanceTimeBy(5_000)
+        assertEquals("card closes after the praise", null, r.engine.kidsQuiz.value)
         r.engine.stop()
     }
 

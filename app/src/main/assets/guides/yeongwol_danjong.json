@@ -443,5 +443,71 @@
       "Bring: walking shoes (pine woods and the uphill to the longing tower), insect repellent in summer, snacks for kids",
       "Budget: ₩5,000 entry per person + ₩10–15k lunch + about ₩7,000 observatory (book ahead)"
     ]
-  }
+  },
+  "kidsQuizzes": [
+    {
+      "id": "kq1",
+      "question": {
+        "ko": "단종은 몇 살에 왕이 됐을까?",
+        "en": "How old was Danjong when he became king?"
+      },
+      "options": {
+        "ko": [
+          "열두 살",
+          "서른 살",
+          "예순 살"
+        ],
+        "en": [
+          "Twelve",
+          "Thirty",
+          "Sixty"
+        ]
+      },
+      "answer": 1
+    },
+    {
+      "id": "kq2",
+      "question": {
+        "ko": "청령포에 갈 때는 무엇을 타고 건널까?",
+        "en": "How do you cross to Cheongnyeongpo?"
+      },
+      "options": {
+        "ko": [
+          "배",
+          "기차",
+          "비행기"
+        ],
+        "en": [
+          "Boat",
+          "Train",
+          "Plane"
+        ]
+      },
+      "answer": 1,
+      "praise": {
+        "ko": "맞아, 1분이면 건너!",
+        "en": "Yes, a one-minute ride!"
+      }
+    },
+    {
+      "id": "kq3",
+      "question": {
+        "ko": "영월에서 밤에 별을 보는 곳은?",
+        "en": "Where do you watch stars at night in Yeongwol?"
+      },
+      "options": {
+        "ko": [
+          "별마로천문대",
+          "장릉",
+          "관풍헌"
+        ],
+        "en": [
+          "Byeolmaro Observatory",
+          "Jangneung",
+          "Gwanpungheon"
+        ]
+      },
+      "answer": 1
+    }
+  ]
 }

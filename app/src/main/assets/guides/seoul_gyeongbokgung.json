@@ -796,5 +796,99 @@
       "ko": "한국관광공사 무료 앱. 광화문·근정전 등 지점마다 상궁과 내관의 대화로 해설해요. 차 안 가이드는 여기서 손을 떼고, 다시 타시면 이어받습니다.",
       "en": "Free Korea Tourism Organization app with spot-by-spot narration inside. The car guide hands over here and picks up again when you're back."
     }
-  }
+  },
+  "kidsQuizzes": [
+    {
+      "id": "kq1",
+      "question": {
+        "ko": "광화문 앞에 앉아 있는 금색 동상은 누구일까?",
+        "en": "Who is the golden statue in front of Gwanghwamun?"
+      },
+      "options": {
+        "ko": [
+          "세종대왕",
+          "이순신 장군",
+          "단종"
+        ],
+        "en": [
+          "King Sejong",
+          "Admiral Yi",
+          "King Danjong"
+        ]
+      },
+      "answer": 1,
+      "praise": {
+        "ko": "맞아! 한글을 만든 왕이야.",
+        "en": "Yes! The king who made Hangeul."
+      }
+    },
+    {
+      "id": "kq2",
+      "question": {
+        "ko": "남대문은 몇 살쯤 됐을까?",
+        "en": "About how old is Namdaemun gate?"
+      },
+      "options": {
+        "ko": [
+          "60살",
+          "600살",
+          "6,000살"
+        ],
+        "en": [
+          "60",
+          "600",
+          "6,000"
+        ]
+      },
+      "answer": 2,
+      "praise": {
+        "ko": "정답! 1398년에 지었어.",
+        "en": "Right! Built in 1398."
+      }
+    },
+    {
+      "id": "kq3",
+      "question": {
+        "ko": "경복궁 앞마당 돌바닥이 울퉁불퉁한 이유는?",
+        "en": "Why is the palace courtyard floor bumpy?"
+      },
+      "options": {
+        "ko": [
+          "만들다 말아서",
+          "미끄러지지 말라고",
+          "공놀이하려고"
+        ],
+        "en": [
+          "They never finished it",
+          "So no one slips",
+          "For ball games"
+        ]
+      },
+      "answer": 2,
+      "praise": {
+        "ko": "그렇지! 햇빛도 덜 반사돼.",
+        "en": "Yes! It cuts the sun's glare too."
+      }
+    },
+    {
+      "id": "kq4",
+      "question": {
+        "ko": "해태는 무엇을 막아 준다고 믿었을까?",
+        "en": "What did people believe the haetae stops?"
+      },
+      "options": {
+        "ko": [
+          "비",
+          "불",
+          "바람"
+        ],
+        "en": [
+          "Rain",
+          "Fire",
+          "Wind"
+        ]
+      },
+      "answer": 2
+    }
+  ]
 }
