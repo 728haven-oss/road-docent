@@ -172,7 +172,7 @@ class CloudVoiceSpeaker(private val context: Context, private val client: VoiceC
         if (model == null || !client.available) { fallback.speak(text, lang, utteranceId); return }
         this.lang = lang; paused = false
         stopPlayer()
-        queue = text.split(Regex("(?<=[.!?。]|다\\.|요\\.)\\s+")).filter { it.isNotBlank() }
+        queue = SpeechText.sentences(SpeechText.normalize(text, lang))
         next(model)
     }
 

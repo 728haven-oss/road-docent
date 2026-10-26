@@ -56,7 +56,7 @@ class AndroidSpeaker(context: Context) : Speaker {
         tts.language = if (lang == Lang.KO) Locale.KOREAN else Locale.US
         tts.setSpeechRate(0.95f)
         // Sentence-level queue so pause() can stop at a boundary and resume() continues.
-        remaining = text.split(Regex("(?<=[.!?。]|다\\.|요\\.)\\s+")).filter { it.isNotBlank() }
+        remaining = SpeechText.sentences(SpeechText.normalize(text, lang))
         paused = false
         speakNext()
     }
