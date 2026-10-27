@@ -75,6 +75,10 @@ open class ScreenshotTest {
         val all = listOf("seoul_gyeongbokgung", "seoul_national_museum", "yeongwol_danjong", "seoul_gangneung", "goyang_motorstudio").map { guide(it) }
         kr.roaddocent.ui.screen.HomeScreen("테스터", Lang.KO, "시연 모드 · 코스를 고르면 내비가 설정되고 가이드가 탑승해요.", all, "", all[0] to 12L, onTheme = {}, onStart = {}, onNearby = {}, onResume = {}, onDismissResume = {})
     }
+    @Test fun s04c_home_search() = shot("04c_home_search") {
+        val all = listOf("seoul_gyeongbokgung", "seoul_national_museum", "yeongwol_danjong", "seoul_gangneung", "goyang_motorstudio").map { guide(it) }
+        kr.roaddocent.ui.screen.HomeScreen("테스터", Lang.KO, "시연 모드", all, "history", null, onTheme = {}, onStart = {}, onNearby = {}, onResume = {}, onDismissResume = {})
+    }
     @Test fun s04b_tripintro() = shot("04b_tripintro") { kr.roaddocent.TripIntroScene(gb, Lang.KO, gb.route.first()) }
     @Test fun s05b_kidsquiz() = shot("05b_kidsquiz") { kr.roaddocent.ui.screen.KidsQuizCard(kr.roaddocent.engine.DocentEngine.KidsQuizView(gb.kidsQuizzes.first(), null, null), Lang.KO, onAnswer = {}) }
     @Test fun s11_map_museum() = shot("11_map_museum") {
