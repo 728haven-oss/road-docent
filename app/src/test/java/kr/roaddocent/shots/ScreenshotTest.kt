@@ -40,8 +40,10 @@ import java.io.File
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34], qualifiers = "w411dp-h891dp-xxhdpi")
-class ScreenshotTest {
+open class ScreenshotTest {
     @get:Rule val rule = createComposeRule()
+    /** Sub-folder for this device profile. */
+    open val profile = "phone411"
 
     private val json = Json { ignoreUnknownKeys = true; classDiscriminator = "type" }
     private fun guide(id: String): Guide = json.decodeFromString(Guide.serializer(), File("src/main/assets/guides/$id.json").readText())
@@ -49,7 +51,9 @@ class ScreenshotTest {
 
     private fun shot(name: String, content: @Composable () -> Unit) {
         rule.setContent { RoadDocentTheme { Box(Modifier.fillMaxSize().padding(horizontal = 12.dp, vertical = 10.dp)) { content() } } }
-        rule.onRoot().captureRoboImage(File(System.getProperty("user.dir"), "build/shots/$name.png").absolutePath)
+        val dir = File(System.getProperty("user.dir"), "build/shots/$profile").apply { mkdirs() }
+        rule.onRoot().captureRoboImage(File(dir, "$name.png").absolutePath)
+        TextAudit.audit(rule, "$profile/$name", File(dir, "_text_audit.txt"))
     }
 
     @Test fun s01_login() = shot("01_login") { LoginScreen(error = null, googleReady = false, busy = false, onLocal = { _, _ -> }, onGoogle = {}) }

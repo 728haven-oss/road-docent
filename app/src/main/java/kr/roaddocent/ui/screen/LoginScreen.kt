@@ -21,7 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
+import kr.roaddocent.ui.theme.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,8 +56,8 @@ fun LoginScreen(error: String?, googleReady: Boolean, busy: Boolean, onLocal: (S
                 Text("로드 도슨트", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight.Bold)
                 Text("목적지를 찍는 순간,\n내 차에 그 지역 전문 가이드가 탑승합니다.", color = Color(0xE6FFFFFF), fontSize = 15.sp, lineHeight = 22.sp)
                 Spacer(Modifier.height(14.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-                    listOf("🚗", "🏯", "🏛️", "🌊", "🎢").forEach { Text(it, Modifier.background(Color(0x26FFFFFF), RoundedCornerShape(12.dp)).padding(horizontal = 10.dp, vertical = 6.dp), fontSize = 22.sp) }
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    listOf("🚗", "🏯", "🏛️", "🌊", "🎢").forEach { Text(it, Modifier.weight(1f).background(Color(0x26FFFFFF), RoundedCornerShape(12.dp)).padding(vertical = 6.dp), fontSize = 22.sp, textAlign = androidx.compose.ui.text.style.TextAlign.Center, maxLines = 1) }
                 }
             }
             Panel(Modifier.fillMaxWidth()) {
