@@ -15,6 +15,7 @@ class AuthStore(context: Context) {
 
     /** Test accounts for reviewers. Passwords are stored as SHA-256; the README lists the plain ones. */
     private val accounts = mapOf(
+        "test" to Triple(sha("1234"), "테스트", "test@roaddocent.kr"),
         "tester" to Triple(sha("pleos2026!"), "테스터", "tester@roaddocent.kr"),
         "judge" to Triple(sha("hyundai2026"), "심사위원", "judge@roaddocent.kr"),
         "family" to Triple(sha("family2026"), "가족", "family@roaddocent.kr")

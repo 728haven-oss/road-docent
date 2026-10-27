@@ -75,7 +75,7 @@ fun LoginScreen(error: String?, googleReady: Boolean, busy: Boolean, onLocal: (S
             Column(Modifier.fillMaxWidth().background(kr.roaddocent.ui.theme.SkySoft, RoundedCornerShape(14.dp)).padding(14.dp)) {
                 Text("🧪 테스트 계정", color = kr.roaddocent.ui.theme.Navy, fontSize = 13.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(6.dp))
-                listOf("tester" to "pleos2026!", "judge" to "hyundai2026", "family" to "family2026").forEach { (a, b) ->
+                listOf("test" to "1234").forEach { (a, b) ->
                     Row(Modifier.fillMaxWidth().clickable { id = a; pw = b }.padding(vertical = 3.dp)) {
                         Text(a, color = Ink, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.width(80.dp)); Text(b, color = Quiet, fontSize = 14.sp)
                         Spacer(Modifier.weight(1f)); Text("채우기", color = kr.roaddocent.ui.theme.Navy, fontSize = 12.sp)

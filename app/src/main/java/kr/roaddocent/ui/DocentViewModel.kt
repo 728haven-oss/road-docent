@@ -46,7 +46,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     fun signInLocal(id: String, pw: String) {
         if (id.isBlank() || pw.isBlank()) { _authError.value = "아이디와 비밀번호를 입력해 주세요."; return }
         auth.signInLocal(id, pw).onSuccess { _user.value = it; _authError.value = null }
-            .onFailure { _authError.value = "아이디 또는 비밀번호가 맞지 않아요. (테스트: tester / pleos2026!)" }
+            .onFailure { _authError.value = "아이디 또는 비밀번호가 맞지 않아요. (테스트: test / 1234)" }
     }
     /** Google Sign-In via Credential Manager; needs a Web client ID in BuildConfig. Called with the Activity context. */
     fun signInGoogle(activity: android.content.Context) {
