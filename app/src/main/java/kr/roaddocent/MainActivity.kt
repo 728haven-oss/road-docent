@@ -182,7 +182,7 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
             Text("←", Modifier.background(Chip, RoundedCornerShape(999.dp)).clickable { vm.back() }.padding(horizontal = 12.dp, vertical = 4.dp), color = Ink, fontSize = 16.sp)
             Spacer(Modifier.width(8.dp))
             Text(if (lang == Lang.KO) "로드 도슨트" else "Road Docent", color = Ink, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            if (nav.active) Text("  · ${nav.destinationName}${if (lang == Lang.KO) "까지 " else " in "}${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 16.sp)
+            if (nav.active) Text("  · " + nearLabel(engine.guide, nav.location, lang) + " → ${nav.destinationName} ${nav.remainTimeSec / 60}${if (lang == Lang.KO) "분" else " min"}", color = Quiet, fontSize = 14.sp, maxLines = 1)
             Spacer(Modifier.weight(1f))
             toast?.let { Text(it, Modifier.background(Chip, RoundedCornerShape(999.dp)).padding(horizontal = 10.dp, vertical = 4.dp).widthIn(max = 220.dp), color = Ink, fontSize = 13.sp, maxLines = 1); Spacer(Modifier.width(6.dp)) }
             if (heard.isNotBlank()) { Text("“$heard”", Modifier.background(Chip, RoundedCornerShape(999.dp)).padding(horizontal = 10.dp, vertical = 4.dp).widthIn(max = 160.dp), color = Ink, fontSize = 13.sp, maxLines = 1); Spacer(Modifier.width(6.dp)) }
@@ -195,10 +195,14 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
         }
         Spacer(Modifier.height(16.dp))
 
+        val tripIntro by vm.tripIntro.collectAsState()
         Box(Modifier.weight(1f)) {
+            val intro = tripIntro
+            if (intro != null) { TripIntroScene(intro, lang, nav.location); return@Box }
             when (val p = phase) {
                 is DocentPhase.Idle -> IdleScreen(lang, vm)
                 is DocentPhase.Guiding -> Column {
+                    engine.guide?.let { g -> if (!kr.roaddocent.ui.theme.isCompact() || vehicle.gearPark) { TripMapStrip(g, nav.location, lang); Spacer(Modifier.height(10.dp)) } }
                     PlayingScreen(
                         ep = p.episode, all = engine.guide?.episodes?.filter { it.trigger !is kr.roaddocent.core.Trigger.Reboard } ?: emptyList(),
                         played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
@@ -270,7 +274,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
         Spacer(Modifier.height(12.dp))
         Text(if (lang == Lang.KO) "테마로 고르기" else "Pick by theme", color = Quiet, fontSize = 14.sp)
         Spacer(Modifier.height(6.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        kr.roaddocent.ui.theme.ChipRow {
             Pill(if (lang == Lang.KO) "전체" else "All", Modifier.clickable { vm.setTheme("") }, selected = prefs.theme.isBlank())
             kr.roaddocent.core.Themes.order.filter { it != "car" }.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, lang), Modifier.clickable { vm.setTheme(t) }, selected = prefs.theme == t) }
         }
@@ -282,10 +286,7 @@ fun IdleScreen(lang: Lang, vm: DocentViewModel) {
             if (list.isEmpty()) Body(if (lang == Lang.KO) "이 테마의 가이드가 아직 없어요. '전체'를 눌러 보세요." else "No guide for this theme yet; try All.", size = 14)
             list.forEach { g ->
                 val th = g.themes.joinToString(" ") { kr.roaddocent.core.Themes.label(it, lang).take(2) }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    ActionButton((g.startName[lang.tag] ?: "") + " → " + (g.destination.name[lang.tag] ?: g.id) + "   " + th, primary = g.id == "seoul_gyeongbokgung") { vm.demoStartTrip(g.id) }
-                    if (g.knowBeforeYouGo.isNotEmpty()) Small(if (lang == Lang.KO) "ℹ 알아두기" else "ℹ Before you go") { preview = g }
-                }
+                kr.roaddocent.ui.screen.DestinationCard(g, lang, primary = g.id == "seoul_gyeongbokgung", onStart = { vm.demoStartTrip(g.id) }, onInfo = { preview = g })
             }
         }
     }
@@ -390,14 +391,14 @@ fun OnboardingScreen(prefs: kr.roaddocent.core.Prefs, onDone: (kr.roaddocent.cor
         }
         Spacer(Modifier.height(14.dp))
         Text(if (ko) "2. 누가 타나요?" else "2. Who's riding?", color = Quiet, fontSize = 18.sp)
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        kr.roaddocent.ui.theme.ChipRow {
             ActionButton(if (ko) "어른만" else "Adults", primary = p.audience == Audience.ADULT) { p = p.copy(audience = Audience.ADULT) }
             ActionButton(if (ko) "아이와 함께" else "With kids", primary = p.audience == Audience.KIDS) { p = p.copy(audience = Audience.KIDS) }
-            ActionButton(if (ko) "한국 방문객 (렌터카)" else "Visiting Korea (rental)", primary = p.audience == Audience.FOREIGN) { p = p.copy(audience = Audience.FOREIGN, lang = Lang.EN) }
+            ActionButton(if (ko) "외국인 관광객" else "Visiting Korea", primary = p.audience == Audience.FOREIGN) { p = p.copy(audience = Audience.FOREIGN, lang = Lang.EN) }
         }
         Spacer(Modifier.height(14.dp))
         Text(if (ko) "3. 오늘은 어떤 여행?" else "3. What kind of trip?", color = Quiet, fontSize = 18.sp)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        kr.roaddocent.ui.theme.ChipRow {
             kr.roaddocent.core.Themes.order.filter { it != "car" }.forEach { t -> Pill(kr.roaddocent.core.Themes.label(t, p.lang), Modifier.clickable { p = p.copy(theme = t) }, selected = p.theme == t) }
         }
         Spacer(Modifier.weight(1f))
@@ -427,4 +428,39 @@ fun CompanionPanel(vm: DocentViewModel, lang: Lang, url: String?, onClose: () ->
             else Body(if (lang == Lang.KO) "QR을 만들 수 없어요" else "Could not build the QR", size = 16)
         }
     }
+}
+
+
+/** "Where we are now": the nearest story point within 6 km, else the start/destination name by progress. */
+fun nearLabel(g: kr.roaddocent.core.Guide?, here: kr.roaddocent.core.GeoPoint?, lang: Lang): String {
+    g ?: return ""; here ?: return g.startName[lang.tag] ?: ""
+    fun d(a: kr.roaddocent.core.GeoPoint, b: kr.roaddocent.core.GeoPoint): Double { val dl = Math.toRadians(b.lat - a.lat); val dn = Math.toRadians(b.lon - a.lon); val h = Math.sin(dl / 2) * Math.sin(dl / 2) + Math.cos(Math.toRadians(a.lat)) * Math.cos(Math.toRadians(b.lat)) * Math.sin(dn / 2) * Math.sin(dn / 2); return 2 * 6371000 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h)) }
+    val pts = g.episodes.mapNotNull { e -> (e.trigger as? kr.roaddocent.core.Trigger.NearPoint)?.let { it.point to e.titleFor(lang).substringBefore(" ·").substringBefore(":") } }
+    val near = pts.minByOrNull { d(it.first, here) }
+    if (near != null && d(near.first, here) < 6000) return (if (lang == Lang.KO) "${near.second} 부근" else "near ${near.second}")
+    val toDest = d(here, g.destination.point); val total = g.route.firstOrNull()?.let { d(it, g.destination.point) } ?: 1.0
+    return if (toDest / total > 0.85) (g.startName[lang.tag] ?: "") else if (lang == Lang.KO) "이동 중" else "en route"
+}
+
+/** 3-second scene: the navigation accepts the destination, the map shows where we are and where we go. */
+@Composable
+fun TripIntroScene(g: kr.roaddocent.core.Guide, lang: Lang, here: kr.roaddocent.core.GeoPoint?) {
+    Panel(Modifier.fillMaxSize()) {
+        Text(if (lang == Lang.KO) "🧭 내비게이션 목적지 설정" else "🧭 Navigation destination set", color = Accent, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(6.dp))
+        Headline((g.startName[lang.tag] ?: "") + "  →  " + (g.destination.name[lang.tag] ?: g.id), 26)
+        Text(if (lang == Lang.KO) "현재 위치: ${g.startName["ko"]} · 약 ${g.driveMin}분 · 가이드가 탑승합니다…" else "Current location: ${g.startName["en"]} · about ${g.driveMin} min · your guide is boarding…", color = Quiet, fontSize = 15.sp)
+        Spacer(Modifier.height(12.dp))
+        val pts = g.episodes.mapNotNull { e -> (e.trigger as? kr.roaddocent.core.Trigger.NearPoint)?.let { it.point to e.titleFor(lang) } }
+        kr.roaddocent.ui.screen.TripMap(g.route, here ?: g.route.firstOrNull(), pts, g.startName[lang.tag] ?: "", g.destination.name[lang.tag] ?: "", Modifier.fillMaxWidth().weight(1f))
+        Spacer(Modifier.height(10.dp))
+        kr.roaddocent.ui.screen.Hero(g.destination.poiId.takeIf { it.endsWith(".jpg") || it.endsWith(".webp") }, g.destination.category, g.destination.name[lang.tag] ?: "", height = 110)
+    }
+}
+
+/** Compact map strip above the story: route, story dots, the car. */
+@Composable
+fun TripMapStrip(g: kr.roaddocent.core.Guide, here: kr.roaddocent.core.GeoPoint?, lang: Lang) {
+    val pts = g.episodes.mapNotNull { e -> (e.trigger as? kr.roaddocent.core.Trigger.NearPoint)?.let { it.point to e.titleFor(lang) } }
+    if (g.route.size >= 2) kr.roaddocent.ui.screen.TripMap(g.route, here, pts, g.startName[lang.tag] ?: "", g.destination.name[lang.tag] ?: "", Modifier.fillMaxWidth().height(if (kr.roaddocent.ui.theme.isCompact()) 120.dp else 150.dp))
 }

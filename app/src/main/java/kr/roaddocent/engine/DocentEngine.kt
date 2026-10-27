@@ -90,6 +90,8 @@ class DocentEngine(
     val navState: StateFlow<NavState> get() = nav.nav
     val vehicleState: StateFlow<VehicleState> get() = veh.vehicle
     val speaking: StateFlow<Boolean> get() = speaker.speaking
+    /** True while a story is being read or one is waiting right behind it — the demo clock holds on this. */
+    fun busy(): Boolean = speaker.speaking.value || pending.isNotEmpty() || quizPending
 
     var guide: Guide? = null; private set
     /** Optional overlay (new-car onboarding): its VehicleEvent/Congestion episodes fire on top of the destination guide. */
@@ -109,6 +111,9 @@ class DocentEngine(
     private var lastLoc: GeoPoint? = null
     private var lastLocMs = 0L
     private var lastSpeechEndMs = 0L
+    /** Utterance counter so a story that starts and ends between two polls is still seen as "ended". */
+    @Volatile private var utter = 0
+    private fun say(text: String, lang: Lang) { utter++; speaker.speak(text, lang) }
     private var chargingStory = false
     private var prevRear = false
     /** "조용히": stay silent until the next trigger instead of auto-advancing. */
@@ -130,19 +135,25 @@ class DocentEngine(
             combine(nav.nav, veh.vehicle) { n, v -> n to v }.collect { (n, v) -> onTick(n, v) }
         }
         // Auto-advance: when an episode ends and nothing else fired, the next queued story follows after a breath.
+        // Polling (not collect+delay): a story that starts and ends during a wait must not be missed.
         advancer = scope.launch {
-            var wasSpeaking = false
-            speaker.speaking.collect { speaking ->
-                if (wasSpeaking && !speaking) lastSpeechEndMs = clock()
-                if (wasSpeaking && !speaking && _audience.value == Audience.KIDS && _kidsQuiz.value == null && !quizPending && _phase.value is DocentPhase.Guiding) {
-                    storiesSinceKidsQuiz++
-                    if (storiesSinceKidsQuiz >= 2 && askKidsQuiz()) { wasSpeaking = speaking; return@collect }
+            var handled = 0
+            var endedAt: Long? = null
+            var kidsCounted = false
+            while (true) {
+                delay(250)
+                val speaking = speaker.speaking.value
+                if (!speaking && handled != utter) { handled = utter; lastSpeechEndMs = clock(); endedAt = clock(); kidsCounted = false }
+                if (speaking) endedAt = null
+                val since = endedAt?.let { clock() - it }
+                if (since != null && !quizPending && _kidsQuiz.value == null) {
+                    if (!kidsCounted && _audience.value == Audience.KIDS && _phase.value is DocentPhase.Guiding) {
+                        kidsCounted = true; storiesSinceKidsQuiz++
+                        if (storiesSinceKidsQuiz >= 2 && askKidsQuiz()) continue
+                    }
+                    if (pending.isNotEmpty() && since >= 1_200) { pending.removeFirstOrNull()?.let { play(it.ep, it.prefix) }; endedAt = null }
+                    else if (pending.isEmpty() && since >= 2_500 && !_paused.value && !quietUntilTrigger && _phase.value is DocentPhase.Guiding && _queue.value.any { it.id !in played }) { playNext(); endedAt = null }
                 }
-                if (wasSpeaking && !speaking && !_paused.value && !quizPending && !quietUntilTrigger && _kidsQuiz.value == null && _phase.value is DocentPhase.Guiding) {
-                    delay(2_500)
-                    if (!speaker.speaking.value && _queue.value.any { it.id !in played }) playNext()
-                }
-                wasSpeaking = speaking
             }
         }
         // Voice commands from Gleo / on-device recognizer / buttons all land here.
@@ -177,7 +188,7 @@ class DocentEngine(
         val sugg = rank(g.nearby.filter { it.category != "cafe" }).take(3)
         lastSuggestions = sugg
         _phase.value = DocentPhase.WhereNext(0, sugg, false)
-        speaker.speak(if (_lang.value == Lang.KO) "차로 10분 안에 " + sugg.joinToString(", ") { it.name["ko"] ?: "" } + "이 있어요. 거기로 가자, 라고 말씀하세요."
+        say(if (_lang.value == Lang.KO) "차로 10분 안에 " + sugg.joinToString(", ") { it.name["ko"] ?: "" } + "이 있어요. 거기로 가자, 라고 말씀하세요."
             else "Within ten minutes: " + sugg.joinToString(", ") { it.name["en"] ?: "" } + ". Say let's go there.", _lang.value)
     }
 
@@ -209,10 +220,10 @@ class DocentEngine(
     private fun chainTo(g: Guide) {
         quizJob?.cancel(); quizPending = false; _quiz.value = null
         guide = g
-        played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null
+        played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null; pending.clear()
         nav.planLeg(g.route, g.driveMin)
         nav.setDestination(g.destination)
-        val starts = g.episodes.filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
+        val starts = eps(g).filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
         _queue.value = starts
         _phase.value = DocentPhase.Guiding(starts.first(), emptyList(), false)
         _toast.value = (if (_lang.value == Lang.KO) "가이드 이어서: " else "Guide continues: ") + (g.destination.name[_lang.value.tag] ?: g.id)
@@ -220,11 +231,14 @@ class DocentEngine(
     }
 
     /** Driver chose a destination in the car's navigation (or the demo picked one). */
+    /** Episodes of [g] that apply to the current audience. */
+    private fun eps(g: Guide) = g.episodes.filter { it.appliesTo(_audience.value) }
+
     fun onRouteSet(destinationName: String) {
         val g = guides.forDestination(destinationName)
         guide = g
-        played.clear(); congestion = false; arrivedAtMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null
-        val starts = g.episodes.filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
+        played.clear(); congestion = false; arrivedAtMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null; pending.clear()
+        val starts = eps(g).filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
         _queue.value = starts
         _phase.value = DocentPhase.Guiding(starts.first(), emptyList(), false)
         playNext()
@@ -261,14 +275,14 @@ class DocentEngine(
         // EV charging: the 20–30 minute wait is the best slot for the longest story left
         if (v.charging && !chargingStory) {
             chargingStory = true
-            val longStory = g.episodes.filter { it.id !in played && it.trigger !is Trigger.Reboard && it.trigger !is Trigger.RemainUnderMin }.maxByOrNull { it.durationSec }
+            val longStory = eps(g).filter { it.id !in played && it.trigger !is Trigger.Reboard && it.trigger !is Trigger.RemainUnderMin }.maxByOrNull { it.durationSec }
             if (longStory != null) fire(longStory, prefix = if (_lang.value == Lang.KO) "충전하는 동안 긴 이야기 하나 할게요. " else "While we charge, here's a longer story. ")
         }
         if (!v.charging) chargingStory = false
 
         // never quiet for long: filler after N minutes of silence while driving
         if (n.active && !v.gearPark && !speaker.speaking.value && !quizPending && lastSpeechEndMs > 0) {
-            g.episodes.filter { it.trigger is Trigger.AfterSilence && it.id !in played }.firstOrNull { now - lastSpeechEndMs > (it.trigger as Trigger.AfterSilence).minutes * 60_000L }?.let { fire(it) }
+            eps(g).filter { it.trigger is Trigger.AfterSilence && it.id !in played }.firstOrNull { now - lastSpeechEndMs > (it.trigger as Trigger.AfterSilence).minutes * 60_000L }?.let { fire(it) }
         }
 
         // safety gate: fast or winding -> pause at sentence boundary
@@ -281,18 +295,18 @@ class DocentEngine(
         val nowCongested = slowSinceMs?.let { now - it > 60_000 } == true
         if (nowCongested && !congestion) {
             congestion = true
-            val main = g.episodes.firstOrNull { it.trigger is Trigger.Congestion && it.id !in played }
+            val main = eps(g).firstOrNull { it.trigger is Trigger.Congestion && it.id !in played }
             if (main != null) fire(main) else overlay?.episodes?.firstOrNull { it.trigger is Trigger.Congestion && it.id !in overlayPlayed }?.let { overlayPlayed += it.id; fire(it, force = true) }
         }
         if (!nowCongested && congestion) { congestion = false }
 
         // geo triggers
         n.location?.let { loc ->
-            g.episodes.filter { it.trigger is Trigger.NearPoint && it.id !in played }.forEach { ep ->
+            eps(g).filter { it.trigger is Trigger.NearPoint && it.id !in played }.forEach { ep ->
                 val t = ep.trigger as Trigger.NearPoint
                 if (haversineM(loc, t.point) < t.radiusM) fire(ep)
             }
-            g.episodes.filter { it.trigger is Trigger.RestAreaAhead && it.id !in played }.forEach { ep ->
+            eps(g).filter { it.trigger is Trigger.RestAreaAhead && it.id !in played }.forEach { ep ->
                 val t = ep.trigger as Trigger.RestAreaAhead
                 val ra = g.restAreas.firstOrNull { it.id == t.placeId } ?: return@forEach
                 val d = haversineM(loc, ra.point)
@@ -302,7 +316,7 @@ class DocentEngine(
 
         // arrival briefing
         if (n.active && n.remainTimeSec in 1..(20 * 60)) {
-            g.episodes.filter { it.trigger is Trigger.RemainUnderMin && it.id !in played }.forEach { ep ->
+            eps(g).filter { it.trigger is Trigger.RemainUnderMin && it.id !in played }.forEach { ep ->
                 if (n.remainTimeSec <= (ep.trigger as Trigger.RemainUnderMin).minutes * 60) {
                     fire(ep)
                     val cafe = g.nearby.firstOrNull { it.category == "cafe" } ?: g.destination
@@ -320,7 +334,7 @@ class DocentEngine(
             currentVisit = Visit(place.name[_lang.value.tag] ?: place.name.values.first(), place.point, now).also { vis -> _log.update { it.copy(visits = it.visits + vis) } }
             _phase.value = DocentPhase.Parked(place, now)
             val steps = g.destination.onArrival[_lang.value.tag].orEmpty()
-            if (steps.isNotEmpty()) speaker.speak((if (_lang.value == Lang.KO) "도착했어요. 여기서 할 일을 순서대로 알려드릴게요. " else "We've arrived. Here's what to do, in order. ") + steps.joinToString(" "), _lang.value) else speaker.stop()
+            if (steps.isNotEmpty()) say((if (_lang.value == Lang.KO) "도착했어요. 여기서 할 일을 순서대로 알려드릴게요. " else "We've arrived. Here's what to do, in order. ") + steps.joinToString(" "), _lang.value) else speaker.stop()
         }
 
         // re-board: P -> D after being parked
@@ -332,7 +346,7 @@ class DocentEngine(
             lastSuggestions = sugg
             _phase.value = DocentPhase.WhereNext(stayMin, sugg, disappointed)
             arrivedAtMs = null
-            fire(g.episodes.firstOrNull { it.trigger is Trigger.Reboard }, prefix = if (disappointed) (if (_lang.value == Lang.KO) "기대와 달랐나요? " else "Not what you hoped? ") else "")
+            fire(eps(g).firstOrNull { it.trigger is Trigger.Reboard }, prefix = if (disappointed) (if (_lang.value == Lang.KO) "기대와 달랐나요? " else "Not what you hoped? ") else "")
         }
         wasPark = v.gearPark
     }
@@ -344,11 +358,25 @@ class DocentEngine(
         fire(ep, prefix = if (_lang.value == Lang.KO) "잠깐, 내 차 이야기. " else "A quick word about the car. ", force = true)
     }
 
+    /** Episodes triggered while another is still being read; played in order when speech ends. */
+    private data class Pending(val ep: Episode, val prefix: String, val force: Boolean)
+    private val pending = ArrayDeque<Pending>()
+    /** Triggers that may interrupt mid-story (safety-relevant or time-critical); everything else waits its turn. */
+    private fun interrupts(ep: Episode) = ep.trigger is Trigger.RemainUnderMin || ep.trigger is Trigger.Reboard || ep.trigger is Trigger.AtStart && ep.id.endsWith("intro")
+
     private fun fire(ep: Episode?, prefix: String = "", force: Boolean = false) {
         ep ?: return
         quietUntilTrigger = false
         if (!force && ep.id in played && ep.trigger !is Trigger.Reboard) return
         if (!force) played += ep.id
+        if (speaker.speaking.value && !interrupts(ep) && _nowPlaying.value?.id != ep.id) {
+            if (pending.none { it.ep.id == ep.id }) pending.addLast(Pending(ep, prefix, force))
+            return
+        }
+        play(ep, prefix)
+    }
+
+    private fun play(ep: Episode, prefix: String) {
         _nowPlaying.value = ep
         _log.update { it.copy(episodesHeard = it.episodesHeard + 1) }
         if (_phase.value is DocentPhase.Guiding || _phase.value is DocentPhase.Idle) _phase.value = DocentPhase.Guiding(ep, played.toList(), congestion)
@@ -356,12 +384,12 @@ class DocentEngine(
         quizJob?.cancel(); quizPending = false; _quiz.value = null
         val teaser = ep.teaser[_lang.value.tag]?.let { " $it" } ?: ""
         if (q == null) {
-            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value) + teaser, _lang.value)
+            say(prefix + ep.textFor(_lang.value, _audience.value) + teaser, _lang.value)
         } else {
             // Story, then the question; the answer follows after a pause so the car can guess.
             quizPending = true
             _quiz.value = QuizView(q.questionFor(_lang.value), null)
-            speaker.speak(prefix + ep.textFor(_lang.value, _audience.value) + " " + q.questionFor(_lang.value), _lang.value)
+            say(prefix + ep.textFor(_lang.value, _audience.value) + " " + q.questionFor(_lang.value), _lang.value)
             quizJob = scope.launch {
                 delay(1_500)
                 while (speaker.speaking.value) delay(300)
@@ -398,7 +426,7 @@ class DocentEngine(
         kidsAsked += q.id; storiesSinceKidsQuiz = 0
         _kidsQuiz.value = KidsQuizView(q, null, null)
         val opts = q.opts(_lang.value).mapIndexed { i, o -> if (_lang.value == Lang.KO) "${i + 1}번, $o" else "${i + 1}, $o" }.joinToString(". ")
-        speaker.speak((if (_lang.value == Lang.KO) "창밖 퀴즈! " else "Window quiz! ") + q.q(_lang.value) + " " + opts + (if (_lang.value == Lang.KO) ". 번호를 말하거나 눌러 봐!" else ". Say or tap the number!"), _lang.value)
+        say((if (_lang.value == Lang.KO) "창밖 퀴즈! " else "Window quiz! ") + q.q(_lang.value) + " " + opts + (if (_lang.value == Lang.KO) ". 번호를 말하거나 눌러 봐!" else ". Say or tap the number!"), _lang.value)
         return true
     }
 
@@ -410,7 +438,7 @@ class DocentEngine(
         _kidsQuiz.value = v.copy(chosen = index, correct = ok)
         val ansText = v.quiz.opts(_lang.value).getOrNull(v.quiz.answer - 1) ?: ""
         if (ok) { _log.update { it.copy(quizzesRight = it.quizzesRight + 1, stickers = it.stickers + 1) }; onQuizRevealed?.invoke() }
-        speaker.speak(if (ok) ((v.quiz.praise[_lang.value.tag] ?: (if (_lang.value == Lang.KO) "딩동댕, 정답!" else "Ding, correct!")) + (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!"))
+        say(if (ok) ((v.quiz.praise[_lang.value.tag] ?: (if (_lang.value == Lang.KO) "딩동댕, 정답!" else "Ding, correct!")) + (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!"))
                       else (if (_lang.value == Lang.KO) "아쉽다! 정답은 ${v.quiz.answer}번, $ansText." else "Not quite! The answer is ${v.quiz.answer}, $ansText."), _lang.value)
         scope.launch { delay(4_000); if (_kidsQuiz.value?.chosen != null) _kidsQuiz.value = null }
     }
@@ -424,7 +452,7 @@ class DocentEngine(
         _quiz.value = QuizView(q.questionFor(_lang.value), q.answerFor(_lang.value))
         _log.update { it.copy(quizzesRight = it.quizzesRight + 1, stickers = if (_audience.value == Audience.KIDS) it.stickers + 1 else it.stickers) }
         onQuizRevealed?.invoke()
-        speaker.speak((if (_lang.value == Lang.KO) "정답은, " else "The answer: ") + q.answerFor(_lang.value) + (if (_audience.value == Audience.KIDS) (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!") else ""), _lang.value)
+        say((if (_lang.value == Lang.KO) "정답은, " else "The answer: ") + q.answerFor(_lang.value) + (if (_audience.value == Audience.KIDS) (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!") else ""), _lang.value)
     }
 
     /** Play the next queued AtStart episode (after current finishes or on "skip"). */
@@ -438,13 +466,14 @@ class DocentEngine(
     // ---- voice commands (Gleo Interface in production; buttons in demo) ----
     fun cmdSkip() {
         quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop()
+        pending.removeFirstOrNull()?.let { play(it.ep, it.prefix); return }
         if (_queue.value.any { it.id !in played }) playNext()
         else _toast.value = if (_lang.value == Lang.KO) "지금은 다음 이야기가 없어요. 길목에서 이어갈게요" else "Nothing queued right now; the next stop will bring more"
     }
-    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> speaker.speak(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }
-        if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> speaker.speak("한국관광공사 해설로 더 자세히. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
-        speaker.speak((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
-    fun cmdQuiet() { quietUntilTrigger = true; quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); _toast.value = if (_lang.value == Lang.KO) "조용히 할게요. 다음 길목에서 다시 말할게요" else "Going quiet until the next stop" }
+    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> say(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }
+        if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> say("한국관광공사 해설로 더 자세히. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
+        say((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
+    fun cmdQuiet() { quietUntilTrigger = true; pending.clear(); quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); _toast.value = if (_lang.value == Lang.KO) "조용히 할게요. 다음 길목에서 다시 말할게요" else "Going quiet until the next stop" }
     fun cmdSave() {
         val ep = _nowPlaying.value
         _toast.value = if (_lang.value == Lang.KO) "여행 기록에 저장했어요" else "Saved to your travel log"
@@ -453,19 +482,19 @@ class DocentEngine(
     fun cmdGoThere(p: Place) {
         val chained = p.guideId?.let { id -> runCatching { guides.load(id) }.getOrNull() }
         if (chained != null) {
-            speaker.speak(if (_lang.value == Lang.KO) "${p.name["ko"]}로 갈게요. 가는 길에도 제가 계속 이야기할게요." else "Heading to ${p.name["en"]}. I'll keep the stories going on the way.", _lang.value)
+            say(if (_lang.value == Lang.KO) "${p.name["ko"]}로 갈게요. 가는 길에도 제가 계속 이야기할게요." else "Heading to ${p.name["en"]}. I'll keep the stories going on the way.", _lang.value)
             chainTo(chained); return
         }
         nav.setDestination(p)
         arrivedAtMs = null; wasPark = false
         played.removeAll { id -> guide?.episodes?.firstOrNull { it.id == id }?.trigger is Trigger.RemainUnderMin }
         _phase.value = DocentPhase.Guiding(_nowPlaying.value ?: guide!!.episodes.first(), played.toList(), false)
-        speaker.speak(if (_lang.value == Lang.KO) "${p.name["ko"]}로 안내할게요. ${p.note["ko"] ?: ""}" else "Routing to ${p.name["en"]}. ${p.note["en"] ?: ""}", _lang.value)
+        say(if (_lang.value == Lang.KO) "${p.name["ko"]}로 안내할게요. ${p.note["ko"] ?: ""}" else "Routing to ${p.name["en"]}. ${p.note["en"] ?: ""}", _lang.value)
     }
     private var beforeLog: DocentPhase? = null
     fun cmdShowLog() {
         if (_phase.value is DocentPhase.TravelLog) { _phase.value = beforeLog ?: DocentPhase.Idle; return }
-        beforeLog = _phase.value; _phase.value = DocentPhase.TravelLog(_log.value); speaker.speak(_log.value.headline(_lang.value), _lang.value)
+        beforeLog = _phase.value; _phase.value = DocentPhase.TravelLog(_log.value); say(_log.value.headline(_lang.value), _lang.value)
     }
 
     /** Back: log → previous screen; where-next → parked; any trip screen → stop the trip and return to the picker. Returns false when already at the root. */
@@ -479,14 +508,14 @@ class DocentEngine(
     /** Stop talking and drop the current guide; the picker shows again. */
     fun endTrip() {
         quizJob?.cancel(); quizPending = false; _quiz.value = null
-        speaker.stop(); guide = null; played.clear(); _queue.value = emptyList(); _nowPlaying.value = null; _kidsQuiz.value = null; kidsAsked.clear()
+        speaker.stop(); guide = null; played.clear(); _queue.value = emptyList(); _nowPlaying.value = null; _kidsQuiz.value = null; kidsAsked.clear(); pending.clear()
         congestion = false; arrivedAtMs = null; wasPark = true
         _phase.value = DocentPhase.Idle
     }
     fun cmdReserve(): Place? {
         val b = (_phase.value as? DocentPhase.Briefing)?.place ?: return null
-        if (b.phone.isNullOrBlank()) { speaker.speak(if (_lang.value == Lang.KO) "${b.name["ko"]}은 전화 예약이 없어요. 온라인 예약 링크를 폰으로 보냈어요." else "${b.name["en"]} has no phone booking; I've sent the online link to your phone.", _lang.value); _toast.value = if (_lang.value == Lang.KO) "전화번호 없음 · 온라인 예약 안내" else "No phone · online booking"; return null }
-        speaker.speak(if (_lang.value == Lang.KO) "${b.name["ko"]}에 전화를 걸게요. 4명, 도착 시간으로 말씀하시면 돼요." else "Calling ${b.name["en"]}. Say: four people, at our arrival time.", _lang.value)
+        if (b.phone.isNullOrBlank()) { say(if (_lang.value == Lang.KO) "${b.name["ko"]}은 전화 예약이 없어요. 온라인 예약 링크를 폰으로 보냈어요." else "${b.name["en"]} has no phone booking; I've sent the online link to your phone.", _lang.value); _toast.value = if (_lang.value == Lang.KO) "전화번호 없음 · 온라인 예약 안내" else "No phone · online booking"; return null }
+        say(if (_lang.value == Lang.KO) "${b.name["ko"]}에 전화를 걸게요. 4명, 도착 시간으로 말씀하시면 돼요." else "Calling ${b.name["en"]}. Say: four people, at our arrival time.", _lang.value)
         return b
     }
     fun clearToast() { _toast.value = null }

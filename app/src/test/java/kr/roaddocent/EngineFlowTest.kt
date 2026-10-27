@@ -233,8 +233,21 @@ class EngineFlowTest {
     @Test fun freeRideFiresNearPointsFromAnyGuide() = runTest(StandardTestDispatcher()) {
         val r = Rig(this)
         r.engine.startFreeRide(r.guides.all()); tick(); r.spk.finish()
-        r.nav.at(GeoPoint(37.5547, 126.9707)); advanceTimeBy(500)   // 서울역 (museum guide)
-        assertTrue(r.spk.last().contains("서울역"))
+        r.nav.at(GeoPoint(37.5547, 126.9707)); advanceTimeBy(500)   // 서울역 (museum guide) — 남대문 is in range too
+        r.spk.finish(); advanceTimeBy(1_500)                          // second story waits its turn instead of cutting the first
+        assertTrue("both nearby stories play, in order: ${r.spk.spoken.map { it.take(12) }}", r.spk.spoken.any { it.contains("서울역") } && r.spk.spoken.any { it.contains("남대문") })
+        r.engine.stop()
+    }
+
+    @Test fun aStoryIsNeverCutOffByTheNextTrigger() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.start("경복궁"); tick()
+        val greeting = r.spk.spoken.size
+        r.nav.at(GeoPoint(37.56, 126.9753)); advanceTimeBy(500)     // 남대문 reached while the greeting is still being read
+        assertEquals("nothing new spoken until the greeting ends", greeting, r.spk.spoken.size)
+        assertTrue(r.engine.busy())
+        r.spk.finish(); advanceTimeBy(1_500)
+        assertTrue(r.spk.last().contains("남대문"))
         r.engine.stop()
     }
 
@@ -251,9 +264,10 @@ class EngineFlowTest {
     @Test fun newCarOverlayExplainsSensorsAsTheyWork() = runTest(StandardTestDispatcher()) {
         val r = Rig(this)
         r.engine.overlay = r.guides.loadOverlay("car_onboarding")
-        r.start("경복궁"); tick(); r.spk.finish()
-        advanceTimeBy(300)
-        assertTrue("first drive sensor map", r.spk.spoken.any { it.contains("센서") })
+        r.start("경복궁"); tick()
+        r.spk.finish(); advanceTimeBy(1_500)                          // greeting ends → queued "first drive" note plays
+        assertTrue("first drive sensor map spoken=${r.spk.spoken.map { it.take(25) }}", r.spk.spoken.any { it.contains("센서") })
+        r.spk.finish(); advanceTimeBy(100)
         r.veh.set { it.copy(speedKmh = 65f) }; advanceTimeBy(300)
         assertTrue(r.spk.last().contains("카메라"))
         r.engine.stop()

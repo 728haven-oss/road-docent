@@ -60,7 +60,7 @@ jobs:
         with:
           tag_name: ${{ steps.apk.outputs.version }}
           name: 로드 도슨트 ${{ steps.apk.outputs.version }}
-          prerelease: true
+          prerelease: false
           generate_release_notes: true
           body: |
             휴대폰 테스트용 release APK (Android 13+, 데모 키 서명).

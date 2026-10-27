@@ -94,11 +94,11 @@
         "en": "Welcome to Korea"
       },
       "text": {
-        "ko": "안녕하세요, 로드 도슨트입니다. 경복궁까지 약 70분이에요. 한국 운전은 우측통행이고, 빨간불에도 우회전은 일단 멈춘 뒤 가능해요. 어린이보호구역은 시속 30킬로, 과속 카메라가 많으니 내비 경고를 따르세요. 가는 길에 한국이 어떤 나라인지, 서울이 어떤 도시인지, 그리고 경복궁에서 뭘 봐야 하는지 들려드릴게요.",
+        "ko": "안녕하세요, 로드 도슨트입니다. 경복궁까지 약 70분이에요. 경복궁은 다들 한 번쯤 가 보셨을 텐데, 근정전 앞 품계석이 왜 스물네 개인지, 광화문 옆 해태가 왜 거기 앉아 있는지, 이 궁이 왜 세 번이나 지어졌는지까지 아는 분은 드물어요. 오늘은 '아는 만큼 보인다'를 가는 길에 미리 채워 드릴게요. 남대문과 광화문을 지날 때 한 가지씩, 막히면 조금 긴 이야기 하나. 도착하면 한복 무료 입장이랑 수문장 교대식 시간도 챙겨 드려요.",
         "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
       },
       "kidsText": {
-        "ko": "안녕! 한국에 온 걸 환영해. 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 한국말 인사 세 개를 배워보자. 안녕하세요!",
+        "ko": "안녕! 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 퀴즈를 낼 거야. 왕이 살던 집에는 왜 돌로 만든 동물이 앉아 있을까? 정답은 광화문 앞에서!",
         "en": "Hi! Welcome to Korea. Today we're going to Gyeongbokgung, the huge house where kings once lived. On the way let's learn three Korean greetings. Annyeong-haseyo!"
       },
       "trigger": {
@@ -107,7 +107,15 @@
       },
       "durationSec": 45,
       "source": "Road Docent / 도로교통공단",
-      "priority": 9
+      "priority": 9,
+      "foreignText": {
+        "ko": "안녕하세요, 로드 도슨트입니다. 경복궁까지 약 70분이에요. 한국 운전은 우측통행이고, 빨간불에도 우회전은 일단 멈춘 뒤 가능해요. 어린이보호구역은 시속 30킬로, 과속 카메라가 많으니 내비 경고를 따르세요. 가는 길에 한국이 어떤 나라인지, 서울이 어떤 도시인지, 그리고 경복궁에서 뭘 봐야 하는지 들려드릴게요.",
+        "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
+      },
+      "foreignKidsText": {
+        "ko": "안녕! 한국에 온 걸 환영해. 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 한국말 인사 세 개를 배워보자. 안녕하세요!",
+        "en": "Hi! Welcome to Korea. Today we're going to Gyeongbokgung, the huge house where kings once lived. On the way let's learn three Korean greetings. Annyeong-haseyo!"
+      }
     },
     {
       "id": "korea_brief",
@@ -129,7 +137,10 @@
       "teaser": {
         "ko": "곧 오른쪽에 바다처럼 넓은 강이 나타나요.",
         "en": "Soon a river as wide as the sea appears on your right."
-      }
+      },
+      "forAudiences": [
+        "foreign"
+      ]
     },
     {
       "id": "name_quiz",
@@ -173,11 +184,11 @@
       },
       "kind": "fact",
       "text": {
-        "ko": "인천을 지나 지금 서울에 들어왔어요. 서울은 인구 약 940만, 수도권까지 합치면 2,600만 명으로 한국인 절반이 이 반경 안에 살아요. 면적은 605제곱킬로미터, 런던의 3분의 1 크기에 그만큼이 사는 거예요. 그래서 아파트가 높고 지하철이 촘촘하죠. 오늘 가는 경복궁은 이 도시 한가운데, 600년 전 서울이 처음 수도가 됐을 때 그 자리에 있어요.",
+        "ko": "인천을 지나 서울에 들어왔어요. 숫자로만 보면 새삼 놀라운 도시예요. 면적 605제곱킬로미터에 940만 명, 런던의 3분의 1 땅에 런던만큼이 살아요. 1394년 조선이 이곳으로 수도를 옮길 때 기준이 된 건 '북쪽에 산, 남쪽에 강'이었고, 그 산이 북악산, 그 강이 한강, 그 가운데 자리가 오늘 가는 경복궁이에요. 그러니까 지금 우리는 600년 전 도시 설계도의 한가운데로 들어가는 중이에요.",
         "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
       },
       "kidsText": {
-        "ko": "딩동! 지금 서울에 들어왔어! 한국에서 제일 큰 도시야. 높은 아파트가 엄청 많지? 서울에는 사람이 거의 천만 명이나 살아. 창밖에 제일 높은 건물 찾아볼래?",
+        "ko": "딩동! 지금 서울에 들어왔어! 서울은 사람이 거의 천만 명이나 사는 큰 도시야. 그리고 600년 전에 왕이 '여기에 수도를 만들자!' 하고 고른 곳이야. 왜 여기를 골랐을까? 뒤에 산이 있고 앞에 강이 있어서! 창밖에 산이 보이면 알려줘.",
         "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
       },
       "trigger": {
@@ -194,6 +205,14 @@
       "teaser": {
         "ko": "조금 뒤 오른쪽에 바다처럼 넓은 강이 나와요.",
         "en": "In a moment a river as wide as the sea appears on your right."
+      },
+      "foreignText": {
+        "ko": "인천을 지나 지금 서울에 들어왔어요. 서울은 인구 약 940만, 수도권까지 합치면 2,600만 명으로 한국인 절반이 이 반경 안에 살아요. 면적은 605제곱킬로미터, 런던의 3분의 1 크기에 그만큼이 사는 거예요. 그래서 아파트가 높고 지하철이 촘촘하죠. 오늘 가는 경복궁은 이 도시 한가운데, 600년 전 서울이 처음 수도가 됐을 때 그 자리에 있어요.",
+        "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
+      },
+      "foreignKidsText": {
+        "ko": "딩동! 지금 서울에 들어왔어! 한국에서 제일 큰 도시야. 높은 아파트가 엄청 많지? 서울에는 사람이 거의 천만 명이나 살아. 창밖에 제일 높은 건물 찾아볼래?",
+        "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
       }
     },
     {
@@ -203,11 +222,11 @@
         "en": "The Han River: Seoul's centre line"
       },
       "text": {
-        "ko": "오른쪽에 한강이 보여요. 폭이 1킬로미터가 넘어서 처음 보는 분들은 강이 아니라 바다 같다고 해요. 서울에는 한강 다리가 서른 개 넘게 있고, 강 북쪽이 옛 서울, 강 남쪽이 1970년대 이후 개발된 신도시예요. 경복궁은 강북, 옛 서울 한가운데 있어요.",
+        "ko": "오른쪽이 한강이에요. 서울에 한강 다리가 서른두 개인데, 1900년 한강철교가 첫 번째였고 사람이 건너는 다리는 1917년 한강대교가 처음이었어요. 그 전 600년 동안은 나루터에서 배로 건넜죠. 조선 시대 서울은 지금 강북, 사대문 안이 전부였고, 강남은 1970년대까지 논밭이었어요. 경복궁은 그 옛 서울의 정중앙에 있어요.",
         "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
       },
       "kidsText": {
-        "ko": "오른쪽에 큰 강이 보여? 한강이야. 다리가 서른 개도 넘어! 지금 보이는 다리 몇 개인지 세어볼래?",
+        "ko": "오른쪽에 큰 강 보여? 한강이야. 옛날에는 다리가 하나도 없어서 배를 타고 건넜대! 지금은 다리가 서른 개가 넘어. 지금 보이는 다리 몇 개인지 세어볼래?",
         "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
       },
       "trigger": {
@@ -220,7 +239,15 @@
       },
       "durationSec": 35,
       "source": "서울시",
-      "priority": 7
+      "priority": 7,
+      "foreignText": {
+        "ko": "오른쪽에 한강이 보여요. 폭이 1킬로미터가 넘어서 처음 보는 분들은 강이 아니라 바다 같다고 해요. 서울에는 한강 다리가 서른 개 넘게 있고, 강 북쪽이 옛 서울, 강 남쪽이 1970년대 이후 개발된 신도시예요. 경복궁은 강북, 옛 서울 한가운데 있어요.",
+        "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
+      },
+      "foreignKidsText": {
+        "ko": "오른쪽에 큰 강이 보여? 한강이야. 다리가 서른 개도 넘어! 지금 보이는 다리 몇 개인지 세어볼래?",
+        "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
+      }
     },
     {
       "id": "dialogue_court",
@@ -252,11 +279,11 @@
         "en": "Namdaemun: a 600-year-old gate in the middle of traffic"
       },
       "text": {
-        "ko": "왼쪽 로터리 가운데 서 있는 문이 남대문, 정식 이름은 숭례문이에요. 1398년 조선이 서울을 둘러싼 성곽의 남쪽 대문으로 지었고, 국보 1호였죠. 2008년 방화로 2층 누각이 불탔고 5년에 걸쳐 전통 방식으로 다시 지었어요. 바로 옆 남대문시장은 한국에서 가장 큰 전통시장이에요. 경복궁 다녀온 뒤 들르면 김, 인삼, 주방용품이 싸요.",
+        "ko": "왼쪽 로터리 가운데가 숭례문, 남대문이에요. 2008년 2월 10일 밤 방화로 2층 문루가 무너졌던 거 기억하시죠. 복구에 5년 3개월이 걸렸는데, 그때 장인들이 전통 가마에서 기와를 굽고 삼베옷을 입고 일한 게 화제였어요. 2013년 5월에 다시 열었죠. 현판이 세로로 쓰인 유일한 성문이라는 건 아셨나요? 남쪽 관악산의 불기운을 누르려고 불꽃처럼 세워 썼다는 설명이 전해져요. 그런데 결국 불에 탔으니, 이름이 운명을 못 막은 셈이에요.",
         "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
       },
       "kidsText": {
-        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문이야. 옛날엔 밤이 되면 이 문을 닫아서 아무도 못 들어왔대!",
+        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문인데, 옛날엔 밤이 되면 문을 닫아서 아무도 못 들어왔대! 그런데 2008년에 불이 나서 다시 지었어. 지금 보이는 지붕이 새로 만든 거야.",
         "en": "See the old gate standing right in the middle of the road on the left? That's Namdaemun. It guarded Seoul 600 years ago. At night they closed it and nobody could come in!"
       },
       "trigger": {
@@ -277,6 +304,14 @@
       "teaser": {
         "ko": "조금만 더 가면 광장 한가운데 금색으로 앉아 계신 분이 나와요. 누군지 맞혀 보세요.",
         "en": "A little further on, someone sits in gold in the middle of a square. Guess who."
+      },
+      "foreignText": {
+        "ko": "왼쪽 로터리 가운데 서 있는 문이 남대문, 정식 이름은 숭례문이에요. 1398년 조선이 서울을 둘러싼 성곽의 남쪽 대문으로 지었고, 국보 1호였죠. 2008년 방화로 2층 누각이 불탔고 5년에 걸쳐 전통 방식으로 다시 지었어요. 바로 옆 남대문시장은 한국에서 가장 큰 전통시장이에요. 경복궁 다녀온 뒤 들르면 김, 인삼, 주방용품이 싸요.",
+        "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
+      },
+      "foreignKidsText": {
+        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문이야. 옛날엔 밤이 되면 이 문을 닫아서 아무도 못 들어왔대!",
+        "en": "See the old gate standing right in the middle of the road on the left? That's Namdaemun. It guarded Seoul 600 years ago. At night they closed it and nobody could come in!"
       }
     },
     {
@@ -286,11 +321,11 @@
         "en": "Gwanghwamun: King Sejong and Admiral Yi"
       },
       "text": {
-        "ko": "앞에 넓은 광장이 광화문광장이에요. 가운데 앉아 계신 금색 동상이 세종대왕, 한글을 만든 왕이에요. 그 앞 칼을 든 동상은 이순신 장군, 임진왜란 때 거북선으로 바다를 지켰죠. 광장 끝 큰 문이 광화문, 경복궁의 정문이에요. 일제강점기에 헐려 옮겨졌다가 2010년에 원래 자리에 다시 세웠어요. 그 뒤로 보이는 산이 북악산이고, 경복궁은 그 산을 등지고 남쪽을 보게 지었어요.",
+        "ko": "광화문광장이에요. 세종대왕 동상은 2009년 한글날에, 이순신 장군 동상은 1968년에 세웠어요. 장군 앞 분수 이름이 '12·23 분수'인 거 아세요? 배 열두 척으로 스물세 번 이겼다는 뜻이에요. 그리고 광화문 현판, 2023년에 검은 바탕에 금색 글씨로 바뀐 거 보셨죠. 고종 때 찍은 사진이 발견돼서 원래 모습으로 되돌린 거예요. 문 앞 월대도 같은 해에 복원됐고요. 그 뒤 북악산을 등지고 남쪽을 보게 지은 게 경복궁이에요.",
         "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
       },
       "kidsText": {
-        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한국 글자 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
+        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
         "en": "See the golden statue ahead? That's King Sejong, who invented Korea's alphabet. The man with the sword in front is Admiral Yi, who fought with turtle-shaped ships! Quiz: why were they shaped like turtles?"
       },
       "trigger": {
@@ -311,6 +346,14 @@
       "teaser": {
         "ko": "문 양옆에 돌짐승 두 마리가 있는데, 사자가 아니에요. 그 이야기는 문 앞에서.",
         "en": "Two stone beasts flank the gate, and they are not lions. That story at the gate."
+      },
+      "foreignText": {
+        "ko": "앞에 넓은 광장이 광화문광장이에요. 가운데 앉아 계신 금색 동상이 세종대왕, 한글을 만든 왕이에요. 그 앞 칼을 든 동상은 이순신 장군, 임진왜란 때 거북선으로 바다를 지켰죠. 광장 끝 큰 문이 광화문, 경복궁의 정문이에요. 일제강점기에 헐려 옮겨졌다가 2010년에 원래 자리에 다시 세웠어요. 그 뒤로 보이는 산이 북악산이고, 경복궁은 그 산을 등지고 남쪽을 보게 지었어요.",
+        "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
+      },
+      "foreignKidsText": {
+        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한국 글자 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
+        "en": "See the golden statue ahead? That's King Sejong, who invented Korea's alphabet. The man with the sword in front is Admiral Yi, who fought with turtle-shaped ships! Quiz: why were they shaped like turtles?"
       }
     },
     {
@@ -383,11 +426,11 @@
         "en": "Arrival briefing: parking and hanbok"
       },
       "text": {
-        "ko": "15분 뒤 도착해요. 주차는 흥례문 옆 경복궁 주차장이고, 주말엔 금방 차요. 한복을 입으면 입장이 무료인데, 광화문 주변 한복 대여점이 2시간 2만 원 정도예요. 수문장 교대식이 10시와 2시에 있으니 시간을 맞추면 좋아요. 한복 대여점에 전화해서 자리 잡아둘까요? 도착 10분 전엔 궁에서 쓸 한국어 두 마디를 연습할게요.",
+        "ko": "15분 뒤 도착해요. 주차는 흥례문 옆 경복궁 주차장인데 주말엔 금방 차요. 한복을 입으면 입장이 무료라 광화문 주변 대여점이 2시간 2만 원 정도예요. 수문장 교대식은 10시와 2시, 20분씩이에요. 한복 대여점에 전화해서 자리 잡아둘까요? 들어가면 근정전 앞마당에서 품계석 스물네 개부터 세어 보세요. 동쪽이 문관, 서쪽이 무관이에요.",
         "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
       },
       "kidsText": {
-        "ko": "15분 뒤 도착! 한복이라는 한국 옛날 옷을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
+        "ko": "15분 뒤 도착! 한복을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
         "en": "Fifteen minutes to go! If you wear hanbok, Korea's old clothes, you get in free. Prince and princess outfits! Want to try? Inside the palace: no running and no stepping on the door sills, promise!"
       },
       "trigger": {
@@ -396,7 +439,15 @@
       },
       "durationSec": 45,
       "source": "경복궁관리소 / 종로구 한복 대여",
-      "priority": 9
+      "priority": 9,
+      "foreignText": {
+        "ko": "15분 뒤 도착해요. 주차는 흥례문 옆 경복궁 주차장이고, 주말엔 금방 차요. 한복을 입으면 입장이 무료인데, 광화문 주변 한복 대여점이 2시간 2만 원 정도예요. 수문장 교대식이 10시와 2시에 있으니 시간을 맞추면 좋아요. 한복 대여점에 전화해서 자리 잡아둘까요? 도착 10분 전엔 궁에서 쓸 한국어 두 마디를 연습할게요.",
+        "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
+      },
+      "foreignKidsText": {
+        "ko": "15분 뒤 도착! 한복이라는 한국 옛날 옷을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
+        "en": "Fifteen minutes to go! If you wear hanbok, Korea's old clothes, you get in free. Prince and princess outfits! Want to try? Inside the palace: no running and no stepping on the door sills, promise!"
+      }
     },
     {
       "id": "reboard",
@@ -440,7 +491,11 @@
       },
       "durationSec": 40,
       "source": "국립한글박물관",
-      "priority": 3
+      "priority": 3,
+      "forAudiences": [
+        "foreign",
+        "kids"
+      ]
     }
   ],
   "restAreas": [],

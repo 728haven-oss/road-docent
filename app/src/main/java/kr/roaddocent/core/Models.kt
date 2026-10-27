@@ -75,13 +75,20 @@ data class Episode(
     /** Layered content: what "tell me more" reads instead of repeating the story (museum-guide practice). */
     val deep: Map<String, String> = emptyMap(),
     /** One teaser sentence spoken at the end, pointing at the next stop (cliffhanger). */
-    val teaser: Map<String, String> = emptyMap()
+    val teaser: Map<String, String> = emptyMap(),
+    /** Visitor version (explains what Koreans already know: driving rules, tipping, hanbok…); `text` is for Korean residents. */
+    val foreignText: Map<String, String> = emptyMap(),
+    val foreignKidsText: Map<String, String> = emptyMap(),
+    /** Empty = everyone; otherwise any of "adult", "kids", "foreign". Lets visitor-only episodes (Korea 101, phrases) stay out of a Korean family's drive. */
+    val forAudiences: List<String> = emptyList()
 ) {
     fun titleFor(lang: Lang) = title[lang.tag] ?: title.values.first()
-    fun textFor(lang: Lang, audience: Audience): String {
-        val kids = if (audience == Audience.KIDS) kidsText[lang.tag] else null
-        return kids ?: text[lang.tag] ?: text.values.first()
+    fun textFor(lang: Lang, audience: Audience): String = when (audience) {
+        Audience.KIDS -> kidsText[lang.tag] ?: text[lang.tag] ?: text.values.first()
+        Audience.FOREIGN -> foreignText[lang.tag] ?: text[lang.tag] ?: text.values.first()
+        Audience.ADULT -> text[lang.tag] ?: text.values.first()
     }
+    fun appliesTo(audience: Audience): Boolean = forAudiences.isEmpty() || when (audience) { Audience.KIDS -> "kids"; Audience.FOREIGN -> "foreign"; Audience.ADULT -> "adult" } in forAudiences
 }
 
 /** A whole guide for one destination. */

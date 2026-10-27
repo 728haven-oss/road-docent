@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kr.roaddocent.content.GuideRepository
 import kr.roaddocent.core.Audience
+import kr.roaddocent.core.Guide
 import kr.roaddocent.core.Lang
 import kr.roaddocent.core.Place
 import kr.roaddocent.core.Prefs
@@ -86,7 +87,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
         autoJob?.cancel()
         if (on) {
             s.secondsPerSimMinute = 0.3
-            autoJob = viewModelScope.launch { engine.speaking.collect { sp -> s.holdClock = sp } }
+            autoJob = viewModelScope.launch { while (true) { s.holdClock = engine.busy(); kotlinx.coroutines.delay(200) } }
         } else { s.secondsPerSimMinute = 1.0; s.holdClock = false }
     }
 
@@ -168,7 +169,7 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
 
     fun connect(src: Source) {
         val nav: NavSignals; val veh: VehicleSignals
-        if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s }
+        if (src == Source.SIMULATOR) { val s = SimulatedTrip(); sim = s; nav = s; veh = s; viewModelScope.launch { kotlinx.coroutines.delay(50); setAutoDemo(true) } }
         else if (src == Source.PHONE_GPS) { val g = kr.roaddocent.vehicle.PhoneGpsSignals(getApplication()); gps = g; nav = g; veh = g }
         else { nav = PleosNavSignals(getApplication()); veh = PleosVehicleSignals(getApplication()) }
         engine = DocentEngine(nav, veh, speaker, guides, viewModelScope)
@@ -201,9 +202,15 @@ class DocentViewModel(app: Application) : AndroidViewModel(app) {
     private fun markResume(guideId: String) = resumeSp.edit().putString("guide", guideId).putLong("at", System.currentTimeMillis()).apply()
     fun playNearbyNow() = engine.playNearbyNow(guides.all())
 
+    private val _tripIntro = MutableStateFlow<Guide?>(null)
+    /** The "destination entered in the navigation" scene shown for a few seconds before the guide boards. */
+    val tripIntro: StateFlow<Guide?> = _tripIntro.asStateFlow()
+
     fun demoStartTrip(guideId: String = "seoul_gangneung") {
         markResume(guideId)
         val g = guides.load(guideId)
+        _tripIntro.value = g
+        viewModelScope.launch { kotlinx.coroutines.delay(3_500); _tripIntro.value = null }
         sim?.let { s -> s.reset(); if (g.route.isNotEmpty()) { s.mainRoute = g.route; s.mainMinutes = g.driveMin }; s.setDestination(g.destination) }
         gps?.setDestination(g.destination)
         engine.onRouteSet(g.destination.name["ko"]!!)

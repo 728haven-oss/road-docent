@@ -333,7 +333,11 @@
       "durationSec": 30,
       "source": "Road Docent",
       "priority": 5,
-      "kind": "phrase"
+      "kind": "phrase",
+      "forAudiences": [
+        "foreign",
+        "kids"
+      ]
     },
     {
       "id": "arrival_brief",

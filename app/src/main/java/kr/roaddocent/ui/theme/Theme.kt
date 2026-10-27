@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +38,10 @@ private val scheme: ColorScheme = darkColorScheme(
 )
 
 @Composable
-fun RoadDocentTheme(content: @Composable () -> Unit) = MaterialTheme(colorScheme = scheme, content = content)
+fun RoadDocentTheme(content: @Composable () -> Unit) = MaterialTheme(colorScheme = scheme) {
+    // Keep everything clear of the status bar and the system navigation bar (edge-to-edge on API 35).
+    androidx.compose.foundation.layout.Box(Modifier.fillMaxSize().background(Bg).safeDrawingPadding()) { content() }
+}
 
 /** Phone-sized screen (portrait or narrow): tighter paddings, stacked panes, shorter lists. */
 @Composable
@@ -56,11 +61,17 @@ fun Panel(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> 
 
 @Composable
 fun Tag(text: String, modifier: Modifier = Modifier) =
-    Text(text, modifier.background(Chip, RoundedCornerShape(8.dp)).padding(horizontal = 10.dp, vertical = 4.dp), color = ChipInk, fontSize = 13.sp)
+    Text(text, modifier.background(Chip, RoundedCornerShape(8.dp)).padding(horizontal = 10.dp, vertical = 4.dp), color = ChipInk, fontSize = 13.sp, maxLines = 1, softWrap = false)
 
 @Composable
 fun Pill(text: String, modifier: Modifier = Modifier, selected: Boolean = false) =
-    Text(text, modifier.background(if (selected) Accent else Chip, RoundedCornerShape(999.dp)).padding(horizontal = 14.dp, vertical = 6.dp), color = if (selected) AccentInk else ChipInk, fontSize = 14.sp)
+    Text(text, modifier.background(if (selected) Accent else Chip, RoundedCornerShape(999.dp)).padding(horizontal = 14.dp, vertical = 6.dp), color = if (selected) AccentInk else ChipInk, fontSize = 14.sp, maxLines = 1, softWrap = false)
+
+/** A row of chips/buttons that scrolls sideways instead of wrapping letters vertically. */
+@Composable
+fun ChipRow(modifier: Modifier = Modifier, content: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit) =
+    androidx.compose.foundation.layout.Row(modifier.fillMaxWidth().horizontalScroll(androidx.compose.foundation.rememberScrollState()),
+        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically, content = content)
 
 @Composable
 fun Headline(text: String, size: Int = 32) = Text(text, color = Ink, fontSize = size.sp, fontWeight = FontWeight.Bold, lineHeight = (size * 1.25).sp)

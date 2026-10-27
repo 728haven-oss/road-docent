@@ -118,8 +118,11 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 kindLabel(ep.kind, lang)?.let { Tag(it) }
             }
             Spacer(Modifier.height(14.dp))
-            Headline(ep.titleFor(lang), 30)
-            Spacer(Modifier.height(14.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(kindEmoji(ep.kind), fontSize = 34.sp); Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) { Headline(ep.titleFor(lang), 26) }
+            }
+            Spacer(Modifier.height(12.dp))
             Wave(active = speaking && !paused)
             Spacer(Modifier.height(12.dp))
             Body(ep.textFor(lang, audience), size = 15)
@@ -181,6 +184,8 @@ fun VoiceHint(lang: Lang, context: String) {
     }
     Text(hint, color = Quiet, fontSize = carSp(20), maxLines = 1)
 }
+
+fun kindEmoji(kind: String): String = when (kind) { "quiz" -> "❓"; "fact" -> "💡"; "food" -> "🍜"; "phrase" -> "🗣"; "tip" -> "✅"; "dialogue" -> "🎭"; else -> "📖" }
 
 fun kindLabel(kind: String, lang: Lang): String? = when (kind) {
     "quiz" -> if (lang == Lang.KO) "❓ 퀴즈" else "❓ Quiz"
