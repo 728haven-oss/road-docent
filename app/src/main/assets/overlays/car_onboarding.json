@@ -35,7 +35,7 @@
         "en": "Your first drive in a new car, congratulations. One thing before we go: this car has more than thirty sensors. A radar in the front bumper, a camera at the top of the windscreen, twelve ultrasonic sensors around the bumpers, blind-spot radars at the rear corners, a pressure sensor in every wheel, and seat sensors under the cushions. As each one switches on today I'll say 'that just worked', so you learn the car by driving it instead of reading the manual."
       },
       "kidsText": {
-        "ko": "새 차야! 이 차에는 눈이 서른 개도 넘게 달려 있어. 앞을 보는 눈, 옆을 보는 눈, 뒤를 보는 눈. 오늘 운전하면서 눈이 하나씩 떠질 때마다 알려줄게!",
+        "ko": "새 차예요! 이 차에는 눈이 서른 개도 넘게 달려 있어요. 앞을 보는 눈, 옆을 보는 눈, 뒤를 보는 눈. 오늘 운전하면서 눈이 하나씩 떠질 때마다 알려줄게요!",
         "en": "A new car! It has more than thirty eyes: eyes that look ahead, to the side and behind. As each eye opens today, I'll tell you!"
       },
       "trigger": {
@@ -58,7 +58,7 @@
         "en": "The car just noticed someone sat down in the back. A pressure sensor under the seat cushion detects weight; it drives the seat-belt warning and decides whether the airbag arms. The same sensor powers the rear-occupant alert that warns you if a child or pet is left behind when you get out. A child seat can be too light to trigger the belt warning, so always check that one yourself."
       },
       "kidsText": {
-        "ko": "네가 앉으니까 차가 알았어! 의자 밑에 무게를 재는 센서가 있거든. 그래서 안전벨트 안 매면 삐삐 소리가 나는 거야. 벨트 맸지?",
+        "ko": "여러분이 앉으니까 차가 알았어요! 의자 밑에 무게를 재는 센서가 있거든요. 그래서 안전벨트를 안 매면 삐삐 소리가 나는 거예요. 벨트 맸나요?",
         "en": "The car knew when you sat down! There's a weighing sensor under the seat. That's why it beeps if your seat belt isn't on. Belt on?"
       },
       "trigger": {
@@ -119,7 +119,7 @@
         "en": "Five kilometres in, all four tyre-pressure sensors are awake and the cluster shows pressure per wheel. The correct pressure is on the sticker inside the driver's door, usually around 35 psi. Check it monthly; every 10 °C drop costs about 1 psi, so autumn and winter matter most. Rotate tyres front to back every 10,000 km, and replace them when the tread reaches 1.6 mm, typically at 40,000 to 60,000 km."
       },
       "kidsText": {
-        "ko": "바퀴 안에도 센서가 있어! 바퀴에 공기가 얼마나 들어 있는지 재는 거야. 풍선처럼 공기가 빠지면 차가 알려줘. 퀴즈! 바퀴는 몇 개게? 센서도 그만큼 있어!",
+        "ko": "바퀴 안에도 센서가 있어요! 바퀴에 공기가 얼마나 들어 있는지 재는 거예요. 풍선처럼 공기가 빠지면 차가 알려줘요. 퀴즈! 바퀴는 몇 개일까요? 센서도 그만큼 있어요!",
         "en": "There are sensors inside the wheels too! They measure how much air is in the tyre. If air leaks like a balloon, the car tells you. Quiz! How many wheels? That's how many sensors!"
       },
       "trigger": {
@@ -179,7 +179,7 @@
         "en": "Parked. The twelve ultrasonic sensors around the bumpers just measured distance like a bat, by timing the echo of a sound pulse; the faster the beep, the closer than 30 cm you are. The rear camera sits above the number plate and blurs in rain, so a quick wipe fixes it. Three checks before you get out: anything left on the back seat, all windows closed, and on an EV whether to plug in. You've learned five sensors by driving today; I'll carry on with the rest next time."
       },
       "kidsText": {
-        "ko": "주차 끝! 차가 삐삐 소리 낸 거 들었어? 박쥐처럼 소리를 쏴서 벽이 얼마나 가까운지 재는 거야. 내리기 전에 네 물건 다 챙겼는지 확인!",
+        "ko": "주차 끝! 차가 삐삐 소리 낸 거 들었나요? 박쥐처럼 소리를 쏴서 벽이 얼마나 가까운지 재는 거예요. 내리기 전에 내 물건을 다 챙겼는지 확인해 볼까요?",
         "en": "Parked! Did you hear the car beeping? It shoots sounds like a bat to measure how close the wall is. Before you get out, check you've got all your things!"
       },
       "trigger": {

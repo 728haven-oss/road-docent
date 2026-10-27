@@ -98,7 +98,7 @@
         "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
       },
       "kidsText": {
-        "ko": "안녕! 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 퀴즈를 낼 거야. 왕이 살던 집에는 왜 돌로 만든 동물이 앉아 있을까? 정답은 광화문 앞에서!",
+        "ko": "안녕하세요, 여러분! 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가요. 가는 길에 퀴즈를 낼 거예요. 왕이 살던 집에는 왜 돌로 만든 동물이 앉아 있을까요? 정답은 광화문 앞에서!",
         "en": "Hi! Welcome to Korea. Today we're going to Gyeongbokgung, the huge house where kings once lived. On the way let's learn three Korean greetings. Annyeong-haseyo!"
       },
       "trigger": {
@@ -113,7 +113,7 @@
         "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
       },
       "foreignKidsText": {
-        "ko": "안녕! 한국에 온 걸 환영해. 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가. 가는 길에 한국말 인사 세 개를 배워보자. 안녕하세요!",
+        "ko": "안녕하세요, 여러분! 한국에 온 걸 환영해요. 오늘은 옛날 왕이 살던 커다란 집, 경복궁에 가요. 가는 길에 한국말 인사 세 개를 배워 볼까요? 안녕하세요!",
         "en": "Hi! Welcome to Korea. Today we're going to Gyeongbokgung, the huge house where kings once lived. On the way let's learn three Korean greetings. Annyeong-haseyo!"
       }
     },
@@ -153,7 +153,7 @@
         "en": "The name was chosen in 1395 by the scholar Jeong Do-jeon, from a line in the three-thousand-year-old Chinese Book of Odes: 'may you enjoy great blessings'. Ironically the palace burned and was torn down more than any other, so Joseon kings actually spent more years living in Changdeokgung next door. The biggest palace is the one kings lived in least."
       },
       "kidsText": {
-        "ko": "경복궁의 '경복'은 '커다란 복'이라는 뜻이야. 그런데 이 궁은 불도 나고 부서지기도 하고 복이 좀 없었대. 그래서 왕들은 옆에 있는 다른 궁에서 더 많이 살았어. 퀴즈! 경복궁은 몇 번 지어졌을까? 한 번? 두 번? 세 번?",
+        "ko": "경복궁의 '경복'은 '커다란 복'이라는 뜻이에요. 그런데 이 궁은 불도 나고 부서지기도 하고 복이 좀 없었대요. 그래서 왕들은 옆에 있는 다른 궁에서 더 많이 살았어요. 퀴즈! 경복궁은 몇 번 지어졌을까요? 한 번? 두 번? 세 번?",
         "en": "'Gyeongbok' means 'great blessings'. But this palace burned down and got broken a lot, not so lucky! So the kings lived more in the palace next door. Quiz! How many times was Gyeongbokgung built? Once, twice, or three times?"
       },
       "quiz": {
@@ -188,7 +188,7 @@
         "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
       },
       "kidsText": {
-        "ko": "딩동! 지금 서울에 들어왔어! 서울은 사람이 거의 천만 명이나 사는 큰 도시야. 그리고 600년 전에 왕이 '여기에 수도를 만들자!' 하고 고른 곳이야. 왜 여기를 골랐을까? 뒤에 산이 있고 앞에 강이 있어서! 창밖에 산이 보이면 알려줘.",
+        "ko": "딩동! 지금 서울에 들어왔어요! 서울은 사람이 거의 천만 명이나 사는 큰 도시예요. 그리고 600년 전에 왕이 수도로 골라 준 곳이에요. 왜 여기를 골랐을까요? 뒤에 산이 있고 앞에 강이 있어서요! 창밖에 산이 보이면 알려 줄래요?",
         "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
       },
       "trigger": {
@@ -211,7 +211,7 @@
         "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
       },
       "foreignKidsText": {
-        "ko": "딩동! 지금 서울에 들어왔어! 한국에서 제일 큰 도시야. 높은 아파트가 엄청 많지? 서울에는 사람이 거의 천만 명이나 살아. 창밖에 제일 높은 건물 찾아볼래?",
+        "ko": "딩동! 지금 서울에 들어왔어요! 한국에서 제일 큰 도시예요. 높은 아파트가 엄청 많죠? 서울에는 사람이 거의 천만 명이나 살아요. 창밖에서 제일 높은 건물을 찾아볼래요?",
         "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
       }
     },
@@ -226,7 +226,7 @@
         "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
       },
       "kidsText": {
-        "ko": "오른쪽에 큰 강 보여? 한강이야. 옛날에는 다리가 하나도 없어서 배를 타고 건넜대! 지금은 다리가 서른 개가 넘어. 지금 보이는 다리 몇 개인지 세어볼래?",
+        "ko": "오른쪽에 큰 강이 보이나요? 한강이에요. 옛날에는 다리가 하나도 없어서 배를 타고 건넜대요! 지금은 다리가 서른 개가 넘어요. 지금 보이는 다리가 몇 개인지 세어 볼래요?",
         "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
       },
       "trigger": {
@@ -245,7 +245,7 @@
         "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
       },
       "foreignKidsText": {
-        "ko": "오른쪽에 큰 강이 보여? 한강이야. 다리가 서른 개도 넘어! 지금 보이는 다리 몇 개인지 세어볼래?",
+        "ko": "오른쪽에 큰 강이 보이나요? 한강이에요. 다리가 서른 개도 넘어요! 지금 보이는 다리가 몇 개인지 세어 볼래요?",
         "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
       }
     },
@@ -261,7 +261,7 @@
         "en": "Let's call up two palace people from 600 years ago. Court lady: 'Sir, the king attends the throne hall today. Go see whether the officials are lined up before the rank stones.' Eunuch: 'All in place, from senior first rank to junior ninth, before the twenty-four stone markers. Civil officials to the east, military to the west.' Court lady: 'And do you know why the courtyard stones are so bumpy? So no one slips, and so the sun doesn't glare into the king's eyes.' Eunuch: 'And in leather shoes, nobody can run.' That courtyard is where you'll stand. Count the rank stones when you arrive."
       },
       "kidsText": {
-        "ko": "옛날 궁 안 사람들을 불러볼게! 상궁 아줌마: '오늘 왕님이 나오시는 날이야. 신하들이 돌 앞에 줄 섰니?' 내관 아저씨: '네! 스물네 개 돌 앞에 다 섰어요. 바닥이 울퉁불퉁해서 아무도 못 뛰어요!' 왜 바닥을 울퉁불퉁하게 만들었을까? 첫째, 미끄러지지 말라고. 둘째, 햇빛이 반사돼서 왕님 눈이 부시지 않게! 도착하면 돌 스물네 개 세어 보기, 미션!",
+        "ko": "옛날 궁 안 사람들을 불러 볼게요! 상궁 아주머니: '오늘 왕님이 나오시는 날이에요. 신하들이 돌 앞에 줄 섰나요?' 내관 아저씨: '네! 스물네 개 돌 앞에 다 섰어요. 바닥이 울퉁불퉁해서 아무도 못 뛰어요!' 왜 바닥을 울퉁불퉁하게 만들었을까요? 첫째, 미끄러지지 말라고요. 둘째, 햇빛이 반사돼서 왕님 눈이 부시지 않게요! 도착하면 돌 스물네 개 세어 보기, 미션이에요!",
         "en": "Let's call up people from the old palace! Court lady: 'The king comes out today. Are the officials lined up by the stones?' Eunuch: 'Yes! All twenty-four stones, and the floor is so bumpy nobody can run!' Why bumpy? One, so no one slips. Two, so the sun doesn't glare in the king's eyes! Mission: count the twenty-four stones when we arrive!"
       },
       "trigger": {
@@ -283,7 +283,7 @@
         "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
       },
       "kidsText": {
-        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문인데, 옛날엔 밤이 되면 문을 닫아서 아무도 못 들어왔대! 그런데 2008년에 불이 나서 다시 지었어. 지금 보이는 지붕이 새로 만든 거야.",
+        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문이 보이나요? 남대문이에요. 600년 전에 서울을 지키던 문인데, 옛날엔 밤이 되면 문을 닫아서 아무도 못 들어왔대요! 그런데 2008년에 불이 나서 다시 지었어요. 지금 보이는 지붕이 새로 만든 거예요.",
         "en": "See the old gate standing right in the middle of the road on the left? That's Namdaemun. It guarded Seoul 600 years ago. At night they closed it and nobody could come in!"
       },
       "trigger": {
@@ -310,7 +310,7 @@
         "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
       },
       "foreignKidsText": {
-        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문 보여? 남대문이야. 600년 전에 서울을 지키던 문이야. 옛날엔 밤이 되면 이 문을 닫아서 아무도 못 들어왔대!",
+        "ko": "왼쪽에 길 한가운데 서 있는 옛날 문이 보이나요? 남대문이에요. 600년 전에 서울을 지키던 문이에요. 옛날엔 밤이 되면 이 문을 닫아서 아무도 못 들어왔대요!",
         "en": "See the old gate standing right in the middle of the road on the left? That's Namdaemun. It guarded Seoul 600 years ago. At night they closed it and nobody could come in!"
       }
     },
@@ -325,7 +325,7 @@
         "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
       },
       "kidsText": {
-        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
+        "ko": "앞에 금색 동상이 보이나요? 세종대왕이에요. 한글을 만든 왕이에요. 그 앞에 칼을 든 분은 이순신 장군, 거북이 모양 배로 싸웠어요! 퀴즈! 거북선은 왜 거북이 모양일까요?",
         "en": "See the golden statue ahead? That's King Sejong, who invented Korea's alphabet. The man with the sword in front is Admiral Yi, who fought with turtle-shaped ships! Quiz: why were they shaped like turtles?"
       },
       "trigger": {
@@ -352,7 +352,7 @@
         "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
       },
       "foreignKidsText": {
-        "ko": "앞에 금색 아저씨 동상 보여? 세종대왕이야. 한국 글자 한글을 만든 왕이야. 그 앞에 칼 든 아저씨는 이순신 장군, 거북이 모양 배로 싸웠어! 퀴즈! 거북선은 왜 거북이 모양일까?",
+        "ko": "앞에 금색 동상이 보이나요? 세종대왕이에요. 한국 글자 한글을 만든 왕이에요. 그 앞에 칼을 든 분은 이순신 장군, 거북이 모양 배로 싸웠어요! 퀴즈! 거북선은 왜 거북이 모양일까요?",
         "en": "See the golden statue ahead? That's King Sejong, who invented Korea's alphabet. The man with the sword in front is Admiral Yi, who fought with turtle-shaped ships! Quiz: why were they shaped like turtles?"
       }
     },
@@ -367,7 +367,7 @@
         "en": "The two stone beasts flanking Gwanghwamun are haetae. Lion-like but horned and scaled, they're imaginary creatures that tell right from wrong, so they stand for justice, and they carry the energy of water, so they were believed to ward off fire. Gwanaksan to the south was thought to be a fire mountain that kept setting the palace ablaze, hence the guardians. Seoul's mascot 'Haechi' is this same beast, and a pair guards the National Assembly too."
       },
       "kidsText": {
-        "ko": "광화문 옆에 돌로 만든 동물 두 마리 보여? 해태야. 사자 같은데 뿔이 있어. 불을 끄는 힘이 있어서 궁궐을 지켜 줘. 서울시 캐릭터 해치가 얘야! 퀴즈! 해태는 불을 막을까, 물을 막을까?",
+        "ko": "광화문 옆에 돌로 만든 동물 두 마리가 보이나요? 해태예요. 사자 같은데 뿔이 있어요. 불을 끄는 힘이 있어서 궁궐을 지켜 줘요. 서울시 캐릭터 해치가 바로 해태예요! 퀴즈! 해태는 불을 막을까요, 물을 막을까요?",
         "en": "See the two stone animals beside the gate? They're haetae. Like lions but with horns. They have the power to stop fire and protect the palace. Seoul's mascot Haechi is this guy! Quiz: does the haetae stop fire, or stop water?"
       },
       "quiz": {
@@ -405,7 +405,7 @@
         "en": "Since we're slow, a long story. Gyeongbokgung was built in 1395. It burned in the 1592 Japanese invasion and lay in ruins for 270 years until the regent Heungseon Daewongun rebuilt it in 1867. Then in 1910 Japan colonised Korea, tore down most of the buildings and put its Government-General headquarters right in front of the gate. That building was demolished in 1995 and restoration has run for thirty years since. The throne hall and pavilion you'll see date from 1867; Gwanghwamun came home in 2010. Six hundred years of Korea in one palace."
       },
       "kidsText": {
-        "ko": "차가 막히네. 경복궁은 세 번이나 지어졌어. 불에 타고, 또 부서지고, 그래도 사람들이 포기하지 않고 다시 지었어. 지금도 고치는 중이야. 가면 공사하는 곳도 보일 거야!",
+        "ko": "차가 막히네요. 경복궁은 세 번이나 지어졌어요. 불에 타고, 또 부서지고, 그래도 사람들이 포기하지 않고 다시 지었어요. 지금도 고치는 중이에요. 가면 공사하는 곳도 보일 거예요!",
         "en": "Traffic! Gyeongbokgung was built three times. It burned, it was torn down, but people never gave up and built it again. They're still fixing it today, so you might see builders at work!"
       },
       "trigger": {
@@ -430,7 +430,7 @@
         "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
       },
       "kidsText": {
-        "ko": "15분 뒤 도착! 한복을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
+        "ko": "15분 뒤 도착해요! 한복을 빌려 입으면 공짜로 들어갈 수 있어요. 공주님, 왕자님 옷이에요. 입어 볼래요? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속해요!",
         "en": "Fifteen minutes to go! If you wear hanbok, Korea's old clothes, you get in free. Prince and princess outfits! Want to try? Inside the palace: no running and no stepping on the door sills, promise!"
       },
       "trigger": {
@@ -445,7 +445,7 @@
         "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
       },
       "foreignKidsText": {
-        "ko": "15분 뒤 도착! 한복이라는 한국 옛날 옷을 빌려 입으면 공짜로 들어갈 수 있어. 공주님, 왕자님 옷이야. 입어볼래? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속!",
+        "ko": "15분 뒤 도착해요! 한복이라는 한국 옛날 옷을 빌려 입으면 공짜로 들어갈 수 있어요. 공주님, 왕자님 옷이에요. 입어 볼래요? 궁에 들어가면 뛰지 않기, 문턱 밟지 않기, 약속해요!",
         "en": "Fifteen minutes to go! If you wear hanbok, Korea's old clothes, you get in free. Prince and princess outfits! Want to try? Inside the palace: no running and no stepping on the door sills, promise!"
       }
     },
@@ -460,7 +460,7 @@
         "en": "Setting off again. You've seen the king's house; how about the things that were inside it? The National Museum of Korea is 25 minutes by car, with a 1,400-year-old smiling bodhisattva and a thirteen-metre pagoda, and I'll keep the stories going all the way. Or Bukchon Hanok Village, ten minutes on foot, or Myeongdong's K-beauty street, fifteen minutes. Say: let's go to the first one."
       },
       "kidsText": {
-        "ko": "다시 출발! 아까 왕의 집은 봤는데 왕관이랑 보물은 못 봤지? 그게 다 있는 박물관에 갈까? 생각하는 부처님도 있어. 아니면 옛날 집 골목 북촌? 어디 갈래?",
+        "ko": "다시 출발해요! 아까 왕의 집은 봤는데 왕관이랑 보물은 못 봤죠? 그게 다 있는 박물관에 가 볼까요? 생각하는 부처님도 있어요. 아니면 옛날 집 골목 북촌? 어디로 갈까요?",
         "en": "Off we go! We saw the king's house but not his crown and treasures, right? Shall we go to the museum where they all are? There's a Thinking Buddha too. Or the old-house alleys of Bukchon? Which one?"
       },
       "trigger": {
@@ -482,7 +482,7 @@
         "en": "A quiet stretch, so a short one. Hangeul, created in 1443 by King Sejong whom you'll meet today, shapes its consonants after the speech organs: ㄱ is the tongue root blocking the throat, ㅁ the mouth, ㅇ the throat. Vowels combine three marks for heaven, earth and person. Learn 24 basic letters and you can read signs. Try reading the three syllables of 경복궁 when we arrive: gyeong, bok, gung."
       },
       "kidsText": {
-        "ko": "조용하니까 글자 놀이! 한국 글자 ㅁ은 입 모양이야. 입을 네모나게 벌려 봐. ㅇ은 목구멍 모양, 동그랗지? 한글은 입 모양을 보고 만든 글자야. 도착하면 '경복궁' 글자 찾기 미션!",
+        "ko": "조용하니까 글자 놀이를 해 볼까요? 한국 글자 ㅁ은 입 모양이에요. 입을 네모나게 벌려 볼까요? ㅇ은 목구멍 모양, 동그랗죠? 한글은 입 모양을 보고 만든 글자예요. 도착하면 '경복궁' 글자 찾기 미션이에요!",
         "en": "Quiet time, letter game! The Korean letter ㅁ is a mouth shape, open your mouth like a square. ㅇ is a round throat. Hangeul was made by looking at mouth shapes! Mission: find the sign that says 경복궁 when we arrive!"
       },
       "trigger": {
@@ -856,7 +856,7 @@
     {
       "id": "kq1",
       "question": {
-        "ko": "광화문 앞에 앉아 있는 금색 동상은 누구일까?",
+        "ko": "광화문 앞에 앉아 있는 금색 동상은 누구일까요?",
         "en": "Who is the golden statue in front of Gwanghwamun?"
       },
       "options": {
@@ -873,14 +873,14 @@
       },
       "answer": 1,
       "praise": {
-        "ko": "맞아! 한글을 만든 왕이야.",
+        "ko": "맞아요! 한글을 만든 왕이에요.",
         "en": "Yes! The king who made Hangeul."
       }
     },
     {
       "id": "kq2",
       "question": {
-        "ko": "남대문은 몇 살쯤 됐을까?",
+        "ko": "남대문은 몇 살쯤 됐을까요?",
         "en": "About how old is Namdaemun gate?"
       },
       "options": {
@@ -897,14 +897,14 @@
       },
       "answer": 2,
       "praise": {
-        "ko": "정답! 1398년에 지었어.",
+        "ko": "정답이에요! 1398년에 지었어요.",
         "en": "Right! Built in 1398."
       }
     },
     {
       "id": "kq3",
       "question": {
-        "ko": "경복궁 앞마당 돌바닥이 울퉁불퉁한 이유는?",
+        "ko": "경복궁 앞마당 돌바닥이 울퉁불퉁한 이유는 뭘까요?",
         "en": "Why is the palace courtyard floor bumpy?"
       },
       "options": {
@@ -921,14 +921,14 @@
       },
       "answer": 2,
       "praise": {
-        "ko": "그렇지! 햇빛도 덜 반사돼.",
+        "ko": "그렇죠! 햇빛도 덜 반사돼요.",
         "en": "Yes! It cuts the sun's glare too."
       }
     },
     {
       "id": "kq4",
       "question": {
-        "ko": "해태는 무엇을 막아 준다고 믿었을까?",
+        "ko": "해태는 무엇을 막아 준다고 믿었을까요?",
         "en": "What did people believe the haetae stops?"
       },
       "options": {

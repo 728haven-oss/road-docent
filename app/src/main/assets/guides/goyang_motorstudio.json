@@ -88,7 +88,7 @@
         "en": "Hello, I'm Road Docent. Hyundai Motorstudio Goyang is about 55 minutes away. On the way I'll tell you how the company that built this very car began, from the Pony to the Ioniq, and when we arrive I'll tell you what to see first."
       },
       "kidsText": {
-        "ko": "안녕! 오늘은 자동차가 태어나는 곳에 가는 거야. 우리가 타고 있는 이 차도 거기서 보여주는 것처럼 만들어졌어. 가는 길에 자동차 퀴즈 낼게!",
+        "ko": "안녕하세요, 여러분! 오늘은 자동차가 태어나는 곳에 가요. 우리가 타고 있는 이 차도 거기서 보여주는 것처럼 만들어졌어요. 가는 길에 자동차 퀴즈를 낼게요!",
         "en": "Hi! Today we're going to where cars are born. This car we're sitting in was made just like what they show there. Car quizzes on the way!"
       },
       "trigger": {
@@ -110,7 +110,7 @@
         "en": "Hyundai Motor was founded in December 1967, at first assembling Ford Cortinas. But founder Chung Ju-yung wasn't satisfied building other people's cars. In 1974 he commissioned Italian designer Giorgetto Giugiaro, and in 1975 Korea's first original model, the Pony, was born. Exports to Ecuador began the next year. That's where the car you're sitting in started."
       },
       "kidsText": {
-        "ko": "옛날 옛날, 1967년에 현대자동차가 생겼어. 처음엔 다른 나라 자동차를 조립만 했대. 그런데 '우리 차를 만들자!' 해서 1975년에 포니라는 차를 만들었어. 한국에서 처음으로 만든 자동차야. 퀴즈! 포니는 무슨 뜻일까? 정답은 조랑말!",
+        "ko": "옛날 옛날, 1967년에 현대자동차가 생겼어요. 처음엔 다른 나라 자동차를 조립만 했대요. 그런데 우리 차를 직접 만들기로 하고, 1975년에 포니라는 차를 만들었어요. 한국에서 처음으로 만든 자동차예요. 퀴즈! 포니는 무슨 뜻일까요? 정답은 조랑말!",
         "en": "Long ago, in 1967, Hyundai Motor was born. At first they only put together other countries' cars. Then they said 'let's build our own!' and in 1975 made the Pony, Korea's very first car. Quiz! What does Pony mean? A little horse!"
       },
       "trigger": {
@@ -132,7 +132,7 @@
         "en": "When the Excel entered the US in 1986, the engine was still Mitsubishi's. In 1991 Hyundai finished its own Alpha engine, and from then on it built truly its own cars. In 1998 it acquired Kia, forming today's Hyundai Motor Group. The 2021 Ioniq 5 was the first car on a dedicated EV platform, and Pleos, running in this very car, is the next step: a car driven by software."
       },
       "kidsText": {
-        "ko": "자동차의 심장은 엔진이야. 현대는 1991년에 처음으로 자기 엔진을 만들었어. 그리고 지금 우리가 탄 차는 전기로 가는 차일 수도 있어. 퀴즈! 전기차는 주유소에 갈까, 충전소에 갈까?",
+        "ko": "자동차의 심장은 엔진이에요. 현대는 1991년에 처음으로 자기 엔진을 만들었어요. 그리고 지금 우리가 탄 차는 전기로 가는 차일 수도 있어요. 퀴즈! 전기차는 주유소에 갈까요, 충전소에 갈까요?",
         "en": "A car's heart is its engine. Hyundai built its very own engine in 1991. And the car we're in might run on electricity. Quiz! Does an electric car go to a gas station or a charging station?"
       },
       "trigger": {
@@ -154,7 +154,7 @@
         "en": "Since we're slow, here's a longer story. The Jayu-ro, 'Freedom Road', opened in 1992. The Han River runs on your right and beyond it is North Korea; many people drive past without realising the hills across the water are the North. The name expresses hope for reunification. The wetlands behind the fence, closed to people, became a haven for migratory birds like white-naped cranes."
       },
       "kidsText": {
-        "ko": "차가 막히네. 오른쪽에 강 보이지? 한강이야. 강 건너편은 북한이야. 사람이 못 들어가는 곳이라서 새들이 아주 많이 살아. 큰 두루미를 찾아볼래?",
+        "ko": "차가 막히네요. 오른쪽에 강이 보이죠? 한강이에요. 강 건너편은 북한이에요. 사람이 못 들어가는 곳이라서 새들이 아주 많이 살아요. 큰 두루미를 찾아볼래요?",
         "en": "Traffic! See the river on the right? That's the Han River, and across it is North Korea. People can't go there, so lots of birds live there instead. Can you spot a big crane?"
       },
       "trigger": {
@@ -197,7 +197,7 @@
         "en": "Almost there. Hyundai Motorstudio Goyang opened in April 2017 as a hands-on exhibition. Start at the Connect Wall on floor one for the current lineup, then follow 'Into the Car' through body shop, welding, paint and assembly. Floor two has the N performance zone with racing cars, and a fuel-cell exhibit shows how a hydrogen car works. Families stay about 90 minutes. Parking is underground and tours are by reservation. Shall I call to book?"
       },
       "kidsText": {
-        "ko": "거의 다 왔어! 안에 들어가면 로봇이 자동차를 만드는 걸 볼 수 있어. 용접할 때 불꽃이 튀는 것도! 들어가면 안내해 주는 선생님께 뭐라고 인사하지? 안녕하세요! 한 번 해보자.",
+        "ko": "거의 다 왔어요! 안에 들어가면 로봇이 자동차를 만드는 걸 볼 수 있어요. 용접할 때 불꽃이 튀는 것도요! 들어가면 안내해 주는 선생님께 뭐라고 인사할까요? 안녕하세요! 한 번 해 볼까요?",
         "en": "Almost there! Inside you can watch robots build a car, with sparks flying when they weld! When we go in, what do we say to the guide? Annyeong-haseyo! Let's try."
       },
       "trigger": {
@@ -219,7 +219,7 @@
         "en": "Setting off again. There are places nearby. Ilsan Lake Park is ten minutes by car and good for a walk; One Mount is good with kids. Say let's go there and I'll route you."
       },
       "kidsText": {
-        "ko": "다시 출발! 호수공원에 가서 오리 보러 갈까, 아니면 원마운트에서 놀까? 어디 갈래?",
+        "ko": "다시 출발해요! 호수공원에 가서 오리 보러 갈까요, 아니면 원마운트에서 놀까요? 어디로 갈까요?",
         "en": "Off we go! Shall we see ducks at the lake park, or play at One Mount? Which one?"
       },
       "trigger": {
@@ -389,7 +389,7 @@
     {
       "id": "kq1",
       "question": {
-        "ko": "현대자동차가 처음 만든 자기 차 이름은?",
+        "ko": "현대자동차가 처음 만든 자기 차 이름은 뭘까요?",
         "en": "What was Hyundai's first own car called?"
       },
       "options": {
@@ -406,14 +406,14 @@
       },
       "answer": 1,
       "praise": {
-        "ko": "정답! 조랑말이라는 뜻이야.",
+        "ko": "정답이에요! 조랑말이라는 뜻이에요.",
         "en": "Right! It means a small horse."
       }
     },
     {
       "id": "kq2",
       "question": {
-        "ko": "전기차는 무엇으로 달릴까?",
+        "ko": "전기차는 무엇으로 달릴까요?",
         "en": "What does an electric car run on?"
       },
       "options": {
@@ -433,7 +433,7 @@
     {
       "id": "kq3",
       "question": {
-        "ko": "차에 있는 센서는 몇 개쯤 될까?",
+        "ko": "차에 있는 센서는 몇 개쯤 될까요?",
         "en": "About how many sensors does a car have?"
       },
       "options": {

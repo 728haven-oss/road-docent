@@ -159,13 +159,16 @@ class EngineFlowTest {
         r.start("경복궁"); tick(); r.spk.finish()
         r.nav.at(GeoPoint(37.575, 126.976), remainSec = 14 * 60); advanceTimeBy(500)
         assertTrue("briefing phase at <15 min", r.engine.phase.value is DocentPhase.Briefing)
-        assertTrue(r.spk.last().contains("15분"))
+        repeat(12) { if (!r.spk.spoken.any { it.contains("15분") }) { r.spk.finish(); advanceTimeBy(3_000) } }   // 해태 ends with a quiz: pause + answer first   // briefing waits for the story in progress
+        assertTrue("briefing spoken after the current story: ${r.spk.spoken.map { it.take(12) }}", r.spk.spoken.any { it.contains("15분") })
         // arrive and park
         r.nav.at(GeoPoint(37.5796, 126.977), remainSec = 0, arrived = true)
         r.veh.set { it.copy(gearPark = true, speedKmh = 0f) }; advanceTimeBy(500)
         val parked = r.engine.phase.value
         assertTrue("parked phase", parked is DocentPhase.Parked)
-        assertTrue("checklist spoken", r.spk.last().contains("여기서 할 일"))
+        repeat(8) { if (!r.spk.spoken.any { it.contains("도착했어요") }) { r.spk.finish(); advanceTimeBy(3_000) } }
+        val arrival = r.spk.spoken.last { it.contains("도착했어요") }
+        assertTrue("arrival says one tip, not the whole list: $arrival", arrival.contains("하나만 기억하세요") && arrival.length < 220)
         // re-board after 40 (simulated) minutes → not disappointed; museum is the first suggestion
         advanceTimeBy(40 * 60 * 1000L)
         r.veh.set { it.copy(gearPark = false, speedKmh = 5f) }; advanceTimeBy(500)

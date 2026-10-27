@@ -41,7 +41,7 @@ import kr.roaddocent.ui.theme.Quiet
 
 @Composable
 private fun Choice(label: String, on: Boolean, onClick: () -> Unit) =
-    Text(label, Modifier.background(if (on) Accent else Chip, RoundedCornerShape(10.dp)).clickable(onClick = onClick).padding(horizontal = 14.dp, vertical = 8.dp), color = if (on) Color(0xFF06111F) else Ink, fontSize = 14.sp)
+    kr.roaddocent.ui.theme.Pill(label, Modifier.clickable(onClick = onClick), selected = on)
 
 @Composable
 private fun Label(t: String) = Text(t, color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 12.dp, bottom = 6.dp))
@@ -57,47 +57,47 @@ fun SettingsScreen(
         Panel(Modifier.weight(1f).fillMaxHeight()) {
             Headline(if (ko) "설정" else "Settings", 26)
             Label(if (ko) "가이드 언어" else "Guide language")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice("한국어", prefs.lang == Lang.KO) { onChange(prefs.copy(lang = Lang.KO)) }
                 Choice("English", prefs.lang == Lang.EN) { onChange(prefs.copy(lang = Lang.EN)) }
             }
             Label(if (ko) "탑승자" else "Passengers")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "일반" else "Adults", prefs.audience == Audience.ADULT) { onChange(prefs.copy(audience = Audience.ADULT)) }
                 Choice(if (ko) "아이와 함께" else "With kids", prefs.audience == Audience.KIDS) { onChange(prefs.copy(audience = Audience.KIDS)) }
                 Choice(if (ko) "외국인" else "Visitor", prefs.audience == Audience.FOREIGN) { onChange(prefs.copy(audience = Audience.FOREIGN)) }
             }
             if (prefs.audience == Audience.KIDS) {
                 Label(if (ko) "아이 나이 (난이도)" else "Child's age (difficulty)")
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                kr.roaddocent.ui.theme.ChipRow {
                     Choice(if (ko) "5~7 노래·짧은 이야기" else "5–7 songs", prefs.childAge <= 7) { onChange(prefs.copy(childAge = 6)) }
                     Choice(if (ko) "8~10 퀴즈·역사" else "8–10 quizzes", prefs.childAge in 8..10) { onChange(prefs.copy(childAge = 9)) }
                     Choice(if (ko) "11~13 토론형" else "11–13 discussion", prefs.childAge >= 11) { onChange(prefs.copy(childAge = 12)) }
                 }
             }
             Label(if (ko) "여행 테마 (추천 우선순위)" else "Travel theme (ranks suggestions)")
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "전체" else "All", prefs.theme.isBlank()) { onChange(prefs.copy(theme = "")) }
                 listOf("history", "art", "nature", "thrill", "food").forEach { t -> Choice(kr.roaddocent.core.Themes.label(t, prefs.lang), prefs.theme == t) { onChange(prefs.copy(theme = t)) } }
             }
             Label(if (ko) "주행 중 화면" else "Screen while driving")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "제목·파형만 (권장)" else "Title + wave only (recommended)", !prefs.alwaysFull) { onChange(prefs.copy(alwaysFull = false)) }
                 Choice(if (ko) "본문도 표시" else "Show full text", prefs.alwaysFull) { onChange(prefs.copy(alwaysFull = true)) }
                 Choice(if (ko) "글자 크게" else "Large text", prefs.fontScale > 1.1f) { onChange(prefs.copy(fontScale = if (prefs.fontScale > 1.1f) 1.0f else 1.2f)) }
             }
             Label(if (ko) "안전" else "Safety")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 listOf(80, 100, 110).forEach { v -> Choice(if (ko) "${v}km/h 이상 멈춤" else "pause over $v km/h", prefs.safetyPauseKmh == v) { onChange(prefs.copy(safetyPauseKmh = v)) } }
             }
             Label(if (ko) "데이터" else "Data")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "여행 일지 저장" else "Keep travel log", prefs.keepTravelLog) { onChange(prefs.copy(keepTravelLog = true)) }
                 Choice(if (ko) "저장 안 함" else "Don't keep", !prefs.keepTravelLog) { onChange(prefs.copy(keepTravelLog = false)) }
             }
             Body(if (ko) "위치 데이터는 가이드 생성에만 쓰고 서버에 영구 저장하지 않아요." else "Location data is used only to build the guide and is never stored permanently.", size = 12)
             Label(if (ko) "부가 기능 · 내 차 (기본 꺼짐)" else "Extras · my car (off by default)")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "새 차 알아가기 켬" else "New-car onboarding on", prefs.newCarMode) { onChange(prefs.copy(newCarMode = true)) }
                 Choice(if (ko) "끔" else "Off", !prefs.newCarMode) { onChange(prefs.copy(newCarMode = false)) }
             }
@@ -111,7 +111,7 @@ fun SettingsScreen(
             if (voice != null) {
                 Body(if (ko) "현재: ${voice.name} 목소리 ${if (voice.modelId != null) "(복제 모델 연결됨)" else "(샘플만 저장, API 키 필요)"}" else "Current: ${voice.name} ${if (voice.modelId != null) "(cloned model active)" else "(samples saved, API key needed)"}", color = Ink, size = 14)
                 Spacer(Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                kr.roaddocent.ui.theme.ChipRow {
                     ActionButton(if (ko) "다시 녹음" else "Re-record", onClick = onVoiceSetup)
                     ActionButton(if (ko) "삭제" else "Delete", onClick = onDeleteVoice)
                 }
@@ -121,7 +121,7 @@ fun SettingsScreen(
                 ActionButton(if (ko) "🎙 목소리 녹음·가져오기" else "🎙 Record or import", primary = true, onClick = onVoiceSetup)
             }
             Label(if (ko) "음성 복제 API 키" else "Voice-cloning API key")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice("ElevenLabs", prefs.voiceProvider == "elevenlabs") { onChange(prefs.copy(voiceProvider = "elevenlabs")) }
                 Choice("Typecast", prefs.voiceProvider == "typecast") { onChange(prefs.copy(voiceProvider = "typecast")) }
             }
@@ -135,7 +135,7 @@ fun SettingsScreen(
             ActionButton(if (ko) "키 저장" else "Save key") { onChange(prefs.copy(voiceApiKey = key.trim())) }
             Body(if (ko) "키는 이 기기에만 저장돼요. 없으면 기기 기본 TTS로 재생해요." else "The key stays on this device. Without it, on-device TTS is used.", size = 12)
             Label(if (ko) "음성 명령" else "Voice commands")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 Choice(if (ko) "Gleo (Pleos)" else "Gleo (Pleos)", !prefs.localVoiceCommands) { onChange(prefs.copy(localVoiceCommands = false)) }
                 Choice(if (ko) "기기 음성인식" else "On-device", prefs.localVoiceCommands) { onChange(prefs.copy(localVoiceCommands = true)) }
             }

@@ -46,11 +46,14 @@ class AndroidSpeaker(context: Context) : Speaker {
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) { _speaking.value = true }
             override fun onDone(utteranceId: String?) { if (!paused) speakNext() }
-            @Deprecated("Deprecated in Java") override fun onError(utteranceId: String?) { _speaking.value = false }
+            @Deprecated("Deprecated in Java") override fun onError(utteranceId: String?) { if (!paused) speakNext() }
         })
     }
 
     override fun speak(text: String, lang: Lang, utteranceId: String) {
+        // Report "speaking" immediately — the onStart callback arrives later, and anything deciding
+        // "is the guide talking?" in between would otherwise cut this utterance off.
+        _speaking.value = true
         if (!ready) { pending = text to lang; return }
         this.lang = lang
         tts.language = if (lang == Lang.KO) Locale.KOREAN else Locale.US

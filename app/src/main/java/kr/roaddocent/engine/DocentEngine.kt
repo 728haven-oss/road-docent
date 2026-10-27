@@ -143,7 +143,7 @@ class DocentEngine(
             while (true) {
                 delay(250)
                 val speaking = speaker.speaking.value
-                if (!speaking && handled != utter) { handled = utter; lastSpeechEndMs = clock(); endedAt = clock(); kidsCounted = false }
+                if (!speaking && !_paused.value && handled != utter) { handled = utter; lastSpeechEndMs = clock(); endedAt = clock(); kidsCounted = false }
                 if (speaking) endedAt = null
                 val since = endedAt?.let { clock() - it }
                 if (since != null && !quizPending && _kidsQuiz.value == null) {
@@ -333,8 +333,11 @@ class DocentEngine(
             val place = if (n.destination == g.destination.point) g.destination else g.nearby.firstOrNull { it.point == n.destination } ?: Place("dest", mapOf("ko" to n.destinationName, "en" to n.destinationName), n.destination ?: GeoPoint(0.0, 0.0))
             currentVisit = Visit(place.name[_lang.value.tag] ?: place.name.values.first(), place.point, now).also { vis -> _log.update { it.copy(visits = it.visits + vis) } }
             _phase.value = DocentPhase.Parked(place, now)
-            val steps = g.destination.onArrival[_lang.value.tag].orEmpty()
-            if (steps.isNotEmpty()) say((if (_lang.value == Lang.KO) "도착했어요. 여기서 할 일을 순서대로 알려드릴게요. " else "We've arrived. Here's what to do, in order. ") + steps.joinToString(" "), _lang.value) else speaker.stop()
+            val steps = place.onArrival[_lang.value.tag].orEmpty().ifEmpty { g.destination.onArrival[_lang.value.tag].orEmpty() }
+            // Say one useful thing, not the whole list; the rest is on screen as cards.
+            val tip = kr.roaddocent.ui.screen.arrivalHighlight(steps)
+            val name = place.name[_lang.value.tag] ?: ""
+            sayWhenFree(if (_lang.value == Lang.KO) "${name}에 도착했어요. 하나만 기억하세요. $tip 나머지는 화면에 카드로 정리해 뒀어요." else "We've arrived at $name. If you remember one thing: $tip The rest is on screen.")
         }
 
         // re-board: P -> D after being parked
@@ -362,7 +365,7 @@ class DocentEngine(
     private data class Pending(val ep: Episode, val prefix: String, val force: Boolean)
     private val pending = ArrayDeque<Pending>()
     /** Triggers that may interrupt mid-story (safety-relevant or time-critical); everything else waits its turn. */
-    private fun interrupts(ep: Episode) = ep.trigger is Trigger.RemainUnderMin || ep.trigger is Trigger.Reboard || ep.trigger is Trigger.AtStart && ep.id.endsWith("intro")
+    private fun interrupts(ep: Episode) = false
 
     private fun fire(ep: Episode?, prefix: String = "", force: Boolean = false) {
         ep ?: return
@@ -397,6 +400,15 @@ class DocentEngine(
                 revealQuiz()
             }
         }
+    }
+
+    /** Read one line now (user tapped it). Cuts nothing automatic because it is a user action. */
+    fun sayNow(text: String) { pending.clear(); say(text, _lang.value) }
+
+    /** System line (arrival, briefing) that waits for the story in progress instead of cutting it. */
+    private fun sayWhenFree(text: String) {
+        val ep = Episode("sys-" + clock(), mapOf(_lang.value.tag to ""), mapOf("ko" to text, "en" to text), trigger = Trigger.Reboard, source = "Road Docent", kind = "tip")
+        if (speaker.speaking.value) pending.addLast(Pending(ep, "", true)) else say(text, _lang.value)
     }
 
     /** Autio-style "play a story near me now": nearest unplayed NearPoint story from any guide within [maxKm]. */

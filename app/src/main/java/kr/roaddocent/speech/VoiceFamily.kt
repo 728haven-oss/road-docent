@@ -168,6 +168,7 @@ class CloudVoiceSpeaker(private val context: Context, private val client: VoiceC
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun speak(text: String, lang: Lang, utteranceId: String) {
+        _speaking.value = true
         val model = profile?.modelId
         if (model == null || !client.available) { fallback.speak(text, lang, utteranceId); return }
         this.lang = lang; paused = false

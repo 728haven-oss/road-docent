@@ -50,7 +50,7 @@
         "en": "Hello, I'm Road Docent, your guide to Gangneung today. It's about 2 hours 40 minutes to Anmok Beach, passing Hoengseong, Pyeongchang and the Daegwallyeong pass. Before we arrive you'll know why Gangneung became Korea's coffee city and why the pass is lined with wind turbines. Say skip to skip, or tell me more to go deeper."
       },
       "kidsText": {
-        "ko": "안녕! 나는 오늘 강릉까지 같이 가는 로드 도슨트야. 가는 길에 퀴즈도 내고 옛날이야기도 들려줄게. 창밖을 잘 봐야 퀴즈를 맞힐 수 있어!",
+        "ko": "안녕하세요, 여러분! 저는 오늘 강릉까지 같이 가는 로드 도슨트예요. 가는 길에 퀴즈도 내고 옛날이야기도 들려줄게요. 창밖을 잘 봐야 퀴즈를 맞힐 수 있어요!",
         "en": "Hi! I'm Road Docent and I'm riding with you to Gangneung. I'll tell stories and ask quizzes on the way. Keep your eyes on the window to win!"
       },
       "trigger": {
@@ -72,7 +72,7 @@
         "en": "In the late 1990s, Korea's first generation of baristas left Seoul and opened roasteries by the Gangneung shore. Anmok Beach used to be lined with coffee vending machines, and sipping vending-machine coffee by the sea was the local date. Cafes replaced the machines one by one and became today's coffee street. Since 2009 the Gangneung Coffee Festival runs every October."
       },
       "kidsText": {
-        "ko": "강릉 바닷가에는 옛날에 커피 자판기가 아주 많았대. 사람들이 바다를 보면서 자판기 커피를 마시는 걸 좋아했거든. 그래서 지금은 바다 앞에 카페가 쭉 생겼어. 우리가 가는 곳이 바로 거기야!",
+        "ko": "강릉 바닷가에는 옛날에 커피 자판기가 아주 많았대요. 사람들이 바다를 보면서 자판기 커피를 마시는 걸 좋아했거든요. 그래서 지금은 바다 앞에 카페가 쭉 생겼어요. 우리가 가는 곳이 바로 거기예요!",
         "en": "Long ago the Gangneung beach was full of coffee vending machines. People loved drinking coffee while watching the sea. Now there's a whole street of cafes there, and that's exactly where we're going!"
       },
       "trigger": {
@@ -95,7 +95,7 @@
         "en": "We've just crossed from Gyeonggi into Gangwon, Korea's largest province, where seventy percent of the land is mountain and only about 1.5 million people live. From here the road climbs and the tunnels multiply. This is the Seoul–Yangyang Expressway, opened in 2017; before it Gangneung took four hours, now two and a half. Gangwon means potatoes, corn and the 2018 Pyeongchang Olympics. Try the potato rice cake at a rest area."
       },
       "kidsText": {
-        "ko": "딩동! 지금 강원도에 들어왔어! 여기는 산이 아주아주 많아. 창밖에 산이 몇 개 보여? 그리고 감자가 유명해. 휴게소에서 감자떡 먹어볼까?",
+        "ko": "딩동! 지금 강원도에 들어왔어요! 여기는 산이 아주아주 많아요. 창밖에 산이 몇 개 보이나요? 그리고 감자가 유명해요. 휴게소에서 감자떡 먹어 볼까요?",
         "en": "Ding! We're in Gangwon now! It has lots and lots of mountains. How many can you see? And potatoes are famous here. Potato rice cake at the rest area?"
       },
       "trigger": {
@@ -125,7 +125,7 @@
         "en": "Hoengseong rest area is 5 km ahead. Hoengseong is famous for hanwoo beef, so try the hanwoo beef soup here. Restrooms are on the left of the building, parking is closest at the right end. Shall we stop?"
       },
       "kidsText": {
-        "ko": "조금만 가면 횡성휴게소야. 횡성은 소가 아주 유명한 곳이야. 여기 소떡소떡도 맛있대. 쉬었다 갈까?",
+        "ko": "조금만 가면 횡성휴게소예요. 횡성은 소가 아주 유명한 곳이에요. 여기 소떡소떡도 맛있대요. 쉬었다 갈까요?",
         "en": "Hoengseong rest area is coming up. Hoengseong is famous for its cows! The sausage-and-rice-cake skewers here are great too. Want to stop?"
       },
       "trigger": {
@@ -148,7 +148,7 @@
         "en": "We're passing Pyeongchang, host of the 2018 Winter Olympics. It bid three times and won on the third. At 700 metres above sea level it calls itself Happy 700, said to be the most comfortable altitude for people. The KTX line built for the Games cut Seoul to Gangneung down to two hours."
       },
       "kidsText": {
-        "ko": "지금 지나는 곳은 평창이야. 2018년에 여기서 겨울올림픽이 열렸어. 스키랑 스케이트 선수들이 전 세계에서 왔지. 퀴즈! 올림픽 마스코트 흰 호랑이 이름이 뭐였을까? 정답은 수호랑!",
+        "ko": "지금 지나는 곳은 평창이에요. 2018년에 여기서 겨울올림픽이 열렸어요. 스키랑 스케이트 선수들이 전 세계에서 왔어요. 퀴즈! 올림픽 마스코트 흰 호랑이 이름이 뭐였을까요? 정답은 수호랑!",
         "en": "We're in Pyeongchang now. The 2018 Winter Olympics happened right here, with skiers and skaters from all over the world. Quiz! What was the white tiger mascot's name? The answer: Soohorang!"
       },
       "trigger": {
@@ -174,7 +174,7 @@
         "en": "Looks like we'll be slow for a while, so here's a longer story. The Yeongdong Expressway opened in 1975. Before that, Seoul to Gangneung took a full day over the winding Daegwallyeong pass, said to have ninety-nine bends. Shin Saimdang, the painter on Korea's 50,000-won note, crossed it with her young son and wrote a poem looking back at her hometown Gangneung. This road we're stuck on was, a century ago, a pass people walked."
       },
       "kidsText": {
-        "ko": "차가 좀 막히네. 그럼 긴 이야기 하나! 옛날에는 서울에서 강릉까지 하루 종일 걸렸대. 고속도로가 없어서 산을 걸어서 넘었거든. 그 산 고개에 굽이가 아흔아홉 개나 있었대. 우리는 차 안에서 편하게 가니까 다행이지?",
+        "ko": "차가 좀 막히네요. 그럼 긴 이야기 하나 들려줄게요! 옛날에는 서울에서 강릉까지 하루 종일 걸렸대요. 고속도로가 없어서 산을 걸어서 넘었거든요. 그 산 고개에 굽이가 아흔아홉 개나 있었대요. 우리는 차 안에서 편하게 가니까 다행이죠?",
         "en": "We're in a bit of traffic, so here's a long story! Long ago it took a whole day from Seoul to Gangneung. There was no highway, so people walked over the mountains, on a pass with ninety-nine bends. Aren't we lucky to be sitting in a car?"
       },
       "trigger": {
@@ -195,7 +195,7 @@
         "en": "This is the Daegwallyeong pass. Lots of curves, so I'll keep it short. The turbines on the ridge to your right are there because the wind is strong. When that wind drops toward Gangneung it turns hot and dry, which is why spring wildfires are common."
       },
       "kidsText": {
-        "ko": "창밖 오른쪽을 봐! 커다란 바람개비가 보이지? 저건 풍력발전기야. 바람으로 전기를 만들어. 몇 개인지 세어볼래?",
+        "ko": "창밖 오른쪽을 볼까요? 커다란 바람개비가 보이죠? 저건 풍력발전기예요. 바람으로 전기를 만들어요. 몇 개인지 세어 볼래요?",
         "en": "Look out the right window! See the giant pinwheels? Those are wind turbines, making electricity from wind. Can you count them?"
       },
       "trigger": {
@@ -221,7 +221,7 @@
         "en": "We arrive at Anmok Beach in 20 minutes. At this hour, Bohemian Roasters with its sea-view window seats is a good pick. The closest parking is the public lot behind the building. Gangneung Central Market, 5 minutes on foot, is known for sweet-and-spicy fried chicken. Shall I call and reserve for four at our arrival time?"
       },
       "kidsText": {
-        "ko": "20분 뒤면 바다에 도착해! 카페에 가면 어른들은 커피, 너는 뭐 마실래? 카페에 들어가면 뭐라고 인사하지? 안녕하세요! 한 번 연습해보자.",
+        "ko": "20분 뒤면 바다에 도착해요! 카페에 가면 어른들은 커피, 여러분은 뭐 마실래요? 카페에 들어가면 뭐라고 인사할까요? 안녕하세요! 한 번 연습해 볼까요?",
         "en": "We reach the sea in 20 minutes! Grown-ups get coffee at the cafe. What will you drink? And what do we say when we walk in? Annyeong-haseyo! Let's practice once."
       },
       "trigger": {
@@ -243,7 +243,7 @@
         "en": "Setting off again. Two places are within ten minutes by car. Gyeongpo pine forest lines up with sunset if we go now, and Gangmun Beach is good for a quiet walk. Say let's go there and I'll route you."
       },
       "kidsText": {
-        "ko": "다시 출발! 이번엔 소나무 숲에 갈까? 솔숲에서 솔방울 찾기 할 수 있어. 아니면 오죽헌에 가서 신사임당 이야기 듣기? 어디 갈래?",
+        "ko": "다시 출발해요! 이번엔 소나무 숲에 갈까요? 솔숲에서 솔방울 찾기를 할 수 있어요. 아니면 오죽헌에 가서 신사임당 이야기 듣기? 어디로 갈까요?",
         "en": "Off we go again! How about a pine forest next? We can hunt for pine cones there. Or Ojukheon, to hear the story of Shin Saimdang? Which one?"
       },
       "trigger": {
@@ -494,7 +494,7 @@
     {
       "id": "kq1",
       "question": {
-        "ko": "강원도에서 유명한 음식은?",
+        "ko": "강원도에서 유명한 음식은 뭘까요?",
         "en": "Which food is Gangwon famous for?"
       },
       "options": {
@@ -514,7 +514,7 @@
     {
       "id": "kq2",
       "question": {
-        "ko": "강릉 바다는 어느 쪽 바다일까?",
+        "ko": "강릉 바다는 어느 쪽 바다일까요?",
         "en": "Which sea is Gangneung on?"
       },
       "options": {
@@ -531,14 +531,14 @@
       },
       "answer": 3,
       "praise": {
-        "ko": "정답! 해가 뜨는 바다야.",
+        "ko": "정답이에요! 해가 뜨는 바다예요.",
         "en": "Right! Where the sun rises."
       }
     },
     {
       "id": "kq3",
       "question": {
-        "ko": "대관령에서 많이 키우는 동물은?",
+        "ko": "대관령에서 많이 키우는 동물은 뭘까요?",
         "en": "Which animals are raised on Daegwallyeong?"
       },
       "options": {

@@ -71,9 +71,9 @@ fun VoiceFamilyScreen(
             Spacer(Modifier.height(16.dp))
             Text(if (ko) "누가 녹음하나요?" else "Who is recording?", color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(8.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            kr.roaddocent.ui.theme.ChipRow {
                 listOf("mom" to (if (ko) "엄마" else "Mum"), "dad" to (if (ko) "아빠" else "Dad"), "child" to (if (ko) "아이 (보호자 동의)" else "Child (guardian consent)")).forEach { (k, l) ->
-                    Text(l, Modifier.background(if (who == k) Accent else Chip, RoundedCornerShape(10.dp)).clickable { who = k }.padding(horizontal = 14.dp, vertical = 8.dp), color = if (who == k) Color(0xFF06111F) else Ink, fontSize = 14.sp)
+                    Text(l, Modifier.background(if (who == k) Accent else Chip, RoundedCornerShape(10.dp)).clickable { who = k }.padding(horizontal = 14.dp, vertical = 8.dp), color = if (who == k) androidx.compose.ui.graphics.Color.White else Ink, fontSize = 14.sp)
                 }
             }
             Spacer(Modifier.height(16.dp))
@@ -82,7 +82,7 @@ fun VoiceFamilyScreen(
             Spacer(Modifier.height(12.dp))
             Body(if (ko) "원본 녹음은 목소리 모델이 만들어지면 삭제돼요. 목소리는 가이드 대본에만 쓰이고, 생성 음성에는 워터마크가 들어가요." else "Raw recordings are deleted once the voice model exists. The voice is used only for guide scripts and generated audio is watermarked.", size = 12)
             Spacer(Modifier.weight(1f))
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            kr.roaddocent.ui.theme.ButtonFlow {
                 ActionButton(if (ko) "닫기" else "Close", onClick = onClose)
                 if (done >= samples.size) ActionButton(if (ko) "목소리 만들기" else "Build voice", primary = true) { onBuild(name, isChild, guardian) }
             }
@@ -103,7 +103,7 @@ fun VoiceFamilyScreen(
             val canRecord = consent && (!isChild || guardian)
             var hint by remember { mutableStateOf<String?>(null) }
             (error ?: hint)?.let { Body(it, color = Accent, size = 14); Spacer(Modifier.height(6.dp)) }
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            kr.roaddocent.ui.theme.ButtonFlow {
                 if (!recording) ActionButton(if (ko) "🎙 녹음 시작" else "🎙 Record", primary = canRecord) { if (canRecord) onStart(idx) else hint = if (ko) "위의 동의 항목에 체크하면 녹음 버튼이 켜져요." else "Tick the consent box above to enable recording." }
                 else ActionButton(if (ko) "■ 녹음 끝" else "■ Stop", primary = true) { onStop(); done = maxOf(done, idx + 1); if (idx < samples.size - 1) idx++ }
                 if (idx > 0 && !recording) ActionButton(if (ko) "이전" else "Back") { idx-- }
@@ -118,7 +118,7 @@ fun VoiceFamilyScreen(
 @Composable
 private fun CheckLine(checked: Boolean, text: String, onToggle: () -> Unit) {
     Row(Modifier.fillMaxWidth().clickable(onClick = onToggle).padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.width(22.dp).height(22.dp).background(if (checked) Accent else Chip, RoundedCornerShape(6.dp)), contentAlignment = Alignment.Center) { if (checked) Text("✓", color = Color(0xFF06111F), fontSize = 14.sp) }
+        Box(Modifier.width(22.dp).height(22.dp).background(if (checked) Accent else Chip, RoundedCornerShape(6.dp)), contentAlignment = Alignment.Center) { if (checked) Text("✓", color = androidx.compose.ui.graphics.Color.White, fontSize = 14.sp) }
         Spacer(Modifier.width(10.dp))
         Text(text, color = Ink, fontSize = 14.sp, lineHeight = 20.sp)
     }
