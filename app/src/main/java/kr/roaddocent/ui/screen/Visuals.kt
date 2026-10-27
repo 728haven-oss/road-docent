@@ -73,31 +73,17 @@ fun Hero(image: String?, category: String, title: String, modifier: Modifier = M
     }
 }
 
-/** Trip map: the route polyline with start, destination, story points and the car's current position. */
+/** Trip map: illustrated basemap + route + numbered story stops + the car. */
 @Composable
-fun TripMap(route: List<GeoPoint>, here: GeoPoint?, points: List<Pair<GeoPoint, String>>, startName: String, destName: String, modifier: Modifier = Modifier) {
-    val all = route + listOfNotNull(here) + points.map { it.first }
-    Box(modifier.background(kr.roaddocent.ui.theme.MapBg, RoundedCornerShape(18.dp))) {
-        Canvas(Modifier.fillMaxSize().padding(22.dp)) {
-            if (all.size < 2) return@Canvas
-            val minLat = all.minOf { it.lat }; val maxLat = all.maxOf { it.lat }; val minLon = all.minOf { it.lon }; val maxLon = all.maxOf { it.lon }
-            val sx = size.width / (maxLon - minLon).coerceAtLeast(1e-4); val sy = size.height / (maxLat - minLat).coerceAtLeast(1e-4)
-            val sc = minOf(sx, sy).toFloat()
-            val ox = (size.width - ((maxLon - minLon) * sc).toFloat()) / 2; val oy = (size.height - ((maxLat - minLat) * sc).toFloat()) / 2
-            fun x(p: GeoPoint) = ox + ((p.lon - minLon) * sc).toFloat()
-            fun y(p: GeoPoint) = size.height - oy - ((p.lat - minLat) * sc).toFloat()
-            if (route.size >= 2) {
-                val path = Path().apply { moveTo(x(route[0]), y(route[0])); route.drop(1).forEach { lineTo(x(it), y(it)) } }
-                drawPath(path, kr.roaddocent.ui.theme.Navy, style = Stroke(width = 7f))
-                drawCircle(kr.roaddocent.ui.theme.Navy, 9f, Offset(x(route.first()), y(route.first())))
-                drawCircle(Warm, 12f, Offset(x(route.last()), y(route.last())))
-            }
-            points.forEach { (p, _) -> drawCircle(kr.roaddocent.ui.theme.Sky.copy(alpha = 0.25f), 16f, Offset(x(p), y(p))); drawCircle(kr.roaddocent.ui.theme.Sky, 6f, Offset(x(p), y(p))) }
-            here?.let { drawCircle(kr.roaddocent.ui.theme.Sky.copy(alpha = 0.3f), 22f, Offset(x(it), y(it))); drawCircle(Color.White, 11f, Offset(x(it), y(it))); drawCircle(kr.roaddocent.ui.theme.Sky, 7f, Offset(x(it), y(it))) }
-        }
-        Text("● $startName", Modifier.align(Alignment.BottomStart).padding(8.dp), color = kr.roaddocent.ui.theme.Navy, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-        Text("🏁 $destName", Modifier.align(Alignment.TopEnd).padding(8.dp), color = kr.roaddocent.ui.theme.Warm, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-    }
+fun TripMap(route: List<GeoPoint>, here: GeoPoint?, points: List<Pair<GeoPoint, String>>, startName: String, destName: String, modifier: Modifier = Modifier) =
+    IllustratedMap(route, here, points.map { (p, t) -> MapMark(p, stopName(t)) }, startName, destName, modifier)
+
+private val genericPrefixes = listOf("알고 보면", "정체 구간", "퀴즈", "도착 전", "조용한 김에", "Did you know", "Stuck in traffic", "While it's quiet")
+/** "알고 보면 · 신라 금관은 왜…" → "신라 금관"; "남대문 · 600년 된…" → "남대문". */
+fun stopName(title: String): String {
+    val parts = title.split(" · ", ":").map { it.trim() }.filter { it.isNotEmpty() }
+    val main = parts.firstOrNull { p -> genericPrefixes.none { p.startsWith(it) } } ?: parts.firstOrNull() ?: ""
+    return main.split(" ").take(2).joinToString(" ").take(9)
 }
 
 /** Destination list entry: pictogram + names + drive time + themes, one tap to start, ℹ for the details sheet. */

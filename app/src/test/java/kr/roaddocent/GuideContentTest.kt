@@ -36,6 +36,7 @@ class GuideContentTest {
             assertEquals("$file duplicate episode ids", g.episodes.size, g.episodes.map { it.id }.toSet().size)
             assertTrue("$file onArrival ko", g.destination.onArrival["ko"].orEmpty().size >= 5)
             assertTrue("$file themes", g.themes.isNotEmpty())
+            assertTrue("$file needs a route polyline for the map and the simulator", g.route.size >= 4 && g.driveMin > 0)
             assertTrue("$file knowBeforeYouGo ko/en", g.knowBeforeYouGo["ko"].orEmpty().size >= 4 && g.knowBeforeYouGo["en"].orEmpty().size >= 4)
             g.episodes.filter { it.deep.isNotEmpty() }.forEach { e -> assertTrue("$file/${e.id} deep bilingual", e.deep.keys.containsAll(listOf("ko", "en"))) }
             g.episodes.forEach { e ->

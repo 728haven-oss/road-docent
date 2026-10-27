@@ -73,5 +73,15 @@ class ScreenshotTest {
     }
     @Test fun s04b_tripintro() = shot("04b_tripintro") { kr.roaddocent.TripIntroScene(gb, Lang.KO, gb.route.first()) }
     @Test fun s05b_kidsquiz() = shot("05b_kidsquiz") { kr.roaddocent.ui.screen.KidsQuizCard(kr.roaddocent.engine.DocentEngine.KidsQuizView(gb.kidsQuizzes.first(), null, null), Lang.KO, onAnswer = {}) }
+    @Test fun s11_map_museum() = shot("11_map_museum") {
+        val g = guide("seoul_national_museum")
+        val pts = g.episodes.mapNotNull { e -> (e.trigger as? Trigger.NearPoint)?.let { it.point to e.titleFor(Lang.KO) } }
+        kr.roaddocent.ui.screen.TripMap(g.route, g.route[3], pts, "경복궁", "국립중앙박물관", Modifier.fillMaxSize())
+    }
+    @Test fun s12_map_gangneung() = shot("12_map_gangneung") {
+        val g = guide("seoul_gangneung")
+        val pts = g.episodes.mapNotNull { e -> (e.trigger as? Trigger.NearPoint)?.let { it.point to e.titleFor(Lang.KO) } }
+        kr.roaddocent.ui.screen.TripMap(g.route, g.route[5], pts, "서울", "강릉", Modifier.fillMaxSize())
+    }
     @Test fun s10_settings() = shot("10_settings") { SettingsScreen(Prefs(audience = Audience.KIDS), null, true, onChange = {}, onVoiceSetup = {}, onDeleteVoice = {}, onClose = {}) }
 }

@@ -356,24 +356,9 @@ private fun Kpi(v: String, l: String) {
 
 @Composable
 fun RouteCanvas(log: TripLog, modifier: Modifier) {
-    Canvas(modifier.background(kr.roaddocent.ui.theme.MapBg, RoundedCornerShape(18.dp)).padding(20.dp)) {
-        val pts = log.trace
-        if (pts.size < 2) return@Canvas
-        val minLat = pts.minOf { it.lat }; val maxLat = pts.maxOf { it.lat }
-        val minLon = pts.minOf { it.lon }; val maxLon = pts.maxOf { it.lon }
-        fun x(lon: Double) = ((lon - minLon) / ((maxLon - minLon).coerceAtLeast(1e-4)) * size.width).toFloat()
-        fun y(lat: Double) = (size.height - (lat - minLat) / ((maxLat - minLat).coerceAtLeast(1e-4)) * size.height).toFloat()
-        val path = Path().apply { moveTo(x(pts[0].lon), y(pts[0].lat)); pts.drop(1).forEach { lineTo(x(it.lon), y(it.lat)) } }
-        drawPath(path, kr.roaddocent.ui.theme.Navy, style = Stroke(width = 8f, pathEffect = PathEffect.cornerPathEffect(30f)))
-        drawCircle(kr.roaddocent.ui.theme.Navy, 10f, Offset(x(pts[0].lon), y(pts[0].lat)))
-        val longest = log.longest
-        log.visits.forEach { v ->
-            val r = (14 + v.stayMin.coerceAtMost(120) * 0.4f)
-            val c = if (v == longest) Warm else Accent
-            drawCircle(c.copy(alpha = 0.35f), r, Offset(x(v.point.lon), y(v.point.lat)))
-            drawCircle(c, r, Offset(x(v.point.lon), y(v.point.lat)), style = Stroke(2f))
-        }
-    }
+    val pts = log.trace
+    IllustratedMap(pts, null, emptyList(), log.visits.firstOrNull()?.name?.let { "" } ?: "", log.visits.lastOrNull()?.name ?: "", modifier,
+        visitRadii = log.visits.map { it.point to (16f + it.stayMin.coerceAtMost(180) * 0.25f) })
 }
 
 /** 5. Kids overlay panel (shown inside Playing when audience == KIDS) */

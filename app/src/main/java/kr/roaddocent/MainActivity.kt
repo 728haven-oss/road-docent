@@ -460,7 +460,9 @@ fun TripIntroScene(g: kr.roaddocent.core.Guide, lang: Lang, here: kr.roaddocent.
         val pts = g.episodes.mapNotNull { e -> (e.trigger as? kr.roaddocent.core.Trigger.NearPoint)?.let { it.point to e.titleFor(lang) } }
         kr.roaddocent.ui.screen.TripMap(g.route, here ?: g.route.firstOrNull(), pts, g.startName[lang.tag] ?: "", g.destination.name[lang.tag] ?: "", Modifier.fillMaxWidth().height(260.dp))
         Spacer(Modifier.height(8.dp))
-        Text((if (lang == Lang.KO) "가는 길 이야기 ${pts.size}곳 · " else "${pts.size} stories on the way · ") + pts.take(4).joinToString(" · ") { it.second.substringBefore(" ·").substringBefore(":") }, color = Quiet, fontSize = 13.sp, maxLines = 2)
+        Text(if (lang == Lang.KO) "가는 길 이야기 ${pts.size}곳" else "${pts.size} stories on the way", color = Ink, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(4.dp))
+        kr.roaddocent.ui.theme.ChipRow { pts.forEachIndexed { i, (_, t) -> kr.roaddocent.ui.theme.Tag("${i + 1}  " + kr.roaddocent.ui.screen.stopName(t)) } }
         Spacer(Modifier.height(10.dp))
         kr.roaddocent.ui.screen.Hero(g.destination.poiId.takeIf { it.endsWith(".jpg") || it.endsWith(".webp") }, g.destination.category, g.destination.name[lang.tag] ?: "", height = 110)
     }
