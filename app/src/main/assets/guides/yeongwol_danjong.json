@@ -89,7 +89,7 @@
         "en": "Your guide for today"
       },
       "text": {
-        "ko": "안녕하세요, 로드 도슨트입니다. 영월 청령포까지 약 2시간 30분이에요. 오늘은 영화 '왕과 사는 남자'를 따라가는 코스예요. 영화 속 왕은 문종의 아들 단종, 1457년 열일곱 살에 영월로 유배됐죠. 가는 길에 영화가 어디서 찍혔는지, 실제 역사는 어땠는지 들려드리고, 도착하면 청령포, 장릉, 관풍헌 순서로 안내할게요.",
+        "ko": "안녕하세요, 로드 도슨트예요. 오늘 영월 청령포까지 함께 갈게요. 두 시간 반쯤 걸리니까 편하게 기대 앉으셔도 돼요. 오늘 코스는 영화 '왕과 사는 남자'를 따라가는 길이에요. 영화 속 그 어린 왕, 단종이 실제로 지나갔던 마지막 길이기도 하고요. 가는 동안엔 영화가 어디서 찍혔는지, 진짜 역사는 어땠는지 조금씩 들려드릴게요. 도착하면 청령포부터 장릉, 관풍헌 순서로 안내해 드릴게요.",
         "en": "Hello, I'm Road Docent. Cheongnyeongpo in Yeongwol is about two and a half hours away. Today we follow the film 'The King and the Man Who Lives With Him'. Its king is Danjong, son of King Munjong, exiled here in 1457 at seventeen. On the way I'll tell you where the film was shot and what really happened, and on arrival guide you through Cheongnyeongpo, Jangneung and Gwanpungheon in order."
       },
       "kidsText": {
@@ -100,7 +100,7 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 0
       },
-      "durationSec": 40,
+      "durationSec": 36,
       "source": "Road Docent",
       "priority": 9
     },
@@ -111,7 +111,7 @@
         "en": "King at twelve, exiled at seventeen"
       },
       "text": {
-        "ko": "단종은 1452년 열두 살에 왕이 됐어요. 아버지 문종이 즉위 2년 만에 세상을 떠났거든요. 어린 왕 곁에는 숙부 수양대군이 있었고, 1453년 계유정난으로 권력을 잡은 뒤 1455년 왕위를 넘겨받아 세조가 됐어요. 단종은 상왕이 됐다가 복위 시도가 드러나자 노산군으로 강등돼 1457년 영월 청령포로 보내졌죠. 삼면이 강이고 한 면은 절벽, 배가 아니면 나갈 수 없는 곳이에요.",
+        "ko": "혹시 열두 살에 왕이 된 임금 이야기, 들어 보셨어요? 오늘의 주인공 단종이에요. 세종대왕의 맏손자였는데요, 아버지 문종이 왕위에 오른 지 2년 남짓 만에 세상을 떠나면서 어린 나이에 왕이 됐어요. 그런데 어머니는 단종을 낳고 곧바로 세상을 떠났고, 할머니 소헌왕후도 이미 안 계셨거든요. 궁궐 안에 어린 왕을 지켜 줄 어른이 거의 없었던 거예요. 그 빈자리를 파고든 사람이 숙부 수양대군이었어요. 수양대군은 김종서 같은 원로 대신들을 하룻밤 사이에 제거하고 권력을 손에 넣었어요. 이걸 계유정난이라고 하죠. 그리고 2년 뒤, 단종은 결국 왕위를 숙부에게 넘겨줬고, 수양대군은 세조가 됐어요. 이야기는 거기서 끝나지 않아요. 성삼문 같은 신하들이 단종을 다시 왕으로 모시려다 발각됐거든요. 그 일로 단종은 노산군으로 낮춰졌고, 열일곱 살에 영월 청령포로 쫓겨나게 돼요. 지금 우리가 달려가는 이 방향이 바로 그 길이에요.",
         "en": "Danjong became king in 1452 at twelve, after his father Munjong died just two years into his reign. His uncle Prince Suyang seized power in the 1453 coup, took the throne in 1455 as King Sejo, and when a plot to restore Danjong surfaced, the boy was demoted and sent to Cheongnyeongpo in 1457. Water on three sides, a cliff on the fourth: no way out except by boat."
       },
       "kidsText": {
@@ -122,9 +122,13 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 1
       },
-      "durationSec": 70,
-      "source": "조선왕조실록 / 영월군 장릉 안내",
-      "priority": 6
+      "durationSec": 76,
+      "source": "조선왕조실록(단종실록, 세조실록) / 영월군 장릉 안내 / 한국민족문화대백과사전",
+      "priority": 6,
+      "deep": {
+        "ko": "조금 더 깊이 들어가 볼게요. 먼저 단종이 왜 그렇게 외로웠는지부터요. 보통 어린 왕이 즉위하면 왕실의 큰어른인 대비가 대신 나랏일을 봐 주거든요. 이걸 수렴청정이라고 하죠. 그런데 단종에게는 그럴 대비가 없었어요. 그래서 문종은 세상을 떠나기 전에 황보인, 김종서 같은 대신들에게 어린 아들을 부탁했어요. 문제는 대신들의 힘이 커질수록 왕족들의 불만도 커졌다는 거예요. 특히 세종의 둘째 아들 수양대군은 야심도 크고 능력도 있었어요. 단종이 즉위한 이듬해 가을, 수양대군은 김종서의 집을 직접 찾아가 수하를 시켜 그를 쓰러뜨렸어요. 그리고 그날 밤 왕명을 핑계로 대신들을 궁으로 불러들여 차례로 없앴어요. 하룻밤 사이에 조정이 뒤집힌 거죠. 그 뒤 단종은 이름만 왕이었어요. 결국 왕위를 물려주고 상왕이 됐는데요, 이듬해 집현전 출신 신하들이 명나라 사신을 맞는 잔치 자리에서 세조를 제거하고 상왕을 복위시키려는 계획을 세웠어요. 그런데 함께하던 김질이 이 일을 고하면서 계획은 무너졌어요. 이때 목숨을 잃은 성삼문, 박팽년, 하위지, 이개, 유성원, 유응부, 이 여섯 사람을 사육신이라고 부르는데요, 이 이름은 남효온이 쓴 육신전을 통해 널리 알려졌어요. 이 사건 다음 해, 단종은 노산군으로 강등돼 영월로 떠났어요. 이때 왕비 정순왕후와도 생이별을 했는데요, 한양 청계천의 영도교에서 두 사람이 마지막으로 헤어졌다고 전해져요. 정순왕후는 그 뒤로 예순 해 넘게 홀로 살다가 여든을 넘겨 세상을 떠났어요.",
+        "en": "Danjong had no queen dowager to rule as regent, so his father entrusted him to ministers such as Kim Jong-seo. In 1453 his uncle Prince Suyang killed them in a single night, took power, and in 1455 took the throne as King Sejo. A 1456 plot by scholar-officials to restore Danjong was betrayed; the six executed men are remembered as the Sayuksin. In 1457 Danjong was demoted and exiled, parting from Queen Jeongsun, who lived on alone for more than sixty years."
+      }
     },
     {
       "id": "film_locations",
@@ -133,16 +137,20 @@
         "en": "Where the film was shot"
       },
       "text": {
-        "ko": "영화의 산골 마을 장면은 경북 문경새재 오픈세트장에서, 관아 장면은 고령 김면 장군 유적지에서, 수묵화 같은 이동 장면은 문경 쌍용계곡에서 찍었어요. 그러니까 영화 속 영월은 대부분 경북에서 찍은 거예요. 오늘 가는 영월은 영화의 배경이 된 진짜 장소예요. 영화를 보고 오신 분들이 많아서 주말엔 청령포 배 타는 줄이 길어요.",
+        "ko": "혹시 영화 보고 오셨어요? 그럼 재밌는 사실 하나 알려 드릴게요. 영화 속 영월은 사실 대부분 경상북도에서 찍었어요. 산골 마을 장면은 문경새재 오픈세트장에서 찍었고요, 관아 장면은 고령에 있는 김면 장군 유적지에서 찍었어요. 그리고 수묵화 같던 이동 장면 있잖아요, 그건 문경 쌍용계곡이에요. 그러니까 화면 속 풍경은 경북이고, 이야기의 무대는 오늘 우리가 가는 영월인 거죠. 영화는 마을을 살려 보려고 유배지를 자청한 촌장과, 왕위에서 쫓겨난 어린 선왕의 이야기예요. 실제 역사 속 청령포는 지금도 배를 타야만 들어갈 수 있는 곳이에요. 영화 덕분에 찾는 분들이 부쩍 많아져서, 주말엔 배 타는 줄이 꽤 길어요. 조금 일찍 도착하면 여유 있게 둘러보실 수 있을 거예요.",
         "en": "The mountain-village scenes were filmed at the Mungyeong Saejae open set in Gyeongbuk, the government-office scenes at the General Kim Myeon site in Goryeong, and the ink-painting-like travel scenes in Mungyeong's Ssangyong Valley. So most of the film's Yeongwol was shot in Gyeongbuk. Today's Yeongwol is the real place behind the story, and since the film, the weekend boat queue at Cheongnyeongpo is long."
       },
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 2
       },
-      "durationSec": 50,
-      "source": "헤럴드경제 2026.3.8 / 경북도 영상위원회",
-      "priority": 6
+      "durationSec": 63,
+      "source": "헤럴드경제 2026.3.8 / 경북도 영상위원회 / 경북매일 2026.3.8 / 국가유산청 청령포·관음송 안내",
+      "priority": 6,
+      "deep": {
+        "ko": "영화 장면을 떠올리면서, 진짜 청령포가 어떤 곳인지 조금 더 들려드릴게요. 청령포는 서강이 땅을 크게 휘감아 돌면서 생긴 곳이에요. 세 면은 깊은 강물이고, 남은 한 면은 가파른 바위 절벽이 막고 있어요. 섬은 아닌데 섬처럼 갇힌 곳이죠. 그래서 유배지로 고른 거예요. 한양을 떠난 단종 일행은 일주일쯤 걸려 이곳에 닿았다고 해요. 청령포 안에는 소나무 숲이 울창한데, 그중 가장 큰 나무가 관음송이에요. 천연기념물로 지정된 소나무인데요, 단종이 갈라진 가지 사이에 걸터앉아 쉬곤 했다고 전해져요. 단종의 모습을 보고 그 울음소리를 들었다고 해서, 볼 관 자에 소리 음 자를 써서 관음송이라고 부른대요. 단종이 한양 쪽을 그리며 돌을 하나씩 쌓았다는 망향탑, 해 질 녘 올라가 먼 곳을 바라봤다는 노산대도 있어요. 또 하나 눈여겨볼 게 금표비예요. 단종이 떠나고 한참 지난 영조 때, 백성들이 이곳에 함부로 드나들지 못하게 하려고 세운 비석이거든요. 같은 영조 때 단종이 머물던 자리라는 걸 알리는 비석도 세웠는데, 비석 글씨는 영조가 직접 쓴 거라고 해요. 단종이 왕으로 다시 인정받은 뒤, 후대 임금들이 이곳을 얼마나 아꼈는지 보여 주는 흔적이죠. 참고로 지금 보시는 단종어소는 옛 기록을 바탕으로 근래에 다시 지은 건물이에요.",
+        "en": "Cheongnyeongpo is a bend of the Seogang River, water on three sides and a cliff on the fourth. Inside the pine forest stands Gwaneumsong, a natural monument where Danjong is said to have rested, and the Manghyangtap stones he is said to have piled while longing for Hanyang. King Yeongjo later set up a boundary stele forbidding entry and a stele, in his own hand, marking where Danjong had lived. The present Danjong residence is a modern reconstruction based on old records."
+      }
     },
     {
       "id": "congestion_deep",
@@ -151,7 +159,7 @@
         "en": "Stuck in traffic: the story of Eom Heung-do"
       },
       "text": {
-        "ko": "막히는 김에 영화가 알린 사람 이야기를 할게요. 1457년 단종이 열일곱 살로 세상을 떠났을 때, 세조는 시신을 거두는 자를 삼족을 멸하겠다고 했어요. 아무도 나서지 못했죠. 영월의 하급 관리 엄흥도가 밤에 몰래 시신을 지게에 지고 산으로 올라가 묻었어요. 그 자리가 지금의 장릉이에요. 엄흥도는 그 뒤 숨어 살았고, 240년이 지난 1698년에야 단종이 복위되면서 그의 이름도 되살아났어요.",
+        "ko": "길이 좀 막히네요. 그럼 이 틈에, 영화 덕분에 다시 이름이 알려진 한 사람 이야기를 해 드릴게요. 엄흥도라는 사람이에요. 단종이 영월에 온 그해 가을, 열일곱 살의 노산군은 끝내 목숨을 잃었어요. 그런데 그 시신을 거두는 사람은 큰 벌을 받는다는 말이 돌았거든요. 그래서 아무도 선뜻 나서지 못했대요. 그때 영월 고을의 향리, 호장이었던 엄흥도가 움직였어요. 밤에 몰래 시신을 거둬 산으로 올라가 묻었다고 전해져요. 옳은 일을 하다 화를 입는다면 달게 받겠다, 이런 말을 남겼다고도 하고요. 그 뒤 엄흥도는 가족과 함께 자취를 감췄어요. 그리고 이백사십 년쯤 흐른 뒤에야, 숙종이 노산군을 다시 단종으로 복위시키면서 엄흥도의 충절도 함께 빛을 보게 됐죠. 엄흥도가 단종을 묻은 그 자리가 바로 오늘 들르실 장릉이에요.",
         "en": "Since we're slow, here's the man the film made famous. When Danjong died in 1457 at seventeen, King Sejo threatened to wipe out three generations of anyone who buried the body. No one dared. Eom Heung-do, a low-ranking Yeongwol clerk, carried the body up the mountain on his back at night and buried it. That spot is today's Jangneung tomb. Eom lived in hiding, and only in 1698, 240 years later, when Danjong was restored, was his name honoured."
       },
       "kidsText": {
@@ -161,9 +169,13 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Congestion"
       },
-      "durationSec": 80,
-      "source": "영월군 장릉 / 경향신문 2026.3.14",
-      "priority": 8
+      "durationSec": 67,
+      "source": "조선왕조실록(세조실록, 숙종실록) / 영월군 장릉 / 경향신문 2026.3.14",
+      "priority": 8,
+      "deep": {
+        "ko": "엄흥도 이야기, 조금 더 이어 갈게요. 먼저 단종의 마지막부터요. 단종이 영월에 있던 그해, 경상도 순흥에 유배돼 있던 숙부 금성대군이 다시 단종을 복위시키려다 발각됐어요. 이 일로 단종은 노산군에서 서인으로 신분이 더 떨어졌고, 그해 가을 세상을 떠났어요. 세조실록에는 스스로 목숨을 끊었다고 적혀 있어요. 하지만 후대의 여러 기록과 전승은 사약을 받았다고 전하고 있어서, 실록의 이 대목은 지금도 의문이 남는 부분으로 꼽혀요. 엄흥도가 묻은 무덤은 그 뒤 오랫동안 어디인지조차 흐릿해졌어요. 그러다 중종 때 노산군의 무덤을 찾아 제사를 지내라는 명이 내려왔고, 영월 군수가 수소문 끝에 무덤을 찾아 정비했다고 해요. 선조 때는 무덤 앞에 상석과 표석이 놓였고요. 숙종 때 신하들의 상소가 이어진 끝에 먼저 노산대군으로 높여졌다가, 1698년에 마침내 단종이라는 묘호와 장릉이라는 능호를 받았어요. 엄흥도도 이때부터 충신으로 기려졌고, 영조 때는 공조판서 벼슬이 추증됐어요. 장릉에 가시면 엄흥도의 충절을 기리는 정려각이 있고요, 단종을 위해 목숨을 바친 사람들 이백육십팔 명의 위패를 모신 장판옥도 있어요. 장릉이 다른 왕릉처럼 너른 터가 아니라 산 능선 위에 자리한 것도, 처음에 몰래 서둘러 묻었던 사연 때문이라고 해요. 이런 이야기를 알고 오르시면 능까지 가는 짧은 길이 조금 다르게 느껴지실 거예요.",
+        "en": "Later in 1457 another plot to restore Danjong, led by his uncle Prince Geumseong, was discovered, and Danjong died that autumn. The Annals of King Sejo say he took his own life, but later records and tradition say he was given poison. His grave was all but forgotten until King Jungjong ordered rites there; under King Sukjong he was first raised to Grand Prince and in 1698 restored as King Danjong, his tomb named Jangneung. Eom Heung-do was honoured as a loyal subject, and the tomb site now holds his memorial and tablets for 268 loyal subjects."
+      }
     },
     {
       "id": "jecheon_pass",
@@ -172,7 +184,7 @@
         "en": "Jecheon: Uirimji reservoir"
       },
       "text": {
-        "ko": "지금 지나는 제천에는 의림지가 있어요. 삼국시대에 만든 저수지로 지금도 농업용수로 쓰여요. 천 년 넘게 쓰는 저수지는 세계적으로도 드물어요. 영월로 가는 길에 들르면 30분이면 충분해요.",
+        "ko": "지금 지나고 있는 이 동네가 제천이에요. 제천 하면 꼭 나오는 곳이 있는데요, 바로 의림지예요. 아주 오래된 저수지거든요. 언제 쌓았는지 정확한 기록은 없지만, 삼한 시대부터 있었다고 전해져요. 김제 벽골제, 밀양 수산제와 함께 우리나라에서 가장 오래된 저수지로 손꼽히는데요, 재밌는 건 의림지는 지금도 주변 논에 물을 대고 있다는 거예요. 천 년을 훌쩍 넘게 제 할 일을 하고 있는 셈이죠. 둑 위로는 오래된 소나무 숲이 이어져서, 호숫가를 천천히 걷기에도 좋아요. 그리고 하나 더요. 충청도를 호서 지방이라고도 하잖아요. 호수의 서쪽이라는 뜻인데, 그 호수가 바로 의림지라는 설이 있어요. 영월 가는 길에 잠깐 쉬어 가고 싶으시면, 삼십 분 정도만 들러도 충분해요.",
         "en": "We're passing Jecheon, home of Uirimji, a reservoir built in the Three Kingdoms era and still used for irrigation. A reservoir in use for over a thousand years is rare anywhere. Thirty minutes is enough if you stop on the way."
       },
       "trigger": {
@@ -183,9 +195,13 @@
         },
         "radiusM": 12000
       },
-      "durationSec": 25,
-      "source": "제천시 / 문화재청",
-      "priority": 7
+      "durationSec": 62,
+      "source": "제천시 / 국가유산청(명승 제천 의림지와 제림)",
+      "priority": 7,
+      "deep": {
+        "ko": "의림지 이야기 조금 더 해 볼게요. 이 저수지를 누가 쌓았는지에 대해선 몇 가지 이야기가 전해져요. 가장 유명한 건 가야금으로 잘 알려진 우륵 이야기예요. 신라 진흥왕 때, 우륵이 이 근처에 머물면서 개울물을 막아 둑을 쌓았다는 거죠. 또 다른 이야기는 그보다 한참 뒤에 이 고을에 온 현감 박의림이 둑을 더 튼튼하게 다시 쌓았다는 거예요. 둘 다 정확한 기록이라기보다는 오래 전해 오는 이야기예요. 확실한 건, 아주 오래전부터 이 지역 사람들이 이 물 덕분에 농사를 지어 왔다는 거예요. 물이 빠져나가는 수구를 만든 방식도 옛 농업 기술을 연구하는 데 중요한 자료로 꼽힌대요. 재밌는 건 제천이라는 지명이에요. 둑 제 자에 내 천 자를 쓰거든요. 이 고장 사람들에게 둑과 저수지가 얼마나 큰 존재였는지 짐작해 볼 수 있죠. 호숫가에는 조선 순조 때 지은 영호정이라는 정자도 남아 있어요. 둑 위의 소나무 숲과 함께 의림지는 지금 국가 명승으로 지정돼 보호받고 있고요. 바로 옆에는 작은 폭포도 있어서, 아이들과 가볍게 산책하기에도 좋아요.",
+        "en": "Tradition credits the reservoir to Ureuk, the Silla-era master of the gayageum, or to a later magistrate named Park Ui-rim who rebuilt the dam, but neither is firmly recorded. What is certain is that it has watered local farms for well over a thousand years. The very name Jecheon begins with the character for dam. A pavilion from the reign of King Sunjo stands by the water, and the reservoir and its pine grove are a designated National Scenic Site."
+      }
     },
     {
       "id": "arrival_brief",
@@ -194,7 +210,7 @@
         "en": "Arrival briefing: how to see Cheongnyeongpo"
       },
       "text": {
-        "ko": "20분 뒤 청령포 선착장에 도착해요. 배는 1분이면 건너고, 건너면 단종어소, 600년 된 관음송, 단종이 한양을 그리며 쌓은 망향탑, 노산대 순서로 돌면 한 시간이에요. 주차장 옆 식당은 곤드레밥이 유명해요. 청령포 다음엔 차로 10분 거리 장릉, 그다음 읍내 관풍헌이 영화 순서예요.",
+        "ko": "이제 이십 분쯤 뒤면 청령포 선착장에 도착해요. 배는 일 분이면 강을 건너요. 건너가시면 단종어소, 육백 년 된 소나무 관음송, 단종이 돌을 쌓았다는 망향탑, 그리고 노산대 순서로 돌아보시면 돼요. 한 시간이면 넉넉하고요. 출출하시면 주차장 근처에서 곤드레밥 한 그릇 드셔 보세요. 청령포를 보고 나서는 차로 십 분 거리인 장릉, 그다음 읍내 관풍헌으로 가시면 영화 순서 그대로예요.",
         "en": "In 20 minutes we reach the Cheongnyeongpo pier. The boat takes a minute; across, walk the king's residence, the 600-year-old Gwaneum pine, the stone tower he built longing for Seoul, and Nosandae, about an hour. The restaurant by the car park is known for gondeure rice. After here, Jangneung is 10 minutes by car, then Gwanpungheon in town, the film's order."
       },
       "kidsText": {
@@ -205,7 +221,7 @@
         "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
         "minutes": 20
       },
-      "durationSec": 45,
+      "durationSec": 36,
       "source": "영월군 관광 / 한국관광공사 TourAPI",
       "priority": 9
     },
@@ -216,7 +232,7 @@
         "en": "Where next?"
       },
       "text": {
-        "ko": "다시 출발하시네요. 영화 순서대로라면 다음은 장릉이에요, 차로 10분. 단종의 무덤이고 엄흥도를 기리는 사당도 있어요. 읍내 관풍헌은 단종이 마지막을 맞은 곳이고요. 거기로 가자, 라고 말씀하세요.",
+        "ko": "다시 출발하시네요. 영화 순서를 따라가신다면 다음은 장릉이에요. 차로 십 분이면 가요. 단종이 잠들어 있는 곳이고, 단종을 몰래 묻어 준 엄흥도를 기리는 정려각도 함께 있어요. 아니면 읍내에 있는 관풍헌도 좋아요. 단종이 마지막 날들을 보낸 곳이거든요. 가고 싶은 곳이 있으면, 거기로 가자, 하고 말씀만 해 주세요.",
         "en": "Setting off again. Following the film, next is Jangneung, ten minutes by car: Danjong's tomb, with a shrine to Eom Heung-do. Gwanpungheon in town is where the king died. Say let's go there."
       },
       "kidsText": {
@@ -226,7 +242,7 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Reboard"
       },
-      "durationSec": 25,
+      "durationSec": 30,
       "source": "Road Docent 체류 데이터",
       "priority": 10
     }
@@ -251,7 +267,7 @@
         "en": "Danjong's tomb · shrine to Eom Heung-do · film stop 2"
       },
       "story": {
-        "ko": "장릉은 단종이 잠든 왕릉이에요. 1457년 단종이 세상을 떠난 뒤, 시신을 거두면 큰 벌을 받는다는 엄명이 있었어요. 그런데 영월의 호장 엄흥도가 '옳은 일을 하다 화를 입는 것은 달게 받겠다'며 밤에 몰래 시신을 수습해 이 산자락에 묻었습니다. 그 뒤 200년 넘게 무덤은 이름 없이 남아 있다가, 숙종 때인 1698년 노산군이 단종으로 복위되면서 비로소 '장릉'이라는 이름을 얻었어요. 다른 왕릉과 달리 능이 산 능선 높은 곳에 있고, 제사를 지내는 정자각과 능이 일직선이 아니라 꺾여 있는 것도 이렇게 급히, 몰래 묻힌 사연 때문이라고 해요. 2009년에는 조선왕릉 40기와 함께 유네스코 세계유산이 됐습니다.",
+        "ko": "장릉은 단종이 잠들어 있는 왕릉이에요. 단종이 세상을 떠났을 때, 시신을 거두면 큰 벌을 받는다는 말에 아무도 나서지 못했거든요. 그때 영월의 호장 엄흥도가, 옳은 일을 하다 화를 입는다면 달게 받겠다며 밤에 몰래 시신을 수습해 이 산자락에 묻었다고 전해져요. 그 뒤로 무덤은 이백 년 넘게 제대로 된 이름 없이 남아 있었어요. 그러다 숙종 때인 1698년, 노산군이 단종으로 복위되면서 비로소 장릉이라는 이름을 얻었죠. 올라가 보시면 다른 왕릉과 좀 달라요. 능이 산 능선 높은 곳에 있고, 제사를 지내는 정자각과 능이 일직선이 아니라 꺾여 있거든요. 급하게, 몰래 묻어야 했던 사연 때문이라고 해요. 2009년에 조선왕릉 40기가 유네스코 세계유산이 됐는데, 장릉도 그중 하나예요.",
         "en": "Jangneung is the tomb of King Danjong. After he was killed in 1457, anyone who buried him faced punishment, yet a local official, Eom Heung-do, secretly carried his body here at night, saying he would gladly suffer for doing what was right. The grave stayed nameless for more than two centuries until Danjong was restored as king in 1698 and the tomb was named Jangneung. Unusually, it sits high on a ridge and is not aligned with its shrine hall, traces of that hurried secret burial. It became part of the UNESCO World Heritage Royal Tombs of the Joseon Dynasty in 2009."
       },
       "kidsStory": {
@@ -306,7 +322,7 @@
         "en": "Where the king died · Jagyuru pavilion · film stop 3"
       },
       "story": {
-        "ko": "관풍헌은 조선 시대 영월 관아의 객사 건물이에요. 1457년 여름, 큰 홍수로 청령포가 물에 잠기자 단종은 이곳으로 거처를 옮겼어요. 그리고 그해 가을 이곳에서 열일곱 살의 나이로 생을 마쳤습니다. 사약을 들고 왔던 금부도사 왕방연은 한양으로 돌아가는 길에 '천만리 머나먼 길에 고운 님 여의옵고'로 시작하는 시조를 남겼다고 전해요. 바로 옆 누각 자규루는 단종이 올라 소쩍새 울음에 자신의 처지를 빗댄 '자규시'를 지었다는 곳이에요. 영월 읍내 한복판, 지금은 평범한 거리 속에 있어서 그냥 지나치기 쉬우니 꼭 들러 보세요.",
+        "ko": "관풍헌은 조선 시대 영월 관아의 객사였던 건물이에요. 단종이 청령포에 온 그해 여름, 큰 홍수로 청령포가 물에 잠기자 이곳으로 거처를 옮겼다고 해요. 그리고 그해 가을, 단종은 여기서 열일곱 살의 짧은 생을 마쳤어요. 이때 한양에서 내려왔던 금부도사 왕방연은 돌아가는 길에, 천만리 머나먼 길에 고운 님 여의옵고, 로 시작하는 시조를 남겼다고 전해져요. 바로 옆 누각 자규루는 단종이 올라 소쩍새 울음에 자기 처지를 빗대어 자규시를 지었다는 곳이에요. 지금은 읍내 한복판, 평범한 거리 속에 있어서 그냥 지나치기 쉬워요. 그래도 꼭 한번 들러 보세요.",
         "en": "Gwanpungheon was a guesthouse of the Yeongwol county office. When a flood swept Cheongnyeongpo in the summer of 1457, Danjong was moved here, and that autumn he died here at seventeen. The royal envoy who brought the poison is said to have written a famous lament on his way back to Seoul. Next door, the Jagyuru pavilion is where Danjong is said to have written poems comparing himself to the cuckoo crying at night. It stands quietly in the middle of town, easy to miss."
       },
       "kidsStory": {
@@ -359,7 +375,7 @@
         "en": "Stargazing after dark · 60 min with kids"
       },
       "story": {
-        "ko": "별마로천문대는 영월 봉래산 정상, 해발 약 800m에 있는 시민천문대예요. '별마로'는 별과 정상을 뜻하는 '마루', 고요하다는 뜻의 '로'를 합쳐, 별을 보는 고요한 정상이라는 뜻이래요. 영월은 맑은 날이 많고 밤하늘이 어두워 별 보기 좋은 곳으로 꼽히고, 2001년 문을 연 이곳은 국내 시민천문대 가운데 큰 망원경을 갖춘 곳으로 알려져 있어요. 돔 천장에 별자리를 비춰 주는 천체투영실에서 먼저 설명을 듣고, 관측실에서 진짜 망원경으로 달과 행성, 별을 봅니다. 해 질 무렵 오면 읍내 야경과 노을까지 함께 볼 수 있어요. 청령포에서 단종의 슬픈 이야기를 들은 날, 마지막은 별로 마무리해 보세요.",
+        "ko": "별마로천문대는 영월 봉래산 꼭대기, 해발 팔백 미터쯤에 있는 시민천문대예요. 이름이 좀 특이하죠? 별, 그리고 꼭대기를 뜻하는 마루, 고요하다는 뜻의 로를 합쳐서, 별을 보는 고요한 정상이라는 뜻이래요. 영월은 맑은 날이 많고 밤하늘이 어두워서 별 보기 좋은 곳으로 꼽혀요. 2001년에 문을 연 이곳은 국내 시민천문대 가운데 큰 망원경을 갖춘 곳으로 알려져 있고요. 먼저 돔 천장에 별자리를 비춰 주는 천체투영실에서 설명을 듣고, 그다음 관측실에서 진짜 망원경으로 달과 행성, 별을 봐요. 해 질 무렵에 오시면 읍내 야경과 노을까지 함께 볼 수 있어요. 청령포에서 단종의 슬픈 이야기를 들은 날, 마지막은 별로 마무리해 보시면 어떨까요.",
         "en": "Byeolmaro Observatory sits on the summit of Bongnaesan, about 800 m up. The name joins 'byeol' (star), 'maru' (summit) and 'ro' (quiet): a quiet summit for stars. Yeongwol's clear, dark skies make it one of Korea's best stargazing spots, and the observatory, opened in 2001, is known for its large telescope. Start in the dome planetarium, then look at the Moon, planets and stars through real telescopes. Arrive around sunset for the view over town."
       },
       "kidsStory": {
@@ -414,7 +430,7 @@
         "en": "From the film Radio Star · still open"
       },
       "story": {
-        "ko": "청록다방은 영월 읍내에 남아 있는 옛날식 다방이에요. 2006년 영화 '라디오스타'에서 한물간 가수와 매니저가 영월에 머물며 지방 라디오 방송을 하던 장면들이 이 동네에서 촬영됐고, 청록다방도 영화 속에 등장하면서 이름이 알려졌어요. 영월은 이 영화 덕분에 '라디오스타의 고장'으로도 불리고, 읍내에는 영화 속 장소를 따라 걷는 길도 있어요. 화려한 카페 대신 옛 다방 분위기 그대로라, 단종 유적을 돌아본 뒤 잠깐 쉬어 가기 좋습니다.",
+        "ko": "청령포 보고 나서 잠깐 쉬어 갈 곳 찾으세요? 청록다방은 영월 읍내에 남아 있는 옛날식 다방이에요. 2006년 영화 라디오스타 기억나세요? 한물간 가수와 매니저가 영월에 머물며 지방 라디오 방송을 하는 이야기인데요, 그 장면들을 이 동네에서 찍었고, 청록다방도 영화에 나오면서 이름이 알려졌어요. 영월은 이 영화 덕분에 라디오스타의 고장으로도 불리고, 읍내에는 영화 속 장소를 따라 걷는 길도 있어요. 요즘 카페 대신 옛 다방 분위기 그대로라, 단종 유적을 돌아본 뒤 차 한 잔 하며 쉬어 가기 좋아요.",
         "en": "Cheongnok Dabang is an old-style Korean tearoom in central Yeongwol. It appears in the 2006 film Radio Star, about a faded singer and his manager running a small local radio show in Yeongwol, and became known through it. The town still calls itself home of Radio Star. A good rest stop after the Danjong sites."
       },
       "kidsStory": {
