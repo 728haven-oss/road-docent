@@ -197,6 +197,14 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                 }
                 if (sub.isNotBlank()) Text(sub, color = if (toast != null) kr.roaddocent.ui.theme.Navy else Quiet, fontSize = 12.sp, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
             }
+            // Kids mode, one tap from anywhere: filled when on.
+            val kidsOn = audience == Audience.KIDS
+            Text(if (lang == Lang.KO) (if (kidsOn) "🧒 키즈 ON" else "🧒 키즈") else (if (kidsOn) "🧒 Kids ON" else "🧒 Kids"),
+                Modifier.background(if (kidsOn) kr.roaddocent.ui.theme.Warm else androidx.compose.ui.graphics.Color.White, androidx.compose.foundation.shape.RoundedCornerShape(999.dp))
+                    .border(1.dp, if (kidsOn) kr.roaddocent.ui.theme.Warm else kr.roaddocent.ui.theme.CardBorder, androidx.compose.foundation.shape.RoundedCornerShape(999.dp))
+                    .clickable { vm.setAudience(if (kidsOn) Audience.ADULT else Audience.KIDS) }.padding(horizontal = 12.dp, vertical = 8.dp),
+                color = if (kidsOn) androidx.compose.ui.graphics.Color.White else Ink, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, maxLines = 1)
+            Spacer(Modifier.width(8.dp))
             if (prefs.localVoiceCommands && vm.localVoice.available) { RoundIcon(if (listening) "🎙" else "🎤", active = listening) { vm.listen() }; Spacer(Modifier.width(8.dp)) }
             Box {
                 RoundIcon("⋮") { menu = true }
@@ -204,7 +212,6 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                     @Composable fun item(t: String, f: () -> Unit) = androidx.compose.material3.DropdownMenuItem(text = { Text(t, color = Ink, fontSize = 15.sp) }, onClick = { menu = false; f() })
                     item(if (lang == Lang.KO) "🗺  오늘의 여행 일지" else "🗺  Today's log") { engine.cmdShowLog() }
                     item(if (lang == Lang.KO) "📱  동승자 화면 (QR)" else "📱  Passenger screen") { vm.startCompanion(); companionOpen = true }
-                    item(if (audience == Audience.KIDS) (if (lang == Lang.KO) "🧑  어른 모드로" else "🧑  Adult mode") else (if (lang == Lang.KO) "🧒  키즈 모드로" else "🧒  Kids mode")) { vm.setAudience(if (audience == Audience.KIDS) Audience.ADULT else Audience.KIDS) }
                     if (audience == Audience.KIDS) item(if (lang == Lang.KO) "❓  창밖 퀴즈 내기" else "❓  Ask a window quiz") { engine.askKidsQuiz() }
                     item(if (lang == Lang.KO) "🌐  English" else "🌐  한국어") { vm.setLang(if (lang == Lang.KO) Lang.EN else Lang.KO) }
                     item(if (lang == Lang.KO) "⚙  설정" else "⚙  Settings") { vm.openSettings(true) }
@@ -229,13 +236,14 @@ fun Shell(vm: DocentViewModel, onDial: (String) -> Unit) {
                         played = p.playedIds, lang = lang, audience = audience, congestion = p.congestion, paused = paused, speaking = speaking, quiz = quiz,
                         driving = !vehicle.gearPark && vehicle.speedKmh > 5f && !prefs.alwaysFull && !kr.roaddocent.ui.theme.isCompact(),
                         onSkip = engine::cmdSkip, onMore = engine::cmdMore, onSave = engine::cmdSave, onQuiet = engine::cmdQuiet,
-                        onFeedback = engine::feedback
+                        onFeedback = engine::feedback, onPrevious = engine::cmdPrevious, onReplay = engine::cmdReplay
                     )
                 }
                 is DocentPhase.Briefing -> BriefingScreen(p.place, p.alternatives, lang, nav.remainTimeSec / 60,
-                    onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdWhereNext() })
+                    onReserve = { engine.cmdReserve()?.phone?.let(onDial) }, onOther = { engine.cmdWhereNext() },
+                    audience = prefs.audience, onHear = { engine.sayNow(it) }, onGo = vm::goThere)
                 is DocentPhase.Parked -> ParkedScreen(p.place, lang, engine.guide?.handoff, onOpen = onDial, onNext = { engine.cmdWhereNext() }, onHear = { engine.sayNow(it) }) { vm.openVoiceSetup(true) }
-                is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog)
+                is DocentPhase.WhereNext -> WhereNextScreen(p.leftAfterMin, p.suggestions, p.disappointed, lang, onGo = vm::goThere, onHome = engine::cmdShowLog, audience = prefs.audience, onHear = { engine.sayNow(it) })
                 is DocentPhase.TravelLog -> TravelLogScreen(log, lang, vm.history.days(), onShare = { vm.shareToday() }) { engine.cmdShowLog() }
             }
         }

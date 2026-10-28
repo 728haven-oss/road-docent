@@ -194,10 +194,13 @@ class EngineFlowTest {
         val kq = r.engine.kidsQuiz.value
         assertNotNull("kids quiz opened after two stories", kq)
         assertTrue(r.spk.last().contains("창밖 퀴즈"))
+        r.spk.finish(); advanceTimeBy(2_000)          // question read → countdown starts
         r.engine.answerKidsQuiz(kq!!.quiz.answer); tick()
         assertEquals(true, r.engine.kidsQuiz.value?.correct)
-        assertEquals(1, r.engine.log.value.stickers)
-        advanceTimeBy(5_000)
+        assertEquals("no sticker before the reveal", 0, r.engine.log.value.stickers)
+        r.spk.finish(); advanceTimeBy(10_000)
+        assertEquals("sticker after the 10 s reveal", 1, r.engine.log.value.stickers)
+        r.spk.finish(); advanceTimeBy(5_000)
         assertEquals("card closes after the praise", null, r.engine.kidsQuiz.value)
         r.engine.stop()
     }
@@ -273,6 +276,51 @@ class EngineFlowTest {
         r.spk.finish(); advanceTimeBy(100)
         r.veh.set { it.copy(speedKmh = 65f) }; advanceTimeBy(300)
         assertTrue(r.spk.last().contains("카메라"))
+        r.engine.stop()
+    }
+
+    @Test fun skipKeepsMovingThroughTheWholeRoute() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.start("경복궁"); tick()
+        val heard = mutableListOf(r.engine.nowPlaying.value!!.id)
+        repeat(8) { r.engine.cmdSkip(); tick(); heard += r.engine.nowPlaying.value!!.id }
+        assertEquals("every skip plays a new story (no stall after the start queue): $heard", heard.size, heard.distinct().size)
+        r.engine.stop()
+    }
+
+    @Test fun previousAndReplay() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.start("경복궁"); tick()
+        val a = r.engine.nowPlaying.value!!.id
+        r.engine.cmdSkip(); tick(); val b = r.engine.nowPlaying.value!!.id
+        r.engine.cmdSkip(); tick(); val c = r.engine.nowPlaying.value!!.id
+        val n = r.spk.spoken.size
+        r.engine.cmdReplay(); tick()
+        assertEquals(c, r.engine.nowPlaying.value!!.id); assertTrue("replay speaks again", r.spk.spoken.size == n + 1)
+        r.engine.cmdPrevious(); tick(); assertEquals(b, r.engine.nowPlaying.value!!.id)
+        r.engine.cmdPrevious(); tick(); assertEquals(a, r.engine.nowPlaying.value!!.id)
+        r.engine.cmdSkip(); tick(); assertEquals("skip after going back walks forward through history", b, r.engine.nowPlaying.value!!.id)
+        r.engine.cmdSkip(); tick(); assertEquals(c, r.engine.nowPlaying.value!!.id)
+        r.engine.cmdSkip(); tick(); assertTrue("then continues with a new story", r.engine.nowPlaying.value!!.id !in listOf(a, b, c))
+        r.engine.stop()
+    }
+
+    @Test fun kidsQuizCountsDownTenSecondsBeforeRevealing() = runTest(StandardTestDispatcher()) {
+        val r = Rig(this)
+        r.engine.setAudience(Audience.KIDS)
+        r.start("경복궁"); tick()
+        assertTrue(r.engine.askKidsQuiz()); tick()
+        r.spk.finish(); advanceTimeBy(2_000)
+        val v0 = r.engine.kidsQuiz.value!!
+        assertNotNull("countdown running", v0.secondsLeft)
+        r.engine.answerKidsQuiz(v0.quiz.answer); tick()
+        assertFalse("answer is locked in but not revealed yet", r.engine.kidsQuiz.value!!.revealed)
+        r.spk.finish(); advanceTimeBy(5_000)
+        assertFalse("still counting", r.engine.kidsQuiz.value!!.revealed)
+        advanceTimeBy(6_000)
+        val v = r.engine.kidsQuiz.value!!
+        assertTrue("revealed after ~10 s", v.revealed); assertTrue(v.correct == true)
+        assertTrue("praise spoken", r.spk.last().contains("스티커"))
         r.engine.stop()
     }
 }

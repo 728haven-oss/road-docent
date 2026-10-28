@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import kr.roaddocent.ui.theme.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -81,7 +83,8 @@ fun EpisodeRow(index: Int, ep: Episode, lang: Lang, state: String, now: Boolean)
 @Composable
 fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: Lang, audience: Audience, congestion: Boolean, paused: Boolean, speaking: Boolean,
                   quiz: kr.roaddocent.engine.DocentEngine.QuizView? = null, driving: Boolean = false,
-                  onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit, onFeedback: (Boolean) -> Unit = {}) {
+                  onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit, onFeedback: (Boolean) -> Unit = {},
+                  onPrevious: () -> Unit = {}, onReplay: () -> Unit = {}) {
     // Speaking glow: the panel border brightens for a second when the guide starts talking, so passengers notice without reading.
     val glow by androidx.compose.animation.core.animateFloatAsState(if (speaking && !paused) 1f else 0f, androidx.compose.animation.core.tween(600), label = "glow")
     if (driving) {
@@ -106,14 +109,7 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 VoiceHint(lang, if (quiz != null && quiz.answer == null) "quiz" else "playing")
             }
             Spacer(Modifier.height(12.dp))
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                IconAction("⏭", if (lang == Lang.KO) "넘기기" else "Skip", onSkip)
-                IconAction("➕", if (lang == Lang.KO) "자세히" else "More", onMore)
-                IconAction("🔖", if (lang == Lang.KO) "저장" else "Save", onSave)
-                IconAction("🔇", if (lang == Lang.KO) "조용히" else "Quiet", onQuiet)
-                IconAction("👍", if (lang == Lang.KO) "좋아요" else "Like", { onFeedback(true) })
-                IconAction("👎", if (lang == Lang.KO) "별로" else "Meh", { onFeedback(false) })
-            }
+            PlayerControls(lang, onPrevious, onReplay, onSkip, onMore, onSave, onQuiet, onFeedback)
         }
         return
     }
@@ -148,14 +144,7 @@ fun PlayingScreen(ep: Episode, all: List<Episode>, played: List<String>, lang: L
                 }
             }
             Spacer(Modifier.weight(1f))
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                IconAction("⏭", if (lang == Lang.KO) "넘기기" else "Skip", onSkip)
-                IconAction("➕", if (lang == Lang.KO) "자세히" else "More", onMore)
-                IconAction("🔖", if (lang == Lang.KO) "저장" else "Save", onSave)
-                IconAction("🔇", if (lang == Lang.KO) "조용히" else "Quiet", onQuiet)
-                IconAction("👍", if (lang == Lang.KO) "좋아요" else "Like", { onFeedback(true) })
-                IconAction("👎", if (lang == Lang.KO) "별로" else "Meh", { onFeedback(false) })
-            }
+            PlayerControls(lang, onPrevious, onReplay, onSkip, onMore, onSave, onQuiet, onFeedback)
         }
         if (kr.roaddocent.ui.theme.isCompact()) {
             val cur = all.indexOfFirst { it.id == ep.id }
@@ -225,10 +214,37 @@ fun Wave(active: Boolean) {
     }
 }
 
+/** Playback row (이전 · 다시 듣기 · 다음) over the secondary actions. */
+@Composable
+fun PlayerControls(lang: Lang, onPrevious: () -> Unit, onReplay: () -> Unit, onSkip: () -> Unit, onMore: () -> Unit, onSave: () -> Unit, onQuiet: () -> Unit, onFeedback: (Boolean) -> Unit) {
+    val ko = lang == Lang.KO
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            @Composable fun RowScope.btn(t: String, primary: Boolean, f: () -> Unit) = Text(t,
+                Modifier.weight(1f).background(if (primary) kr.roaddocent.ui.theme.Navy else Color.White, RoundedCornerShape(14.dp))
+                    .border(1.dp, if (primary) kr.roaddocent.ui.theme.Navy else kr.roaddocent.ui.theme.CardBorder, RoundedCornerShape(14.dp)).clickable(onClick = f).padding(vertical = 12.dp),
+                color = if (primary) Color.White else kr.roaddocent.ui.theme.Navy, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, textAlign = androidx.compose.ui.text.style.TextAlign.Center, maxLines = 1)
+            btn(if (ko) "⏮ 이전" else "⏮ Back", false, onPrevious)
+            btn(if (ko) "🔁 다시 듣기" else "🔁 Replay", false, onReplay)
+            btn(if (ko) "다음 ⏭" else "Next ⏭", true, onSkip)
+        }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            IconAction("➕", if (ko) "자세히" else "More", onMore)
+            IconAction("🔖", if (ko) "저장" else "Save", onSave)
+            IconAction("🔇", if (ko) "조용히" else "Quiet", onQuiet)
+            IconAction("👍", if (ko) "좋아요" else "Like", { onFeedback(true) })
+            IconAction("👎", if (ko) "별로" else "Meh", { onFeedback(false) })
+        }
+    }
+}
+
 /** 2. Arrival briefing */
 @Composable
-fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMin: Int, onReserve: () -> Unit, onOther: () -> Unit) {
+fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMin: Int, onReserve: () -> Unit, onOther: () -> Unit,
+                   audience: kr.roaddocent.core.Audience = kr.roaddocent.core.Audience.ADULT, onHear: (String) -> Unit = {}, onGo: ((Place) -> Unit)? = null) {
     val l = lang.tag
+    var sheet by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Place?>(null) }
+    sheet?.let { PlaceSheet(it, lang, audience, onHear, onGo) { sheet = null } }
     TwoPane() {
         Panel(Modifier.weight(1.3f).fillMaxHeight()) {
             Hero(place.poiId.takeIf { it.endsWith(".jpg") || it.endsWith(".webp") }, place.category, place.name[l] ?: "", height = 120)
@@ -251,10 +267,11 @@ fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMi
             Text(if (lang == Lang.KO) "함께 보면 좋은 곳" else "Nearby, worth pairing", color = Ink, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(6.dp))
             alternatives.forEachIndexed { i, p ->
-                Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().clickable { sheet = p }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.size(44.dp).background(kr.roaddocent.ui.theme.SkySoft, RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) { Text(pictogram(p.category), fontSize = 22.sp) }
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) { Text(p.name[l] ?: "", color = Ink, fontSize = 15.sp, fontWeight = FontWeight.SemiBold); Text(p.note[l] ?: "", color = Quiet, fontSize = 12.sp, maxLines = 2) }
+                    Text("›", color = Quiet, fontSize = 22.sp)
                 }
             }
             Spacer(Modifier.height(10.dp))
@@ -265,8 +282,11 @@ fun BriefingScreen(place: Place, alternatives: List<Place>, lang: Lang, remainMi
 
 /** 3. Where next */
 @Composable
-fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: Boolean, lang: Lang, onGo: (Place) -> Unit, onHome: () -> Unit) {
+fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: Boolean, lang: Lang, onGo: (Place) -> Unit, onHome: () -> Unit,
+                    audience: kr.roaddocent.core.Audience = kr.roaddocent.core.Audience.ADULT, onHear: (String) -> Unit = {}) {
     val l = lang.tag
+    var sheet by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Place?>(null) }
+    sheet?.let { PlaceSheet(it, lang, audience, onHear, onGo) { sheet = null } }
     val top = suggestions.firstOrNull()
     TwoPane() {
         Panel(Modifier.weight(1.3f).fillMaxHeight()) {
@@ -277,11 +297,14 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
             )
             Spacer(Modifier.height(16.dp))
             top?.let {
-                Hero(it.poiId.takeIf { x -> x.endsWith(".jpg") || x.endsWith(".webp") }, it.category, it.name[l] ?: "", height = 120)
-                Spacer(Modifier.height(10.dp))
-                Headline(it.name[l] ?: "", 24)
-                Body(it.note[l] ?: "", size = 17)
-                it.typicalStayMin?.let { m -> Body(if (lang == Lang.KO) "방문객은 보통 ${m}분 머물러요 (체류 데이터)" else "Visitors usually stay about $m min (dwell data)", size = 14) }
+                Column(Modifier.clickable { sheet = it }) {
+                    Hero(it.poiId.takeIf { x -> x.endsWith(".jpg") || x.endsWith(".webp") }, it.category, it.name[l] ?: "", height = 120)
+                    Spacer(Modifier.height(10.dp))
+                    Headline(it.name[l] ?: "", 24)
+                    Body(it.note[l] ?: "", size = 17)
+                    it.typicalStayMin?.let { m -> Body(if (lang == Lang.KO) "방문객은 보통 ${m}분 머물러요 (체류 데이터)" else "Visitors usually stay about $m min (dwell data)", size = 14) }
+                    Text(if (lang == Lang.KO) "📖 이곳 이야기 보기 ›" else "📖 About this place ›", color = kr.roaddocent.ui.theme.Navy, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 6.dp))
+                }
             }
             Spacer(Modifier.weight(1f))
             kr.roaddocent.ui.theme.ButtonFlow {
@@ -293,10 +316,11 @@ fun WhereNextScreen(leftAfterMin: Int, suggestions: List<Place>, disappointed: B
             Text(if (lang == Lang.KO) "다른 제안" else "Other suggestions", color = Ink, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(6.dp))
             suggestions.drop(1).forEachIndexed { i, p ->
-                Row(Modifier.fillMaxWidth().clickable { onGo(p) }.padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(Modifier.fillMaxWidth().clickable { sheet = p }.padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(Modifier.size(44.dp).background(kr.roaddocent.ui.theme.SkySoft, RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) { Text(pictogram(p.category), fontSize = 22.sp) }
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) { Text(p.name[l] ?: "", color = Ink, fontSize = 15.sp, fontWeight = FontWeight.SemiBold); Text(p.note[l] ?: "", color = Quiet, fontSize = 12.sp, maxLines = 2) }
+                    Text("›", color = Quiet, fontSize = 22.sp)
                 }
             }
             Spacer(Modifier.height(10.dp))
@@ -365,30 +389,59 @@ fun RouteCanvas(log: TripLog, modifier: Modifier) {
 /** Kids window quiz card: question + three big option buttons; works on the car screen and on the companion phone. */
 @Composable
 fun KidsQuizCard(v: kr.roaddocent.engine.DocentEngine.KidsQuizView, lang: Lang, onAnswer: (Int) -> Unit) {
+    val ko = lang == Lang.KO
+    val green = Color(0xFF2E9E6A); val red = Color(0xFFD9534F)
     Panel(Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Tag(if (lang == Lang.KO) "🪟 창밖 퀴즈" else "🪟 Window quiz", color = kr.roaddocent.ui.theme.WarmSoft, ink = kr.roaddocent.ui.theme.Warm)
+            Tag(if (ko) "🪟 창밖 퀴즈" else "🪟 Window quiz", color = kr.roaddocent.ui.theme.WarmSoft, ink = kr.roaddocent.ui.theme.Warm)
             Spacer(Modifier.weight(1f))
-            Text(if (lang == Lang.KO) "번호를 누르거나 말해요" else "Tap or say the number", color = Quiet, fontSize = 11.sp)
+            when {
+                v.revealed -> Text(if (ko) "정답 공개!" else "Answer!", color = kr.roaddocent.ui.theme.Warm, fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                v.secondsLeft != null -> Box(Modifier.size(40.dp).background(kr.roaddocent.ui.theme.Warm, RoundedCornerShape(999.dp)), contentAlignment = Alignment.Center) {
+                    Text("${v.secondsLeft}", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                }
+                else -> Text(if (ko) "문제를 듣고 있어요…" else "Listen to the question…", color = Quiet, fontSize = 12.sp)
+            }
         }
-        Spacer(Modifier.height(8.dp))
+        // countdown bar
+        if (!v.revealed) {
+            Spacer(Modifier.height(8.dp))
+            val frac = (v.secondsLeft ?: 10) / 10f
+            Box(Modifier.fillMaxWidth().height(6.dp).background(kr.roaddocent.ui.theme.WarmSoft, RoundedCornerShape(3.dp))) {
+                Box(Modifier.fillMaxWidth(frac).height(6.dp).background(kr.roaddocent.ui.theme.Warm, RoundedCornerShape(3.dp)))
+            }
+        }
+        Spacer(Modifier.height(10.dp))
         Text(v.quiz.q(lang), color = Ink, fontSize = 18.sp, fontWeight = FontWeight.Bold, lineHeight = 25.sp)
         Spacer(Modifier.height(10.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             v.quiz.opts(lang).forEachIndexed { i, o ->
                 val n = i + 1
-                val right = v.chosen != null && n == v.quiz.answer
-                val wrong = v.chosen == n && n != v.quiz.answer
-                val bg = when { right -> Color(0xFFE3F6EC); wrong -> Color(0xFFFBE7E6); else -> Color.White }
-                val line = when { right -> Color(0xFF2E9E6A); wrong -> Color(0xFFD9534F); else -> kr.roaddocent.ui.theme.CardBorder }
-                Row(Modifier.fillMaxWidth().background(bg, RoundedCornerShape(14.dp)).border(1.5.dp, line, RoundedCornerShape(14.dp)).clickable(enabled = v.chosen == null) { onAnswer(n) }.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(30.dp).background(if (right) Color(0xFF2E9E6A) else kr.roaddocent.ui.theme.Navy, RoundedCornerShape(999.dp)), contentAlignment = Alignment.Center) { Text(if (right) "✓" else "$n", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold) }
+                val picked = v.chosen == n
+                val right = v.revealed && n == v.quiz.answer
+                val wrong = v.revealed && picked && n != v.quiz.answer
+                val bg = when { right -> Color(0xFFE3F6EC); wrong -> Color(0xFFFBE7E6); picked -> kr.roaddocent.ui.theme.SkySoft; else -> Color.White }
+                val line = when { right -> green; wrong -> red; picked -> kr.roaddocent.ui.theme.Navy; else -> kr.roaddocent.ui.theme.CardBorder }
+                Row(Modifier.fillMaxWidth().background(bg, RoundedCornerShape(14.dp)).border(if (picked || right) 2.dp else 1.5.dp, line, RoundedCornerShape(14.dp))
+                    .clickable(enabled = v.chosen == null && !v.revealed) { onAnswer(n) }.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Box(Modifier.size(30.dp).background(when { right -> green; wrong -> red; else -> kr.roaddocent.ui.theme.Navy }, RoundedCornerShape(999.dp)), contentAlignment = Alignment.Center) {
+                        Text(when { right -> "✓"; wrong -> "✕"; else -> "$n" }, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    }
                     Spacer(Modifier.width(12.dp))
-                    Text(o, color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    Text(o, Modifier.weight(1f), color = Ink, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, maxLines = 1)
+                    if (picked && !v.revealed) Text(if (ko) "내 답" else "My pick", color = kr.roaddocent.ui.theme.Navy, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
                 }
             }
         }
-        v.correct?.let { ok -> Spacer(Modifier.height(8.dp)); Text(if (ok) (if (lang == Lang.KO) "⭐ 정답이에요! 스티커를 받았어요" else "⭐ Correct! Sticker earned") else (if (lang == Lang.KO) "아쉬워요. 정답은 ${v.quiz.answer}번이에요" else "So close. It's number ${v.quiz.answer}"), color = if (ok) Color(0xFF2E9E6A) else Quiet, fontSize = 14.sp, fontWeight = FontWeight.SemiBold) }
+        Spacer(Modifier.height(8.dp))
+        val msg = when {
+            v.revealed && v.correct == true -> (if (ko) "⭐ 정답이에요! 스티커를 받았어요" else "⭐ Correct! Sticker earned") to green
+            v.revealed && v.chosen == null -> (if (ko) "시간이 다 됐어요. 정답은 ${v.quiz.answer}번이에요" else "Time's up. It's number ${v.quiz.answer}") to Quiet
+            v.revealed -> (if (ko) "아쉬워요. 정답은 ${v.quiz.answer}번이에요" else "So close. It's number ${v.quiz.answer}") to Quiet
+            v.chosen != null -> (if (ko) "${v.chosen}번을 골랐어요. ${v.secondsLeft ?: ""}초 뒤에 정답을 알려 드려요" else "You picked ${v.chosen}. Answer in ${v.secondsLeft ?: ""} s") to kr.roaddocent.ui.theme.Navy
+            else -> (if (ko) "번호를 누르거나, 번호나 답을 말해 보세요" else "Tap, or say the number or the answer") to Quiet
+        }
+        Text(msg.first, color = msg.second, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
     }
 }
 

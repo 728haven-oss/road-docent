@@ -3,6 +3,7 @@ package kr.roaddocent.shots
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -80,6 +81,8 @@ open class ScreenshotTest {
         kr.roaddocent.ui.screen.HomeScreen("테스터", Lang.KO, "시연 모드", all, "history", null, onTheme = {}, onStart = {}, onNearby = {}, onResume = {}, onDismissResume = {})
     }
     @Test fun s04b_tripintro() = shot("04b_tripintro") { kr.roaddocent.TripIntroScene(gb, Lang.KO, gb.route.first()) }
+    @Test fun s05c_kidsquiz_picked() = shot("05c_kidsquiz_picked") { val q = gb.kidsQuizzes.first(); kr.roaddocent.ui.screen.KidsQuizCard(kr.roaddocent.engine.DocentEngine.KidsQuizView(q, 2, q.answer == 2, secondsLeft = 6), Lang.KO, onAnswer = {}) }
+    @Test fun s05d_kidsquiz_revealed() = shot("05d_kidsquiz_revealed") { val q = gb.kidsQuizzes.first(); kr.roaddocent.ui.screen.KidsQuizCard(kr.roaddocent.engine.DocentEngine.KidsQuizView(q, 2, q.answer == 2, revealed = true), Lang.KO, onAnswer = {}) }
     @Test fun s05b_kidsquiz() = shot("05b_kidsquiz") { kr.roaddocent.ui.screen.KidsQuizCard(kr.roaddocent.engine.DocentEngine.KidsQuizView(gb.kidsQuizzes.first(), null, null), Lang.KO, onAnswer = {}) }
     @Test fun s11_map_museum() = shot("11_map_museum") {
         val g = guide("seoul_national_museum")
@@ -90,6 +93,14 @@ open class ScreenshotTest {
         val g = guide("seoul_gangneung")
         val pts = g.episodes.mapNotNull { e -> (e.trigger as? Trigger.NearPoint)?.let { it.point to e.titleFor(Lang.KO) } }
         kr.roaddocent.ui.screen.TripMap(g.route, g.route[5], pts, "서울", "강릉", Modifier.fillMaxSize())
+    }
+    @Test fun s13_place_jangneung() = shot("13_place_jangneung") {
+        val p = guide("yeongwol_danjong").nearby.first { it.id == "jangneung" }
+        kr.roaddocent.ui.screen.PlaceCard(p, Lang.KO, Audience.ADULT, onHear = {}, onGo = {}, onClose = {})
+    }
+    @Test fun s13b_place_byeolmaro_kids() = shot("13b_place_byeolmaro_kids") {
+        val p = guide("yeongwol_danjong").nearby.first { it.id == "byeolmaro" }
+        kr.roaddocent.ui.screen.PlaceCard(p, Lang.KO, Audience.KIDS, onHear = {}, onGo = {}, onClose = {})
     }
     @Test fun s10_settings() = shot("10_settings") { SettingsScreen(Prefs(audience = Audience.KIDS), null, true, onChange = {}, onVoiceSetup = {}, onDeleteVoice = {}, onClose = {}) }
 }

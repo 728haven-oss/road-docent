@@ -46,7 +46,7 @@ import kr.roaddocent.ui.theme.Warm
 
 /** Big flat pictogram per place category — the visual anchor when no photo is bundled. */
 fun pictogram(category: String): String = when (category) {
-    "palace", "temple" -> "🏯"; "museum", "gallery" -> "🏛️"; "beach" -> "🏖️"; "mountain", "observatory" -> "🏔️"
+    "palace", "temple" -> "🏯"; "museum", "gallery" -> "🏛️"; "beach" -> "🏖️"; "mountain" -> "🏔️"; "observatory" -> "🔭"; "heritage", "tomb" -> "🏯"
     "park", "village" -> "🌳"; "market", "food", "restaurant" -> "🍜"; "cafe" -> "☕"; "shopping" -> "🛍️"
     "car" -> "🚗"; "rest_area" -> "⛽"; "film" -> "🎬"; "freeride" -> "🪟"; else -> "📍"
 }

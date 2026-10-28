@@ -27,7 +27,12 @@ data class Place(
     val onArrival: Map<String, List<String>> = emptyMap(),
     val poiId: String = "", val poiSubId: String = "0",
     /** If set, "go there" hands over to this guide so the docent keeps talking on the next leg (경복궁 → 국립중앙박물관). */
-    val guideId: String? = null
+    val guideId: String? = null,
+    /** Tap-to-read story about the place (adults / kids), what to look for, and practical visit tips. */
+    val story: Map<String, String> = emptyMap(),
+    val kidsStory: Map<String, String> = emptyMap(),
+    val highlights: Map<String, List<String>> = emptyMap(),
+    val visit: Map<String, List<String>> = emptyMap()
 )
 
 /** A question asked on the road; the answer is revealed after a pause (or on "tell me more"). */

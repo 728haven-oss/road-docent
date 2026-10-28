@@ -139,7 +139,7 @@ fun SettingsScreen(
                 Choice(if (ko) "Gleo (Pleos)" else "Gleo (Pleos)", !prefs.localVoiceCommands) { onChange(prefs.copy(localVoiceCommands = false)) }
                 Choice(if (ko) "기기 음성인식" else "On-device", prefs.localVoiceCommands) { onChange(prefs.copy(localVoiceCommands = true)) }
             }
-            Body(if (localVoiceAvailable) (if (ko) "이 기기에서 음성인식을 쓸 수 있어요. “넘겨”, “더 자세히”, “거기로 가자”, “다른 데 없어?”, “예약해”, “일지 보여줘”" else "Speech recognition is available. “skip”, “tell me more”, “let's go there”, “where next”, “reserve”, “show the log”")
+            Body(if (localVoiceAvailable) (if (ko) "이 기기에서 음성인식을 쓸 수 있어요. “넘겨”, “이전”, “다시”, “더 자세히”, “거기로 가자”, “다른 데 없어?”, “예약해”, “일지 보여줘”" else "Speech recognition is available. “skip”, “tell me more”, “let's go there”, “where next”, “reserve”, “show the log”")
                  else (if (ko) "이 기기에는 음성인식 엔진이 없어요 (Pleos Connect에서는 Gleo가 처리)" else "No speech engine on this device (Gleo handles it on Pleos Connect)"), size = 12)
         }
     }

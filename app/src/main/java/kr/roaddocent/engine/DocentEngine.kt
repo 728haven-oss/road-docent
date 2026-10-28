@@ -79,7 +79,12 @@ class DocentEngine(
     private var quizJob: Job? = null
     @Volatile private var quizPending = false
     /** Kids window quiz with options; null when none is open. */
-    data class KidsQuizView(val quiz: kr.roaddocent.core.KidsQuiz, val chosen: Int?, val correct: Boolean?)
+    /** [chosen] is locked in during the countdown; [correct] is only shown once [revealed]. */
+    data class KidsQuizView(val quiz: kr.roaddocent.core.KidsQuiz, val chosen: Int?, val correct: Boolean?, val secondsLeft: Int? = null, val revealed: Boolean = false)
+    private var kidsJob: Job? = null
+    /** Stories heard this trip, for "이전 이야기" / "다시 듣기"; [histIdx] points at the one playing. */
+    private val history = mutableListOf<Episode>()
+    private var histIdx = -1
     private val _kidsQuiz = MutableStateFlow<KidsQuizView?>(null)
     val kidsQuiz: StateFlow<KidsQuizView?> = _kidsQuiz.asStateFlow()
     private val kidsAsked = linkedSetOf<String>()
@@ -168,6 +173,9 @@ class DocentEngine(
                     Command.QUIET -> cmdQuiet()
                     Command.WHERE_NEXT -> cmdWhereNext()
                     Command.GO_THERE -> { val n = e.param?.toIntOrNull(); if (_kidsQuiz.value != null && n != null) answerKidsQuiz(n) else lastSuggestions.getOrNull((n ?: 1) - 1)?.let { cmdGoThere(it) } }
+                    Command.ANSWER -> e.param?.let { answerKidsQuizSpoken(it) }
+                    Command.PREVIOUS -> cmdPrevious()
+                    Command.REPLAY -> cmdReplay()
                     Command.RESERVE -> cmdReserve()
                     Command.SHOW_LOG -> cmdShowLog()
                 }
@@ -220,7 +228,7 @@ class DocentEngine(
     private fun chainTo(g: Guide) {
         quizJob?.cancel(); quizPending = false; _quiz.value = null
         guide = g
-        played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null; pending.clear()
+        played.clear(); congestion = false; arrivedAtMs = null; wasPark = false; slowSinceMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; clearKidsQuiz(); pending.clear(); history.clear(); histIdx = -1
         nav.planLeg(g.route, g.driveMin)
         nav.setDestination(g.destination)
         val starts = eps(g).filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
@@ -237,7 +245,7 @@ class DocentEngine(
     fun onRouteSet(destinationName: String) {
         val g = guides.forDestination(destinationName)
         guide = g
-        played.clear(); congestion = false; arrivedAtMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; _kidsQuiz.value = null; pending.clear()
+        played.clear(); congestion = false; arrivedAtMs = null; kidsAsked.clear(); storiesSinceKidsQuiz = 0; clearKidsQuiz(); pending.clear(); history.clear(); histIdx = -1
         val starts = eps(g).filter { it.trigger is Trigger.AtStart }.sortedBy { (it.trigger as Trigger.AtStart).order }
         _queue.value = starts
         _phase.value = DocentPhase.Guiding(starts.first(), emptyList(), false)
@@ -379,9 +387,12 @@ class DocentEngine(
         play(ep, prefix)
     }
 
-    private fun play(ep: Episode, prefix: String) {
+    private fun play(ep: Episode, prefix: String, record: Boolean = true) {
         _nowPlaying.value = ep
-        _log.update { it.copy(episodesHeard = it.episodesHeard + 1) }
+        if (record && !ep.id.startsWith("sys-")) {
+            _log.update { it.copy(episodesHeard = it.episodesHeard + 1) }
+            history += ep; histIdx = history.lastIndex
+        }
         if (_phase.value is DocentPhase.Guiding || _phase.value is DocentPhase.Idle) _phase.value = DocentPhase.Guiding(ep, played.toList(), congestion)
         val q = ep.quiz
         quizJob?.cancel(); quizPending = false; _quiz.value = null
@@ -431,29 +442,77 @@ class DocentEngine(
         _toast.value = if (up) (if (_lang.value == Lang.KO) "👍 좋았어요 · 비슷한 이야기를 더 골라요" else "👍 Noted, more like this") else (if (_lang.value == Lang.KO) "👎 알겠어요 · 이런 이야기는 줄일게요 (오류면 출처 확인)" else "👎 Noted, fewer like this")
     }
 
-    /** Ask the next unasked kids quiz for this guide. Returns false when none is left. */
+    /** Ask the next unasked kids quiz for this guide. Returns false when none is left.
+     *  After the question is read, a 10-second countdown runs; a tap or spoken answer is locked in, and the answer is revealed at 0. */
     fun askKidsQuiz(): Boolean {
         val g = guide ?: return false
         val q = g.kidsQuizzes.firstOrNull { it.id !in kidsAsked } ?: return false
         kidsAsked += q.id; storiesSinceKidsQuiz = 0
         _kidsQuiz.value = KidsQuizView(q, null, null)
-        val opts = q.opts(_lang.value).mapIndexed { i, o -> if (_lang.value == Lang.KO) "${i + 1}번, $o" else "${i + 1}, $o" }.joinToString(". ")
-        say((if (_lang.value == Lang.KO) "창밖 퀴즈! " else "Window quiz! ") + q.q(_lang.value) + " " + opts + (if (_lang.value == Lang.KO) ". 번호를 말하거나 눌러 봐!" else ". Say or tap the number!"), _lang.value)
+        val ko = _lang.value == Lang.KO
+        val opts = q.opts(_lang.value).mapIndexed { i, o -> if (ko) "${i + 1}번, $o" else "${i + 1}, $o" }.joinToString(". ")
+        say((if (ko) "창밖 퀴즈! " else "Window quiz! ") + q.q(_lang.value) + " " + opts + (if (ko) ". 10초 안에 번호를 말하거나 눌러 주세요!" else ". You have 10 seconds. Say or tap the number!"), _lang.value)
+        kidsJob?.cancel()
+        kidsJob = scope.launch {
+            delay(1_200)
+            while (speaker.speaking.value) delay(250)
+            for (sec in 10 downTo 1) { _kidsQuiz.update { it?.copy(secondsLeft = sec) }; delay(1_000) }
+            revealKidsQuiz()
+        }
         return true
     }
 
-    /** Child taps or says a number (1-based). */
+    /** Child taps or says a number (1-based): locked in, revealed when the countdown ends. */
     fun answerKidsQuiz(index: Int) {
         val v = _kidsQuiz.value ?: return
-        if (v.chosen != null) return
-        val ok = index == v.quiz.answer
-        _kidsQuiz.value = v.copy(chosen = index, correct = ok)
-        val ansText = v.quiz.opts(_lang.value).getOrNull(v.quiz.answer - 1) ?: ""
-        if (ok) { _log.update { it.copy(quizzesRight = it.quizzesRight + 1, stickers = it.stickers + 1) }; onQuizRevealed?.invoke() }
-        say(if (ok) ((v.quiz.praise[_lang.value.tag] ?: (if (_lang.value == Lang.KO) "딩동댕, 정답!" else "Ding, correct!")) + (if (_lang.value == Lang.KO) " 스티커 하나 획득!" else " You earned a sticker!"))
-                      else (if (_lang.value == Lang.KO) "아쉽다! 정답은 ${v.quiz.answer}번, $ansText." else "Not quite! The answer is ${v.quiz.answer}, $ansText."), _lang.value)
-        scope.launch { delay(4_000); if (_kidsQuiz.value?.chosen != null) _kidsQuiz.value = null }
+        if (v.chosen != null || v.revealed || index !in 1..v.quiz.opts(_lang.value).size) return
+        _kidsQuiz.value = v.copy(chosen = index, correct = index == v.quiz.answer)
+        say(if (_lang.value == Lang.KO) "${index}번! 정답은 잠시 뒤에 알려 드릴게요." else "Number $index! The answer comes in a moment.", _lang.value)
     }
+
+    /** Spoken answer that names an option instead of a number ("이순신 장군"). */
+    fun answerKidsQuizByText(text: String): Boolean {
+        val v = _kidsQuiz.value ?: return false
+        val t = text.replace(" ", "")
+        val i = v.quiz.opts(_lang.value).indexOfFirst { o -> o.replace(" ", "").let { it.isNotEmpty() && (t.contains(it) || it.contains(t) && t.length >= 2) } }
+        if (i < 0) return false
+        answerKidsQuiz(i + 1); return true
+    }
+
+    /** "2번", "두 번째", "이순신 장군" → the option. Option names are matched before numbers so "세종대왕" is not read as 3. */
+    fun answerKidsQuizSpoken(text: String): Boolean {
+        if (_kidsQuiz.value == null) return false
+        if (answerKidsQuizByText(text)) return true
+        val t = text.replace(" ", "").lowercase()
+        val n = when {
+            Regex("^[1-4]번?|[1-4]번").containsMatchIn(t) -> Regex("[1-4]").find(t)!!.value.toInt()
+            Regex("(첫|하나|한)번|첫째|one|first").containsMatchIn(t) -> 1
+            Regex("(둘|두)번|둘째|two|second").containsMatchIn(t) -> 2
+            Regex("(셋|세)번|셋째|three|third").containsMatchIn(t) -> 3
+            Regex("(넷|네)번|넷째|four|fourth").containsMatchIn(t) -> 4
+            else -> return false
+        }
+        answerKidsQuiz(n); return true
+    }
+
+    private fun revealKidsQuiz() {
+        val v = _kidsQuiz.value ?: return
+        if (v.revealed) return
+        val ko = _lang.value == Lang.KO
+        _kidsQuiz.value = v.copy(secondsLeft = null, revealed = true)
+        val ansText = v.quiz.opts(_lang.value).getOrNull(v.quiz.answer - 1) ?: ""
+        val ok = v.correct == true
+        if (ok) { _log.update { it.copy(quizzesRight = it.quizzesRight + 1, stickers = it.stickers + 1) }; onQuizRevealed?.invoke() }
+        speaker.stop()
+        say(when {
+            ok -> (v.quiz.praise[_lang.value.tag] ?: (if (ko) "딩동댕, 정답이에요!" else "Ding, correct!")) + (if (ko) " 스티커 하나 받았어요!" else " You earned a sticker!")
+            v.chosen == null -> if (ko) "시간이 다 됐어요! 정답은 ${v.quiz.answer}번, ${ansText}예요." else "Time's up! The answer is ${v.quiz.answer}, $ansText."
+            else -> if (ko) "아쉬워요! 정답은 ${v.quiz.answer}번, ${ansText}예요." else "Not quite! The answer is ${v.quiz.answer}, $ansText."
+        }, _lang.value)
+        kidsJob = scope.launch { delay(1_200); while (speaker.speaking.value) delay(250); delay(2_500); if (_kidsQuiz.value?.revealed == true) _kidsQuiz.value = null }
+    }
+
+    private fun clearKidsQuiz() { kidsJob?.cancel(); _kidsQuiz.value = null }
 
     /** Speak the pending quiz answer now (timer, or "tell me more"). */
     fun revealQuiz() {
@@ -476,11 +535,43 @@ class DocentEngine(
     }
 
     // ---- voice commands (Gleo Interface in production; buttons in demo) ----
+    private fun stopForUserNav() { clearKidsQuiz(); quizJob?.cancel(); quizPending = false; _quiz.value = null; quietUntilTrigger = false; speaker.stop() }
+
+    /** Next story: forward through history first (after "이전"), then queued stories, then the next story along the route. */
     fun cmdSkip() {
-        quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop()
+        stopForUserNav()
+        if (histIdx in 0 until history.lastIndex) { histIdx++; play(history[histIdx], "", record = false); return }
         pending.removeFirstOrNull()?.let { play(it.ep, it.prefix); return }
-        if (_queue.value.any { it.id !in played }) playNext()
-        else _toast.value = if (_lang.value == Lang.KO) "지금은 다음 이야기가 없어요. 길목에서 이어갈게요" else "Nothing queued right now; the next stop will bring more"
+        if (_queue.value.any { it.id !in played }) { playNext(); return }
+        nextAlongRoute()?.let { played += it.id; play(it, if (_lang.value == Lang.KO) "조금 앞의 이야기를 먼저 들려 드릴게요. " else "Here's a story from a little further ahead. "); return }
+        _toast.value = if (_lang.value == Lang.KO) "이 코스의 이야기를 모두 들었어요. 도착하면 안내해 드릴게요" else "You've heard every story on this route; arrival tips are next"
+    }
+
+    /** Go back to the story before this one. */
+    fun cmdPrevious() {
+        if (histIdx <= 0) { cmdReplay(); _toast.value = if (_lang.value == Lang.KO) "첫 이야기예요. 처음부터 다시 들려 드릴게요" else "This is the first story; replaying it"; return }
+        stopForUserNav()
+        histIdx--; play(history[histIdx], "", record = false)
+    }
+
+    /** Hear the current story again from the start. */
+    fun cmdReplay() {
+        val ep = _nowPlaying.value ?: return
+        stopForUserNav()
+        play(ep, "", record = false)
+    }
+
+    /** The unplayed story whose trigger point comes next along the route (or any remaining story). */
+    private fun nextAlongRoute(): Episode? {
+        val g = guide ?: return null
+        val route = g.route
+        fun idxOf(p: GeoPoint) = if (route.isEmpty()) 0 else route.indices.minBy { haversineM(route[it], p) }
+        val here = nav.nav.value.location?.let(::idxOf) ?: 0
+        val left = eps(g).filter { it.id !in played && it.trigger !is Trigger.Reboard && it.trigger !is Trigger.RemainUnderMin && it.trigger !is Trigger.VehicleEvent }
+        val near = left.filter { it.trigger is Trigger.NearPoint }.map { it to idxOf((it.trigger as Trigger.NearPoint).point) }
+        return near.filter { it.second >= here }.minByOrNull { it.second }?.first
+            ?: near.minByOrNull { it.second }?.first
+            ?: left.firstOrNull { it.trigger !is Trigger.AtStart }
     }
     fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> say(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }
         if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> say("한국관광공사 해설로 더 자세히. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
@@ -520,7 +611,7 @@ class DocentEngine(
     /** Stop talking and drop the current guide; the picker shows again. */
     fun endTrip() {
         quizJob?.cancel(); quizPending = false; _quiz.value = null
-        speaker.stop(); guide = null; played.clear(); _queue.value = emptyList(); _nowPlaying.value = null; _kidsQuiz.value = null; kidsAsked.clear(); pending.clear()
+        speaker.stop(); guide = null; played.clear(); _queue.value = emptyList(); _nowPlaying.value = null; clearKidsQuiz(); kidsAsked.clear(); pending.clear(); history.clear(); histIdx = -1
         congestion = false; arrivedAtMs = null; wasPark = true
         _phase.value = DocentPhase.Idle
     }

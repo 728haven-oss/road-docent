@@ -29,7 +29,11 @@ enum class Command(val gleoFunction: String) {
     WHERE_NEXT("WHERE_NEXT"),
     GO_THERE("GO_THERE"),      // param: placeId or index ("1","2","3")
     RESERVE("RESERVE"),
-    SHOW_LOG("SHOW_TRAVEL_LOG");
+    SHOW_LOG("SHOW_TRAVEL_LOG"),
+    PREVIOUS("PREVIOUS_EPISODE"),
+    REPLAY("REPLAY_EPISODE"),
+    /** Anything else said while a kids quiz is open; param = the raw words ("2번", "이순신 장군"). */
+    ANSWER("ANSWER_QUIZ");
 
     companion object {
         fun fromGleo(action: String?) = entries.firstOrNull { it.gleoFunction == action }
@@ -130,9 +134,11 @@ class LocalVoiceCommands(private val context: Context) {
             has("더자세히", "자세히", "더알려", "tell me more", "more detail") -> Command.TELL_MORE
             has("저장", "기억해", "save", "remember this") -> Command.SAVE
             has("조용", "그만", "멈춰", "quiet", "stop", "pause") -> Command.QUIET
+            has("다시들려", "다시듣", "한번더", "다시", "again", "replay") -> Command.REPLAY
+            has("이전", "전이야기", "앞이야기", "아까", "뒤로", "previous", "go back") -> Command.PREVIOUS
             has("넘겨", "다음", "스킵", "skip", "next") -> Command.SKIP
             else -> null
-        } ?: return null
+        } ?: return CommandEvent(Command.ANSWER, text.trim(), "local")
         val idx = Regex("(첫|1|하나|둘|2|두|셋|3|세|first|second|third|one|two|three)").find(t)?.value
         val param = when (idx) { "첫", "1", "하나", "first", "one" -> "1"; "둘", "2", "두", "second", "two" -> "2"; "셋", "3", "세", "third", "three" -> "3"; else -> null }
         return CommandEvent(cmd, param, "local")
