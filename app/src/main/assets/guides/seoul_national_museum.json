@@ -98,7 +98,7 @@
         "en": "From palace to museum: where did the king's things go?"
       },
       "text": {
-        "ko": "국립중앙박물관까지 25분이에요. 방금 보신 경복궁은 건물은 남았지만 안에 있던 물건은 거의 없었죠? 그 물건들이 지금 가는 곳에 있어요. 재밌는 건 이 박물관이 원래 경복궁 안에 있었다는 거예요. 1945년 광복 직후 문을 열고 경복궁 안에서만 세 번 이사를 다니다가, 2005년에 용산의 지금 자리로 옮겼어요. 그러니까 우리는 지금 박물관이 70년 동안 걸어온 길을 25분 만에 따라가는 셈이에요.",
+        "ko": "자, 이제 국립중앙박물관으로 출발해요. 25분쯤 걸리는 길, 로드 도슨트가 옆자리에서 함께할게요. 방금 경복궁을 걸으시면서 혹시 느끼셨어요? 전각은 그대로인데 안은 텅 비어 있잖아요. 오늘은 그 빈자리를 채우던 옛 물건들을 만나러 가는 길이에요. 그런데 재밌는 건요, 지금 가는 박물관이 사실 경복궁하고 인연이 아주 깊다는 거예요. 광복 직후에 문을 연 첫 국립박물관이 바로 경복궁 안에 있었거든요. 그 뒤로 전쟁 때는 유물을 싸 들고 부산까지 피란을 갔고, 덕수궁을 거쳐 다시 경복궁으로 돌아왔어요. 한때는 근정전 앞을 가로막고 서 있던 옛 조선총독부 건물을 박물관으로 쓰기도 했고요. 그 건물이 헐린 뒤에도 한동안 셋방살이를 하다가, 2005년에야 용산에 제 집을 짓고 옮겨 갔어요. 그러니까 지금 우리가 달리는 이 길이, 박물관이 걸어온 이삿길인 셈이에요. 가는 동안 그 안에서 만날 보물들 이야기를 하나씩 풀어 드릴게요.",
         "en": "The National Museum is 25 minutes away. At the palace the buildings survived, but almost nothing inside did, right? Those things are where we're going. The fun part: this museum used to be inside Gyeongbokgung. It opened right after liberation in 1945, moved three times within the palace grounds, and in 2005 settled at its current home in Yongsan. So we're retracing the museum's own seventy-year journey in twenty-five minutes."
       },
       "kidsText": {
@@ -109,10 +109,13 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 0
       },
-      "durationSec": 45,
+      "durationSec": 77,
       "source": "국립중앙박물관 연혁",
       "priority": 9,
-      "kind": "story"
+      "kind": "story",
+      "deep": {
+        "ko": "박물관의 뿌리를 조금 더 거슬러 올라가 볼게요. 우리나라 첫 박물관은 대한제국 말, 창경궁에 문을 연 제실박물관이에요. 순종 황제 때 궁궐 안에 동물원, 식물원과 함께 만들어졌는데, 나라를 잃은 뒤에는 이왕가박물관이라는 이름으로 바뀌었어요. 한편 일제는 1915년 경복궁에서 조선물산공진회라는 큰 박람회를 열고, 그 자리에 조선총독부박물관을 세웠어요. 이 과정에서 경복궁의 많은 전각이 헐려 나갔죠. 광복이 되자 이 총독부박물관을 넘겨받아 그해 12월 국립박물관이 문을 열었어요. 한국전쟁이 터지자 직원들은 유물을 상자에 담아 부산으로 옮겼고, 덕분에 주요 소장품은 큰 화를 피할 수 있었어요. 전쟁이 끝난 뒤에는 남산과 덕수궁 석조전을 거쳐, 1972년 경복궁 안 새 건물로 들어가면서 국립중앙박물관이라는 지금 이름을 얻었어요. 이왕가박물관에서 이어져 온 덕수궁미술관 소장품도 그 무렵 합쳐졌고요. 1986년에는 옛 조선총독부 청사, 흔히 중앙청이라 부르던 건물로 옮겼는데, 광복 50주년이던 1995년에 이 건물을 철거하기로 하면서 박물관은 또 짐을 싸야 했어요. 그래서 용산 새 건물은 처음부터 오래 머물 집으로 설계됐어요. 큰 지진에도 견디도록 짓고, 진열장에는 흔들림을 줄이는 장치를 달았죠. 그리고 광복 60주년이던 2005년 가을, 마침내 용산에서 문을 열었어요."
+      }
     },
     {
       "id": "museum_size",
@@ -121,7 +124,7 @@
         "en": "Did you know: one of the world's biggest museums"
       },
       "text": {
-        "ko": "지금 가는 박물관은 바닥 면적이 13만 7천 제곱미터, 축구장 열아홉 개를 붙여 놓은 크기예요. 전시품은 1만 점 넘게 걸려 있고 창고엔 그 수십 배가 더 있어요. 다 보려면 하루 종일로도 모자라니 오늘은 세 가지만 노려요. 13미터짜리 돌탑 하나, 금관 하나, 그리고 '사유의 방'이라는 깜깜하고 조용한 방 하나. 이 셋만 보고 나와도 충분해요.",
+        "ko": "가는 동안 박물관 크기 얘기를 좀 해 볼게요. 건물 연면적이 축구장 열아홉 개쯤 돼요. 세계적으로도 손꼽히는 규모라서, 전시실을 한 바퀴 다 도는 것만으로도 하루가 모자라요. 그런데요, 지금 걸려 있는 유물은 전체 소장품 가운데 일부일 뿐이에요. 훨씬 많은 유물이 수장고에서 차례를 기다리고 있거든요. 그러니 오늘은 욕심을 조금 내려놓고 세 가지만 노려 보면 어떨까요. 로비 끝에 우뚝 선 고려의 돌탑, 1층의 신라 금관, 그리고 2층의 사유의 방이요. 팁을 하나 더 드리면, 건물 한가운데가 커다란 계단 마당으로 뻥 뚫려 있어요. 열린마당이라고 부르는 곳인데, 거울못 쪽에서 그 사이로 북쪽을 바라보면 남산과 서울타워가 액자에 담긴 그림처럼 보여요. 들어가기 전에 잠깐 멈춰서 한번 보세요. 사진 찍기에도 제일 좋은 자리예요.",
         "en": "The museum's floor area is 137,000 square metres, nineteen football pitches side by side. Over ten thousand objects are on display and the storerooms hold many times more. You can't see it all, so today we aim for three things: a thirteen-metre stone pagoda, a gold crown, and a dark, silent room called the Room of Quiet Contemplation. See those three and you've done it right."
       },
       "kidsText": {
@@ -132,10 +135,13 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 1
       },
-      "durationSec": 40,
+      "durationSec": 68,
       "source": "국립중앙박물관 시설 현황",
       "priority": 6,
-      "kind": "fact"
+      "kind": "fact",
+      "deep": {
+        "ko": "건물 이야기를 조금 더 해 볼게요. 용산 새 박물관은 국제 설계 공모를 거쳐 정림건축의 안이 뽑혔어요. 긴 건물이 동서로 길게 누워 있는데, 옛 성곽처럼 묵직하게 앉힌 모양이에요. 동쪽에는 전시관이, 서쪽에는 공연장과 교육 공간이 들어섰고, 그 사이를 크게 비워 열린마당을 만들었죠. 건물 앞에는 거울못이라는 연못이 있고, 연못가 정자 이름은 청자정이에요. 지붕에 청자 기와를 얹어서 붙은 이름인데요, 고려 때 실제로 궁궐 정자에 청자 기와를 얹었다는 기록이 고려사에 남아 있고, 전라도 강진 가마터에서는 청자 기와 조각도 나왔어요. 박물관 개관 백 주년을 기념하면서 그 옛 모습을 되살려 본 거예요. 안으로 들어가면 가운데로 길게 뻗은 넓은 통로가 있는데, 이 통로를 역사의 길이라고 불러요. 그 동쪽 끝에 경천사 십층석탑이 서 있고요. 소장품은 수십만 점에 이르고, 기증과 구입으로 해마다 늘고 있어요. 그래서 상설전시실도 유물을 주기적으로 바꿔 걸어요. 같은 전시실이라도 몇 달 뒤에 다시 가면 처음 보는 유물을 만나는 일이 흔해요. 오늘 다 못 보셔도 아쉬워하지 않으셔도 되는 이유예요."
+      }
     },
     {
       "id": "seoul_station",
@@ -144,7 +150,7 @@
         "en": "Seoul Station: a hundred-year-old terminal under a dome"
       },
       "text": {
-        "ko": "오른쪽, 붉은 벽돌에 초록 돔을 얹은 건물이 옛 서울역이에요. 1925년에 '경성역'으로 지었고, 당시 동양에서 도쿄역 다음으로 큰 역이었어요. 지금은 기차가 서지 않고 '문화역서울284'라는 전시장으로 쓰여요. 그 뒤 유리 건물이 지금의 서울역이고, 부산까지 KTX로 2시간 반이에요. 바로 앞을 지나는 고가도로는 '서울로 7017', 1970년에 지은 찻길을 2017년에 걷는 공원으로 바꾼 거예요. 숫자가 그 두 해를 뜻해요.",
+        "ko": "오른쪽 창밖을 한번 보세요. 붉은 벽돌에 초록빛 돔을 얹은 건물, 옛 서울역이에요. 1925년에 경성역이라는 이름으로 문을 열었는데, 그때는 도쿄역 다음가는 큰 역이라는 말을 들었어요. 그 시절 이 역은 그냥 기차만 타는 곳이 아니었어요. 2층에 그릴이라는 양식당이 있었는데, 장안의 멋쟁이들이 일부러 찾아오던 명소였거든요. 소설가 이상의 날개에도 주인공이 경성역 티룸을 찾아가는 장면이 나와요. 지금은 기차가 서지 않고, 문화역서울284라는 전시장으로 쓰이고 있어요. 284라는 숫자는 이 건물의 사적 번호고요. 그리고 바로 앞으로 지나가는 고가 보이시죠? 원래 찻길이었는데 지금은 사람이 걷는 공원이 됐어요. 이름이 서울로 7017이에요. 이 숫자에는 무슨 뜻이 숨어 있을까요?",
         "en": "On your right, the red-brick building with the green dome is old Seoul Station. Built in 1925 as Gyeongseong Station, it was the largest terminal in the East after Tokyo's. Trains no longer stop there; it's now an exhibition hall called Culture Station Seoul 284. The glass building behind it is today's station, two and a half hours to Busan by KTX. The overpass just ahead is Seoullo 7017: a 1970 road turned into a walking park in 2017. The number is those two years."
       },
       "kidsText": {
@@ -170,13 +176,16 @@
         },
         "radiusM": 600
       },
-      "durationSec": 55,
+      "durationSec": 64,
       "source": "서울시 문화역서울284 / 서울로 7017",
       "priority": 8,
       "kind": "quiz",
       "teaser": {
         "ko": "다음은 100년 넘게 군대 땅이었던 곳을 지나요.",
         "en": "Next we pass land that was an army base for over a century."
+      },
+      "deep": {
+        "ko": "경성역은 도쿄제국대학 교수였던 쓰카모토 야스시가 설계를 맡은 것으로 알려져 있어요. 르네상스풍 건물 가운데에 비잔틴풍 돔을 얹은 모습이 당시로서는 무척 화려했죠. 이렇게 공을 들인 데에는 이유가 있어요. 일제는 부산에서 서울과 신의주를 거쳐 만주까지 이어지는 철도를 대륙으로 나아가는 큰길로 삼았고, 경성역은 그 길 한가운데의 관문이었거든요. 그래서 1층에는 등급별로 나뉜 대합실이, 2층에는 귀빈실과 양식당이 들어섰어요. 광복 뒤 서울역으로 이름을 바꾼 이 역은 한국 현대사의 무대가 되기도 했어요. 한국전쟁 때는 피란민이 몰려들었고, 산업화 시절에는 일자리를 찾아 고향을 떠나온 사람들이 처음 서울 땅을 밟은 곳이 바로 이 역 앞 광장이었어요. 2004년 고속철도가 개통하면서 뒤편에 새 역사가 들어섰고, 옛 역사는 오랜 역할을 내려놓았어요. 그 뒤 복원 공사를 거쳐 2011년 문화역서울284로 다시 문을 열었죠. 서울로 7017은 1970년에 놓인 서울역 고가도로가 낡아 안전 문제가 생기자, 허무는 대신 사람이 걷는 길로 바꾼 거예요. 2017년에 문을 열었고, 이름에는 1970년과 2017년, 그리고 열일곱 갈래로 이어지는 사람 길이라는 뜻을 함께 담았다고 해요."
       }
     },
     {
@@ -186,7 +195,7 @@
         "en": "Yongsan: from army ground to park ground"
       },
       "text": {
-        "ko": "왼쪽으로 긴 담장이 이어지면 용산이에요. 이 넓은 땅은 100년 넘게 군대 땅이었어요. 조선 말 청나라 군대, 일제강점기 일본군, 그리고 1945년부터 미군 기지가 있었죠. 2018년 미군이 평택으로 옮기면서 뉴욕 센트럴파크만 한 '용산공원'으로 바뀌고 있어요. 국립중앙박물관도 원래 그 기지 안 골프장 자리에 지은 거예요. 그러니까 박물관 잔디밭은 옛날 미군 골프장이었던 셈이죠.",
+        "ko": "이제 용산으로 들어섰어요. 왼쪽으로 긴 담장이 쭉 이어지죠? 저 담장 안쪽 땅에는 백 년 넘게 남의 나라 군대가 머물렀어요. 조선 말 임오군란 뒤에는 청나라 군대가 진을 쳤고, 러일전쟁 무렵부터는 일본군이 이곳에 대규모 기지를 지었어요. 광복 뒤에는 미군이 그 자리를 그대로 이어받았고요. 한강과 가깝고, 도성과 남쪽을 잇는 길목이라 군대 입장에서는 놓치기 아까운 땅이었던 거죠. 그런데 이 땅이 조금씩 돌아오고 있어요. 미군 사령부가 평택으로 옮겨 가면서, 이곳을 커다란 국가공원으로 바꾸는 일이 진행 중이거든요. 재밌는 건, 오늘 가는 박물관 자리도 먼저 돌아온 땅이라는 거예요. 원래 미군 골프장이었던 곳이거든요. 이따 박물관 앞 넓은 잔디밭과 연못을 걸으실 때, 그 아래 이런 사연이 깔려 있다는 걸 한번 떠올려 보세요.",
         "en": "When a long wall runs along your left, that's Yongsan. This land was military ground for over a century: Qing troops in the late Joseon era, the Japanese army under colonial rule, then a US base from 1945. Since the US garrison moved to Pyeongtaek in 2018 it's being turned into Yongsan Park, about the size of New York's Central Park. The museum itself was built on what used to be the base's golf course, so its lawns were once American fairways."
       },
       "kidsText": {
@@ -201,10 +210,13 @@
         },
         "radiusM": 900
       },
-      "durationSec": 45,
+      "durationSec": 68,
       "source": "용산공원조성추진기획단 / 국립중앙박물관",
       "priority": 7,
-      "kind": "story"
+      "kind": "story",
+      "deep": {
+        "ko": "용산이라는 이름은 원래 지금의 원효로 쪽 한강변 언덕을 가리키던 말이에요. 조선 시대 용산은 군사 기지가 아니라 나루와 창고가 늘어선 물류의 중심지였어요. 지방에서 거둔 세곡을 실은 배들이 이 근처 강가에 닿았거든요. 분위기가 바뀐 건 1882년 임오군란 때예요. 난을 진압한다는 명분으로 들어온 청나라 군대가 용산 일대에 머물렀죠. 1904년 러일전쟁이 터지자 일본은 이 일대 땅을 군용지로 대거 수용하고 일본군 사령부를 세웠어요. 그 과정에서 원래 살던 마을 사람들이 삶터를 잃고 밀려나기도 했고요. 광복 직후에는 미군이 일본군 시설을 넘겨받았고, 한국전쟁 뒤 이곳은 주한미군과 유엔군사령부의 중심이 되었어요. 1990년대 초에는 골프장 부지가 먼저 돌아와 용산가족공원과 지금의 국립중앙박물관 자리가 됐어요. 그 뒤 한미 간 기지 이전 합의에 따라 미군 주력이 평택 캠프 험프리스로 옮겨 갔고, 반환된 구역부터 차례로 시민에게 열리고 있어요. 담장 안에는 일제강점기에 지은 붉은 벽돌 건물들도 남아 있어서, 아픈 역사의 흔적을 어떻게 남기고 보여 줄지도 함께 고민하고 있다고 해요."
+      }
     },
     {
       "id": "pensive_quiz",
@@ -213,7 +225,7 @@
         "en": "A 1,400-year-old smile: the pensive bodhisattva"
       },
       "text": {
-        "ko": "오늘의 주인공 이야기를 할게요. 박물관 2층 '사유의 방'에는 금동 불상 두 점이 깜깜한 방에 나란히 앉아 있어요. 한쪽 다리를 다른 다리 위에 올리고, 손가락을 뺨에 살짝 댄 채 웃는 듯 마는 듯. 1400년 전 삼국시대에 만든 거예요. 방 이름이 '사유의 방'인 이유는 이 자세가 '생각하는 자세'라서예요. 방에 들어가면 설명문도 없고 소리도 없어요. 그냥 서서 보는 거예요. 참, 방탄소년단 RM이 이 불상 미니어처를 사 간 뒤로 기념품이 품절 행진이에요.",
+        "ko": "이제 오늘의 주인공 이야기를 할게요. 2층에 사유의 방이라는 곳이 있어요. 문을 지나 어두운 통로를 천천히 걸어 들어가면, 금동 반가사유상 두 점이 나란히 앉아 있어요. 한쪽 다리를 다른 쪽 무릎 위에 올리고, 손가락 끝을 얼굴에 살며시 댄 채로요. 입가에는 웃는 듯 마는 듯한 미소가 걸려 있고요. 둘 다 삼국시대에 만들어졌으니, 천사백 년쯤 된 거예요. 그런데 신기한 건, 이렇게 유명한 두 불상이 한 방에 나란히 앉은 모습은 예전엔 보기 어려웠다는 거예요. 따로 떨어져 있다가 특별한 전시 때만 잠깐씩 만났거든요. 지금은 언제 가도 둘을 함께 볼 수 있어요. 이 방에는 긴 설명문도 없어요. 그냥 천천히 한 바퀴 돌면서 바라보면 돼요. 몇 분만 가만히 있어 보세요. 서는 자리에 따라 표정이 조금씩 달라 보이거든요. 참, 이 불상 미니어처가 뮤지엄숍 인기 상품인데, 방탄소년단 RM이 산 게 알려진 뒤로 품절이 잦다고 하니 참고하세요.",
         "en": "Here's today's star. In the Room of Quiet Contemplation on the second floor, two gilt-bronze statues sit side by side in a dark room. One leg crossed over the other, a fingertip touching the cheek, a smile that is almost there. They were made about 1,400 years ago in the Three Kingdoms period. The room is named for the pose, which is a thinking pose. Inside there are no labels and no sound: you simply stand and look. Since BTS's RM bought the miniature, the souvenir has been selling out nonstop."
       },
       "kidsText": {
@@ -235,12 +247,12 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 2
       },
-      "durationSec": 70,
+      "durationSec": 78,
       "source": "국립중앙박물관 사유의 방",
       "priority": 8,
       "kind": "quiz",
       "deep": {
-        "ko": "더 자세히요. 두 반가사유상은 옛 국보 78호(6세기 후반)와 83호(7세기 초)예요. 83호는 높이 93.5센티미터, 삼국시대 금동불 중 가장 커요. 일본 교토 고류지의 목조 반가사유상과 쌍둥이처럼 닮아서 한일 교류의 증거로 꼽히죠. 반가는 한쪽 다리를 다른 쪽 무릎에 올린 자세, 사유는 생각에 잠긴 모습이라는 뜻이고, 출가 전 고뇌하는 싯다르타 태자를 표현했다고 봐요. 사유의 방은 2021년 11월 건축가 최욱이 설계했고, 두 점을 처음으로 상설로 나란히 둔 공간이에요.",
+        "ko": "두 불상은 오랫동안 국보 78호와 83호로 불렸어요. 지금은 문화유산에 지정 번호를 붙이지 않지만, 여전히 그 번호로 기억하는 분이 많죠. 78호는 6세기 후반 작품으로 보는데, 머리에 해와 달 장식이 어우러진 화려한 관을 쓰고 있고, 어깨를 덮은 옷자락도 아주 섬세해요. 83호는 7세기 전반 작품으로, 높이가 90센티미터를 넘어 삼국시대 금동불 가운데 손꼽히게 커요. 장식을 덜어 낸 낮은 관을 쓰고 상체는 거의 드러나 있는데, 그 대신 몸의 곡선과 손끝의 표정이 살아 있어요. 아쉽게도 두 점 모두 어디서 출토됐는지 정확한 기록이 남아 있지 않아요. 그래서 백제 것이냐 신라 것이냐를 두고 지금도 학자들 의견이 갈려요. 83호는 일본 교토 고류지의 목조 반가사유상과 꼭 닮아서, 한반도와 일본 사이에 불교 문화가 오간 흔적으로 자주 이야기돼요. 이런 자세는 출가를 앞두고 깊이 고민하던 싯다르타 태자의 모습에서 비롯됐다고 보고, 우리나라에서는 미래에 올 부처인 미륵보살로 여겨지기도 했어요. 두 점이 한 공간에 함께 전시된 건 사유의 방이 생기기 전까지 손에 꼽을 만큼 드물었어요. 사유의 방은 2021년 가을, 건축가 최욱과 함께 만들어 문을 열었어요. 바닥과 벽을 아주 미세하게 기울였고, 벽은 붉은 흙을 손으로 발라 마감했어요. 둥근 천장에는 은은한 빛이 별처럼 반짝이도록 해서, 걸어 들어가는 동안 마음이 저절로 가라앉도록 꾸몄다고 해요.",
         "en": "More detail: the two are former National Treasures 78 (late 6th c.) and 83 (early 7th c.). No. 83 is 93.5 cm, the largest gilt-bronze Buddha of the Three Kingdoms, and a near twin of the wooden pensive figure at Koryu-ji in Kyoto, often cited as evidence of early Korea–Japan exchange. 'Pensive' refers to the thinking pose, one leg over the other knee, probably Prince Siddhartha before renunciation. The room, designed by architect Choi Wook, opened in November 2021 as the first permanent display of both side by side."
       },
       "teaser": {
@@ -255,7 +267,7 @@
         "en": "Stuck in traffic: the pagoda that was taken to Japan and came back"
       },
       "text": {
-        "ko": "차가 막히니 긴 이야기 하나 할게요. 박물관 1층 로비에 들어서면 13.5미터짜리 하얀 대리석 탑이 서 있어요. 경천사 십층석탑, 1348년 고려 때 세운 거예요. 그런데 1907년, 일본 궁내대신 다나카 미쓰아키가 이 탑을 통째로 해체해서 일본으로 실어 갔어요. 영국 기자 베델과 미국 기자 헐버트가 신문에 폭로하고 국제 여론이 들끓자 1918년에 돌려보냈죠. 돌아온 탑은 상자에 담긴 채 경복궁 뜰에 40년을 누워 있다가 1960년에 세워졌고, 산성비에 삭자 2005년 박물관 실내로 들어왔어요. 로비에서 이 탑을 올려다볼 때, 이 탑이 바다를 두 번 건넜다는 걸 기억하세요.",
+        "ko": "차가 좀 막히네요. 이럴 때 딱 좋은 긴 이야기가 하나 있어요. 박물관에 들어서서 역사의 길이라는 긴 통로 끝을 보면, 천장에 닿을 듯한 하얀 대리석 탑이 서 있어요. 경천사 십층석탑이에요. 고려 말에 개성 근처 경천사라는 절에 세운 탑인데, 층마다 부처와 보살이 빼곡하게 새겨져 있어요. 그런데 대한제국 시절, 일본의 궁내대신 다나카 미쓰아키가 이 탑을 통째로 해체해서 일본으로 실어 가 버렸어요. 이 일을 세상에 알리고 끈질기게 따진 사람들은 뜻밖에도 외국인이었어요. 미국인 헐버트와 영국인 베델이 신문을 통해 이 문제를 계속 제기했거든요. 결국 탑은 십여 년 만에 돌아왔어요. 그런데 고생이 거기서 끝나지 않았어요. 돌아와서도 상자에 담긴 채 오랫동안 경복궁 한쪽에 누워 있었고, 겨우 다시 세운 뒤엔 산성비와 풍화에 시달렸거든요. 그래서 다시 해체해 십 년 동안 보존 처리를 한 끝에 박물관 실내로 들어온 거예요. 로비에서 올려다보실 때, 이 탑이 바다를 두 번 건넜다는 걸 기억해 주세요.",
         "en": "Since we're crawling, a long story. Step into the museum lobby and a 13.5-metre white marble pagoda stands before you: the ten-storey pagoda of Gyeongcheonsa temple, built in 1348 in the Goryeo era. In 1907 a Japanese court minister, Tanaka Mitsuaki, had it dismantled and shipped to Japan. A British journalist, Bethell, and an American, Hulbert, exposed it in the press, and under international pressure it was returned in 1918. Back home, it lay in crates in the palace grounds for forty years, was rebuilt in 1960, then moved indoors in 2005 to escape acid rain. When you look up at it in the lobby, remember it crossed the sea twice."
       },
       "kidsText": {
@@ -265,10 +277,13 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Congestion"
       },
-      "durationSec": 85,
+      "durationSec": 84,
       "source": "국립중앙박물관 경천사지 십층석탑 해설 / 국가유산청",
       "priority": 8,
-      "kind": "story"
+      "kind": "story",
+      "deep": {
+        "ko": "경천사 십층석탑은 1348년, 고려 충목왕 때 세워졌어요. 탑에 새겨진 글에는 원나라 황제와 황후, 태자의 복을 빈다는 내용과 함께 시주한 사람들의 이름이 나오는데, 원 황실과 가까웠던 고려의 권세가들이었어요. 원나라의 간섭을 받던 고려 말의 분위기가 탑에 고스란히 남아 있는 셈이죠. 생김새도 독특해요. 우리 석탑은 대개 화강암으로 만드는데, 이 탑은 회백색 대리석이에요. 아래쪽 기단과 몸체 세 층은 위에서 보면 아자 모양으로 튀어나온 복잡한 평면이고, 그 위로는 목조 건물처럼 난간과 지붕, 기와까지 돌로 새겼어요. 기단에는 서유기 장면들도 새겨져 있어서, 삼장법사 일행을 찾아보는 재미가 있어요. 다만 대리석이 무르다 보니 많이 닳아서 알아볼 수 있는 장면은 일부예요. 서울 탑골공원의 원각사지 십층석탑은 조선 세조 때 이 탑의 형식을 거의 그대로 따라 만든 거예요. 그래서 경천사탑에서 닳아 없어진 조각을 원각사탑에서 확인하기도 해요. 1907년 반출 때는 헐버트가 직접 현장을 찾아가 확인하고 외국 언론에 알렸고, 베델은 자신이 발행하던 대한매일신보에 이 사건을 실었어요. 1918년 돌아온 탑은 많이 상한 상태였고, 1960년 경복궁에 다시 세울 때 깨진 부분을 시멘트로 메운 곳이 많았어요. 1995년 다시 해체해 시멘트를 걷어 내고 조각들을 이어 붙인 뒤, 2005년 용산 박물관이 문을 열 때 실내에 다시 세웠어요."
+      }
     },
     {
       "id": "gold_crown",
@@ -277,7 +292,7 @@
         "en": "Did you know: why the Silla crown looks like branches"
       },
       "text": {
-        "ko": "1층에서 만날 황남대총 금관은 1500년 전 신라 것이에요. 금판을 오려 만든 가지가 세 갈래로 솟아 있는데, 한자 '날 출(出)' 자 모양이라고도 하고 나무와 사슴뿔을 본떴다고도 해요. 나무는 하늘과 땅을 잇는 사다리, 사슴뿔은 시베리아 샤먼의 상징이죠. 무게가 1킬로그램이 넘고 얇아서 실제로 쓰고 걷기는 어려웠을 거예요. 그래서 학자들은 장례 때 얼굴을 덮듯 씌운 관이었을 거라고 봐요. 보면서 '이걸 쓰고 걸을 수 있을까'를 상상해 보세요.",
+        "ko": "이번엔 신라 금관 이야기예요. 1층 신라실에서 만날 금관은 경주 황남대총에서 나왔어요. 신라 무덤 가운데 가장 큰 무덤이에요. 금관을 가만히 보면 둥근 테 위로 나뭇가지 같은 장식이 솟아 있어요. 한자 날 출 자를 닮았다고들 하는데, 하늘과 땅을 잇는 나무를 본뜬 거라고 보는 학자들이 많아요. 양옆엔 사슴뿔 모양 장식도 서 있고요. 거기에 작은 금 조각과 굽은 옥이 잔뜩 매달려 있어서, 움직일 때마다 반짝반짝 흔들렸을 거예요. 그런데 여기서 재밌는 질문이 하나 생겨요. 이렇게 얇고 장식이 많은 관을 정말 머리에 쓰고 다녔을까요? 신라 금관은 대개 무덤 주인이 누운 머리 쪽에서, 쓴 모습 그대로 발견되거든요. 그래서 이 관이 살아서 쓰던 건지, 장례 때 씌운 건지를 두고 학자들 사이에 이야기가 많아요. 어느 쪽일지, 퀴즈로 한번 맞혀 보세요.",
         "en": "On the first floor you'll meet the Hwangnam gold crown, 1,500 years old from the Silla kingdom. Cut from sheet gold, three branch-like uprights rise from the band; some say they're the Chinese character for 'to go out', others say trees and antlers. Trees link heaven and earth, antlers are a Siberian shaman's emblem. It weighs over a kilo and the gold is thin, so walking in it would have been hard. That's why scholars think it was placed over the face at burial. As you look, imagine trying to walk with it on."
       },
       "kidsText": {
@@ -303,12 +318,12 @@
         },
         "radiusM": 800
       },
-      "durationSec": 60,
+      "durationSec": 70,
       "source": "국립중앙박물관 황남대총 북분 금관 해설",
       "priority": 7,
       "kind": "quiz",
       "deep": {
-        "ko": "더 자세히요. 황남대총은 경주에 있는 신라 최대 고분으로 1973~75년 발굴됐고, 북분에서 이 금관이 나왔어요. 높이 27.5센티미터, 무게 1킬로그램이 넘고, 금관 아래로 늘어진 드리개와 곡옥 58개가 달려 있어요. 북분 주인은 여성으로 추정되고 '부인대'라는 글자가 새겨진 허리띠가 함께 나왔어요. 신라 금관은 지금까지 6점이 확인됐고 모두 5~6세기 것이에요.",
+        "ko": "황남대총은 경주 대릉원 일대에 있는 쌍둥이 무덤이에요. 남쪽 무덤과 북쪽 무덤이 표주박처럼 맞붙어 있는데, 1970년대에 몇 해에 걸쳐 발굴됐어요. 남쪽 무덤에는 남성이, 북쪽 무덤에는 여성이 묻힌 것으로 보는데, 금관은 바로 북쪽 무덤에서 나왔어요. 북쪽 무덤에서 부인대, 그러니까 부인의 허리띠라는 글자가 새겨진 은제 허리띠 장식이 함께 나와서 주인을 여성으로 보는 거예요. 흥미로운 건, 남쪽 무덤의 남성은 금동관을 썼는데 정작 금관은 여성 쪽에서 나왔다는 점이에요. 그래서 두 사람을 왕과 왕비로 보는 견해가 많고, 신라 왕실 여성의 지위를 두고도 이야기가 이어지고 있어요. 남쪽 무덤 주인이 어느 왕인지는 내물왕, 눌지왕 등 여러 학설이 있지만 아직 결론이 나지 않았어요. 신라 금관은 지금까지 여섯 점 정도가 알려져 있어요. 처음 발견된 건 일제강점기 경주에서 집을 짓다가 우연히 드러난 금관총이었어요. 서봉총이라는 이름은 발굴에 참여한 스웨덴 왕세자를 기념해서, 스웨덴을 뜻하는 서 자와 금관의 봉황 장식에서 한 글자씩 따온 거예요. 나무와 사슴뿔 모양 장식은 북방 초원과 시베리아 샤먼의 관과 닮아서, 신라가 멀리 북방 문화와 이어져 있었다는 흔적으로 자주 거론돼요.",
         "en": "More detail: Hwangnam Daechong in Gyeongju is Silla's largest tomb, excavated 1973–75; this crown came from the north mound. It stands 27.5 cm, weighs over a kilogram and carries 58 comma-shaped jade pendants. The north mound's occupant is thought to be a woman; a belt inscribed 'for the lady' was found with it. Six Silla gold crowns are known, all 5th–6th century."
       }
     },
@@ -319,7 +334,7 @@
         "en": "Korean phrase: at the museum"
       },
       "text": {
-        "ko": "박물관에서 쓸 말 두 개만 연습해요. '사유의 방 어디예요?' 사유의 방, 어디예요. 그리고 아이가 있다면 '어린이박물관 예약했어요.' 어린이박물관, 예약했어요. 안내 데스크에 가서 이렇게 말하면 바로 알려줘요.",
+        "ko": "박물관에서 바로 쓸 수 있는 말 두 개만 같이 연습해 볼게요. 첫 번째는 사유의 방 어디예요? 천천히 따라 해 보세요. 사유의 방, 어디예요. 두 번째는 아이와 함께라면 쓸 일이 있을 거예요. 어린이박물관 예약했어요. 어린이박물관, 예약했어요. 안내 데스크에서 이렇게 말하면 친절하게 알려 줄 거예요.",
         "en": "Two phrases for the museum. 'Sa-yu-ui bang eo-di-ye-yo?' means 'Where is the Room of Quiet Contemplation?' And with kids: 'Eo-rin-i bang-mul-gwan ye-yak-haess-eo-yo' means 'We booked the Children's Museum.' Say either at the information desk and they'll point you right there."
       },
       "kidsText": {
@@ -330,7 +345,7 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 3
       },
-      "durationSec": 30,
+      "durationSec": 28,
       "source": "Road Docent",
       "priority": 5,
       "kind": "phrase",
@@ -346,7 +361,7 @@
         "en": "Arrival briefing: parking and booking"
       },
       "text": {
-        "ko": "10분 뒤 도착해요. 지하 주차장은 서빙고로 쪽 입구로 들어가요. 상설전시는 무료라 표를 살 필요가 없고, 어린이박물관만 회차제 예약이에요. 오늘 오후 회차에 자리가 있는지 확인해 드릴까요? 들어가면 1층 로비의 돌탑을 먼저 올려다보고, 2층 사유의 방으로 바로 가세요. 사람이 적은 오전이 제일 좋아요.",
+        "ko": "이제 10분쯤 남았어요. 주차는 서빙고로 쪽 입구로 들어가는 지하 주차장이 편해요. 주말엔 오전 늦게부터 꽉 차는 일이 많으니 참고하시고요. 상설전시는 무료라서 표 살 필요 없이 바로 들어가시면 돼요. 아이와 어린이박물관에 가실 거면 회차 예약이 필요한데, 오늘 남은 회차가 있는지 확인해 드릴까요? 들어가시면 로비 끝의 돌탑부터 올려다보시고, 사람이 적을 때 2층 사유의 방에 먼저 들러 보세요.",
         "en": "Ten minutes to arrival. Take the underground lot via the Seobinggo-ro entrance. Permanent galleries are free, no ticket; only the Children's Museum needs a timed booking. Shall I check this afternoon's sessions? Once inside, look up at the pagoda in the lobby first, then go straight to the Room of Quiet Contemplation on the second floor. It's best before the crowds."
       },
       "kidsText": {
@@ -357,7 +372,7 @@
         "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
         "minutes": 10
       },
-      "durationSec": 40,
+      "durationSec": 37,
       "source": "국립중앙박물관 관람 안내",
       "priority": 9,
       "kind": "tip"
@@ -369,7 +384,7 @@
         "en": "Where next?"
       },
       "text": {
-        "ko": "다시 출발하시네요. 걸어서 5분 전쟁기념관은 무료고 야외에 비행기·탱크가 있어 아이들이 좋아해요. 차로 10분 리움미술관은 삼성이 세운 현대미술관, 차로 10분 노들섬은 한강 한가운데 섬이라 해 질 녘이 예뻐요. 거기로 가자, 라고 말씀하세요.",
+        "ko": "다시 출발하시네요. 다음 행선지로 몇 군데 말씀드릴게요. 가까운 전쟁기념관은 무료인데, 야외에 진짜 비행기랑 탱크가 있어서 아이들이 정말 좋아해요. 미술을 더 보고 싶으시면 차로 10분 거리에 리움미술관이 있고요. 바람을 쐬고 싶으시면 한강 한가운데 있는 노들섬도 좋아요. 해 질 녘 풍경이 특히 예뻐요. 마음에 드는 곳이 있으면 거기로 가자, 하고 말씀해 주세요.",
         "en": "Setting off again. The War Memorial, five minutes on foot, is free and has planes and tanks outside that kids love; Leeum Museum of Art, ten minutes by car, is Samsung's contemporary art museum; Nodeul Island, ten minutes, sits in the middle of the Han River and is lovely at sunset. Say let's go there."
       },
       "kidsText": {
@@ -379,7 +394,7 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Reboard"
       },
-      "durationSec": 25,
+      "durationSec": 34,
       "source": "Road Docent 체류 데이터",
       "priority": 10,
       "kind": "tip"
@@ -392,7 +407,7 @@
       },
       "kind": "fact",
       "text": {
-        "ko": "잠시 조용했으니 짧게 하나. 3층에서 만날 달항아리는 18세기 백자인데, 가만 보면 조금 비뚤어요. 높이 40센티가 넘는 항아리를 물레로 한 번에 못 올려서 위아래 반쪽을 따로 만들어 붙였거든요. 그 이음새가 가마 안에서 살짝 주저앉아 생긴 비뚤함이에요. 완벽하지 않아서 더 사랑받는 그릇, 보시면 어느 쪽으로 기울었는지 찾아보세요.",
+        "ko": "잠깐 조용해졌으니 짧은 이야기 하나 할게요. 3층 도자기 전시실에 가면 달항아리가 있어요. 조선 후기에 만든 커다란 백자 항아리인데, 가만히 보면 생각만큼 동그랗지가 않아요. 한쪽이 살짝 기울었거나 어깨선이 조금 비뚤어요. 여기엔 이유가 있어요. 이만큼 큰 항아리를 물레로 한 번에 올리면 흙이 제 무게를 못 이기고 주저앉거든요. 그래서 큰 사발 모양 두 개를 따로 빚어서 위아래로 이어 붙였어요. 허리께를 잘 보면 이음매 자국이 희미하게 남아 있기도 해요. 그리고 뜨거운 가마 속에서 조금씩 뒤틀리면서 지금의 넉넉하고 비뚤한 모양이 됐죠. 재밌는 건, 옛날엔 이걸 그냥 큰 백자 항아리라고 불렀다는 거예요. 달항아리라는 이름은 한참 뒤인 근대에 들어와서 붙었어요. 보시면서 이 항아리가 어느 쪽으로 기울었는지 한번 찾아보세요.",
         "en": "A quiet stretch, so a short one. The moon jar you'll see on the third floor is 18th-century white porcelain, and if you look closely it's slightly lopsided. A jar over 40 cm tall couldn't be thrown in one piece, so the upper and lower halves were made separately and joined; the seam sagged a little in the kiln. Loved more for being imperfect. See which way yours leans."
       },
       "kidsText": {
@@ -403,9 +418,12 @@
         "type": "kr.roaddocent.core.Trigger.AfterSilence",
         "minutes": 5
       },
-      "durationSec": 35,
+      "durationSec": 68,
       "source": "국립중앙박물관 도자공예실",
-      "priority": 3
+      "priority": 3,
+      "deep": {
+        "ko": "달항아리가 주로 만들어진 건 17세기 후반에서 18세기 전반이에요. 경기도 광주에 있던 왕실 가마, 분원에서 구웠다고 봐요. 분원은 궁중 음식을 맡은 관청인 사옹원이 운영하던 가마라서, 여기서 나온 백자는 주로 왕실과 관청에서 썼어요. 이 무렵은 두 차례의 큰 전쟁이 지나가고 사회가 다시 안정을 찾던 때예요. 화려한 장식 대신 흰 바탕 자체의 아름다움을 살린 백자가 사랑받았죠. 달항아리를 정확히 어디에 썼는지는 분명하지 않지만, 크기로 보아 무언가를 담아 두는 저장용이었을 거라고 봐요. 이 항아리에 새 이름과 새 의미를 붙여 준 건 근대의 예술가들이에요. 화가 김환기는 달항아리를 아끼고 모아서 그림에 자주 담았고, 국립중앙박물관장을 지낸 미술사학자 최순우도 그 넉넉한 멋을 글로 널리 알렸어요. 달항아리라는 이름도 이 무렵 이들 사이에서 퍼진 것으로 알려져 있어요. 해외에서도 사랑받아서, 영국 도예가 버나드 리치가 1930년대 서울에서 사 간 달항아리는 지금 대영박물관에 있어요. 백자의 흰빛도 하나가 아니에요. 푸른 기가 도는 흰색, 우윳빛, 살짝 누런빛까지 흙과 불에 따라 조금씩 달라요. 전시실에서 다른 백자들과 그 흰빛을 견주어 보시면 훨씬 재밌을 거예요."
+      }
     }
   ],
   "restAreas": [],
