@@ -133,9 +133,9 @@ GuideAlong·Shaka Guide·Autio(해외 드라이브 오디오 투어), 한국관�
 | `VehicleEvent` (새 차 오버레이) | first_drive · rear_seat · speed_60 · speed_100 · trip_5km · trip_15km · park 각 1회 |
 
 ## 음성 명령 (Gleo Interface + 기기 음성인식)
-- `voice/VoiceCommands.kt`: 명령 8종 (`SKIP_EPISODE`, `TELL_MORE`, `SAVE_PLACE`, `QUIET`, `WHERE_NEXT`, `GO_THERE`, `RESERVE`, `SHOW_TRAVEL_LOG`)을 하나의 `CommandBus`로 모읍니다.
+- `voice/VoiceCommands.kt`: 명령 11종 (`SKIP_EPISODE`, `PREVIOUS_EPISODE`, `REPLAY_EPISODE`, `TELL_MORE`, `SAVE_PLACE`, `QUIET`, `WHERE_NEXT`, `GO_THERE`, `RESERVE`, `SHOW_TRAVEL_LOG`, `ANSWER_QUIZ`)을 하나의 `CommandBus`로 모읍니다.
 - **Gleo (Pleos Connect)**: `assets/gleo-schema.json`을 Playground에 등록하면 Gleo AI가 발화를 함수로 해석해 브로드캐스트 인텐트로 보냅니다. `GleoReceiver`가 받아 실행하고 `APP_ACTION_RESPONSE`로 응답합니다. (스키마 필드는 제출 전 App Schema Writing Guide로 재확인)
-- **일반 기기**: 상단 🎤 버튼 → Android 음성인식 → 키워드 매칭("넘겨", "더 자세히", "거기로 가자", "두 번째로 가자", "다른 데 없어?", "예약해", "일지 보여줘" / 영어 동일).
+- **일반 기기**: 상단 🎤 버튼 → Android 음성인식 → 키워드 매칭("넘겨", "이전", "다시", "더 자세히", "거기로 가자", "두 번째로 가자", "다른 데 없어?", "예약해", "일지 보여줘" / 영어 동일).
 - 에피소드가 끝나면 2.5초 뒤 다음 이야기가 자동으로 이어집니다(안전 일시정지 중엔 대기).
 
 ## 설정 (⚙)

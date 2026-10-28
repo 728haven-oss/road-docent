@@ -87,9 +87,12 @@
       "component": "broadcast",
       "description": "Answer the open kids quiz by number or by naming the option. Utterances: 2번, 이순신 장군, number two",
       "parameters": {
-        "answer": {
-          "type": "string",
-          "description": "Spoken answer: option number or option text"
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string",
+            "description": "Spoken answer: option number or option text"
+          }
         }
       }
     }

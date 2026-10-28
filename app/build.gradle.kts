@@ -15,8 +15,8 @@ android {
         targetSdk = 35
         // Google Sign-In needs a Web client ID from Google Cloud Console (OAuth 2.0 → Web application). Empty = button explains setup.
         buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"" + (project.findProperty("GOOGLE_WEB_CLIENT_ID") ?: "") + "\"")
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 50
+        versionName = "0.5.0"
     }
 
     signingConfigs {
