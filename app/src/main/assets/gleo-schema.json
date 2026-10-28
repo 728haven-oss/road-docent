@@ -1,18 +1,105 @@
 {
   "_comment": "Gleo Interface App Schema (draft). Register on Pleos Playground > Workspace > App Integration. Field names follow the App Schema Writing Guide; verify against the current guide before submission.",
   "packageName": "kr.roaddocent",
-  "appName": {"ko": "로드 도슨트", "en": "Road Docent"},
-  "description": {"ko": "목적지 가이드를 들려주는 차량용 오디오 가이드", "en": "In-car audio guide for your destination"},
+  "appName": {
+    "ko": "로드 도슨트",
+    "en": "Road Docent"
+  },
+  "description": {
+    "ko": "목적지 가이드를 들려주는 차량용 오디오 가이드",
+    "en": "In-car audio guide for your destination"
+  },
   "functions": [
-    {"name": "SKIP_EPISODE", "component": "broadcast", "description": "Skip the current story and play the next one. Utterances: 넘겨, 다음 이야기, skip, next story", "parameters": {}},
-    {"name": "TELL_MORE", "component": "broadcast", "description": "Replay the current story in more depth with its source. Utterances: 더 자세히, 더 알려줘, tell me more", "parameters": {}},
-    {"name": "SAVE_PLACE", "component": "broadcast", "description": "Save the place or phrase just mentioned to the travel log. Utterances: 저장해, 기억해 줘, save this", "parameters": {}},
-    {"name": "QUIET", "component": "broadcast", "description": "Pause the guide until the next waypoint. Utterances: 조용히, 그만, quiet, pause", "parameters": {}},
-    {"name": "WHERE_NEXT", "component": "broadcast", "description": "Suggest nearby places to go next based on time of day and stay data. Utterances: 다른 데 없어?, 다음은 어디?, where next, anywhere else", "parameters": {}},
-    {"name": "GO_THERE", "component": "broadcast", "description": "Route the navigation to a suggested place. Utterances: 거기로 가자, 두 번째로 가자, let's go there, take me to the second one",
-      "parameters": {"type": "object", "properties": {"index": {"type": "string", "description": "1-based index of the suggestion, if the driver named one"}, "place": {"type": "string", "description": "place name, if the driver said it"}}}},
-    {"name": "RESERVE", "component": "broadcast", "description": "Call the recommended restaurant or cafe to reserve. Utterances: 예약해 줘, 전화 걸어, reserve a table", "parameters": {}},
-    {"name": "SHOW_TRAVEL_LOG", "component": "broadcast", "description": "Show today's travel log on screen and read the summary. Utterances: 오늘 일지 보여 줘, show the travel log", "parameters": {}}
+    {
+      "name": "SKIP_EPISODE",
+      "component": "broadcast",
+      "description": "Skip the current story and play the next one. Utterances: 넘겨, 다음 이야기, skip, next story",
+      "parameters": {}
+    },
+    {
+      "name": "TELL_MORE",
+      "component": "broadcast",
+      "description": "Replay the current story in more depth with its source. Utterances: 더 자세히, 더 알려줘, tell me more",
+      "parameters": {}
+    },
+    {
+      "name": "SAVE_PLACE",
+      "component": "broadcast",
+      "description": "Save the place or phrase just mentioned to the travel log. Utterances: 저장해, 기억해 줘, save this",
+      "parameters": {}
+    },
+    {
+      "name": "QUIET",
+      "component": "broadcast",
+      "description": "Pause the guide until the next waypoint. Utterances: 조용히, 그만, quiet, pause",
+      "parameters": {}
+    },
+    {
+      "name": "WHERE_NEXT",
+      "component": "broadcast",
+      "description": "Suggest nearby places to go next based on time of day and stay data. Utterances: 다른 데 없어?, 다음은 어디?, where next, anywhere else",
+      "parameters": {}
+    },
+    {
+      "name": "GO_THERE",
+      "component": "broadcast",
+      "description": "Route the navigation to a suggested place. Utterances: 거기로 가자, 두 번째로 가자, let's go there, take me to the second one",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "string",
+            "description": "1-based index of the suggestion, if the driver named one"
+          },
+          "place": {
+            "type": "string",
+            "description": "place name, if the driver said it"
+          }
+        }
+      }
+    },
+    {
+      "name": "RESERVE",
+      "component": "broadcast",
+      "description": "Call the recommended restaurant or cafe to reserve. Utterances: 예약해 줘, 전화 걸어, reserve a table",
+      "parameters": {}
+    },
+    {
+      "name": "SHOW_TRAVEL_LOG",
+      "component": "broadcast",
+      "description": "Show today's travel log on screen and read the summary. Utterances: 오늘 일지 보여 줘, show the travel log",
+      "parameters": {}
+    },
+    {
+      "name": "PREVIOUS_EPISODE",
+      "component": "broadcast",
+      "description": "Go back to the previous story. Utterances: 이전 이야기, 아까 거, 뒤로, previous, go back",
+      "parameters": {}
+    },
+    {
+      "name": "REPLAY_EPISODE",
+      "component": "broadcast",
+      "description": "Hear the current story again from the start. Utterances: 다시 들려줘, 한 번 더, replay, again",
+      "parameters": {}
+    },
+    {
+      "name": "ANSWER_QUIZ",
+      "component": "broadcast",
+      "description": "Answer the open kids quiz by number or by naming the option. Utterances: 2번, 이순신 장군, number two",
+      "parameters": {
+        "answer": {
+          "type": "string",
+          "description": "Spoken answer: option number or option text"
+        }
+      }
+    }
   ],
-  "callback": {"action": "ai.pleos.playground.intent.action.APP_ACTION_RESPONSE", "extras": ["result", "packageName", "response"]}
+  "callback": {
+    "action": "ai.pleos.playground.intent.action.APP_ACTION_RESPONSE",
+    "extras": [
+      "result",
+      "packageName",
+      "response"
+    ]
+  }
 }

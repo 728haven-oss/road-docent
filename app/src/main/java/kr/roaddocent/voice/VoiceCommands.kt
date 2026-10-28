@@ -59,7 +59,7 @@ class GleoReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val cmd = Command.fromGleo(intent.action) ?: return
         val params = intent.getStringExtra("ACTION_PARAM")?.let { runCatching { JSONObject(it) }.getOrNull() }
-        val param = params?.optString("place")?.takeIf { it.isNotBlank() } ?: params?.optString("index")?.takeIf { it.isNotBlank() }
+        val param = listOf("place", "index", "answer").firstNotNullOfOrNull { k -> params?.optString(k)?.takeIf { it.isNotBlank() } }
         Log.i("Gleo", "action=${intent.action} param=$param")
         CommandBus.emit(CommandEvent(cmd, param, "gleo"))
         respond(context, cmd.gleoFunction, "success", "ok")

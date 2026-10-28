@@ -52,6 +52,9 @@
                 <action android:name="GO_THERE" />
                 <action android:name="RESERVE" />
                 <action android:name="SHOW_TRAVEL_LOG" />
+                <action android:name="PREVIOUS_EPISODE" />
+                <action android:name="REPLAY_EPISODE" />
+                <action android:name="ANSWER_QUIZ" />
             </intent-filter>
         </receiver>
             <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.files" android:exported="false" android:grantUriPermissions="true">

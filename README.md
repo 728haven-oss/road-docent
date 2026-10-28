@@ -6,47 +6,52 @@
 현대자동차그룹 차량용 앱 개발 공모전 (Code your App into Pleos App Market) 출품작.
 Pleos Connect 위에서 동작하는 차량용 오디오 가이드 앱입니다. 운전자는 묻지 않습니다. 차가 먼저 말합니다.
 
+## 심사위원용 빠른 시작 (3분)
+1. **설치 파일**: [Releases 최신 버전](https://github.com/728haven-oss/road-docent/releases/latest)에서 `RoadDocent_v*.apk`를 내려받아 Android 13 이상 기기(또는 Pleos Connect AVD)에 설치합니다.
+2. **로그인**: 테스트 계정 **test / 1234** → 약관 두 항목 동의.
+3. **연결 방식**: **시뮬레이션 · 데모**를 고르면 실차 없이 전체 흐름이 재생됩니다. (Pleos AVD·실차에서는 "Pleos 차량 연결", 휴대폰으로 실제 주행해 보려면 "휴대폰 GPS")
+4. **홈**에서 코스를 고르고 **▶ 이 코스로 출발** → 목적지와 경로 지도가 뜨고 가이드가 탑승합니다.
+5. 시간을 앞당기거나 상황을 바꾸려면 오른쪽 위 **⋮ → 🎬 시연 컨트롤**: 자동 시연, 30분 앞으로, 정체 발생, 도착·주차, 다시 출발, 뒷좌석 탑승.
+6. 상단 **🧒 키즈** 버튼으로 키즈 모드를 켜면 이야기 두 편마다 창밖 퀴즈(10초 카운트다운)가 나옵니다.
+
+시연 영상: [`docs/로드도슨트_시연영상.mp4`](docs/로드도슨트_시연영상.mp4) · 화면 시안: [`docs/로드도슨트_화면시안.pdf`](docs/로드도슨트_화면시안.pdf) · 실제 화면: [`docs/screens/`](docs/screens)
+
 ## 한 줄 소개
-내비게이션 목적지·경로·남은 시간·시동·좌석 신호를 읽어, 가는 길의 역사와 길목 명소, 도착지에서 할 일, 다시 차에 탔을 때의 다음 행선지를 **타이밍에 맞춰 음성으로** 들려주는 앱.
+내비게이션 목적지·경로·남은 시간·시동·좌석 신호를 읽어, 가는 길의 역사와 길목 명소, 도착지에서 할 일, 다시 차에 탔을 때의 다음 행선지를 **타이밍에 맞춰, 옆자리 도슨트처럼 대화체로** 들려주는 앱.
 
-## 로그인 · 약관 (테스트 계정)
-첫 화면은 로그인입니다. 테스트 계정: **test / 1234** (비밀번호는 앱 안에 SHA-256으로만 저장). 첫 로그인 때 이용약관·개인정보 처리방침(`assets/terms_ko.md`)에 두 항목을 체크해야 넘어가고, 약관 버전이 바뀌면 다시 묻습니다. Google 로그인은 Credential Manager로 구현돼 있으며 `gradle.properties`에 `GOOGLE_WEB_CLIENT_ID=<Google Cloud 웹 클라이언트 ID>`를 넣고 빌드하면 켜집니다(없으면 버튼이 설정 안내를 띄움). 로그아웃은 연결 화면에서.
+## 지금 동작하는 것 (v0.4.9)
+- **코스 5종**: 서울→강릉, 현대 모터스튜디오 고양, 영월 단종 코스, 인천공항→경복궁, 경복궁→국립중앙박물관(이어지는 하루). 이야기마다 1~1분 30초 본편 + "더 자세히" 심화 역사편, 한국인·외국인·키즈 버전.
+- **언제 말할지**: 출발 → 길목(위치 반경) → 정체(심층 해설) → 휴게소 → 도착 15분 전 브리핑 → 주차(P) "여기서 할 일" → 재탑승(P→D) "다음은 어디?" → 고속 구간 일시정지. 이야기가 끝나기 전에는 다음 해설이 끼어들지 않고 기다립니다.
+- **듣는 방법**: 이전 · 다시 듣기 · 다음 · 더 자세히 · 저장 · 조용히, 같은 명령을 음성으로(Gleo 함수 11종, 온디바이스 키워드 인식).
+- **장소 이야기 카드**: 추천 장소를 누르면 해설·꼭 볼 것·방문 팁, 들려주기, 여기로 출발.
+- **키즈 모드**: 가볍지만 존댓말인 해설, 창밖 퀴즈(번호나 답을 말로), 스티커.
+- **여행 일지**: 일러스트 지도에 달린 길·들른 곳·머문 시간.
+- **기타**: 로그인·약관, 가족 목소리(녹음·파일, 설정 옵션), 동승자 폰 화면(QR), 한/영.
 
-## 키즈 모드 퀴즈
-아이가 탔을 때(뒷좌석 착좌 또는 설정)는 이야기 두 편마다 **창밖 퀴즈**가 끼어듭니다: 질문 + 보기 3개를 읽어주고, 화면의 보기 버튼을 누르거나 "2번"이라고 말하면 채점·칭찬·스티커. 가이드마다 3~4개(`kidsQuizzes`), 동승자 폰 화면에도 같은 카드가 뜹니다. 데모 바 ❓ 퀴즈로 바로 불러낼 수 있습니다.
+## 로그인 · 약관
+테스트 계정 **test / 1234** (비밀번호는 앱 안에 SHA-256으로만 저장). 첫 로그인 때 이용약관·개인정보 처리방침(`assets/terms_ko.md`) 두 항목에 동의해야 넘어가고, 약관 버전이 바뀌면 다시 묻습니다. Google 로그인은 Credential Manager로 구현돼 있으며 `gradle.properties`에 `GOOGLE_WEB_CLIENT_ID`를 넣고 빌드하면 켜집니다.
 
-## 실행 방법
+## 실행 방법 (개발자)
 
 ### A. Pleos Connect AVD / 실차 (실제 SDK 연동)
-1. Pleos Playground 가이드대로 Android Studio에 **Pleos Connect v2.1.0 시스템 이미지(API 34)** 를 추가하고 AVD를 만듭니다.
-2. `apk/RoadDocent_로드도슨트_release.apk` 를 설치하거나, 이 저장소를 열어 `Run` 합니다.
-3. 앱 첫 화면에서 **"Pleos 차량 연결"** 을 선택합니다.
-4. 차량 내비에서 목적지를 설정하면(강릉 안목해변 / 현대모터스튜디오 고양 / 영월 청령포 / 경복궁) 가이드가 시작됩니다.
+1. Pleos Playground 가이드대로 Android Studio에 **Pleos Connect 시스템 이미지(API 34)** 를 추가하고 AVD를 만듭니다.
+2. Releases의 APK를 설치하거나 이 저장소를 열어 `Run` 합니다.
+3. 연결 화면에서 **"Pleos 차량 연결"** 을 선택하고, 차량 내비에서 목적지를 설정하면 가이드가 시작됩니다.
    - NaviHelper SDK: 목적지·남은 거리/시간·현재 위치·도착 이벤트·목적지 변경
    - Vehicle SDK: 기어 P/D(재탑승 감지), 2열 좌석 점유(키즈 모드), 트립 거리/시간(여행 일지)
 
 ### B. 시뮬레이션 (어떤 Android 기기/에뮬레이터)
-1. APK 설치 후 **"시뮬레이션 · 데모"** 선택.
-2. 목적지 4개 중 하나를 고르면 서울(또는 인천공항)에서 출발하는 주행이 압축 시간으로 재생됩니다.
-3. 하단 DEMO 바: `EN/KO` 언어, `키즈` 모드, `⏩ 빨리감기`, `🚗 정체`, `🏁 도착·P`, `▶ D (재출발)`, `🧒 뒷좌석`, `🗺 일지`.
+"시뮬레이션 · 데모" → 코스 선택. 주행이 압축 시간으로 재생되고, 해설이 필요한 구간에서는 시간이 멈춰 이야기를 끝까지 들려줍니다. 상황 전환은 ⋮ → 시연 컨트롤.
 
-## 테스트 환경
-- Android Studio Ladybug 이상, JDK 17, Gradle 8.11 (wrapper 포함)
-- compileSdk 35 / minSdk 33 / targetSdk 35
-- Pleos SDK: `ai.pleos.playground:NaviHelper:3.0.5`, `ai.pleos.playground:Vehicle:2.3.2`
-  (`https://nexus-playground.pleos.ai/repository/maven-releases/` 에서 자동 다운로드)
-- TTS: Android 플랫폼 TTS. 한국어·영어 음성 데이터가 설치된 기기에서 음성이 나옵니다.
-  Pleos TextToSpeech SDK가 "Request Required" 상태가 되면 `speech/Speaker.kt` 구현만 교체합니다.
-- 음성 명령: Gleo Interface 연동 전까지 화면 버튼(“넘겨”, “더 자세히”, “저장해”, “거기로 가자”)으로 동일 명령을 실행합니다.
-
-## 시연 자료
-- 시연 영상: `docs/로드도슨트_시연영상.mp4` (1분 42초, 전체 흐름 + 실제 APK 실행 화면)
-- 실제 APK 실행 화면: `docs/실행화면_*.png` (Android 14 x86_64 에뮬레이터, Automotive 1024p)
-- 화면 시안: `docs/로드도슨트_화면시안.pdf`
+## 테스트
+- `./gradlew testDebugUnitTest` — 67개: 가이드 엔진 흐름(넘기기·이전·다시 듣기·키즈 퀴즈 카운트다운·정체·도착·재탑승), 가이드 콘텐츠 검증, 화면 렌더링 14종 × 2개 기기 크기(411dp, 360dp·글자 130%)와 글자 잘림·단어 중간 줄바꿈 자동 검사(Robolectric + Roborazzi, 결과 `app/build/shots/`).
+- 개발 환경: Android Studio Ladybug 이상, JDK 17, Gradle wrapper, compileSdk 35 / minSdk 33.
+- Pleos SDK: `ai.pleos.playground:NaviHelper:3.0.5`, `ai.pleos.playground:Vehicle:2.3.2` (Pleos nexus에서 자동 다운로드).
+- TTS: Android 플랫폼 TTS(기기에 설치된 가장 좋은 한국어 음성 자동 선택). Pleos TextToSpeech SDK가 열리면 `speech/Speaker.kt` 구현만 교체합니다.
 
 ## APK · 릴리즈 배포
-- 저장소 안: `apk/RoadDocent_로드도슨트_release.apk` (release 서명, 데모용 키스토어 `keystore/`) · 빌드: `./gradlew :app:assembleRelease`
-- **GitHub Releases 자동 배포** (`.github/workflows/release.yml`): `main`에 푸시될 때마다 테스트·빌드 후 Actions 아티팩트로 APK를 올리고, `v*` 태그를 푸시하거나 Actions 탭 → "Build & Release APK" → **Run workflow**에 버전(예: `v0.3.0`)을 넣으면 그 버전의 Release가 만들어지고 APK가 첨부됩니다. 폰에서는 Releases 페이지에서 바로 내려받으면 됩니다.
+- **GitHub Releases** (`.github/workflows/release.yml`): Actions → "Build & Release APK" → Run workflow에 버전(예: `v0.4.9`)을 넣으면 테스트 → release 빌드 → Release 생성과 APK 첨부까지 자동.
+- release 서명은 공모전 시연용 키스토어(`keystore/`)를 씁니다. 앱마켓 배포 시에는 별도 키로 교체합니다.
 
 ## 구조
 ```
