@@ -94,7 +94,7 @@
         "en": "Welcome to Korea"
       },
       "text": {
-        "ko": "안녕하세요, 로드 도슨트입니다. 경복궁까지 약 70분이에요. 경복궁은 다들 한 번쯤 가 보셨을 텐데, 근정전 앞 품계석이 왜 스물네 개인지, 광화문 옆 해태가 왜 거기 앉아 있는지, 이 궁이 왜 세 번이나 지어졌는지까지 아는 분은 드물어요. 오늘은 '아는 만큼 보인다'를 가는 길에 미리 채워 드릴게요. 남대문과 광화문을 지날 때 한 가지씩, 막히면 조금 긴 이야기 하나. 도착하면 한복 무료 입장이랑 수문장 교대식 시간도 챙겨 드려요.",
+        "ko": "안녕하세요, 오늘 경복궁까지 함께 갈 로드 도슨트예요. 70분쯤 걸릴 것 같아요. 경복궁, 다들 한 번쯤 가 보셨죠? 그런데 근정전 앞 돌기둥이 왜 스물네 개인지, 광화문 앞 해태는 왜 거기 앉아 있는지, 이 궁이 왜 세 번이나 지어졌는지 물어보면 의외로 말문이 막히거든요. 그래서 가는 길에 그 빈칸을 하나씩 채워 드릴게요. 남대문이랑 광화문 지날 때 이야기 하나씩, 길이 막히면 조금 긴 이야기도 준비했어요. 도착 전에는 주차랑 한복 무료 입장도 챙겨 드릴게요.",
         "en": "Hello, I'm Road Docent. Gyeongbokgung Palace is about 70 minutes away. In Korea you drive on the right; a right turn on red is allowed only after a full stop. School zones are 30 km/h and speed cameras are everywhere, so follow the navigation warnings. On the way I'll tell you about Korea, about Seoul, and what to see at the palace."
       },
       "kidsText": {
@@ -105,7 +105,7 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 0
       },
-      "durationSec": 45,
+      "durationSec": 43,
       "source": "Road Docent / 도로교통공단",
       "priority": 9,
       "foreignText": {
@@ -124,14 +124,14 @@
         "en": "Korea in ten minutes"
       },
       "text": {
-        "ko": "한국은 인구 5천만, 서울 수도권에 그 절반이 살아요. 1392년 조선이 세워지면서 서울이 수도가 됐고, 지금 가는 경복궁이 그때 지은 첫 궁궐이에요. 20세기엔 식민지와 전쟁을 겪고 1960년대부터 세계에서 가장 빠른 경제 성장을 했죠. 지금 타고 계신 이 차를 만든 현대자동차도 그 시기에 태어났어요. 문화적으론 식당에서 물과 반찬이 공짜고, 팁은 없고, 나이에 따라 말투가 달라요. 신발을 벗고 들어가는 곳이 있으니 입구에 신발이 놓여 있으면 벗으세요.",
+        "ko": "한국이 처음이시라면, 가는 동안 이 나라를 짧게 소개해 드릴게요. 한국 인구는 오천만 명이 조금 넘는데요, 그중 절반이 서울과 그 주변에 모여 살아요. 지금 달리는 이 길이 바로 그 한가운데로 들어가는 길이에요. 서울이 수도가 된 건 조선이라는 나라가 세워지고 얼마 안 돼서예요. 그때 가장 먼저 지은 궁궐이 오늘 가는 경복궁이고요. 오백 년 넘게 이어진 조선이 끝난 뒤, 20세기에는 식민 지배와 전쟁을 겪었어요. 전쟁이 끝났을 때 한국은 세계에서 가장 가난한 나라 가운데 하나였거든요. 그런데 1960년대부터 놀라울 만큼 빠르게 성장해서 지금의 모습이 됐어요. 여행하면서 알아 두면 좋은 것도 몇 가지 있어요. 식당에서 물과 반찬은 따로 돈을 받지 않고요, 팁 문화는 없어요. 현관에 신발이 가지런히 놓여 있으면 신발을 벗고 들어가는 곳이에요. 한국어는 상대 나이에 따라 말투가 달라지는데요, 처음엔 감사합니다, 이 한 마디면 충분해요.",
         "en": "Korea has 50 million people, half of them in greater Seoul. Seoul became the capital in 1392 when the Joseon dynasty was founded, and the palace we're heading to was the first one they built. The 20th century brought colonisation and war, then from the 1960s the fastest economic growth in the world; Hyundai Motor, which built this car, was born in that era. Culturally: water and side dishes are free at restaurants, there's no tipping, and speech changes with age. Some places are shoes-off; if you see shoes at the entrance, take yours off."
       },
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 1
       },
-      "durationSec": 75,
+      "durationSec": 78,
       "source": "통계청 / 한국관광공사 VisitKorea",
       "priority": 6,
       "teaser": {
@@ -140,7 +140,10 @@
       },
       "forAudiences": [
         "foreign"
-      ]
+      ],
+      "deep": {
+        "ko": "조금 더 들어가 볼게요. 조선은 1392년, 고려의 장군이던 이성계가 세운 나라예요. 나라를 연 지 2년 뒤 수도를 한양, 지금의 서울로 옮겼고, 그 뒤 1910년까지 한 왕조가 오백 년 넘게 이어졌어요. 세계사에서도 드물게 긴 왕조죠. 이 시대가 이렇게 자세히 알려진 건 조선왕조실록 덕분이에요. 왕이 세상을 떠나면 그 왕의 시대를 날짜별로 정리해 남겼거든요. 사관들이 얼마나 꼼꼼했냐면요, 태종이 사냥을 하다 말에서 떨어지고는 사관이 알게 하지 말라고 했는데, 그 말까지 실록에 적혀 있어요. 이 실록은 유네스코 세계기록유산이에요. 1910년 일본에 나라를 빼앗긴 뒤 35년 동안 식민 지배를 받았고, 1945년 해방과 함께 남과 북이 갈라졌어요. 1950년부터 3년 동안 한국전쟁이 이어졌고, 지금도 전쟁이 완전히 끝난 게 아니라 정전 상태예요. 그 폐허에서 한국은 수출로 일어섰어요. 처음엔 가발과 옷을 팔다가 배와 철강, 자동차, 반도체로 넘어갔죠. 한 세대 만에 원조를 받던 나라에서 원조를 하는 나라가 됐어요. 요즘 세계에서 사랑받는 케이팝과 드라마도 그 흐름 위에 있는 거예요."
+      }
     },
     {
       "id": "name_quiz",
@@ -149,7 +152,7 @@
         "en": "Did you know: what 'Gyeongbok' means"
       },
       "text": {
-        "ko": "경복궁이라는 이름은 1395년 정도전이 지었어요. 3천 년 된 중국 시집 '시경'의 한 구절, '큰 복을 누리리라'에서 '경복' 두 글자를 땄죠. 그런데 이 궁은 이름과 달리 불타고 헐리고 참 고생이 많았어요. 그래서 조선 왕들은 이 궁보다 옆의 창덕궁에서 더 오래 살았답니다. 재밌죠, 가장 큰 궁에서 왕이 제일 적게 산 거예요.",
+        "ko": "경복궁이라는 이름, 누가 지었는지 아세요? 정도전이에요. 조선이라는 나라를 설계한 사람으로 불리는 분이죠. 궁궐이 거의 다 지어진 1395년 가을, 태조 이성계가 정도전에게 새 궁궐과 전각들의 이름을 지으라고 했거든요. 정도전은 중국의 아주 오래된 시집, 시경에서 한 구절을 골랐어요. 군자는 만년토록 큰 복을 누리리라, 이런 뜻의 구절인데요, 여기서 큰 복, 경복 두 글자를 따 왔어요. 그런데 재밌는 건요, 이 궁이 이름만큼 복이 많지는 않았다는 거예요. 불에 타고, 수백 년 빈터로 남고, 나중엔 헐리기까지 했거든요. 그래서 조선 왕들은 실제로는 경복궁보다 창덕궁에서 훨씬 오래 지냈어요. 가장 크고 으뜸인 궁인데 왕이 가장 적게 머문 궁, 좀 아이러니하죠. 자, 그럼 여기서 퀴즈 하나 낼게요.",
         "en": "The name was chosen in 1395 by the scholar Jeong Do-jeon, from a line in the three-thousand-year-old Chinese Book of Odes: 'may you enjoy great blessings'. Ironically the palace burned and was torn down more than any other, so Joseon kings actually spent more years living in Changdeokgung next door. The biggest palace is the one kings lived in least."
       },
       "kidsText": {
@@ -171,10 +174,13 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 2
       },
-      "durationSec": 50,
+      "durationSec": 65,
       "source": "국가유산청 궁능유적본부",
       "priority": 6,
-      "kind": "quiz"
+      "kind": "quiz",
+      "deep": {
+        "ko": "조선왕조실록을 보면 정도전은 이름만 지은 게 아니에요. 이름마다 왜 그렇게 지었는지 풀이를 달아서 왕에게 올렸거든요. 경복궁에 대해서는, 술에 이미 취하고 덕에 이미 배부르니 군자는 만년토록 큰 복을 누리리라, 이 시경 구절을 들면서 왕과 자손이 만년토록 태평을 누리길 바란다고 썼어요. 근정전, 사정전 같은 이름도 이때 함께 지어졌어요. 근정은 부지런히 정치하라, 사정은 깊이 생각하라는 뜻이에요. 이름 하나하나가 왕에게 건네는 당부였던 셈이죠. 그런데 이름을 지은 정도전은 3년 뒤, 이방원이 일으킨 왕자의 난 때 목숨을 잃어요. 뒤이어 왕위에 오른 정종은 수도를 다시 개경으로 옮겼고, 이방원이 태종으로 즉위해 한양에 돌아온 뒤에도 경복궁보다 새로 지은 창덕궁에 주로 머물렀어요. 경복궁의 엇갈린 운명은 이렇게 처음부터 시작된 거예요. 결정적인 건 임진왜란이었어요. 전쟁 때 불탄 뒤로 270년 넘게 빈터로 남았고, 그동안은 창덕궁이 사실상 으뜸 궁궐 노릇을 했어요. 그래서 조선 왕들이 머문 세월을 따져 보면 창덕궁 쪽이 훨씬 길어요."
+      }
     },
     {
       "id": "region_seoul",
@@ -184,7 +190,7 @@
       },
       "kind": "fact",
       "text": {
-        "ko": "인천을 지나 서울에 들어왔어요. 숫자로만 보면 새삼 놀라운 도시예요. 면적 605제곱킬로미터에 940만 명, 런던의 3분의 1 땅에 런던만큼이 살아요. 1394년 조선이 이곳으로 수도를 옮길 때 기준이 된 건 '북쪽에 산, 남쪽에 강'이었고, 그 산이 북악산, 그 강이 한강, 그 가운데 자리가 오늘 가는 경복궁이에요. 그러니까 지금 우리는 600년 전 도시 설계도의 한가운데로 들어가는 중이에요.",
+        "ko": "방금 서울로 들어왔어요. 천만 가까운 사람이 사는 도시, 익숙하지만 새삼 대단하죠. 그런데 혹시 서울이 수도로 정해질 때 경쟁 후보지가 있었다는 거 아세요? 조선을 세운 태조 이성계는 처음엔 충청도 계룡산 아래에 새 도읍을 짓기 시작했어요. 실제로 공사까지 벌였는데요, 신하 하륜이 너무 남쪽에 치우쳐 있다고 반대하면서 멈췄거든요. 그다음엔 하륜이 지금 신촌 근처, 무악 아래를 밀었고요. 의견이 여러 번 오간 끝에 결국 고른 곳이 한양이에요. 뒤로는 북악산이 받쳐 주고, 앞으로는 남산과 한강이 둘러싼 자리였죠. 그 한가운데 궁궐 터를 잡은 게 오늘 가는 경복궁이에요. 그러니까 지금 우리는 600년 전 왕과 신하들이 머리를 맞대고 고른 그 설계도 한복판으로 들어가는 중이에요.",
         "en": "We've left Incheon and just entered Seoul: about 9.4 million people, 26 million with the metro area, half of all Koreans within this radius. It covers 605 square kilometres, a third of London's size, with that many people in it, hence the tall apartment blocks and the dense subway. The palace we're heading to sits at the city's heart, where Seoul first became the capital 600 years ago."
       },
       "kidsText": {
@@ -199,7 +205,7 @@
         },
         "radiusM": 3500
       },
-      "durationSec": 40,
+      "durationSec": 63,
       "source": "서울시 통계",
       "priority": 8,
       "teaser": {
@@ -213,6 +219,9 @@
       "foreignKidsText": {
         "ko": "딩동! 지금 서울에 들어왔어요! 한국에서 제일 큰 도시예요. 높은 아파트가 엄청 많죠? 서울에는 사람이 거의 천만 명이나 살아요. 창밖에서 제일 높은 건물을 찾아볼래요?",
         "en": "Ding! We're in Seoul now! It's Korea's biggest city. See all the tall apartments? Almost ten million people live here. Can you find the tallest building out the window?"
+      },
+      "deep": {
+        "ko": "한양이 정해지기까지의 과정은 실록에 꽤 자세히 남아 있어요. 계룡산 공사가 멈춘 게 1393년 말이에요. 이듬해 하륜이 무악을 추천하자 태조가 직접 가서 둘러봤는데, 이번엔 다른 신하들이 터가 좁다며 반대했어요. 그러자 태조는 옛 고려의 남경 자리, 그러니까 한양으로 가서 다시 살폈죠. 한양은 사실 이때 처음 등장한 곳이 아니에요. 고려 때 이미 남경이라고 불리면서 궁궐이 있던 곳이거든요. 이렇게 해서 1394년 가을에 천도가 이뤄지고, 이듬해 종묘와 경복궁이 완성돼요. 궁궐 왼쪽에는 조상을 모시는 종묘를, 오른쪽에는 땅과 곡식의 신을 모시는 사직단을 두는 배치도 이때 정해졌어요. 경복궁에서 남쪽을 바라보면 왼쪽인 동쪽에 종묘, 오른쪽인 서쪽에 사직단이 있는 거죠. 지금도 종묘와 사직로라는 이름이 그 자리에 그대로 남아 있어요. 무학대사가 도읍 터를 잡았다는 이야기도 많이 들어 보셨을 텐데요, 왕십리라는 지명이 거기서 나왔다는 이야기처럼 이쪽은 기록보다는 전설로 전해지는 이야기예요. 실록에 남은 주인공은 오히려 왕과 신하들의 길고 치열한 토론이었어요."
       }
     },
     {
@@ -222,7 +231,7 @@
         "en": "The Han River: Seoul's centre line"
       },
       "text": {
-        "ko": "오른쪽이 한강이에요. 서울에 한강 다리가 서른두 개인데, 1900년 한강철교가 첫 번째였고 사람이 건너는 다리는 1917년 한강대교가 처음이었어요. 그 전 600년 동안은 나루터에서 배로 건넜죠. 조선 시대 서울은 지금 강북, 사대문 안이 전부였고, 강남은 1970년대까지 논밭이었어요. 경복궁은 그 옛 서울의 정중앙에 있어요.",
+        "ko": "오른쪽으로 한강 보이시죠. 매일 건너는 강이지만, 잠깐 다리가 하나도 없던 시절을 떠올려 볼까요. 조선 시대엔 한강을 건너려면 나루터에서 배를 타야 했어요. 노량진, 양화진, 송파 같은 이름이 다 옛 나루터에서 온 거예요. 그럼 왕이 강을 건널 땐 어떻게 했을까요? 정조 임금은 아버지 사도세자의 무덤이 있는 수원에 갈 때, 배 수십 척을 나란히 묶고 그 위에 널빤지를 깔아 배다리를 놓았어요. 노량진 쪽이었죠. 처음 철교가 놓인 건 1900년, 기차가 다니는 한강철교였고요, 사람과 차가 건너는 다리는 1917년에야 생겼어요. 지금 한강대교 자리예요. 그리고 조선의 서울은 강 남쪽이 아니라 북쪽, 사대문 안이 전부였어요. 강남이 지금처럼 바뀐 건 1970년대 이후니까, 길게 잡아도 오십 년 남짓이에요.",
         "en": "The Han River is on your right. Over a kilometre wide, first-time visitors often say it looks like the sea. Seoul has more than thirty bridges across it; north of the river is old Seoul, south is the new city built from the 1970s. The palace is north, in the heart of the old city."
       },
       "kidsText": {
@@ -237,7 +246,7 @@
         },
         "radiusM": 4000
       },
-      "durationSec": 35,
+      "durationSec": 66,
       "source": "서울시",
       "priority": 7,
       "foreignText": {
@@ -247,6 +256,9 @@
       "foreignKidsText": {
         "ko": "오른쪽에 큰 강이 보이나요? 한강이에요. 다리가 서른 개도 넘어요! 지금 보이는 다리가 몇 개인지 세어 볼래요?",
         "en": "See the big river on the right? That's the Han River. It has more than thirty bridges! How many can you see right now?"
+      },
+      "deep": {
+        "ko": "정조의 배다리는 즉흥적으로 만든 게 아니었어요. 정조는 주교사라는 관청을 따로 두고, 배다리 놓는 법을 정리한 글을 직접 짓기도 했거든요. 특히 1795년, 어머니 혜경궁 홍씨의 회갑을 맞아 수원 화성으로 떠난 행차가 유명해요. 이때 노량진에 놓인 배다리를 건너는 행렬이 그림으로 남아 있고, 행사 전 과정을 꼼꼼히 적은 의궤도 전해져요. 그 기록 덕분에 지금도 정조대왕 능행차를 재현하는 행사가 열리고, 한강에 배다리를 다시 놓아 보기도 해요. 근대에 들어서 한강 다리는 아픈 기억도 품게 돼요. 1950년 6월 28일 새벽, 한국전쟁이 터진 지 사흘 만에 북한군이 서울로 밀려들자 국군은 적의 남하를 막으려고 한강 인도교를 폭파했어요. 다리 위에는 피란민이 가득했고 많은 사람이 희생됐어요. 서울에 남은 시민들은 강을 건널 길을 잃었고요. 지금의 한강대교가 바로 그 다리를 다시 세운 거예요. 그리고 1970년대부터 강남 개발이 본격화되면서 다리가 하나둘 늘어 지금은 서른 개가 넘어요. 다리 하나하나가 서울이 커 온 연대표인 셈이에요."
       }
     },
     {
@@ -257,7 +269,7 @@
       },
       "kind": "dialogue",
       "text": {
-        "ko": "잠깐 600년 전 궁 안 사람들을 불러볼게요. 상궁: '내관 나리, 오늘 전하께서 근정전에 납시는 날입니다. 품계석 앞에 신하들이 줄을 섰는지 보고 오시지요.' 내관: '정1품부터 종9품까지 돌기둥 24개 앞에 다 섰습니다. 동쪽은 문관, 서쪽은 무관이지요.' 상궁: '그 돌바닥이 왜 울퉁불퉁한지 아시오? 신하들이 미끄러지지 말라고, 그리고 햇빛이 반사돼 전하의 눈이 부시지 않게 한 것이라오.' 내관: '그리고 가죽신이 미끄러지니 신하들이 뛰지도 못하지요.' 이 두 사람이 서 있던 자리가 바로 근정전 앞마당이에요. 도착하면 품계석을 세어 보세요.",
+        "ko": "잠깐 시간을 거슬러 볼까요. 옛날 어느 설날 아침, 근정전 앞마당이에요. 나이 지긋한 상궁이 젊은 내관에게 묻습니다. 신하들은 다 줄을 섰소? 내관이 대답하죠. 예, 돌기둥 앞에 품계대로 다 섰습니다. 동쪽엔 문관, 서쪽엔 무관입니다. 상궁이 고개를 끄덕여요. 그렇지요, 그래서 문관과 무관을 합쳐 양반이라 부르는 것이오. 이 마당의 돌기둥이 바로 품계석이에요. 한쪽에 열두 개씩, 모두 스물네 개예요. 정일품부터 정구품까지 벼슬 순서대로 서는 자리였어요. 내관이 발밑을 내려다보며 또 묻습니다. 그런데 바닥 돌은 왜 이리 울퉁불퉁합니까? 상궁이 웃으며 말해요. 비 오는 날에도 미끄러지지 말라고, 또 햇빛이 반사돼 전하 눈이 부시지 않게 일부러 거칠게 다듬은 것이라오. 이 두 사람이 서 있던 바로 그 마당을, 이따가 직접 밟게 되실 거예요. 도착하시면 품계석부터 한번 세어 보세요.",
         "en": "Let's call up two palace people from 600 years ago. Court lady: 'Sir, the king attends the throne hall today. Go see whether the officials are lined up before the rank stones.' Eunuch: 'All in place, from senior first rank to junior ninth, before the twenty-four stone markers. Civil officials to the east, military to the west.' Court lady: 'And do you know why the courtyard stones are so bumpy? So no one slips, and so the sun doesn't glare into the king's eyes.' Eunuch: 'And in leather shoes, nobody can run.' That courtyard is where you'll stand. Count the rank stones when you arrive."
       },
       "kidsText": {
@@ -268,9 +280,12 @@
         "type": "kr.roaddocent.core.Trigger.AtStart",
         "order": 3
       },
-      "durationSec": 60,
+      "durationSec": 73,
       "source": "국가유산청 궁능유적본부 / 한국관광공사 오디 해설 형식 참고",
-      "priority": 6
+      "priority": 6,
+      "deep": {
+        "ko": "근정전은 왕이 날마다 일하던 집무실이 아니었어요. 그건 뒤쪽의 사정전이고요, 근정전은 나라의 큰 행사를 치르는 무대였어요. 새해 첫날이나 동지에 신하들이 모여 왕께 하례를 올리는 조회, 외국 사신을 맞는 의식, 그리고 즉위식이 여기서 열렸어요. 세종대왕도 바로 이 근정전에서 왕위에 올랐어요. 마당을 자세히 보면 재밌는 게 많아요. 가운데로 조금 높게 난 길은 왕을 위한 길이라, 신하들은 양옆으로 다녔어요. 바닥 돌 곳곳에는 쇠고리가 박혀 있는데요, 행사 때 햇볕을 가리는 커다란 천막, 차일을 묶던 고리예요. 근정전 기단 모서리에는 넓적한 청동 그릇도 놓여 있어요. 드므라고 하는데, 물을 담아 두면 불귀신이 왔다가 물에 비친 자기 얼굴을 보고 놀라 달아난다고 믿었대요. 실제로 불이 났을 때 쓰는 물그릇 노릇도 했고요. 품계석은 처음부터 있던 건 아니에요. 기록으로는 정조 때 창덕궁에 처음 세운 것으로 나오고, 지금 경복궁 품계석은 고종 때 궁을 다시 지으면서 놓은 거예요. 그 전에는 신하들이 서는 자리를 다른 방식으로 표시했던 거죠. 이따 마당에 서시면 가운데 길 양옆으로 품계석이 어떻게 줄지어 있는지 한번 눈여겨보세요."
+      }
     },
     {
       "id": "namdaemun",
@@ -279,7 +294,7 @@
         "en": "Namdaemun: a 600-year-old gate in the middle of traffic"
       },
       "text": {
-        "ko": "왼쪽 로터리 가운데가 숭례문, 남대문이에요. 2008년 2월 10일 밤 방화로 2층 문루가 무너졌던 거 기억하시죠. 복구에 5년 3개월이 걸렸는데, 그때 장인들이 전통 가마에서 기와를 굽고 삼베옷을 입고 일한 게 화제였어요. 2013년 5월에 다시 열었죠. 현판이 세로로 쓰인 유일한 성문이라는 건 아셨나요? 남쪽 관악산의 불기운을 누르려고 불꽃처럼 세워 썼다는 설명이 전해져요. 그런데 결국 불에 탔으니, 이름이 운명을 못 막은 셈이에요.",
+        "ko": "왼쪽 로터리 한가운데 서 있는 문, 숭례문이에요. 다들 남대문이라고 더 많이 부르죠. 2008년 겨울밤, 저 문루가 불길 속에 무너지던 장면 기억하시는 분 많을 거예요. 5년 넘게 걸려 다시 세운 게 지금 모습이고요. 그런데 이름에 숨은 이야기는 의외로 잘 모르시더라고요. 서울 성곽의 큰 대문에는 사람이 지켜야 할 덕목이 하나씩 들어 있어요. 동대문은 흥인지문, 어질 인. 서대문은 돈의문, 옳을 의. 그리고 남대문이 숭례문, 예절 례예요. 옛사람들은 례를 남쪽, 그리고 불과 짝지어 생각했거든요. 그래서인지 숭례문 현판만 유일하게 세로로 쓰여 있어요. 남쪽 관악산의 불기운을 맞불로 누르려고 세워 썼다고 전해져요. 그렇게 불을 경계했던 문이 결국 불에 탔으니, 참 묘하죠. 저 문은 원래 양옆으로 성벽이 이어져 있었는데, 20세기 초에 길을 낸다며 성벽이 헐리면서 지금처럼 섬처럼 혼자 남게 됐어요.",
         "en": "The gate standing in the middle of the roundabout on your left is Namdaemun, officially Sungnyemun. Built in 1398 as the south gate of the wall around Joseon's capital, it was National Treasure No. 1. An arson fire in 2008 burned the upper pavilion, and it was rebuilt over five years with traditional methods. Next to it, Namdaemun Market is Korea's largest traditional market, good for seaweed, ginseng and kitchenware after the palace."
       },
       "kidsText": {
@@ -294,11 +309,11 @@
         },
         "radiusM": 900
       },
-      "durationSec": 45,
+      "durationSec": 75,
       "source": "문화재청 국가유산포털 / 서울시",
       "priority": 8,
       "deep": {
-        "ko": "더 자세히요. 숭례문은 1398년 완공, 현존하는 서울 성문 중 가장 오래됐고 조선 전기 건축의 기준이 되는 건물이에요. 1962년 국보 1호로 지정됐다가 2021년 문화재 번호 체계가 없어지면서 지금은 그냥 국보예요. 2008년 2월 10일 밤 방화로 2층 문루가 무너졌고, 5년 3개월의 복구 끝에 2013년 5월 다시 열었어요. 복구 때 전통 기와 가마와 삼베 옷을 입은 장인들이 동원된 걸로 유명하죠. 문 이름 '숭례'는 예를 숭상한다는 뜻이고, 현판을 세로로 쓴 유일한 성문이에요. 남쪽 관악산의 불기운을 누르려고 불꽃 모양으로 세웠다는 설명이 전해져요.",
+        "ko": "숭례문은 1398년, 태조 때 완성됐어요. 그 뒤 세종 때와 성종 때 크게 고쳐 지었다는 기록이 실록에 남아 있고요. 임진왜란과 한국전쟁을 견뎌 냈기 때문에 서울에 남은 목조 건물 가운데 가장 오래된 축에 드는 건물이었어요. 1962년에 국보 1호가 됐는데, 2021년에 문화유산 지정번호 제도가 없어지면서 지금은 번호 없이 그냥 국보예요. 번호가 순위처럼 오해받는다는 이유였어요. 현판 글씨는 세종의 큰형인 양녕대군이 썼다는 이야기가 조선 시대 문헌에 실려 전해져요. 다만 다른 사람이라는 견해도 있어서 확정된 건 아니에요. 2008년 화재 때는 소방관들이 이 현판을 떼어 내다 땅에 떨어지면서 일부가 부서졌고, 복구하면서 함께 고쳤어요. 복구 공사는 되도록 옛 방식을 따랐어요. 기와는 전통 가마에서 굽고, 쇠못과 연장도 전통 대장간 방식으로 만들었죠. 헐렸던 양옆 성곽도 일부 되살려서 문이 원래 성벽의 일부였다는 걸 다시 볼 수 있게 됐어요. 다만 다시 문을 연 지 얼마 안 돼 단청이 벗겨지면서 부실 복구 논란이 일었고 감사까지 이어졌어요. 문화유산을 되살리는 일이 얼마나 어려운지 보여 준 사례로 남아 있죠.",
         "en": "More detail: Sungnyemun was completed in 1398, the oldest surviving city gate in Seoul and the benchmark for early-Joseon architecture. It became National Treasure No. 1 in 1962; the numbering was abolished in 2021. On the night of 10 February 2008 arson brought down the upper pavilion, and after five years and three months of restoration it reopened in May 2013, famously rebuilt with traditional kilns and craftsmen in hemp clothes. The name means 'honouring propriety', and it is the only gate whose name board is written vertically, said to resemble a flame that counters the fire energy of Gwanaksan to the south."
       },
       "teaser": {
@@ -321,7 +336,7 @@
         "en": "Gwanghwamun: King Sejong and Admiral Yi"
       },
       "text": {
-        "ko": "광화문광장이에요. 세종대왕 동상은 2009년 한글날에, 이순신 장군 동상은 1968년에 세웠어요. 장군 앞 분수 이름이 '12·23 분수'인 거 아세요? 배 열두 척으로 스물세 번 이겼다는 뜻이에요. 그리고 광화문 현판, 2023년에 검은 바탕에 금색 글씨로 바뀐 거 보셨죠. 고종 때 찍은 사진이 발견돼서 원래 모습으로 되돌린 거예요. 문 앞 월대도 같은 해에 복원됐고요. 그 뒤 북악산을 등지고 남쪽을 보게 지은 게 경복궁이에요.",
+        "ko": "이제 광화문광장이에요. 금빛으로 앉아 계신 세종대왕, 그리고 그 앞에 칼을 짚고 선 이순신 장군. 매번 지나치는 풍경이지만, 세종대왕이 이 광장에 계신 게 그냥 유명해서만은 아니에요. 저 끝의 광화문, 그 이름을 지은 게 바로 세종 때 집현전 학자들이거든요. 임금의 덕이 빛처럼 온 나라를 비춘다는 뜻이에요. 게다가 세종대왕이 태어난 곳도 경복궁 바로 서쪽, 지금의 서촌 통인동 근처예요. 이 동네가 세종의 고향인 셈이죠. 이순신 장군 동상은 1968년에, 세종대왕 동상은 2009년 한글날에 세워졌어요. 장군 앞 분수 이름은 십이 이삼 분수인데요, 열두 척의 배로 바다를 지켜 낸 일과 스물세 번 싸워 한 번도 지지 않았다는 이야기에서 따 왔어요. 그리고 요즘 광화문이 좀 달라 보이지 않으세요? 문 앞에 넓은 돌 단, 월대가 다시 생겼고, 현판도 검은 바탕에 금색 글씨로 바뀌었어요. 옛 사진과 기록을 찾아내서 원래 모습으로 되돌린 거예요.",
         "en": "Ahead is Gwanghwamun Square. The golden seated statue in the middle is King Sejong, who created the Korean alphabet. The statue with the sword in front is Admiral Yi Sun-sin, who defended the seas with turtle ships in the 1590s. The big gate at the end is Gwanghwamun, the palace's main gate; demolished and moved under Japanese rule, it was rebuilt on its original spot in 2010. The mountain behind is Bugaksan, and the palace was built with its back to that mountain, facing south."
       },
       "kidsText": {
@@ -336,11 +351,11 @@
         },
         "radiusM": 700
       },
-      "durationSec": 50,
+      "durationSec": 79,
       "source": "문화재청 / 서울시 광화문광장",
       "priority": 8,
       "deep": {
-        "ko": "더 자세히요. 세종대왕 동상은 2009년 한글날에 세웠고 높이 6.2미터, 손에 든 책이 훈민정음이에요. 동상 아래 지하에는 '세종이야기' 전시관이 있어 무료예요. 이순신 장군 동상은 1968년 작품으로 광장에서 가장 오래된 조형물이고, 앞의 분수가 '12·23 분수'인데 12척의 배로 23번 싸워 이긴 걸 뜻해요. 광화문 현판은 2023년에 검은 바탕 금색 글씨로 다시 달렸어요. 고종 때 원래 모습이 사진으로 확인됐거든요.",
+        "ko": "광화문은 경복궁에서 가장 고생을 많이 한 건물이에요. 1395년에 처음 지어졌고, 임진왜란 때 불탔다가 고종 때 궁궐과 함께 다시 섰어요. 그런데 일제가 그 뒤에 조선총독부 청사를 지으면서 광화문을 헐어 버리려고 했어요. 이때 일본의 민예 연구가 야나기 무네요시가 사라지려 하는 한 조선 건축을 위하여, 라는 글을 써서 철거에 반대했고, 결국 헐지는 않고 경복궁 동쪽 건춘문 북쪽으로 옮겨 세웠어요. 그러다 한국전쟁 때 나무로 된 문루가 불타 버렸죠. 1968년에 다시 세우긴 했는데, 콘크리트로 지은 데다 총독부 건물 축에 맞추는 바람에 위치와 방향도 원래와 어긋나 있었어요. 그래서 2006년부터 다시 해체해 원래 자리에 나무로 복원했고, 2010년 광복절에 공개했어요. 현판도 사연이 길어요. 2010년에 단 현판은 흰 바탕에 검은 글씨였는데, 몇 달 만에 금이 가서 논란이 됐어요. 그 뒤 미국 스미소니언 박물관에 있던 옛 사진과 중건 당시 기록에서 검은 바탕에 금색 글씨였다는 게 확인됐고, 2023년에 지금 현판으로 바뀌었어요. 같은 해, 일제 때 전찻길을 내며 묻어 버렸던 월대도 복원됐어요. 월대 끝을 지키던 서수상 머리 조각은 고 이건희 회장 유족이 기증해서 제자리를 찾았어요.",
         "en": "More detail: the Sejong statue was unveiled on Hangeul Day 2009, 6.2 m tall, holding the Hunminjeongeum. Beneath it is a free exhibition, 'The Story of King Sejong'. The Yi Sun-sin statue dates from 1968, the oldest monument on the square; the fountain in front is the '12·23 fountain', for his 23 victories with 12 ships. Gwanghwamun's name board was rehung in 2023 in gold on black, after photographs from King Gojong's era showed the original."
       },
       "teaser": {
@@ -363,7 +378,7 @@
         "en": "The haetae at Gwanghwamun: a beast that stops fire"
       },
       "text": {
-        "ko": "광화문 양옆에 앉아 있는 돌짐승은 해태예요. 사자 같지만 뿔이 있고 비늘이 있는 상상의 동물이죠. 옳고 그름을 가리는 동물이라 법을 상징하고, 물의 기운이 있어서 불을 막는다고 믿었어요. 남쪽 관악산이 불의 산이라 경복궁에 자꾸 불이 난다고 생각해서 세운 거예요. 서울시 마스코트 '해치'가 바로 이 해태고, 국회의사당 앞에도 있어요. 사진 찍을 때 해태 코를 만지면 복이 온다는 말이 있는데, 지금은 만지면 안 돼요.",
+        "ko": "광화문 앞 양쪽에 앉아 있는 돌짐승, 혹시 사자라고 생각하셨어요? 해태예요. 원래 이름은 해치고요. 머리에 뿔이 하나 있고, 옳고 그름을 가려서 나쁜 사람을 뿔로 들이받는다는 상상의 동물이에요. 그래서 조선에서는 법과 정의의 상징이었어요. 관리들의 잘못을 살피던 사헌부, 그 우두머리인 대사헌의 관복 가슴에도 해치가 수놓아져 있었거든요. 마침 광화문 앞 육조거리에 사헌부가 있었으니, 궁을 드나드는 관리들에게 몸가짐을 바로 하라는 뜻이었다고 보는 해석도 있어요. 그리고 흔히 전해지는 이야기가 하나 더 있어요. 경복궁에 불이 잦은 게 남쪽 관악산의 불기운 때문이라고 여겨서, 물의 기운을 지닌 해태가 그 불을 막아 준다는 거죠. 서울시 상징 캐릭터 해치도 이 친구고요, 국회의사당 앞에도 해태가 앉아 있어요. 그럼 퀴즈 하나 낼게요.",
         "en": "The two stone beasts flanking Gwanghwamun are haetae. Lion-like but horned and scaled, they're imaginary creatures that tell right from wrong, so they stand for justice, and they carry the energy of water, so they were believed to ward off fire. Gwanaksan to the south was thought to be a fire mountain that kept setting the palace ablaze, hence the guardians. Seoul's mascot 'Haechi' is this same beast, and a pair guards the National Assembly too."
       },
       "kidsText": {
@@ -389,10 +404,13 @@
         },
         "radiusM": 400
       },
-      "durationSec": 55,
+      "durationSec": 68,
       "source": "국가유산청 / 서울시",
       "priority": 7,
-      "kind": "quiz"
+      "kind": "quiz",
+      "deep": {
+        "ko": "경복궁 사람들이 얼마나 불을 두려워했는지는 여러 흔적으로 남아 있어요. 근정전 기단 위에는 물을 담아 두던 넓은 그릇, 드므가 있고요. 경회루 연못에서는 더 놀라운 게 나왔어요. 1997년 연못 바닥을 준설하다가 청동으로 만든 용 한 마리가 발견됐거든요. 고종 때 경회루를 다시 지으면서 불을 막으려고 연못에 청동 용 두 마리를 넣었다는 기록이 있었는데, 그게 사실로 확인된 거예요. 두려워할 만도 했어요. 흥선대원군이 경복궁을 다시 짓던 도중에도 큰불이 나서 쌓아 둔 목재와 지어 놓은 건물이 많이 타 버렸거든요. 공사비가 더 들어가면서 백성들에게 원납전을 거두고, 당백전이라는 돈까지 찍어 냈어요. 그 바람에 물가가 크게 올라 원성이 높았죠. 광화문 해태도 바로 그 중건 때 만들어진 거예요. 그런데 해태 자신도 순탄하지 않았어요. 일제강점기 총독부 청사 공사로 자리를 떠나야 했고, 광화문이 옮겨지고 다시 세워지는 동안 몇 차례 자리를 옮긴 끝에 지금 광화문 앞에 앉게 됐어요. 불을 막으라고 세운 돌짐승이 정작 자기 자리는 오래 지키지 못했던 셈이에요."
+      }
     },
     {
       "id": "congestion_deep",
@@ -401,7 +419,7 @@
         "en": "Stuck in traffic: a palace built three times"
       },
       "text": {
-        "ko": "막히는 김에 긴 이야기 하나. 경복궁은 1395년에 지어졌어요. 1592년 임진왜란 때 불타고 270년 동안 폐허로 있다가 1867년 흥선대원군이 다시 지었죠. 그런데 1910년 일본이 한국을 식민지로 만들면서 건물 대부분을 헐고 정문 앞에 총독부 청사를 세웠어요. 1995년 그 건물을 철거하고 지금까지 30년째 복원 중이에요. 오늘 보시는 근정전과 경회루는 1867년 것이고, 광화문은 2010년에 돌아온 거예요. 한 궁궐에 한국 600년이 다 들어 있어요.",
+        "ko": "길이 좀 막히네요. 이럴 땐 긴 이야기가 제격이죠. 경복궁이 사실 세 번 지어졌다는 거 아세요? 처음은 조선이 막 세워졌을 때예요. 그런데 임진왜란 때 불에 타 버리고, 그 뒤 무려 270년 넘게 빈터로 남아요. 그 오랜 세월 아무도 손대지 못한 궁을 다시 일으킨 사람이 흥선대원군이에요. 땅에 떨어진 왕실의 위엄을 다시 세우겠다는 뜻이었죠. 그런데 공사비가 워낙 커서 백성들 원성도 엄청났어요. 이렇게 어렵게 지은 궁은 반세기도 못 가 또 수난을 겪어요. 일제가 궁 안에서 박람회를 연다며 건물을 대거 헐었고, 근정전 바로 앞에 조선총독부 청사를 세웠거든요. 궁궐을 정면에서 가로막는 자리였어요. 그 건물은 광복 50주년이던 1995년에 철거가 시작됐고, 그 뒤로 지금까지 복원이 이어지고 있어요. 그러니까 오늘 보실 근정전과 경회루는 대원군 때 것이고, 흥례문이나 광화문은 최근에 되살아난 거예요. 한 궁궐에 600년 역사가 층층이 쌓여 있는 거죠.",
         "en": "Since we're slow, a long story. Gyeongbokgung was built in 1395. It burned in the 1592 Japanese invasion and lay in ruins for 270 years until the regent Heungseon Daewongun rebuilt it in 1867. Then in 1910 Japan colonised Korea, tore down most of the buildings and put its Government-General headquarters right in front of the gate. That building was demolished in 1995 and restoration has run for thirty years since. The throne hall and pavilion you'll see date from 1867; Gwanghwamun came home in 2010. Six hundred years of Korea in one palace."
       },
       "kidsText": {
@@ -411,11 +429,11 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Congestion"
       },
-      "durationSec": 85,
+      "durationSec": 80,
       "source": "문화재청 경복궁관리소 / 국립고궁박물관",
       "priority": 8,
       "deep": {
-        "ko": "더 자세히요. 경복궁은 창건 때 390여 칸이었고 고종 때 중건하면서 7,000여 칸, 전각 500여 동으로 커졌어요. 일제강점기를 거치며 10분의 1만 남았고요. 1990년부터 시작된 복원 1차 사업으로 2010년까지 89동이 복원됐고, 2차 사업은 2045년까지 계획돼 있어요. 지금 보시는 흥례문·광화문·건청궁·향원정 다리 취향교(2021)가 모두 복원 결과예요. 복원 기준은 고종 중건 당시 모습이에요.",
+        "ko": "흥선대원군이 중건을 시작한 건 1865년, 아들 고종이 어린 나이에 왕위에 오르고 얼마 안 됐을 때예요. 수많은 장인과 백성이 동원됐고, 몇 년 만에 수백 동의 건물이 들어섰어요. 처음 지었을 때보다 훨씬 큰 규모였죠. 하지만 영광은 짧았어요. 1895년, 궁 깊숙한 건청궁에서 명성황후가 일본인들에게 시해되는 을미사변이 일어났고, 이듬해 고종은 러시아 공사관으로 몸을 피해요. 그 뒤 고종은 다시는 경복궁으로 돌아오지 않았어요. 주인 없는 궁은 일제강점기에 본격적으로 해체돼요. 1915년 조선물산공진회라는 박람회를 열면서 많은 전각을 헐었고, 헐린 건물 가운데 일부는 팔려 나가 일본까지 건너갔어요. 세자가 머물던 자선당은 일본으로 옮겨져 한 사업가의 집에 쓰이다 관동대지진 때 불탔고, 남은 기단 석재가 1995년에야 돌아왔어요. 총독부 청사는 광복 뒤에도 중앙청으로, 또 국립중앙박물관으로 쓰이다가 1995년 광복절에 첨탑부터 철거되기 시작했어요. 복원은 1990년에 시작됐고, 고종 때 모습을 기준으로 지금도 진행 중이에요. 2045년까지 이어질 계획이고요. 그러니까 오늘 우리는 아직 공사 중인 궁궐을 보러 가는 거예요.",
         "en": "More detail: the original palace had about 390 kan (bays); the 1867 rebuilding grew it to some 7,000 bays in 500 buildings, of which a tenth survived the colonial period. The first restoration phase from 1990 rebuilt 89 buildings by 2010; the second phase runs to 2045. Heungnyemun, Gwanghwamun, Geoncheonggung and the Hyangwonjeong bridge (2021) are all restorations, to the 1867 appearance."
       }
     },
@@ -426,7 +444,7 @@
         "en": "Arrival briefing: parking and hanbok"
       },
       "text": {
-        "ko": "15분 뒤 도착해요. 주차는 흥례문 옆 경복궁 주차장인데 주말엔 금방 차요. 한복을 입으면 입장이 무료라 광화문 주변 대여점이 2시간 2만 원 정도예요. 수문장 교대식은 10시와 2시, 20분씩이에요. 한복 대여점에 전화해서 자리 잡아둘까요? 들어가면 근정전 앞마당에서 품계석 스물네 개부터 세어 보세요. 동쪽이 문관, 서쪽이 무관이에요.",
+        "ko": "이제 15분쯤 남았어요. 주차는 흥례문 옆 경복궁 주차장인데, 주말엔 금방 차니까 자리가 없으면 세종문화회관 쪽을 생각해 두세요. 한복을 입으면 입장이 무료라서, 광화문 근처 대여점에서 두 시간에 이만 원 안팎이면 빌릴 수 있어요. 수문장 교대식은 오전 10시와 오후 2시에 20분쯤 해요. 한복 대여점에 전화해서 자리 잡아 둘까요? 들어가시면 근정전 앞마당에서 품계석부터 세어 보세요. 동쪽이 문관, 서쪽이 무관 자리예요.",
         "en": "We arrive in 15 minutes. Parking is the palace lot by Heungnyemun, and it fills quickly on weekends. Wearing hanbok gets you in free; rental shops around Gwanghwamun charge about ₩20,000 for two hours. The guard-changing ceremony is at 10 and 2, worth timing. Shall I call a hanbok shop to hold a slot? Ten minutes before arrival we'll practise two Korean phrases for the palace."
       },
       "kidsText": {
@@ -437,7 +455,7 @@
         "type": "kr.roaddocent.core.Trigger.RemainUnderMin",
         "minutes": 15
       },
-      "durationSec": 45,
+      "durationSec": 40,
       "source": "경복궁관리소 / 종로구 한복 대여",
       "priority": 9,
       "foreignText": {
@@ -456,7 +474,7 @@
         "en": "Where next?"
       },
       "text": {
-        "ko": "다시 출발하시네요. 궁궐의 '집'을 보셨으니 이번엔 그 안에 있던 '물건'을 보러 가는 건 어때요? 차로 25분, 국립중앙박물관이에요. 1400년 된 반가사유상의 미소와 13미터 돌탑이 있고, 가는 길 내내 제가 이어서 이야기할게요. 아니면 걸어서 10분 북촌한옥마을, 차로 15분 명동 K-뷰티 거리도 있어요. 첫 번째로 가자, 라고 말씀하세요.",
+        "ko": "다시 출발하시네요. 궁궐 구경 어떠셨어요? 왕이 살던 집을 보셨으니, 이번엔 그 안을 채웠던 물건들을 보러 가는 건 어떨까요. 차로 25분쯤 가면 국립중앙박물관이에요. 천사백 년 전 반가사유상의 미소, 그리고 높이 13미터가 넘는 석탑이 실내에 서 있어요. 가는 동안 제가 이야기를 이어 갈게요. 가볍게 걷고 싶으시면 북촌한옥마을이 걸어서 10분, 쇼핑이라면 명동이 차로 15분이에요. 첫 번째로 가자, 하고 말씀해 주세요.",
         "en": "Setting off again. You've seen the king's house; how about the things that were inside it? The National Museum of Korea is 25 minutes by car, with a 1,400-year-old smiling bodhisattva and a thirteen-metre pagoda, and I'll keep the stories going all the way. Or Bukchon Hanok Village, ten minutes on foot, or Myeongdong's K-beauty street, fifteen minutes. Say: let's go to the first one."
       },
       "kidsText": {
@@ -466,7 +484,7 @@
       "trigger": {
         "type": "kr.roaddocent.core.Trigger.Reboard"
       },
-      "durationSec": 25,
+      "durationSec": 40,
       "source": "Road Docent 체류 데이터",
       "priority": 10
     },
@@ -478,7 +496,7 @@
       },
       "kind": "fact",
       "text": {
-        "ko": "잠시 조용했네요. 짧은 이야기 하나. 오늘 만날 세종대왕이 1443년에 만든 한글은 자음 모양이 발음 기관을 본뜬 글자예요. ㄱ은 혀뿌리가 목을 막는 모양, ㅁ은 입 모양, ㅇ은 목구멍. 모음은 하늘·땅·사람 세 가지 점과 선으로 조합해요. 그래서 기본 글자 24개만 알면 간판을 읽을 수 있어요. 도착해서 '경복궁' 세 글자를 찾아 읽어 보세요. 경, 복, 궁.",
+        "ko": "잠시 조용하니까, 짧은 이야기 하나 해 드릴게요. 길에서 보이는 한국어 간판, 사실 생각보다 금방 읽을 수 있어요. 오늘 광화문에서 만날 세종대왕이 만든 한글은 소리를 낼 때의 입과 혀 모양을 본떠 만들었거든요. 기역은 혀뿌리가 목구멍을 막는 모양이고요, 니은은 혀끝이 윗잇몸에 닿는 모양, 미음은 입 모양, 이응은 동그란 목구멍 모양이에요. 모음은 더 간단해요. 둥근 하늘, 평평한 땅, 서 있는 사람, 이 세 가지를 조합해서 만들었어요. 그래서 기본 글자 스물네 개만 익히면 간판을 소리 내어 읽을 수 있어요. 한글을 풀이한 책의 서문에 정인지가 이렇게 썼어요. 슬기로운 사람은 아침나절이 끝나기 전에 깨치고, 그렇지 않은 사람도 열흘이면 배운다고요. 도착하면 경복궁 세 글자를 직접 찾아 읽어 보세요. 경, 복, 궁.",
         "en": "A quiet stretch, so a short one. Hangeul, created in 1443 by King Sejong whom you'll meet today, shapes its consonants after the speech organs: ㄱ is the tongue root blocking the throat, ㅁ the mouth, ㅇ the throat. Vowels combine three marks for heaven, earth and person. Learn 24 basic letters and you can read signs. Try reading the three syllables of 경복궁 when we arrive: gyeong, bok, gung."
       },
       "kidsText": {
@@ -489,13 +507,16 @@
         "type": "kr.roaddocent.core.Trigger.AfterSilence",
         "minutes": 6
       },
-      "durationSec": 40,
+      "durationSec": 67,
       "source": "국립한글박물관",
       "priority": 3,
       "forAudiences": [
         "foreign",
         "kids"
-      ]
+      ],
+      "deep": {
+        "ko": "한글이 처음 만들어진 건 1443년 겨울이에요. 세종은 이 글자를 훈민정음, 백성을 가르치는 바른 소리라고 이름 붙였고, 3년 동안 다듬은 끝에 1446년에 세상에 알렸어요. 이때 글자를 만든 원리와 쓰는 법을 자세히 풀어 쓴 책이 훈민정음 해례본이에요. 그런데 이 책은 오랫동안 행방을 몰랐어요. 그래서 한글이 창살 모양에서 왔다는 식의 엉뚱한 주장도 나왔죠. 그러다 1940년 경상북도 안동에서 해례본이 발견됐어요. 이 책을 큰돈을 들여 사들이고 지켜 낸 사람이 문화재 수집가 간송 전형필이에요. 해례본이 나오면서 발음 기관을 본떴다는 제작 원리가 분명해졌고, 지금은 국보이자 유네스코 세계기록유산이에요. 한글날 10월 9일도 해례본에 적힌 날짜를 바탕으로 정한 거예요. 물론 반대도 있었어요. 집현전 부제학 최만리 등이 중국과 다른 글자를 만드는 건 옳지 않다며 상소를 올렸고, 세종은 그들을 불러 직접 반박했어요. 그 논쟁이 실록에 고스란히 남아 있어요. 글자 하나 만드는 데에도 이렇게 치열한 토론이 있었던 거예요."
+      }
     }
   ],
   "restAreas": [],
