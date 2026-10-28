@@ -25,6 +25,8 @@ object SpeechText {
             t = t.replace(Regex("\\s*~\\s*"), " 에서 ")
             t = t.replace(Regex("\\s*/\\s*"), ", ")                        // m4a/mp3, 수·토 등
             t = t.replace(Regex("\\s*\\(([^)]*)\\)"), ", $1,")            // (2시간 3,000원대) → , 2시간 3,000원대,
+            t = t.replace(Regex("[‘’“”\"「」『』]"), "")                     // quote marks: some engines pause or read them
+            t = t.replace(Regex("\\s*—\\s*|\\s+-\\s+"), ", ")
             t = t.replace("KTX", "케이티엑스").replace("K-POP", "케이팝").replace("K-pop", "케이팝").replace("K-뷰티", "케이뷰티").replace("RM", "알엠")
             t = t.replace("EBS", "이비에스").replace("ADAS", "에이다스").replace("TPMS", "티피엠에스").replace("EV", "이브이").replace("12V", "12볼트")
         } else {

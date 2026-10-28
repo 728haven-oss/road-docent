@@ -573,9 +573,10 @@ class DocentEngine(
             ?: near.minByOrNull { it.second }?.first
             ?: left.firstOrNull { it.trigger !is Trigger.AtStart }
     }
-    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> say(d + (if (_lang.value == Lang.KO) " 출처는 ${ep.source}." else " Source: ${ep.source}."), _lang.value); return }
-        if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> say("한국관광공사 해설로 더 자세히. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
-        say((if (_lang.value == Lang.KO) "출처는 ${ep.source}. " else "Source: ${ep.source}. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
+    fun cmdMore() { if (quizPending) { quizJob?.cancel(); revealQuiz(); return }; val ep = _nowPlaying.value ?: return; ep.deep[_lang.value.tag]?.let { d -> say((if (_lang.value == Lang.KO) "조금 더 들려 드릴게요. " else "A little more. ") + d, _lang.value); _toast.value = (if (_lang.value == Lang.KO) "출처 · " else "Source · ") + ep.source; return }
+        if (_lang.value == Lang.KO) storyBank?.bestFor(ep.title["ko"] ?: "", guide?.destination?.name?.get("ko") ?: "")?.let { st -> say("한국관광공사 이야기 하나 더 들려 드릴게요. ${st.title}. ${st.text}", Lang.KO); _toast.value = "출처: 관광 스토리텔링 DB · ${st.spot}"; return }
+        _toast.value = (if (_lang.value == Lang.KO) "출처 · " else "Source · ") + ep.source
+        say((if (_lang.value == Lang.KO) "한 번 더 차근차근 들려 드릴게요. " else "Here it is again, slowly. ") + ep.textFor(_lang.value, Audience.ADULT), _lang.value) }
     fun cmdQuiet() { quietUntilTrigger = true; pending.clear(); quizJob?.cancel(); quizPending = false; _quiz.value = null; speaker.stop(); _toast.value = if (_lang.value == Lang.KO) "조용히 할게요. 다음 길목에서 다시 말할게요" else "Going quiet until the next stop" }
     fun cmdSave() {
         val ep = _nowPlaying.value
